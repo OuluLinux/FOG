@@ -1,0 +1,32 @@
+noblitz;
+
+uses
+	Prim;
+
+file
+	CcpLexer.l,
+	CcpParser.y,
+	CcpMain.cpp,
+	CcpIncludeAll.h,
+	Ccp.h,
+	CcpDefine.h,
+	CcpDefine.cpp,
+	CcpLexer.h,
+	CcpLexer.cpp,
+	CcpLexerContext.h,
+	CcpLexerContext.cpp,
+	CcpParser.h,
+	CcpParser.cpp,
+	CcpParserContext.h,
+	CcpParserContext.cpp,
+	CcpParserValue.h,
+	CcpParserValue.cpp,
+	CcpParses.cpp,
+	CcpPrims.cpp,
+	CcpReader.h,
+	CcpReader.cpp,
+	CcpToken.h,
+	CcpToken.cpp,
+	config.h,
+	generic.h;
+

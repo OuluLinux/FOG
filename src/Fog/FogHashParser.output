@@ -1,0 +1,3200 @@
+
+
+Terminals which are not used:
+
+   ASM
+   AUTO
+   BREAK
+   CASE
+   CATCH
+   CLASS
+   CONST
+   CONST_CAST
+   CONTINUE
+   DEFAULT
+   DELETE
+   DO
+   DYNAMIC_CAST
+   ELSE
+   ENUM
+   EXPLICIT
+   EXPORT
+   EXTERN
+   FALSE
+   FOR
+   FRIEND
+   GOTO
+   IF
+   INLINE
+   MUTABLE
+   NAMESPACE
+   NEW
+   OPERATOR
+   PRIVATE
+   PROTECTED
+   PUBLIC
+   REGISTER
+   REINTERPRET_CAST
+   RETURN
+   SIZEOF
+   STATIC
+   STATIC_CAST
+   STRUCT
+   SWITCH
+   TEMPLATE
+   THIS
+   THROW
+   TRUE
+   TRY
+   TYPEDEF
+   TYPEID
+   TYPENAME
+   UNION
+   USING
+   VIRTUAL
+   VOLATILE
+   WHILE
+   ELLIPSIS
+   SCOPE
+   INC
+   DEC
+   ARROW
+   ARROW_STAR
+   DOT_STAR
+   ASS_ADD
+   ASS_AND
+   ASS_DIV
+   ASS_MOD
+   ASS_MUL
+   ASS_OR
+   ASS_SHL
+   ASS_SHR
+   ASS_SUB
+   ASS_XOR
+   BuiltInTypeSpecifier
+   MetaType
+   TreeLiteral
+   ERROR
+   NIL
+   RAMMARG
+   BODY
+   DERIVED
+   EMIT
+   ENTRY
+   EXIT
+   FILE
+   FROZEN
+   GUARD
+   IMPLEMENTATION
+   INCLUDE
+   INTERFACE
+   NOGUARD
+   NOIMPLEMENTATION
+   OVERLOAD
+   PATH
+   POOL
+   POST
+   PRE
+   PREFIX
+   PURE
+   SUFFIX
+   UTILITY
+   ALL
+   PLACEHOLDER
+   PLACEMENT
+   NOAUTO
+   DI_HASH_HASH
+   DI_HASH
+   DI_SQUARE
+   DI_ERAUQS
+   DI_ECARB
+   DO_FUNCTION
+   Text
+   SHIFT_THERE
+   REDUCE_HERE_MOSTLY
+   REDUCE_HERE
+   BOOL
+   CHAR
+   DOUBLE
+   FLOAT
+   INT
+   LONG
+   SHORT
+   SIGNED
+   UNSIGNED
+   VOID
+   WCHAR_T
+   IntegerLiteral
+   FloatingLiteral
+
+
+
+Grammar
+rule 1    grammar -> hash_stmt line
+rule 2    grammar -> error line
+rule 3    hash_stmt -> hash_blank
+rule 4    hash_stmt -> hash_define
+rule 5    hash_stmt -> HASH_ELIF expr
+rule 6    hash_stmt -> HASH_ELSE ws.opt
+rule 7    hash_stmt -> HASH_ENDIF ws.opt
+rule 8    hash_stmt -> hash_error
+rule 9    hash_stmt -> HASH_IF expr
+rule 10   hash_stmt -> HASH_IFDEF ws.opt is_defined_id ws.opt
+rule 11   hash_stmt -> HASH_IFNDEF ws.opt is_defined_id ws.opt
+rule 12   hash_stmt -> hash_include ws.opt
+rule 13   hash_stmt -> hash_line
+rule 14   hash_stmt -> hash_pragma
+rule 15   hash_stmt -> hash_undef ws.opt
+rule 16   hash_blank1 -> HASH_BLANK ws.opt
+rule 17   hash_blank2 -> hash_blank1 StringLiteral
+rule 18   hash_blank2 -> hash_blank2 StringLiteral
+rule 19   hash_blank2 -> hash_blank2 ' '
+rule 20   hash_blank -> hash_blank1
+rule 21   hash_blank -> hash_blank2
+rule 22   hash_define1 -> HASH_DEFINE ws.opt Identifier
+rule 23   hash_define_ob -> hash_define1
+rule 24   hash_define_fn -> hash_define1 '(' ws.opt
+rule 25   hash_define2 -> hash_define_fn Identifier
+rule 26   hash_define2 -> hash_define2 ws.opt ',' ws.opt Identifier
+rule 27   hash_define2a -> hash_define_ob
+rule 28   hash_define2a -> hash_define_fn ')'
+rule 29   hash_define2a -> hash_define2 ws.opt ')'
+rule 30   hash_define3 -> hash_define2a ws.seq
+rule 31   hash_define3 -> hash_define4
+rule 32   hash_define3 -> hash_define4 ws.seq
+rule 33   hash_define4 -> hash_define3 punct
+rule 34   hash_define4 -> hash_define3 '{'
+rule 35   hash_define4 -> hash_define3 CharacterLiteral
+rule 36   hash_define4 -> hash_define3 Identifier
+rule 37   hash_define4 -> hash_define3 NumberLiteral
+rule 38   hash_define4 -> hash_define3 StringLiteral
+rule 39   hash_define -> hash_define2a
+rule 40   hash_define -> hash_define2a ws.seq
+rule 41   hash_define -> hash_define4
+rule 42   hash_define -> hash_define4 ws.seq
+rule 43   hash_error -> HASH_ERROR
+rule 44   hash_error -> hash_error StringLiteral
+rule 45   hash_error -> hash_error ' '
+rule 46   hash_include -> HASH_INCLUDE hash_include1
+rule 47   hash_include1 -> StringLiteral
+rule 48   hash_include1 -> ' ' hash_include1
+rule 49   hash_include1 -> macro.include hash_include1
+rule 50   hash_line1 -> HASH_LINE ws.opt NumberLiteral ws.opt
+rule 51   hash_line2 -> hash_line1 StringLiteral
+rule 52   hash_line -> hash_line1
+rule 53   hash_line -> hash_line2 ws.opt
+rule 54   hash_pragma -> HASH_PRAGMA
+rule 55   hash_pragma -> hash_pragma StringLiteral
+rule 56   hash_pragma -> hash_pragma ' '
+rule 57   hash_undef -> HASH_UNDEF ws.opt Identifier
+rule 58   expr_val -> ' ' expr_val
+rule 59   expr_val -> macro.expr expr_val
+rule 60   expr_val -> macro.expr DEFINED ws.opt '(' ws.opt is_defined_id ws.opt ')'
+rule 61   expr_val -> macro.expr DEFINED ws.opt is_defined_id
+rule 62   expr_val -> '+' expr_val
+rule 63   expr_val -> '-' expr_val
+rule 64   expr_val -> '!' expr_val
+rule 65   expr_val -> '~' expr_val
+rule 66   expr_val -> '(' expr ')'
+rule 67   expr_val -> NumberLiteral
+rule 68   expr_val -> CharacterLiteral
+rule 69   expr_val -> line
+rule 70   expr_mul -> expr_val
+rule 71   expr_mul -> expr_mul ' '
+rule 72   expr_mul -> expr_mul macro.expr
+rule 73   expr_mul -> expr_mul '*' expr_val
+rule 74   expr_mul -> expr_mul '/' expr_val
+rule 75   expr_mul -> expr_mul '%' expr_val
+rule 76   expr_add -> expr_mul
+rule 77   expr_add -> expr_add '+' expr_mul
+rule 78   expr_add -> expr_add '-' expr_mul
+rule 79   expr_shift -> expr_add
+rule 80   expr_shift -> expr_shift SHL expr_add
+rule 81   expr_shift -> expr_shift SHR expr_add
+rule 82   expr_rel -> expr_shift
+rule 83   expr_rel -> expr_rel '<' expr_shift
+rule 84   expr_rel -> expr_rel LE expr_shift
+rule 85   expr_rel -> expr_rel GE expr_shift
+rule 86   expr_rel -> expr_rel '>' expr_shift
+rule 87   expr_eq -> expr_rel
+rule 88   expr_eq -> expr_eq EQ expr_rel
+rule 89   expr_eq -> expr_eq NE expr_rel
+rule 90   expr_and -> expr_eq
+rule 91   expr_and -> expr_and '&' expr_eq
+rule 92   expr_xor -> expr_and
+rule 93   expr_xor -> expr_xor '^' expr_and
+rule 94   expr_or -> expr_xor
+rule 95   expr_or -> expr_or '|' expr_xor
+rule 96   expr_log_and -> expr_or
+rule 97   expr_log_and -> expr_log_and LOG_AND expr_or
+rule 98   expr_log_or -> expr_log_and
+rule 99   expr_log_or -> expr_log_or LOG_OR expr_log_and
+rule 100  expr_cond -> expr_log_or
+rule 101  expr_cond -> expr_log_or '?' expr ':' expr
+rule 102  expr -> expr_cond
+rule 103  is_defined_id -> Identifier
+rule 104  is_defined_id -> MacroId
+rule 105  line -> NewLine
+rule 106  macro.include -> Identifier
+rule 107  macro.expr -> Identifier
+rule 108  punct -> Punct
+rule 109  punct -> HASH_HASH
+rule 110  punct -> SHL
+rule 111  punct -> SHR
+rule 112  punct -> EQ
+rule 113  punct -> NE
+rule 114  punct -> LE
+rule 115  punct -> GE
+rule 116  punct -> LOG_AND
+rule 117  punct -> LOG_OR
+rule 118  punct -> '#'
+rule 119  punct -> '('
+rule 120  punct -> ','
+rule 121  punct -> ')'
+rule 122  punct -> '}'
+rule 123  punct -> '['
+rule 124  punct -> ']'
+rule 125  punct -> ';'
+rule 126  punct -> ':'
+rule 127  punct -> '?'
+rule 128  punct -> '.'
+rule 129  punct -> '+'
+rule 130  punct -> '-'
+rule 131  punct -> '*'
+rule 132  punct -> '/'
+rule 133  punct -> '%'
+rule 134  punct -> '^'
+rule 135  punct -> '&'
+rule 136  punct -> '|'
+rule 137  punct -> '~'
+rule 138  punct -> '!'
+rule 139  punct -> '='
+rule 140  punct -> '<'
+rule 141  punct -> '>'
+rule 142  punct -> '@'
+rule 143  punct -> '$'
+rule 144  punct -> '\''
+rule 145  punct -> '"'
+rule 146  punct -> '\\'
+rule 147  ws.seq -> ' '
+rule 148  ws.seq -> ws.seq ' '
+rule 149  ws.opt ->		/* empty */
+rule 150  ws.opt -> ws.opt ' '
+
+Terminals, with rules where they appear
+
+$ (-1)
+' ' (32) 19 45 48 56 58 71 147 148 150
+'!' (33) 64 138
+'"' (34) 145
+'#' (35) 118
+'$' (36) 143
+'%' (37) 75 133
+'&' (38) 91 135
+'\'' (39) 144
+'(' (40) 24 60 66 119
+')' (41) 28 29 60 66 121
+'*' (42) 73 131
+'+' (43) 62 77 129
+',' (44) 26 120
+'-' (45) 63 78 130
+'.' (46) 128
+'/' (47) 74 132
+':' (58) 101 126
+';' (59) 125
+'<' (60) 83 140
+'=' (61) 139
+'>' (62) 86 141
+'?' (63) 101 127
+'@' (64) 142
+'[' (91) 123
+'\\' (92) 146
+']' (93) 124
+'^' (94) 93 134
+'{' (123) 34
+'|' (124) 95 136
+'}' (125) 122
+'~' (126) 65 137
+error (256) 2
+ASM (258)
+AUTO (259)
+BREAK (260)
+CASE (261)
+CATCH (262)
+CLASS (263)
+CONST (264)
+CONST_CAST (265)
+CONTINUE (266)
+DEFAULT (267)
+DELETE (268)
+DO (269)
+DYNAMIC_CAST (270)
+ELSE (271)
+ENUM (272)
+EXPLICIT (273)
+EXPORT (274)
+EXTERN (275)
+FALSE (276)
+FOR (277)
+FRIEND (278)
+GOTO (279)
+IF (280)
+INLINE (281)
+MUTABLE (282)
+NAMESPACE (283)
+NEW (284)
+OPERATOR (285)
+PRIVATE (286)
+PROTECTED (287)
+PUBLIC (288)
+REGISTER (289)
+REINTERPRET_CAST (290)
+RETURN (291)
+SIZEOF (292)
+STATIC (293)
+STATIC_CAST (294)
+STRUCT (295)
+SWITCH (296)
+TEMPLATE (297)
+THIS (298)
+THROW (299)
+TRUE (300)
+TRY (301)
+TYPEDEF (302)
+TYPEID (303)
+TYPENAME (304)
+UNION (305)
+USING (306)
+VIRTUAL (307)
+VOLATILE (308)
+WHILE (309)
+ELLIPSIS (310)
+SCOPE (311)
+SHL (312) 80 110
+SHR (313) 81 111
+EQ (314) 88 112
+NE (315) 89 113
+LE (316) 84 114
+GE (317) 85 115
+LOG_AND (318) 97 116
+LOG_OR (319) 99 117
+INC (320)
+DEC (321)
+ARROW (322)
+ARROW_STAR (323)
+DOT_STAR (324)
+ASS_ADD (325)
+ASS_AND (326)
+ASS_DIV (327)
+ASS_MOD (328)
+ASS_MUL (329)
+ASS_OR (330)
+ASS_SHL (331)
+ASS_SHR (332)
+ASS_SUB (333)
+ASS_XOR (334)
+BuiltInTypeSpecifier (335)
+CharacterLiteral (336) 35 68
+Identifier (337) 22 25 26 36 57 103 106 107
+MetaType (338)
+NewLine (339) 105
+NumberLiteral (340) 37 50 67
+StringLiteral (341) 17 18 38 44 47 51 55
+TreeLiteral (342)
+ERROR (343)
+NIL (344)
+RAMMARG (345)
+BODY (346)
+DERIVED (347)
+EMIT (348)
+ENTRY (349)
+EXIT (350)
+FILE (351)
+FROZEN (352)
+GUARD (353)
+IMPLEMENTATION (354)
+INCLUDE (355)
+INTERFACE (356)
+NOGUARD (357)
+NOIMPLEMENTATION (358)
+OVERLOAD (359)
+PATH (360)
+POOL (361)
+POST (362)
+PRE (363)
+PREFIX (364)
+PURE (365)
+SUFFIX (366)
+UTILITY (367)
+ALL (368)
+PLACEHOLDER (369)
+PLACEMENT (370)
+NOAUTO (371)
+HASH_BLANK (372) 16
+HASH_DEFINE (373) 22
+HASH_ELIF (374) 5
+HASH_ELSE (375) 6
+HASH_ENDIF (376) 7
+HASH_ERROR (377) 43
+HASH_IF (378) 9
+HASH_IFDEF (379) 10
+HASH_IFNDEF (380) 11
+HASH_INCLUDE (381) 46
+HASH_LINE (382) 50
+HASH_PRAGMA (383) 54
+HASH_UNDEF (384) 57
+HASH_HASH (385) 109
+DI_HASH_HASH (386)
+DI_HASH (387)
+DI_SQUARE (388)
+DI_ERAUQS (389)
+DI_ECARB (390)
+DEFINED (391) 60 61
+DO_FUNCTION (392)
+MacroId (393) 104
+Punct (394) 108
+Text (395)
+SHIFT_THERE (396)
+REDUCE_HERE_MOSTLY (397)
+REDUCE_HERE (398)
+BOOL (399)
+CHAR (400)
+DOUBLE (401)
+FLOAT (402)
+INT (403)
+LONG (404)
+SHORT (405)
+SIGNED (406)
+UNSIGNED (407)
+VOID (408)
+WCHAR_T (409)
+IntegerLiteral (410)
+FloatingLiteral (411)
+
+Nonterminals, with rules where they appear
+
+grammar (188)
+    on left: 1 2
+hash_stmt (189)
+    on left: 3 4 5 6 7 8 9 10 11 12 13 14 15, on right: 1
+hash_blank1 (190)
+    on left: 16, on right: 17 20
+hash_blank2 (191)
+    on left: 17 18 19, on right: 18 19 21
+hash_blank (192)
+    on left: 20 21, on right: 3
+hash_define1 (193)
+    on left: 22, on right: 23 24
+hash_define_ob (194)
+    on left: 23, on right: 27
+hash_define_fn (195)
+    on left: 24, on right: 25 28
+hash_define2 (196)
+    on left: 25 26, on right: 26 29
+hash_define2a (197)
+    on left: 27 28 29, on right: 30 39 40
+hash_define3 (198)
+    on left: 30 31 32, on right: 33 34 35 36 37 38
+hash_define4 (199)
+    on left: 33 34 35 36 37 38, on right: 31 32 41 42
+hash_define (200)
+    on left: 39 40 41 42, on right: 4
+hash_error (201)
+    on left: 43 44 45, on right: 8 44 45
+hash_include (202)
+    on left: 46, on right: 12
+hash_include1 (203)
+    on left: 47 48 49, on right: 46 48 49
+hash_line1 (204)
+    on left: 50, on right: 51 52
+hash_line2 (205)
+    on left: 51, on right: 53
+hash_line (206)
+    on left: 52 53, on right: 13
+hash_pragma (207)
+    on left: 54 55 56, on right: 14 55 56
+hash_undef (208)
+    on left: 57, on right: 15
+expr_val (209)
+    on left: 58 59 60 61 62 63 64 65 66 67 68 69, on right: 58 59 62
+    63 64 65 70 73 74 75
+expr_mul (210)
+    on left: 70 71 72 73 74 75, on right: 71 72 73 74 75 76 77 78
+expr_add (211)
+    on left: 76 77 78, on right: 77 78 79 80 81
+expr_shift (212)
+    on left: 79 80 81, on right: 80 81 82 83 84 85 86
+expr_rel (213)
+    on left: 82 83 84 85 86, on right: 83 84 85 86 87 88 89
+expr_eq (214)
+    on left: 87 88 89, on right: 88 89 90 91
+expr_and (215)
+    on left: 90 91, on right: 91 92 93
+expr_xor (216)
+    on left: 92 93, on right: 93 94 95
+expr_or (217)
+    on left: 94 95, on right: 95 96 97
+expr_log_and (218)
+    on left: 96 97, on right: 97 98 99
+expr_log_or (219)
+    on left: 98 99, on right: 99 100 101
+expr_cond (220)
+    on left: 100 101, on right: 102
+expr (221)
+    on left: 102, on right: 5 9 66 101
+is_defined_id (222)
+    on left: 103 104, on right: 10 11 60 61
+line (223)
+    on left: 105, on right: 1 2 69
+macro.include (224)
+    on left: 106, on right: 49
+macro.expr (225)
+    on left: 107, on right: 59 60 61 72
+punct (226)
+    on left: 108 109 110 111 112 113 114 115 116 117 118 119 120 121
+    122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137
+    138 139 140 141 142 143 144 145 146, on right: 33
+ws.seq (227)
+    on left: 147 148, on right: 30 32 40 42 148
+ws.opt (228)
+    on left: 149 150, on right: 6 7 10 11 12 15 16 22 24 26 29 50 53
+    57 60 61 150
+
+
+state 0
+
+    error	shift, and go to state 1
+    HASH_BLANK	shift, and go to state 2
+    HASH_DEFINE	shift, and go to state 3
+    HASH_ELIF	shift, and go to state 4
+    HASH_ELSE	shift, and go to state 5
+    HASH_ENDIF	shift, and go to state 6
+    HASH_ERROR	shift, and go to state 7
+    HASH_IF	shift, and go to state 8
+    HASH_IFDEF	shift, and go to state 9
+    HASH_IFNDEF	shift, and go to state 10
+    HASH_INCLUDE	shift, and go to state 11
+    HASH_LINE	shift, and go to state 12
+    HASH_PRAGMA	shift, and go to state 13
+    HASH_UNDEF	shift, and go to state 14
+
+    grammar	go to state 215
+    hash_stmt	go to state 15
+    hash_blank1	go to state 16
+    hash_blank2	go to state 17
+    hash_blank	go to state 18
+    hash_define1	go to state 19
+    hash_define_ob	go to state 20
+    hash_define_fn	go to state 21
+    hash_define2	go to state 22
+    hash_define2a	go to state 23
+    hash_define3	go to state 24
+    hash_define4	go to state 25
+    hash_define	go to state 26
+    hash_error	go to state 27
+    hash_include	go to state 28
+    hash_line1	go to state 29
+    hash_line2	go to state 30
+    hash_line	go to state 31
+    hash_pragma	go to state 32
+    hash_undef	go to state 33
+
+
+
+state 1
+
+    grammar  ->  error . line   (rule 2)
+
+    NewLine	shift, and go to state 34
+
+    line	go to state 35
+
+
+
+state 2
+
+    hash_blank1  ->  HASH_BLANK . ws.opt   (rule 16)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 36
+
+
+
+state 3
+
+    hash_define1  ->  HASH_DEFINE . ws.opt Identifier   (rule 22)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 37
+
+
+
+state 4
+
+    hash_stmt  ->  HASH_ELIF . expr   (rule 5)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 53
+    expr_xor	go to state 54
+    expr_or	go to state 55
+    expr_log_and	go to state 56
+    expr_log_or	go to state 57
+    expr_cond	go to state 58
+    expr	go to state 59
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 5
+
+    hash_stmt  ->  HASH_ELSE . ws.opt   (rule 6)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 62
+
+
+
+state 6
+
+    hash_stmt  ->  HASH_ENDIF . ws.opt   (rule 7)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 63
+
+
+
+state 7
+
+    hash_error  ->  HASH_ERROR .   (rule 43)
+
+    $default	reduce using rule 43 (hash_error)
+
+
+
+state 8
+
+    hash_stmt  ->  HASH_IF . expr   (rule 9)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 53
+    expr_xor	go to state 54
+    expr_or	go to state 55
+    expr_log_and	go to state 56
+    expr_log_or	go to state 57
+    expr_cond	go to state 58
+    expr	go to state 64
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 9
+
+    hash_stmt  ->  HASH_IFDEF . ws.opt is_defined_id ws.opt   (rule 10)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 65
+
+
+
+state 10
+
+    hash_stmt  ->  HASH_IFNDEF . ws.opt is_defined_id ws.opt   (rule 11)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 66
+
+
+
+state 11
+
+    hash_include  ->  HASH_INCLUDE . hash_include1   (rule 46)
+
+    Identifier	shift, and go to state 67
+    StringLiteral	shift, and go to state 68
+    ' ' 	shift, and go to state 69
+
+    hash_include1	go to state 70
+    macro.include	go to state 71
+
+
+
+state 12
+
+    hash_line1  ->  HASH_LINE . ws.opt NumberLiteral ws.opt   (rule 50)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 72
+
+
+
+state 13
+
+    hash_pragma  ->  HASH_PRAGMA .   (rule 54)
+
+    $default	reduce using rule 54 (hash_pragma)
+
+
+
+state 14
+
+    hash_undef  ->  HASH_UNDEF . ws.opt Identifier   (rule 57)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 73
+
+
+
+state 15
+
+    grammar  ->  hash_stmt . line   (rule 1)
+
+    NewLine	shift, and go to state 34
+
+    line	go to state 74
+
+
+
+state 16
+
+    hash_blank2  ->  hash_blank1 . StringLiteral   (rule 17)
+    hash_blank  ->  hash_blank1 .   (rule 20)
+
+    StringLiteral	shift, and go to state 75
+
+    $default	reduce using rule 20 (hash_blank)
+
+
+
+state 17
+
+    hash_blank2  ->  hash_blank2 . StringLiteral   (rule 18)
+    hash_blank2  ->  hash_blank2 . ' '   (rule 19)
+    hash_blank  ->  hash_blank2 .   (rule 21)
+
+    StringLiteral	shift, and go to state 76
+    ' ' 	shift, and go to state 77
+
+    $default	reduce using rule 21 (hash_blank)
+
+
+
+state 18
+
+    hash_stmt  ->  hash_blank .   (rule 3)
+
+    $default	reduce using rule 3 (hash_stmt)
+
+
+
+state 19
+
+    hash_define_ob  ->  hash_define1 .   (rule 23)
+    hash_define_fn  ->  hash_define1 . '(' ws.opt   (rule 24)
+
+    '(' 	shift, and go to state 78
+
+    $default	reduce using rule 23 (hash_define_ob)
+
+
+
+state 20
+
+    hash_define2a  ->  hash_define_ob .   (rule 27)
+
+    $default	reduce using rule 27 (hash_define2a)
+
+
+
+state 21
+
+    hash_define2  ->  hash_define_fn . Identifier   (rule 25)
+    hash_define2a  ->  hash_define_fn . ')'   (rule 28)
+
+    Identifier	shift, and go to state 79
+    ')' 	shift, and go to state 80
+
+
+
+state 22
+
+    hash_define2  ->  hash_define2 . ws.opt ',' ws.opt Identifier   (rule 26)
+    hash_define2a  ->  hash_define2 . ws.opt ')'   (rule 29)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 81
+
+
+
+state 23
+
+    hash_define3  ->  hash_define2a . ws.seq   (rule 30)
+    hash_define  ->  hash_define2a .   (rule 39)
+    hash_define  ->  hash_define2a . ws.seq   (rule 40)
+
+    ' ' 	shift, and go to state 82
+
+    $default	reduce using rule 39 (hash_define)
+
+    ws.seq	go to state 83
+
+
+
+state 24
+
+    hash_define4  ->  hash_define3 . punct   (rule 33)
+    hash_define4  ->  hash_define3 . '{'   (rule 34)
+    hash_define4  ->  hash_define3 . CharacterLiteral   (rule 35)
+    hash_define4  ->  hash_define3 . Identifier   (rule 36)
+    hash_define4  ->  hash_define3 . NumberLiteral   (rule 37)
+    hash_define4  ->  hash_define3 . StringLiteral   (rule 38)
+
+    SHL 	shift, and go to state 84
+    SHR 	shift, and go to state 85
+    EQ  	shift, and go to state 86
+    NE  	shift, and go to state 87
+    LE  	shift, and go to state 88
+    GE  	shift, and go to state 89
+    LOG_AND	shift, and go to state 90
+    LOG_OR	shift, and go to state 91
+    CharacterLiteral	shift, and go to state 92
+    Identifier	shift, and go to state 93
+    NumberLiteral	shift, and go to state 94
+    StringLiteral	shift, and go to state 95
+    HASH_HASH	shift, and go to state 96
+    Punct	shift, and go to state 97
+    '{' 	shift, and go to state 98
+    '}' 	shift, and go to state 99
+    '[' 	shift, and go to state 100
+    ']' 	shift, and go to state 101
+    '#' 	shift, and go to state 102
+    '(' 	shift, and go to state 103
+    ')' 	shift, and go to state 104
+    ';' 	shift, and go to state 105
+    ':' 	shift, and go to state 106
+    '?' 	shift, and go to state 107
+    '.' 	shift, and go to state 108
+    '+' 	shift, and go to state 109
+    '-' 	shift, and go to state 110
+    '*' 	shift, and go to state 111
+    '/' 	shift, and go to state 112
+    '%' 	shift, and go to state 113
+    '^' 	shift, and go to state 114
+    '&' 	shift, and go to state 115
+    '|' 	shift, and go to state 116
+    '~' 	shift, and go to state 117
+    '!' 	shift, and go to state 118
+    '=' 	shift, and go to state 119
+    '<' 	shift, and go to state 120
+    '>' 	shift, and go to state 121
+    ',' 	shift, and go to state 122
+    '@' 	shift, and go to state 123
+    '$' 	shift, and go to state 124
+    '\''	shift, and go to state 125
+    '"' 	shift, and go to state 126
+    '\\'	shift, and go to state 127
+
+    punct	go to state 128
+
+
+
+state 25
+
+    hash_define3  ->  hash_define4 .   (rule 31)
+    hash_define3  ->  hash_define4 . ws.seq   (rule 32)
+    hash_define  ->  hash_define4 .   (rule 41)
+    hash_define  ->  hash_define4 . ws.seq   (rule 42)
+
+    ' ' 	shift, and go to state 82
+
+    $default	reduce using rule 31 (hash_define3)
+
+    ws.seq	go to state 129
+
+
+
+state 26
+
+    hash_stmt  ->  hash_define .   (rule 4)
+
+    $default	reduce using rule 4 (hash_stmt)
+
+
+
+state 27
+
+    hash_stmt  ->  hash_error .   (rule 8)
+    hash_error  ->  hash_error . StringLiteral   (rule 44)
+    hash_error  ->  hash_error . ' '   (rule 45)
+
+    StringLiteral	shift, and go to state 130
+    ' ' 	shift, and go to state 131
+
+    $default	reduce using rule 8 (hash_stmt)
+
+
+
+state 28
+
+    hash_stmt  ->  hash_include . ws.opt   (rule 12)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 132
+
+
+
+state 29
+
+    hash_line2  ->  hash_line1 . StringLiteral   (rule 51)
+    hash_line  ->  hash_line1 .   (rule 52)
+
+    StringLiteral	shift, and go to state 133
+
+    $default	reduce using rule 52 (hash_line)
+
+
+
+state 30
+
+    hash_line  ->  hash_line2 . ws.opt   (rule 53)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 134
+
+
+
+state 31
+
+    hash_stmt  ->  hash_line .   (rule 13)
+
+    $default	reduce using rule 13 (hash_stmt)
+
+
+
+state 32
+
+    hash_stmt  ->  hash_pragma .   (rule 14)
+    hash_pragma  ->  hash_pragma . StringLiteral   (rule 55)
+    hash_pragma  ->  hash_pragma . ' '   (rule 56)
+
+    StringLiteral	shift, and go to state 135
+    ' ' 	shift, and go to state 136
+
+    $default	reduce using rule 14 (hash_stmt)
+
+
+
+state 33
+
+    hash_stmt  ->  hash_undef . ws.opt   (rule 15)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 137
+
+
+
+state 34
+
+    line  ->  NewLine .   (rule 105)
+
+    $default	reduce using rule 105 (line)
+
+
+
+state 35
+
+    grammar  ->  error line .   (rule 2)
+
+    $default	reduce using rule 2 (grammar)
+
+
+
+state 36
+
+    hash_blank1  ->  HASH_BLANK ws.opt .   (rule 16)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 16 (hash_blank1)
+
+
+
+state 37
+
+    hash_define1  ->  HASH_DEFINE ws.opt . Identifier   (rule 22)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    Identifier	shift, and go to state 139
+    ' ' 	shift, and go to state 138
+
+
+
+state 38
+
+    expr_val  ->  CharacterLiteral .   (rule 68)
+
+    $default	reduce using rule 68 (expr_val)
+
+
+
+state 39
+
+    macro.expr  ->  Identifier .   (rule 107)
+
+    $default	reduce using rule 107 (macro.expr)
+
+
+
+state 40
+
+    expr_val  ->  NumberLiteral .   (rule 67)
+
+    $default	reduce using rule 67 (expr_val)
+
+
+
+state 41
+
+    expr_val  ->  '(' . expr ')'   (rule 66)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 53
+    expr_xor	go to state 54
+    expr_or	go to state 55
+    expr_log_and	go to state 56
+    expr_log_or	go to state 57
+    expr_cond	go to state 58
+    expr	go to state 140
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 42
+
+    expr_val  ->  '+' . expr_val   (rule 62)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 141
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 43
+
+    expr_val  ->  '-' . expr_val   (rule 63)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 142
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 44
+
+    expr_val  ->  '~' . expr_val   (rule 65)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 143
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 45
+
+    expr_val  ->  '!' . expr_val   (rule 64)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 144
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 46
+
+    expr_val  ->  ' ' . expr_val   (rule 58)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 145
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 47
+
+    expr_mul  ->  expr_val .   (rule 70)
+
+    $default	reduce using rule 70 (expr_mul)
+
+
+
+state 48
+
+    expr_mul  ->  expr_mul . ' '   (rule 71)
+    expr_mul  ->  expr_mul . macro.expr   (rule 72)
+    expr_mul  ->  expr_mul . '*' expr_val   (rule 73)
+    expr_mul  ->  expr_mul . '/' expr_val   (rule 74)
+    expr_mul  ->  expr_mul . '%' expr_val   (rule 75)
+    expr_add  ->  expr_mul .   (rule 76)
+
+    Identifier	shift, and go to state 39
+    '*' 	shift, and go to state 146
+    '/' 	shift, and go to state 147
+    '%' 	shift, and go to state 148
+    ' ' 	shift, and go to state 149
+
+    $default	reduce using rule 76 (expr_add)
+
+    macro.expr	go to state 150
+
+
+
+state 49
+
+    expr_add  ->  expr_add . '+' expr_mul   (rule 77)
+    expr_add  ->  expr_add . '-' expr_mul   (rule 78)
+    expr_shift  ->  expr_add .   (rule 79)
+
+    '+' 	shift, and go to state 151
+    '-' 	shift, and go to state 152
+
+    $default	reduce using rule 79 (expr_shift)
+
+
+
+state 50
+
+    expr_shift  ->  expr_shift . SHL expr_add   (rule 80)
+    expr_shift  ->  expr_shift . SHR expr_add   (rule 81)
+    expr_rel  ->  expr_shift .   (rule 82)
+
+    SHL 	shift, and go to state 153
+    SHR 	shift, and go to state 154
+
+    $default	reduce using rule 82 (expr_rel)
+
+
+
+state 51
+
+    expr_rel  ->  expr_rel . '<' expr_shift   (rule 83)
+    expr_rel  ->  expr_rel . LE expr_shift   (rule 84)
+    expr_rel  ->  expr_rel . GE expr_shift   (rule 85)
+    expr_rel  ->  expr_rel . '>' expr_shift   (rule 86)
+    expr_eq  ->  expr_rel .   (rule 87)
+
+    LE  	shift, and go to state 155
+    GE  	shift, and go to state 156
+    '<' 	shift, and go to state 157
+    '>' 	shift, and go to state 158
+
+    $default	reduce using rule 87 (expr_eq)
+
+
+
+state 52
+
+    expr_eq  ->  expr_eq . EQ expr_rel   (rule 88)
+    expr_eq  ->  expr_eq . NE expr_rel   (rule 89)
+    expr_and  ->  expr_eq .   (rule 90)
+
+    EQ  	shift, and go to state 159
+    NE  	shift, and go to state 160
+
+    $default	reduce using rule 90 (expr_and)
+
+
+
+state 53
+
+    expr_and  ->  expr_and . '&' expr_eq   (rule 91)
+    expr_xor  ->  expr_and .   (rule 92)
+
+    '&' 	shift, and go to state 161
+
+    $default	reduce using rule 92 (expr_xor)
+
+
+
+state 54
+
+    expr_xor  ->  expr_xor . '^' expr_and   (rule 93)
+    expr_or  ->  expr_xor .   (rule 94)
+
+    '^' 	shift, and go to state 162
+
+    $default	reduce using rule 94 (expr_or)
+
+
+
+state 55
+
+    expr_or  ->  expr_or . '|' expr_xor   (rule 95)
+    expr_log_and  ->  expr_or .   (rule 96)
+
+    '|' 	shift, and go to state 163
+
+    $default	reduce using rule 96 (expr_log_and)
+
+
+
+state 56
+
+    expr_log_and  ->  expr_log_and . LOG_AND expr_or   (rule 97)
+    expr_log_or  ->  expr_log_and .   (rule 98)
+
+    LOG_AND	shift, and go to state 164
+
+    $default	reduce using rule 98 (expr_log_or)
+
+
+
+state 57
+
+    expr_log_or  ->  expr_log_or . LOG_OR expr_log_and   (rule 99)
+    expr_cond  ->  expr_log_or .   (rule 100)
+    expr_cond  ->  expr_log_or . '?' expr ':' expr   (rule 101)
+
+    LOG_OR	shift, and go to state 165
+    '?' 	shift, and go to state 166
+
+    $default	reduce using rule 100 (expr_cond)
+
+
+
+state 58
+
+    expr  ->  expr_cond .   (rule 102)
+
+    $default	reduce using rule 102 (expr)
+
+
+
+state 59
+
+    hash_stmt  ->  HASH_ELIF expr .   (rule 5)
+
+    $default	reduce using rule 5 (hash_stmt)
+
+
+
+state 60
+
+    expr_val  ->  line .   (rule 69)
+
+    $default	reduce using rule 69 (expr_val)
+
+
+
+state 61
+
+    expr_val  ->  macro.expr . expr_val   (rule 59)
+    expr_val  ->  macro.expr . DEFINED ws.opt '(' ws.opt is_defined_id ws.opt ')'   (rule 60)
+    expr_val  ->  macro.expr . DEFINED ws.opt is_defined_id   (rule 61)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    DEFINED	shift, and go to state 167
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 168
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 62
+
+    hash_stmt  ->  HASH_ELSE ws.opt .   (rule 6)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 6 (hash_stmt)
+
+
+
+state 63
+
+    hash_stmt  ->  HASH_ENDIF ws.opt .   (rule 7)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 7 (hash_stmt)
+
+
+
+state 64
+
+    hash_stmt  ->  HASH_IF expr .   (rule 9)
+
+    $default	reduce using rule 9 (hash_stmt)
+
+
+
+state 65
+
+    hash_stmt  ->  HASH_IFDEF ws.opt . is_defined_id ws.opt   (rule 10)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    Identifier	shift, and go to state 169
+    MacroId	shift, and go to state 170
+    ' ' 	shift, and go to state 138
+
+    is_defined_id	go to state 171
+
+
+
+state 66
+
+    hash_stmt  ->  HASH_IFNDEF ws.opt . is_defined_id ws.opt   (rule 11)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    Identifier	shift, and go to state 169
+    MacroId	shift, and go to state 170
+    ' ' 	shift, and go to state 138
+
+    is_defined_id	go to state 172
+
+
+
+state 67
+
+    macro.include  ->  Identifier .   (rule 106)
+
+    $default	reduce using rule 106 (macro.include)
+
+
+
+state 68
+
+    hash_include1  ->  StringLiteral .   (rule 47)
+
+    $default	reduce using rule 47 (hash_include1)
+
+
+
+state 69
+
+    hash_include1  ->  ' ' . hash_include1   (rule 48)
+
+    Identifier	shift, and go to state 67
+    StringLiteral	shift, and go to state 68
+    ' ' 	shift, and go to state 69
+
+    hash_include1	go to state 173
+    macro.include	go to state 71
+
+
+
+state 70
+
+    hash_include  ->  HASH_INCLUDE hash_include1 .   (rule 46)
+
+    $default	reduce using rule 46 (hash_include)
+
+
+
+state 71
+
+    hash_include1  ->  macro.include . hash_include1   (rule 49)
+
+    Identifier	shift, and go to state 67
+    StringLiteral	shift, and go to state 68
+    ' ' 	shift, and go to state 69
+
+    hash_include1	go to state 174
+    macro.include	go to state 71
+
+
+
+state 72
+
+    hash_line1  ->  HASH_LINE ws.opt . NumberLiteral ws.opt   (rule 50)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    NumberLiteral	shift, and go to state 175
+    ' ' 	shift, and go to state 138
+
+
+
+state 73
+
+    hash_undef  ->  HASH_UNDEF ws.opt . Identifier   (rule 57)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    Identifier	shift, and go to state 176
+    ' ' 	shift, and go to state 138
+
+
+
+state 74
+
+    grammar  ->  hash_stmt line .   (rule 1)
+
+    $default	reduce using rule 1 (grammar)
+
+
+
+state 75
+
+    hash_blank2  ->  hash_blank1 StringLiteral .   (rule 17)
+
+    $default	reduce using rule 17 (hash_blank2)
+
+
+
+state 76
+
+    hash_blank2  ->  hash_blank2 StringLiteral .   (rule 18)
+
+    $default	reduce using rule 18 (hash_blank2)
+
+
+
+state 77
+
+    hash_blank2  ->  hash_blank2 ' ' .   (rule 19)
+
+    $default	reduce using rule 19 (hash_blank2)
+
+
+
+state 78
+
+    hash_define_fn  ->  hash_define1 '(' . ws.opt   (rule 24)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 177
+
+
+
+state 79
+
+    hash_define2  ->  hash_define_fn Identifier .   (rule 25)
+
+    $default	reduce using rule 25 (hash_define2)
+
+
+
+state 80
+
+    hash_define2a  ->  hash_define_fn ')' .   (rule 28)
+
+    $default	reduce using rule 28 (hash_define2a)
+
+
+
+state 81
+
+    hash_define2  ->  hash_define2 ws.opt . ',' ws.opt Identifier   (rule 26)
+    hash_define2a  ->  hash_define2 ws.opt . ')'   (rule 29)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ')' 	shift, and go to state 178
+    ',' 	shift, and go to state 179
+    ' ' 	shift, and go to state 138
+
+
+
+state 82
+
+    ws.seq  ->  ' ' .   (rule 147)
+
+    $default	reduce using rule 147 (ws.seq)
+
+
+
+state 83
+
+    hash_define3  ->  hash_define2a ws.seq .   (rule 30)
+    hash_define  ->  hash_define2a ws.seq .   (rule 40)
+    ws.seq  ->  ws.seq . ' '   (rule 148)
+
+    ' ' 	shift, and go to state 180
+
+    $default	reduce using rule 30 (hash_define3)
+
+
+
+state 84
+
+    punct  ->  SHL .   (rule 110)
+
+    $default	reduce using rule 110 (punct)
+
+
+
+state 85
+
+    punct  ->  SHR .   (rule 111)
+
+    $default	reduce using rule 111 (punct)
+
+
+
+state 86
+
+    punct  ->  EQ .   (rule 112)
+
+    $default	reduce using rule 112 (punct)
+
+
+
+state 87
+
+    punct  ->  NE .   (rule 113)
+
+    $default	reduce using rule 113 (punct)
+
+
+
+state 88
+
+    punct  ->  LE .   (rule 114)
+
+    $default	reduce using rule 114 (punct)
+
+
+
+state 89
+
+    punct  ->  GE .   (rule 115)
+
+    $default	reduce using rule 115 (punct)
+
+
+
+state 90
+
+    punct  ->  LOG_AND .   (rule 116)
+
+    $default	reduce using rule 116 (punct)
+
+
+
+state 91
+
+    punct  ->  LOG_OR .   (rule 117)
+
+    $default	reduce using rule 117 (punct)
+
+
+
+state 92
+
+    hash_define4  ->  hash_define3 CharacterLiteral .   (rule 35)
+
+    $default	reduce using rule 35 (hash_define4)
+
+
+
+state 93
+
+    hash_define4  ->  hash_define3 Identifier .   (rule 36)
+
+    $default	reduce using rule 36 (hash_define4)
+
+
+
+state 94
+
+    hash_define4  ->  hash_define3 NumberLiteral .   (rule 37)
+
+    $default	reduce using rule 37 (hash_define4)
+
+
+
+state 95
+
+    hash_define4  ->  hash_define3 StringLiteral .   (rule 38)
+
+    $default	reduce using rule 38 (hash_define4)
+
+
+
+state 96
+
+    punct  ->  HASH_HASH .   (rule 109)
+
+    $default	reduce using rule 109 (punct)
+
+
+
+state 97
+
+    punct  ->  Punct .   (rule 108)
+
+    $default	reduce using rule 108 (punct)
+
+
+
+state 98
+
+    hash_define4  ->  hash_define3 '{' .   (rule 34)
+
+    $default	reduce using rule 34 (hash_define4)
+
+
+
+state 99
+
+    punct  ->  '}' .   (rule 122)
+
+    $default	reduce using rule 122 (punct)
+
+
+
+state 100
+
+    punct  ->  '[' .   (rule 123)
+
+    $default	reduce using rule 123 (punct)
+
+
+
+state 101
+
+    punct  ->  ']' .   (rule 124)
+
+    $default	reduce using rule 124 (punct)
+
+
+
+state 102
+
+    punct  ->  '#' .   (rule 118)
+
+    $default	reduce using rule 118 (punct)
+
+
+
+state 103
+
+    punct  ->  '(' .   (rule 119)
+
+    $default	reduce using rule 119 (punct)
+
+
+
+state 104
+
+    punct  ->  ')' .   (rule 121)
+
+    $default	reduce using rule 121 (punct)
+
+
+
+state 105
+
+    punct  ->  ';' .   (rule 125)
+
+    $default	reduce using rule 125 (punct)
+
+
+
+state 106
+
+    punct  ->  ':' .   (rule 126)
+
+    $default	reduce using rule 126 (punct)
+
+
+
+state 107
+
+    punct  ->  '?' .   (rule 127)
+
+    $default	reduce using rule 127 (punct)
+
+
+
+state 108
+
+    punct  ->  '.' .   (rule 128)
+
+    $default	reduce using rule 128 (punct)
+
+
+
+state 109
+
+    punct  ->  '+' .   (rule 129)
+
+    $default	reduce using rule 129 (punct)
+
+
+
+state 110
+
+    punct  ->  '-' .   (rule 130)
+
+    $default	reduce using rule 130 (punct)
+
+
+
+state 111
+
+    punct  ->  '*' .   (rule 131)
+
+    $default	reduce using rule 131 (punct)
+
+
+
+state 112
+
+    punct  ->  '/' .   (rule 132)
+
+    $default	reduce using rule 132 (punct)
+
+
+
+state 113
+
+    punct  ->  '%' .   (rule 133)
+
+    $default	reduce using rule 133 (punct)
+
+
+
+state 114
+
+    punct  ->  '^' .   (rule 134)
+
+    $default	reduce using rule 134 (punct)
+
+
+
+state 115
+
+    punct  ->  '&' .   (rule 135)
+
+    $default	reduce using rule 135 (punct)
+
+
+
+state 116
+
+    punct  ->  '|' .   (rule 136)
+
+    $default	reduce using rule 136 (punct)
+
+
+
+state 117
+
+    punct  ->  '~' .   (rule 137)
+
+    $default	reduce using rule 137 (punct)
+
+
+
+state 118
+
+    punct  ->  '!' .   (rule 138)
+
+    $default	reduce using rule 138 (punct)
+
+
+
+state 119
+
+    punct  ->  '=' .   (rule 139)
+
+    $default	reduce using rule 139 (punct)
+
+
+
+state 120
+
+    punct  ->  '<' .   (rule 140)
+
+    $default	reduce using rule 140 (punct)
+
+
+
+state 121
+
+    punct  ->  '>' .   (rule 141)
+
+    $default	reduce using rule 141 (punct)
+
+
+
+state 122
+
+    punct  ->  ',' .   (rule 120)
+
+    $default	reduce using rule 120 (punct)
+
+
+
+state 123
+
+    punct  ->  '@' .   (rule 142)
+
+    $default	reduce using rule 142 (punct)
+
+
+
+state 124
+
+    punct  ->  '$' .   (rule 143)
+
+    $default	reduce using rule 143 (punct)
+
+
+
+state 125
+
+    punct  ->  '\'' .   (rule 144)
+
+    $default	reduce using rule 144 (punct)
+
+
+
+state 126
+
+    punct  ->  '"' .   (rule 145)
+
+    $default	reduce using rule 145 (punct)
+
+
+
+state 127
+
+    punct  ->  '\\' .   (rule 146)
+
+    $default	reduce using rule 146 (punct)
+
+
+
+state 128
+
+    hash_define4  ->  hash_define3 punct .   (rule 33)
+
+    $default	reduce using rule 33 (hash_define4)
+
+
+
+state 129
+
+    hash_define3  ->  hash_define4 ws.seq .   (rule 32)
+    hash_define  ->  hash_define4 ws.seq .   (rule 42)
+    ws.seq  ->  ws.seq . ' '   (rule 148)
+
+    ' ' 	shift, and go to state 180
+
+    $default	reduce using rule 32 (hash_define3)
+
+
+
+state 130
+
+    hash_error  ->  hash_error StringLiteral .   (rule 44)
+
+    $default	reduce using rule 44 (hash_error)
+
+
+
+state 131
+
+    hash_error  ->  hash_error ' ' .   (rule 45)
+
+    $default	reduce using rule 45 (hash_error)
+
+
+
+state 132
+
+    hash_stmt  ->  hash_include ws.opt .   (rule 12)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 12 (hash_stmt)
+
+
+
+state 133
+
+    hash_line2  ->  hash_line1 StringLiteral .   (rule 51)
+
+    $default	reduce using rule 51 (hash_line2)
+
+
+
+state 134
+
+    hash_line  ->  hash_line2 ws.opt .   (rule 53)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 53 (hash_line)
+
+
+
+state 135
+
+    hash_pragma  ->  hash_pragma StringLiteral .   (rule 55)
+
+    $default	reduce using rule 55 (hash_pragma)
+
+
+
+state 136
+
+    hash_pragma  ->  hash_pragma ' ' .   (rule 56)
+
+    $default	reduce using rule 56 (hash_pragma)
+
+
+
+state 137
+
+    hash_stmt  ->  hash_undef ws.opt .   (rule 15)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 15 (hash_stmt)
+
+
+
+state 138
+
+    ws.opt  ->  ws.opt ' ' .   (rule 150)
+
+    $default	reduce using rule 150 (ws.opt)
+
+
+
+state 139
+
+    hash_define1  ->  HASH_DEFINE ws.opt Identifier .   (rule 22)
+
+    $default	reduce using rule 22 (hash_define1)
+
+
+
+state 140
+
+    expr_val  ->  '(' expr . ')'   (rule 66)
+
+    ')' 	shift, and go to state 181
+
+
+
+state 141
+
+    expr_val  ->  '+' expr_val .   (rule 62)
+
+    $default	reduce using rule 62 (expr_val)
+
+
+
+state 142
+
+    expr_val  ->  '-' expr_val .   (rule 63)
+
+    $default	reduce using rule 63 (expr_val)
+
+
+
+state 143
+
+    expr_val  ->  '~' expr_val .   (rule 65)
+
+    $default	reduce using rule 65 (expr_val)
+
+
+
+state 144
+
+    expr_val  ->  '!' expr_val .   (rule 64)
+
+    $default	reduce using rule 64 (expr_val)
+
+
+
+state 145
+
+    expr_val  ->  ' ' expr_val .   (rule 58)
+
+    $default	reduce using rule 58 (expr_val)
+
+
+
+state 146
+
+    expr_mul  ->  expr_mul '*' . expr_val   (rule 73)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 182
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 147
+
+    expr_mul  ->  expr_mul '/' . expr_val   (rule 74)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 183
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 148
+
+    expr_mul  ->  expr_mul '%' . expr_val   (rule 75)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 184
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 149
+
+    expr_mul  ->  expr_mul ' ' .   (rule 71)
+
+    $default	reduce using rule 71 (expr_mul)
+
+
+
+state 150
+
+    expr_mul  ->  expr_mul macro.expr .   (rule 72)
+
+    $default	reduce using rule 72 (expr_mul)
+
+
+
+state 151
+
+    expr_add  ->  expr_add '+' . expr_mul   (rule 77)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 185
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 152
+
+    expr_add  ->  expr_add '-' . expr_mul   (rule 78)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 186
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 153
+
+    expr_shift  ->  expr_shift SHL . expr_add   (rule 80)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 187
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 154
+
+    expr_shift  ->  expr_shift SHR . expr_add   (rule 81)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 188
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 155
+
+    expr_rel  ->  expr_rel LE . expr_shift   (rule 84)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 189
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 156
+
+    expr_rel  ->  expr_rel GE . expr_shift   (rule 85)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 190
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 157
+
+    expr_rel  ->  expr_rel '<' . expr_shift   (rule 83)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 191
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 158
+
+    expr_rel  ->  expr_rel '>' . expr_shift   (rule 86)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 192
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 159
+
+    expr_eq  ->  expr_eq EQ . expr_rel   (rule 88)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 193
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 160
+
+    expr_eq  ->  expr_eq NE . expr_rel   (rule 89)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 194
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 161
+
+    expr_and  ->  expr_and '&' . expr_eq   (rule 91)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 195
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 162
+
+    expr_xor  ->  expr_xor '^' . expr_and   (rule 93)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 196
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 163
+
+    expr_or  ->  expr_or '|' . expr_xor   (rule 95)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 53
+    expr_xor	go to state 197
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 164
+
+    expr_log_and  ->  expr_log_and LOG_AND . expr_or   (rule 97)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 53
+    expr_xor	go to state 54
+    expr_or	go to state 198
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 165
+
+    expr_log_or  ->  expr_log_or LOG_OR . expr_log_and   (rule 99)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 53
+    expr_xor	go to state 54
+    expr_or	go to state 55
+    expr_log_and	go to state 199
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 166
+
+    expr_cond  ->  expr_log_or '?' . expr ':' expr   (rule 101)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 53
+    expr_xor	go to state 54
+    expr_or	go to state 55
+    expr_log_and	go to state 56
+    expr_log_or	go to state 57
+    expr_cond	go to state 58
+    expr	go to state 200
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 167
+
+    expr_val  ->  macro.expr DEFINED . ws.opt '(' ws.opt is_defined_id ws.opt ')'   (rule 60)
+    expr_val  ->  macro.expr DEFINED . ws.opt is_defined_id   (rule 61)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 201
+
+
+
+state 168
+
+    expr_val  ->  macro.expr expr_val .   (rule 59)
+
+    $default	reduce using rule 59 (expr_val)
+
+
+
+state 169
+
+    is_defined_id  ->  Identifier .   (rule 103)
+
+    $default	reduce using rule 103 (is_defined_id)
+
+
+
+state 170
+
+    is_defined_id  ->  MacroId .   (rule 104)
+
+    $default	reduce using rule 104 (is_defined_id)
+
+
+
+state 171
+
+    hash_stmt  ->  HASH_IFDEF ws.opt is_defined_id . ws.opt   (rule 10)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 202
+
+
+
+state 172
+
+    hash_stmt  ->  HASH_IFNDEF ws.opt is_defined_id . ws.opt   (rule 11)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 203
+
+
+
+state 173
+
+    hash_include1  ->  ' ' hash_include1 .   (rule 48)
+
+    $default	reduce using rule 48 (hash_include1)
+
+
+
+state 174
+
+    hash_include1  ->  macro.include hash_include1 .   (rule 49)
+
+    $default	reduce using rule 49 (hash_include1)
+
+
+
+state 175
+
+    hash_line1  ->  HASH_LINE ws.opt NumberLiteral . ws.opt   (rule 50)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 204
+
+
+
+state 176
+
+    hash_undef  ->  HASH_UNDEF ws.opt Identifier .   (rule 57)
+
+    $default	reduce using rule 57 (hash_undef)
+
+
+
+state 177
+
+    hash_define_fn  ->  hash_define1 '(' ws.opt .   (rule 24)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 24 (hash_define_fn)
+
+
+
+state 178
+
+    hash_define2a  ->  hash_define2 ws.opt ')' .   (rule 29)
+
+    $default	reduce using rule 29 (hash_define2a)
+
+
+
+state 179
+
+    hash_define2  ->  hash_define2 ws.opt ',' . ws.opt Identifier   (rule 26)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 205
+
+
+
+state 180
+
+    ws.seq  ->  ws.seq ' ' .   (rule 148)
+
+    $default	reduce using rule 148 (ws.seq)
+
+
+
+state 181
+
+    expr_val  ->  '(' expr ')' .   (rule 66)
+
+    $default	reduce using rule 66 (expr_val)
+
+
+
+state 182
+
+    expr_mul  ->  expr_mul '*' expr_val .   (rule 73)
+
+    $default	reduce using rule 73 (expr_mul)
+
+
+
+state 183
+
+    expr_mul  ->  expr_mul '/' expr_val .   (rule 74)
+
+    $default	reduce using rule 74 (expr_mul)
+
+
+
+state 184
+
+    expr_mul  ->  expr_mul '%' expr_val .   (rule 75)
+
+    $default	reduce using rule 75 (expr_mul)
+
+
+
+state 185
+
+    expr_mul  ->  expr_mul . ' '   (rule 71)
+    expr_mul  ->  expr_mul . macro.expr   (rule 72)
+    expr_mul  ->  expr_mul . '*' expr_val   (rule 73)
+    expr_mul  ->  expr_mul . '/' expr_val   (rule 74)
+    expr_mul  ->  expr_mul . '%' expr_val   (rule 75)
+    expr_add  ->  expr_add '+' expr_mul .   (rule 77)
+
+    Identifier	shift, and go to state 39
+    '*' 	shift, and go to state 146
+    '/' 	shift, and go to state 147
+    '%' 	shift, and go to state 148
+    ' ' 	shift, and go to state 149
+
+    $default	reduce using rule 77 (expr_add)
+
+    macro.expr	go to state 150
+
+
+
+state 186
+
+    expr_mul  ->  expr_mul . ' '   (rule 71)
+    expr_mul  ->  expr_mul . macro.expr   (rule 72)
+    expr_mul  ->  expr_mul . '*' expr_val   (rule 73)
+    expr_mul  ->  expr_mul . '/' expr_val   (rule 74)
+    expr_mul  ->  expr_mul . '%' expr_val   (rule 75)
+    expr_add  ->  expr_add '-' expr_mul .   (rule 78)
+
+    Identifier	shift, and go to state 39
+    '*' 	shift, and go to state 146
+    '/' 	shift, and go to state 147
+    '%' 	shift, and go to state 148
+    ' ' 	shift, and go to state 149
+
+    $default	reduce using rule 78 (expr_add)
+
+    macro.expr	go to state 150
+
+
+
+state 187
+
+    expr_add  ->  expr_add . '+' expr_mul   (rule 77)
+    expr_add  ->  expr_add . '-' expr_mul   (rule 78)
+    expr_shift  ->  expr_shift SHL expr_add .   (rule 80)
+
+    '+' 	shift, and go to state 151
+    '-' 	shift, and go to state 152
+
+    $default	reduce using rule 80 (expr_shift)
+
+
+
+state 188
+
+    expr_add  ->  expr_add . '+' expr_mul   (rule 77)
+    expr_add  ->  expr_add . '-' expr_mul   (rule 78)
+    expr_shift  ->  expr_shift SHR expr_add .   (rule 81)
+
+    '+' 	shift, and go to state 151
+    '-' 	shift, and go to state 152
+
+    $default	reduce using rule 81 (expr_shift)
+
+
+
+state 189
+
+    expr_shift  ->  expr_shift . SHL expr_add   (rule 80)
+    expr_shift  ->  expr_shift . SHR expr_add   (rule 81)
+    expr_rel  ->  expr_rel LE expr_shift .   (rule 84)
+
+    SHL 	shift, and go to state 153
+    SHR 	shift, and go to state 154
+
+    $default	reduce using rule 84 (expr_rel)
+
+
+
+state 190
+
+    expr_shift  ->  expr_shift . SHL expr_add   (rule 80)
+    expr_shift  ->  expr_shift . SHR expr_add   (rule 81)
+    expr_rel  ->  expr_rel GE expr_shift .   (rule 85)
+
+    SHL 	shift, and go to state 153
+    SHR 	shift, and go to state 154
+
+    $default	reduce using rule 85 (expr_rel)
+
+
+
+state 191
+
+    expr_shift  ->  expr_shift . SHL expr_add   (rule 80)
+    expr_shift  ->  expr_shift . SHR expr_add   (rule 81)
+    expr_rel  ->  expr_rel '<' expr_shift .   (rule 83)
+
+    SHL 	shift, and go to state 153
+    SHR 	shift, and go to state 154
+
+    $default	reduce using rule 83 (expr_rel)
+
+
+
+state 192
+
+    expr_shift  ->  expr_shift . SHL expr_add   (rule 80)
+    expr_shift  ->  expr_shift . SHR expr_add   (rule 81)
+    expr_rel  ->  expr_rel '>' expr_shift .   (rule 86)
+
+    SHL 	shift, and go to state 153
+    SHR 	shift, and go to state 154
+
+    $default	reduce using rule 86 (expr_rel)
+
+
+
+state 193
+
+    expr_rel  ->  expr_rel . '<' expr_shift   (rule 83)
+    expr_rel  ->  expr_rel . LE expr_shift   (rule 84)
+    expr_rel  ->  expr_rel . GE expr_shift   (rule 85)
+    expr_rel  ->  expr_rel . '>' expr_shift   (rule 86)
+    expr_eq  ->  expr_eq EQ expr_rel .   (rule 88)
+
+    LE  	shift, and go to state 155
+    GE  	shift, and go to state 156
+    '<' 	shift, and go to state 157
+    '>' 	shift, and go to state 158
+
+    $default	reduce using rule 88 (expr_eq)
+
+
+
+state 194
+
+    expr_rel  ->  expr_rel . '<' expr_shift   (rule 83)
+    expr_rel  ->  expr_rel . LE expr_shift   (rule 84)
+    expr_rel  ->  expr_rel . GE expr_shift   (rule 85)
+    expr_rel  ->  expr_rel . '>' expr_shift   (rule 86)
+    expr_eq  ->  expr_eq NE expr_rel .   (rule 89)
+
+    LE  	shift, and go to state 155
+    GE  	shift, and go to state 156
+    '<' 	shift, and go to state 157
+    '>' 	shift, and go to state 158
+
+    $default	reduce using rule 89 (expr_eq)
+
+
+
+state 195
+
+    expr_eq  ->  expr_eq . EQ expr_rel   (rule 88)
+    expr_eq  ->  expr_eq . NE expr_rel   (rule 89)
+    expr_and  ->  expr_and '&' expr_eq .   (rule 91)
+
+    EQ  	shift, and go to state 159
+    NE  	shift, and go to state 160
+
+    $default	reduce using rule 91 (expr_and)
+
+
+
+state 196
+
+    expr_and  ->  expr_and . '&' expr_eq   (rule 91)
+    expr_xor  ->  expr_xor '^' expr_and .   (rule 93)
+
+    '&' 	shift, and go to state 161
+
+    $default	reduce using rule 93 (expr_xor)
+
+
+
+state 197
+
+    expr_xor  ->  expr_xor . '^' expr_and   (rule 93)
+    expr_or  ->  expr_or '|' expr_xor .   (rule 95)
+
+    '^' 	shift, and go to state 162
+
+    $default	reduce using rule 95 (expr_or)
+
+
+
+state 198
+
+    expr_or  ->  expr_or . '|' expr_xor   (rule 95)
+    expr_log_and  ->  expr_log_and LOG_AND expr_or .   (rule 97)
+
+    '|' 	shift, and go to state 163
+
+    $default	reduce using rule 97 (expr_log_and)
+
+
+
+state 199
+
+    expr_log_and  ->  expr_log_and . LOG_AND expr_or   (rule 97)
+    expr_log_or  ->  expr_log_or LOG_OR expr_log_and .   (rule 99)
+
+    LOG_AND	shift, and go to state 164
+
+    $default	reduce using rule 99 (expr_log_or)
+
+
+
+state 200
+
+    expr_cond  ->  expr_log_or '?' expr . ':' expr   (rule 101)
+
+    ':' 	shift, and go to state 206
+
+
+
+state 201
+
+    expr_val  ->  macro.expr DEFINED ws.opt . '(' ws.opt is_defined_id ws.opt ')'   (rule 60)
+    expr_val  ->  macro.expr DEFINED ws.opt . is_defined_id   (rule 61)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    Identifier	shift, and go to state 169
+    MacroId	shift, and go to state 170
+    '(' 	shift, and go to state 207
+    ' ' 	shift, and go to state 138
+
+    is_defined_id	go to state 208
+
+
+
+state 202
+
+    hash_stmt  ->  HASH_IFDEF ws.opt is_defined_id ws.opt .   (rule 10)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 10 (hash_stmt)
+
+
+
+state 203
+
+    hash_stmt  ->  HASH_IFNDEF ws.opt is_defined_id ws.opt .   (rule 11)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 11 (hash_stmt)
+
+
+
+state 204
+
+    hash_line1  ->  HASH_LINE ws.opt NumberLiteral ws.opt .   (rule 50)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ' ' 	shift, and go to state 138
+
+    $default	reduce using rule 50 (hash_line1)
+
+
+
+state 205
+
+    hash_define2  ->  hash_define2 ws.opt ',' ws.opt . Identifier   (rule 26)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    Identifier	shift, and go to state 209
+    ' ' 	shift, and go to state 138
+
+
+
+state 206
+
+    expr_cond  ->  expr_log_or '?' expr ':' . expr   (rule 101)
+
+    CharacterLiteral	shift, and go to state 38
+    Identifier	shift, and go to state 39
+    NewLine	shift, and go to state 34
+    NumberLiteral	shift, and go to state 40
+    '(' 	shift, and go to state 41
+    '+' 	shift, and go to state 42
+    '-' 	shift, and go to state 43
+    '~' 	shift, and go to state 44
+    '!' 	shift, and go to state 45
+    ' ' 	shift, and go to state 46
+
+    expr_val	go to state 47
+    expr_mul	go to state 48
+    expr_add	go to state 49
+    expr_shift	go to state 50
+    expr_rel	go to state 51
+    expr_eq	go to state 52
+    expr_and	go to state 53
+    expr_xor	go to state 54
+    expr_or	go to state 55
+    expr_log_and	go to state 56
+    expr_log_or	go to state 57
+    expr_cond	go to state 58
+    expr	go to state 210
+    line	go to state 60
+    macro.expr	go to state 61
+
+
+
+state 207
+
+    expr_val  ->  macro.expr DEFINED ws.opt '(' . ws.opt is_defined_id ws.opt ')'   (rule 60)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 211
+
+
+
+state 208
+
+    expr_val  ->  macro.expr DEFINED ws.opt is_defined_id .   (rule 61)
+
+    $default	reduce using rule 61 (expr_val)
+
+
+
+state 209
+
+    hash_define2  ->  hash_define2 ws.opt ',' ws.opt Identifier .   (rule 26)
+
+    $default	reduce using rule 26 (hash_define2)
+
+
+
+state 210
+
+    expr_cond  ->  expr_log_or '?' expr ':' expr .   (rule 101)
+
+    $default	reduce using rule 101 (expr_cond)
+
+
+
+state 211
+
+    expr_val  ->  macro.expr DEFINED ws.opt '(' ws.opt . is_defined_id ws.opt ')'   (rule 60)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    Identifier	shift, and go to state 169
+    MacroId	shift, and go to state 170
+    ' ' 	shift, and go to state 138
+
+    is_defined_id	go to state 212
+
+
+
+state 212
+
+    expr_val  ->  macro.expr DEFINED ws.opt '(' ws.opt is_defined_id . ws.opt ')'   (rule 60)
+
+    $default	reduce using rule 149 (ws.opt)
+
+    ws.opt	go to state 213
+
+
+
+state 213
+
+    expr_val  ->  macro.expr DEFINED ws.opt '(' ws.opt is_defined_id ws.opt . ')'   (rule 60)
+    ws.opt  ->  ws.opt . ' '   (rule 150)
+
+    ')' 	shift, and go to state 214
+    ' ' 	shift, and go to state 138
+
+
+
+state 214
+
+    expr_val  ->  macro.expr DEFINED ws.opt '(' ws.opt is_defined_id ws.opt ')' .   (rule 60)
+
+    $default	reduce using rule 60 (expr_val)
+
+
+
+state 215
+
+    $   	go to state 216
+
+
+
+state 216
+
+    $   	go to state 217
+
+
+
+state 217
+
+    $default	accept

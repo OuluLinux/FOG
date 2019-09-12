@@ -1,0 +1,1227 @@
+
+
+Terminals which are not used:
+
+   ASM
+   AUTO
+   BREAK
+   CASE
+   CATCH
+   CLASS
+   CONST
+   CONST_CAST
+   CONTINUE
+   DEFAULT
+   DELETE
+   DO
+   DYNAMIC_CAST
+   ELSE
+   ENUM
+   EXPLICIT
+   EXPORT
+   EXTERN
+   FALSE
+   FOR
+   FRIEND
+   GOTO
+   IF
+   INLINE
+   MUTABLE
+   NAMESPACE
+   NEW
+   OPERATOR
+   PRIVATE
+   PROTECTED
+   PUBLIC
+   REGISTER
+   REINTERPRET_CAST
+   RETURN
+   SIZEOF
+   STATIC
+   STATIC_CAST
+   STRUCT
+   SWITCH
+   TEMPLATE
+   THIS
+   THROW
+   TRUE
+   TRY
+   TYPEDEF
+   TYPEID
+   TYPENAME
+   UNION
+   USING
+   VIRTUAL
+   VOLATILE
+   WHILE
+   ELLIPSIS
+   SCOPE
+   INC
+   DEC
+   ARROW
+   ARROW_STAR
+   DOT_STAR
+   ASS_ADD
+   ASS_AND
+   ASS_DIV
+   ASS_MOD
+   ASS_MUL
+   ASS_OR
+   ASS_SHL
+   ASS_SHR
+   ASS_SUB
+   ASS_XOR
+   BuiltInTypeSpecifier
+   MetaType
+   TreeLiteral
+   ERROR
+   NIL
+   RAMMARG
+   BODY
+   DERIVED
+   EMIT
+   ENTRY
+   EXIT
+   FILE
+   FROZEN
+   GUARD
+   IMPLEMENTATION
+   INCLUDE
+   INTERFACE
+   NOGUARD
+   NOIMPLEMENTATION
+   OVERLOAD
+   PATH
+   POOL
+   POST
+   PRE
+   PREFIX
+   PURE
+   SUFFIX
+   UTILITY
+   ALL
+   PLACEHOLDER
+   PLACEMENT
+   NOAUTO
+   HASH_BLANK
+   HASH_DEFINE
+   HASH_ELIF
+   HASH_ELSE
+   HASH_ENDIF
+   HASH_ERROR
+   HASH_IF
+   HASH_IFDEF
+   HASH_IFNDEF
+   HASH_INCLUDE
+   HASH_LINE
+   HASH_PRAGMA
+   HASH_UNDEF
+   DI_HASH_HASH
+   DI_HASH
+   DI_SQUARE
+   DI_ERAUQS
+   DI_ECARB
+   DEFINED
+   DO_FUNCTION
+   Text
+   SHIFT_THERE
+   REDUCE_HERE_MOSTLY
+   REDUCE_HERE
+   BOOL
+   CHAR
+   DOUBLE
+   FLOAT
+   INT
+   LONG
+   SHORT
+   SIGNED
+   UNSIGNED
+   VOID
+   WCHAR_T
+   IntegerLiteral
+   FloatingLiteral
+
+
+
+Grammar
+rule 1    gram ->		/* empty */
+rule 2    gram -> ws.seq
+rule 3    gram -> whhw
+rule 4    gram -> gram Identifier
+rule 5    gram -> gram Identifier ws.seq
+rule 6    gram -> gram token
+rule 7    gram -> gram token ws.seq
+rule 8    gram -> gram hhseq
+rule 9    gram -> gram hhseq ws.seq
+rule 10   hhpfx -> Identifier whhw
+rule 11   hhpfx -> token whhw
+rule 12   hhpfx -> hhseq whhw
+rule 13   hhseq -> hhpfx Identifier
+rule 14   hhseq -> hhpfx token
+rule 15   hhseq -> hhpfx error
+rule 16   hw -> '#'
+rule 17   hw -> hw ws
+rule 18   hhw -> HASH_HASH
+rule 19   hhw -> hhw ws
+rule 20   whhw -> hhw
+rule 21   whhw -> ws.seq hhw
+rule 22   token -> hw Identifier
+rule 23   token -> hw error
+rule 24   token -> punct
+rule 25   token -> '{'
+rule 26   token -> CharacterLiteral
+rule 27   token -> MacroId
+rule 28   token -> NumberLiteral
+rule 29   token -> StringLiteral
+rule 30   punct -> Punct
+rule 31   punct -> SHL
+rule 32   punct -> SHR
+rule 33   punct -> EQ
+rule 34   punct -> NE
+rule 35   punct -> LE
+rule 36   punct -> GE
+rule 37   punct -> LOG_AND
+rule 38   punct -> LOG_OR
+rule 39   punct -> '('
+rule 40   punct -> ','
+rule 41   punct -> ')'
+rule 42   punct -> '}'
+rule 43   punct -> '['
+rule 44   punct -> ']'
+rule 45   punct -> ';'
+rule 46   punct -> ':'
+rule 47   punct -> '?'
+rule 48   punct -> '.'
+rule 49   punct -> '+'
+rule 50   punct -> '-'
+rule 51   punct -> '*'
+rule 52   punct -> '/'
+rule 53   punct -> '%'
+rule 54   punct -> '^'
+rule 55   punct -> '&'
+rule 56   punct -> '|'
+rule 57   punct -> '~'
+rule 58   punct -> '!'
+rule 59   punct -> '='
+rule 60   punct -> '<'
+rule 61   punct -> '>'
+rule 62   punct -> '@'
+rule 63   punct -> '$'
+rule 64   punct -> '\''
+rule 65   punct -> '"'
+rule 66   punct -> '\\'
+rule 67   ws -> ' '
+rule 68   ws -> NewLine
+rule 69   ws.seq -> ws
+rule 70   ws.seq -> ws.seq ws
+
+Terminals, with rules where they appear
+
+$ (-1)
+' ' (32) 67
+'!' (33) 58
+'"' (34) 65
+'#' (35) 16
+'$' (36) 63
+'%' (37) 53
+'&' (38) 55
+'\'' (39) 64
+'(' (40) 39
+')' (41) 41
+'*' (42) 51
+'+' (43) 49
+',' (44) 40
+'-' (45) 50
+'.' (46) 48
+'/' (47) 52
+':' (58) 46
+';' (59) 45
+'<' (60) 60
+'=' (61) 59
+'>' (62) 61
+'?' (63) 47
+'@' (64) 62
+'[' (91) 43
+'\\' (92) 66
+']' (93) 44
+'^' (94) 54
+'{' (123) 25
+'|' (124) 56
+'}' (125) 42
+'~' (126) 57
+error (256) 15 23
+ASM (258)
+AUTO (259)
+BREAK (260)
+CASE (261)
+CATCH (262)
+CLASS (263)
+CONST (264)
+CONST_CAST (265)
+CONTINUE (266)
+DEFAULT (267)
+DELETE (268)
+DO (269)
+DYNAMIC_CAST (270)
+ELSE (271)
+ENUM (272)
+EXPLICIT (273)
+EXPORT (274)
+EXTERN (275)
+FALSE (276)
+FOR (277)
+FRIEND (278)
+GOTO (279)
+IF (280)
+INLINE (281)
+MUTABLE (282)
+NAMESPACE (283)
+NEW (284)
+OPERATOR (285)
+PRIVATE (286)
+PROTECTED (287)
+PUBLIC (288)
+REGISTER (289)
+REINTERPRET_CAST (290)
+RETURN (291)
+SIZEOF (292)
+STATIC (293)
+STATIC_CAST (294)
+STRUCT (295)
+SWITCH (296)
+TEMPLATE (297)
+THIS (298)
+THROW (299)
+TRUE (300)
+TRY (301)
+TYPEDEF (302)
+TYPEID (303)
+TYPENAME (304)
+UNION (305)
+USING (306)
+VIRTUAL (307)
+VOLATILE (308)
+WHILE (309)
+ELLIPSIS (310)
+SCOPE (311)
+SHL (312) 31
+SHR (313) 32
+EQ (314) 33
+NE (315) 34
+LE (316) 35
+GE (317) 36
+LOG_AND (318) 37
+LOG_OR (319) 38
+INC (320)
+DEC (321)
+ARROW (322)
+ARROW_STAR (323)
+DOT_STAR (324)
+ASS_ADD (325)
+ASS_AND (326)
+ASS_DIV (327)
+ASS_MOD (328)
+ASS_MUL (329)
+ASS_OR (330)
+ASS_SHL (331)
+ASS_SHR (332)
+ASS_SUB (333)
+ASS_XOR (334)
+BuiltInTypeSpecifier (335)
+CharacterLiteral (336) 26
+Identifier (337) 4 5 10 13 22
+MetaType (338)
+NewLine (339) 68
+NumberLiteral (340) 28
+StringLiteral (341) 29
+TreeLiteral (342)
+ERROR (343)
+NIL (344)
+RAMMARG (345)
+BODY (346)
+DERIVED (347)
+EMIT (348)
+ENTRY (349)
+EXIT (350)
+FILE (351)
+FROZEN (352)
+GUARD (353)
+IMPLEMENTATION (354)
+INCLUDE (355)
+INTERFACE (356)
+NOGUARD (357)
+NOIMPLEMENTATION (358)
+OVERLOAD (359)
+PATH (360)
+POOL (361)
+POST (362)
+PRE (363)
+PREFIX (364)
+PURE (365)
+SUFFIX (366)
+UTILITY (367)
+ALL (368)
+PLACEHOLDER (369)
+PLACEMENT (370)
+NOAUTO (371)
+HASH_BLANK (372)
+HASH_DEFINE (373)
+HASH_ELIF (374)
+HASH_ELSE (375)
+HASH_ENDIF (376)
+HASH_ERROR (377)
+HASH_IF (378)
+HASH_IFDEF (379)
+HASH_IFNDEF (380)
+HASH_INCLUDE (381)
+HASH_LINE (382)
+HASH_PRAGMA (383)
+HASH_UNDEF (384)
+HASH_HASH (385) 18
+DI_HASH_HASH (386)
+DI_HASH (387)
+DI_SQUARE (388)
+DI_ERAUQS (389)
+DI_ECARB (390)
+DEFINED (391)
+DO_FUNCTION (392)
+MacroId (393) 27
+Punct (394) 30
+Text (395)
+SHIFT_THERE (396)
+REDUCE_HERE_MOSTLY (397)
+REDUCE_HERE (398)
+BOOL (399)
+CHAR (400)
+DOUBLE (401)
+FLOAT (402)
+INT (403)
+LONG (404)
+SHORT (405)
+SIGNED (406)
+UNSIGNED (407)
+VOID (408)
+WCHAR_T (409)
+IntegerLiteral (410)
+FloatingLiteral (411)
+
+Nonterminals, with rules where they appear
+
+gram (188)
+    on left: 1 2 3 4 5 6 7 8 9, on right: 4 5 6 7 8 9
+hhpfx (189)
+    on left: 10 11 12, on right: 13 14 15
+hhseq (190)
+    on left: 13 14 15, on right: 8 9 12
+hw (191)
+    on left: 16 17, on right: 17 22 23
+hhw (192)
+    on left: 18 19, on right: 19 20 21
+whhw (193)
+    on left: 20 21, on right: 3 10 11 12
+token (194)
+    on left: 22 23 24 25 26 27 28 29, on right: 6 7 11 14
+punct (195)
+    on left: 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+    48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66,
+    on right: 24
+ws (196)
+    on left: 67 68, on right: 17 19 69 70
+ws.seq (197)
+    on left: 69 70, on right: 2 5 7 9 21 70
+
+
+state 0
+
+    NewLine	shift, and go to state 1
+    HASH_HASH	shift, and go to state 2
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 1 (gram)
+
+    gram	go to state 4
+    hhw 	go to state 5
+    whhw	go to state 6
+    ws  	go to state 7
+    ws.seq	go to state 8
+
+
+
+state 1
+
+    ws  ->  NewLine .   (rule 68)
+
+    $default	reduce using rule 68 (ws)
+
+
+
+state 2
+
+    hhw  ->  HASH_HASH .   (rule 18)
+
+    $default	reduce using rule 18 (hhw)
+
+
+
+state 3
+
+    ws  ->  ' ' .   (rule 67)
+
+    $default	reduce using rule 67 (ws)
+
+
+
+state 4
+
+    gram  ->  gram . Identifier   (rule 4)
+    gram  ->  gram . Identifier ws.seq   (rule 5)
+    gram  ->  gram . token   (rule 6)
+    gram  ->  gram . token ws.seq   (rule 7)
+    gram  ->  gram . hhseq   (rule 8)
+    gram  ->  gram . hhseq ws.seq   (rule 9)
+
+    $   	go to state 73
+    SHL 	shift, and go to state 9
+    SHR 	shift, and go to state 10
+    EQ  	shift, and go to state 11
+    NE  	shift, and go to state 12
+    LE  	shift, and go to state 13
+    GE  	shift, and go to state 14
+    LOG_AND	shift, and go to state 15
+    LOG_OR	shift, and go to state 16
+    CharacterLiteral	shift, and go to state 17
+    Identifier	shift, and go to state 18
+    NumberLiteral	shift, and go to state 19
+    StringLiteral	shift, and go to state 20
+    MacroId	shift, and go to state 21
+    Punct	shift, and go to state 22
+    '{' 	shift, and go to state 23
+    '}' 	shift, and go to state 24
+    '[' 	shift, and go to state 25
+    ']' 	shift, and go to state 26
+    '#' 	shift, and go to state 27
+    '(' 	shift, and go to state 28
+    ')' 	shift, and go to state 29
+    ';' 	shift, and go to state 30
+    ':' 	shift, and go to state 31
+    '?' 	shift, and go to state 32
+    '.' 	shift, and go to state 33
+    '+' 	shift, and go to state 34
+    '-' 	shift, and go to state 35
+    '*' 	shift, and go to state 36
+    '/' 	shift, and go to state 37
+    '%' 	shift, and go to state 38
+    '^' 	shift, and go to state 39
+    '&' 	shift, and go to state 40
+    '|' 	shift, and go to state 41
+    '~' 	shift, and go to state 42
+    '!' 	shift, and go to state 43
+    '=' 	shift, and go to state 44
+    '<' 	shift, and go to state 45
+    '>' 	shift, and go to state 46
+    ',' 	shift, and go to state 47
+    '@' 	shift, and go to state 48
+    '$' 	shift, and go to state 49
+    '\''	shift, and go to state 50
+    '"' 	shift, and go to state 51
+    '\\'	shift, and go to state 52
+
+    hhpfx	go to state 53
+    hhseq	go to state 54
+    hw  	go to state 55
+    token	go to state 56
+    punct	go to state 57
+
+
+
+state 5
+
+    hhw  ->  hhw . ws   (rule 19)
+    whhw  ->  hhw .   (rule 20)
+
+    NewLine	shift, and go to state 1
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 20 (whhw)
+
+    ws  	go to state 58
+
+
+
+state 6
+
+    gram  ->  whhw .   (rule 3)
+
+    $default	reduce using rule 3 (gram)
+
+
+
+state 7
+
+    ws.seq  ->  ws .   (rule 69)
+
+    $default	reduce using rule 69 (ws.seq)
+
+
+
+state 8
+
+    gram  ->  ws.seq .   (rule 2)
+    whhw  ->  ws.seq . hhw   (rule 21)
+    ws.seq  ->  ws.seq . ws   (rule 70)
+
+    NewLine	shift, and go to state 1
+    HASH_HASH	shift, and go to state 2
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 2 (gram)
+
+    hhw 	go to state 59
+    ws  	go to state 60
+
+
+
+state 9
+
+    punct  ->  SHL .   (rule 31)
+
+    $default	reduce using rule 31 (punct)
+
+
+
+state 10
+
+    punct  ->  SHR .   (rule 32)
+
+    $default	reduce using rule 32 (punct)
+
+
+
+state 11
+
+    punct  ->  EQ .   (rule 33)
+
+    $default	reduce using rule 33 (punct)
+
+
+
+state 12
+
+    punct  ->  NE .   (rule 34)
+
+    $default	reduce using rule 34 (punct)
+
+
+
+state 13
+
+    punct  ->  LE .   (rule 35)
+
+    $default	reduce using rule 35 (punct)
+
+
+
+state 14
+
+    punct  ->  GE .   (rule 36)
+
+    $default	reduce using rule 36 (punct)
+
+
+
+state 15
+
+    punct  ->  LOG_AND .   (rule 37)
+
+    $default	reduce using rule 37 (punct)
+
+
+
+state 16
+
+    punct  ->  LOG_OR .   (rule 38)
+
+    $default	reduce using rule 38 (punct)
+
+
+
+state 17
+
+    token  ->  CharacterLiteral .   (rule 26)
+
+    $default	reduce using rule 26 (token)
+
+
+
+state 18
+
+    gram  ->  gram Identifier .   (rule 4)
+    gram  ->  gram Identifier . ws.seq   (rule 5)
+    hhpfx  ->  Identifier . whhw   (rule 10)
+
+    NewLine	shift, and go to state 1
+    HASH_HASH	shift, and go to state 2
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 4 (gram)
+
+    hhw 	go to state 5
+    whhw	go to state 61
+    ws  	go to state 7
+    ws.seq	go to state 62
+
+
+
+state 19
+
+    token  ->  NumberLiteral .   (rule 28)
+
+    $default	reduce using rule 28 (token)
+
+
+
+state 20
+
+    token  ->  StringLiteral .   (rule 29)
+
+    $default	reduce using rule 29 (token)
+
+
+
+state 21
+
+    token  ->  MacroId .   (rule 27)
+
+    $default	reduce using rule 27 (token)
+
+
+
+state 22
+
+    punct  ->  Punct .   (rule 30)
+
+    $default	reduce using rule 30 (punct)
+
+
+
+state 23
+
+    token  ->  '{' .   (rule 25)
+
+    $default	reduce using rule 25 (token)
+
+
+
+state 24
+
+    punct  ->  '}' .   (rule 42)
+
+    $default	reduce using rule 42 (punct)
+
+
+
+state 25
+
+    punct  ->  '[' .   (rule 43)
+
+    $default	reduce using rule 43 (punct)
+
+
+
+state 26
+
+    punct  ->  ']' .   (rule 44)
+
+    $default	reduce using rule 44 (punct)
+
+
+
+state 27
+
+    hw  ->  '#' .   (rule 16)
+
+    $default	reduce using rule 16 (hw)
+
+
+
+state 28
+
+    punct  ->  '(' .   (rule 39)
+
+    $default	reduce using rule 39 (punct)
+
+
+
+state 29
+
+    punct  ->  ')' .   (rule 41)
+
+    $default	reduce using rule 41 (punct)
+
+
+
+state 30
+
+    punct  ->  ';' .   (rule 45)
+
+    $default	reduce using rule 45 (punct)
+
+
+
+state 31
+
+    punct  ->  ':' .   (rule 46)
+
+    $default	reduce using rule 46 (punct)
+
+
+
+state 32
+
+    punct  ->  '?' .   (rule 47)
+
+    $default	reduce using rule 47 (punct)
+
+
+
+state 33
+
+    punct  ->  '.' .   (rule 48)
+
+    $default	reduce using rule 48 (punct)
+
+
+
+state 34
+
+    punct  ->  '+' .   (rule 49)
+
+    $default	reduce using rule 49 (punct)
+
+
+
+state 35
+
+    punct  ->  '-' .   (rule 50)
+
+    $default	reduce using rule 50 (punct)
+
+
+
+state 36
+
+    punct  ->  '*' .   (rule 51)
+
+    $default	reduce using rule 51 (punct)
+
+
+
+state 37
+
+    punct  ->  '/' .   (rule 52)
+
+    $default	reduce using rule 52 (punct)
+
+
+
+state 38
+
+    punct  ->  '%' .   (rule 53)
+
+    $default	reduce using rule 53 (punct)
+
+
+
+state 39
+
+    punct  ->  '^' .   (rule 54)
+
+    $default	reduce using rule 54 (punct)
+
+
+
+state 40
+
+    punct  ->  '&' .   (rule 55)
+
+    $default	reduce using rule 55 (punct)
+
+
+
+state 41
+
+    punct  ->  '|' .   (rule 56)
+
+    $default	reduce using rule 56 (punct)
+
+
+
+state 42
+
+    punct  ->  '~' .   (rule 57)
+
+    $default	reduce using rule 57 (punct)
+
+
+
+state 43
+
+    punct  ->  '!' .   (rule 58)
+
+    $default	reduce using rule 58 (punct)
+
+
+
+state 44
+
+    punct  ->  '=' .   (rule 59)
+
+    $default	reduce using rule 59 (punct)
+
+
+
+state 45
+
+    punct  ->  '<' .   (rule 60)
+
+    $default	reduce using rule 60 (punct)
+
+
+
+state 46
+
+    punct  ->  '>' .   (rule 61)
+
+    $default	reduce using rule 61 (punct)
+
+
+
+state 47
+
+    punct  ->  ',' .   (rule 40)
+
+    $default	reduce using rule 40 (punct)
+
+
+
+state 48
+
+    punct  ->  '@' .   (rule 62)
+
+    $default	reduce using rule 62 (punct)
+
+
+
+state 49
+
+    punct  ->  '$' .   (rule 63)
+
+    $default	reduce using rule 63 (punct)
+
+
+
+state 50
+
+    punct  ->  '\'' .   (rule 64)
+
+    $default	reduce using rule 64 (punct)
+
+
+
+state 51
+
+    punct  ->  '"' .   (rule 65)
+
+    $default	reduce using rule 65 (punct)
+
+
+
+state 52
+
+    punct  ->  '\\' .   (rule 66)
+
+    $default	reduce using rule 66 (punct)
+
+
+
+state 53
+
+    hhseq  ->  hhpfx . Identifier   (rule 13)
+    hhseq  ->  hhpfx . token   (rule 14)
+    hhseq  ->  hhpfx . error   (rule 15)
+
+    error	shift, and go to state 63
+    SHL 	shift, and go to state 9
+    SHR 	shift, and go to state 10
+    EQ  	shift, and go to state 11
+    NE  	shift, and go to state 12
+    LE  	shift, and go to state 13
+    GE  	shift, and go to state 14
+    LOG_AND	shift, and go to state 15
+    LOG_OR	shift, and go to state 16
+    CharacterLiteral	shift, and go to state 17
+    Identifier	shift, and go to state 64
+    NumberLiteral	shift, and go to state 19
+    StringLiteral	shift, and go to state 20
+    MacroId	shift, and go to state 21
+    Punct	shift, and go to state 22
+    '{' 	shift, and go to state 23
+    '}' 	shift, and go to state 24
+    '[' 	shift, and go to state 25
+    ']' 	shift, and go to state 26
+    '#' 	shift, and go to state 27
+    '(' 	shift, and go to state 28
+    ')' 	shift, and go to state 29
+    ';' 	shift, and go to state 30
+    ':' 	shift, and go to state 31
+    '?' 	shift, and go to state 32
+    '.' 	shift, and go to state 33
+    '+' 	shift, and go to state 34
+    '-' 	shift, and go to state 35
+    '*' 	shift, and go to state 36
+    '/' 	shift, and go to state 37
+    '%' 	shift, and go to state 38
+    '^' 	shift, and go to state 39
+    '&' 	shift, and go to state 40
+    '|' 	shift, and go to state 41
+    '~' 	shift, and go to state 42
+    '!' 	shift, and go to state 43
+    '=' 	shift, and go to state 44
+    '<' 	shift, and go to state 45
+    '>' 	shift, and go to state 46
+    ',' 	shift, and go to state 47
+    '@' 	shift, and go to state 48
+    '$' 	shift, and go to state 49
+    '\''	shift, and go to state 50
+    '"' 	shift, and go to state 51
+    '\\'	shift, and go to state 52
+
+    hw  	go to state 55
+    token	go to state 65
+    punct	go to state 57
+
+
+
+state 54
+
+    gram  ->  gram hhseq .   (rule 8)
+    gram  ->  gram hhseq . ws.seq   (rule 9)
+    hhpfx  ->  hhseq . whhw   (rule 12)
+
+    NewLine	shift, and go to state 1
+    HASH_HASH	shift, and go to state 2
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 8 (gram)
+
+    hhw 	go to state 5
+    whhw	go to state 66
+    ws  	go to state 7
+    ws.seq	go to state 67
+
+
+
+state 55
+
+    hw  ->  hw . ws   (rule 17)
+    token  ->  hw . Identifier   (rule 22)
+    token  ->  hw . error   (rule 23)
+
+    error	shift, and go to state 68
+    Identifier	shift, and go to state 69
+    NewLine	shift, and go to state 1
+    ' ' 	shift, and go to state 3
+
+    ws  	go to state 70
+
+
+
+state 56
+
+    gram  ->  gram token .   (rule 6)
+    gram  ->  gram token . ws.seq   (rule 7)
+    hhpfx  ->  token . whhw   (rule 11)
+
+    NewLine	shift, and go to state 1
+    HASH_HASH	shift, and go to state 2
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 6 (gram)
+
+    hhw 	go to state 5
+    whhw	go to state 71
+    ws  	go to state 7
+    ws.seq	go to state 72
+
+
+
+state 57
+
+    token  ->  punct .   (rule 24)
+
+    $default	reduce using rule 24 (token)
+
+
+
+state 58
+
+    hhw  ->  hhw ws .   (rule 19)
+
+    $default	reduce using rule 19 (hhw)
+
+
+
+state 59
+
+    hhw  ->  hhw . ws   (rule 19)
+    whhw  ->  ws.seq hhw .   (rule 21)
+
+    NewLine	shift, and go to state 1
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 21 (whhw)
+
+    ws  	go to state 58
+
+
+
+state 60
+
+    ws.seq  ->  ws.seq ws .   (rule 70)
+
+    $default	reduce using rule 70 (ws.seq)
+
+
+
+state 61
+
+    hhpfx  ->  Identifier whhw .   (rule 10)
+
+    $default	reduce using rule 10 (hhpfx)
+
+
+
+state 62
+
+    gram  ->  gram Identifier ws.seq .   (rule 5)
+    whhw  ->  ws.seq . hhw   (rule 21)
+    ws.seq  ->  ws.seq . ws   (rule 70)
+
+    NewLine	shift, and go to state 1
+    HASH_HASH	shift, and go to state 2
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 5 (gram)
+
+    hhw 	go to state 59
+    ws  	go to state 60
+
+
+
+state 63
+
+    hhseq  ->  hhpfx error .   (rule 15)
+
+    $default	reduce using rule 15 (hhseq)
+
+
+
+state 64
+
+    hhseq  ->  hhpfx Identifier .   (rule 13)
+
+    $default	reduce using rule 13 (hhseq)
+
+
+
+state 65
+
+    hhseq  ->  hhpfx token .   (rule 14)
+
+    $default	reduce using rule 14 (hhseq)
+
+
+
+state 66
+
+    hhpfx  ->  hhseq whhw .   (rule 12)
+
+    $default	reduce using rule 12 (hhpfx)
+
+
+
+state 67
+
+    gram  ->  gram hhseq ws.seq .   (rule 9)
+    whhw  ->  ws.seq . hhw   (rule 21)
+    ws.seq  ->  ws.seq . ws   (rule 70)
+
+    NewLine	shift, and go to state 1
+    HASH_HASH	shift, and go to state 2
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 9 (gram)
+
+    hhw 	go to state 59
+    ws  	go to state 60
+
+
+
+state 68
+
+    token  ->  hw error .   (rule 23)
+
+    $default	reduce using rule 23 (token)
+
+
+
+state 69
+
+    token  ->  hw Identifier .   (rule 22)
+
+    $default	reduce using rule 22 (token)
+
+
+
+state 70
+
+    hw  ->  hw ws .   (rule 17)
+
+    $default	reduce using rule 17 (hw)
+
+
+
+state 71
+
+    hhpfx  ->  token whhw .   (rule 11)
+
+    $default	reduce using rule 11 (hhpfx)
+
+
+
+state 72
+
+    gram  ->  gram token ws.seq .   (rule 7)
+    whhw  ->  ws.seq . hhw   (rule 21)
+    ws.seq  ->  ws.seq . ws   (rule 70)
+
+    NewLine	shift, and go to state 1
+    HASH_HASH	shift, and go to state 2
+    ' ' 	shift, and go to state 3
+
+    $default	reduce using rule 7 (gram)
+
+    hhw 	go to state 59
+    ws  	go to state 60
+
+
+
+state 73
+
+    $   	go to state 74
+
+
+
+state 74
+
+    $default	accept

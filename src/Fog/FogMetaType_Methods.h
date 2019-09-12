@@ -1,0 +1,5 @@
+
+#ifndef FOGMETATYPE_METHODS_HXX
+#define FOGMETATYPE_METHODS_HXX
+#endif
+
