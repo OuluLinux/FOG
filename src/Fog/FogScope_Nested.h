@@ -7,7 +7,8 @@
 
 class FogScope_Nested
 {
-private:                                        //   Defining contents.
+private:
+	                                        //   Defining contents.
     FogScopeMapOfRef _scope_map;                    //   Map of all nested scopes.
     const size_t _nesting_depth;                    //   Nesting depth of scope, 0 global.
 private:

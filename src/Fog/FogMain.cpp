@@ -151,7 +151,22 @@ static PrimComToken_Bool tok_z2s(main_parser, Fog::debug_lex2substitute(),
 		"z2s", "Display each token passed between lexer and substitute parser.", Fog::debug_lex2substitute());
 static PrimComToken_Files tok_file(main_parser, files,
 		"<file>", "Source file name(s), may be - for standard input.");
-        
+
+
+void PrintAST(const FogRaw& tk, int indent=0) {
+	std::strstream str;
+	tk.print_depth(str);
+	for(int i = 0; i < indent; i++)
+		printf("\t");
+	printf("%s\n", str.str());
+	const FogRaws* raws = dynamic_cast<const FogRaws*>(&tk);
+	if (raws) {
+		for (FogRawConstListOfRefToConstIterator p(raws->raws()); p; ++p) {
+			PrintAST(*p, indent+1);
+		}
+	}
+}
+
 //
 // 	The program parses the command line, reads the grammar, optimises it, and generates interface and
 // 	implementation files to define a code generator.
@@ -218,6 +233,11 @@ int main(int argc, char *argv[]) {
 			
 			if (!parseError && theToken) {
 				FogRaw *aDeclaration = theToken->is_raw();
+				
+				//FogRaws* r = dynamic_cast<FogRaws*>(theToken);
+				//PrintAST(*r);
+				
+				//return 0;
 				//if (aDeclaration)
 				//	aParser.compile_declaration(&FogUtility::emit_utility(), aDeclaration);
 			}
@@ -228,6 +248,8 @@ int main(int argc, char *argv[]) {
 	
 	aFog->validate();
 	aFog->emit_files();
+	
+	//PrintAST(*aFog);
 	
 	if (output_file)
 		aFog->emit_dependencies(*output_file);
