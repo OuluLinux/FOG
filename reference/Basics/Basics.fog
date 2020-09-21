@@ -1,6 +1,6 @@
 
 // #warning some warning
-$Builtin::Warning("some warning");
+$std::warning("some warning");
 
 // #define PI 3.14159
 auto double PI = 3.14159;
@@ -17,7 +17,7 @@ using "included.fog";
 //#else
 //    static const char *temp_path = "C:\\Temp\\";
 //#endif
-auto bool unix = $Builtin::GetCpp(UNIX);
+auto bool unix = $std::getcpp(UNIX);
 auto if (unix)
     static const char *temp_path = "/tmp/";
 else
@@ -30,7 +30,7 @@ else
 	static const char *undefined = "false";
 #endif*/
 auto identifier var = specific_var;
-if ($Builtin::Defined(var))
+if ($std::defined(var))
 	static const char *undefined = "false";
 
 
@@ -44,7 +44,7 @@ int main {
 	
 	// auto namespace
 		
-		Builtin::Diagnostic(@This);
+		std::diagnostic(@This);
 		int i = 1 + 2;
 /*
 segments
