@@ -8,8 +8,16 @@ This is the program from [http://www.computing.surrey.ac.uk/research/dsrg/fog/](
 
 
 ### Compiling FOG ###
-This is fixed to compile with GCC and MSC in modern OS.
 
+#### FreeBSD ####
+```
+git clone https://github.com/UltimateScript/Fog FOG
+sudo pkg install upp
+umk FOG/src Fog CLANG ~/fog
+~/fog
+```
+
+#### Others ####
 You need the Ultimate++ to compile it:
 
 1. Clone this repository: `git clone https://github.com/UltimateScript/FOG.git`
