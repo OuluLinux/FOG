@@ -1,0 +1,23 @@
+
+namespace Std {
+
+class SomeClass {
+	
+};
+
+};
+
+struct NamespaceExample {
+	using/implementation Std;
+	
+	Std::SomeClass obj;
+	int Main() {
+		
+		int i = 0 + 1 + 2;
+		i += 3;
+	}
+};
+
+NamespaceExample app;
+!inline int main() {return app.Main();}
+

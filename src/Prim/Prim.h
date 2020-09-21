@@ -141,7 +141,7 @@ const bool true = 1;
 // const bool TRUE = true;
 #endif
 
-#define UNUSED(a) if (0 && a)       //  Used to suppress compiler warnings
+#define UNUSED(a) if (0 && a) {}       //  Used to suppress compiler warnings
 
 // 
 // 		An ASCII mnemonic for the null end of string character.

@@ -817,7 +817,7 @@ enum YY_FogLocateParser_ENUM_TOKEN { YY_FogLocateParser_NULL_TOKEN=0
 #endif
 public:
  int YY_FogLocateParser_PARSE (YY_FogLocateParser_PARSE_PARAM);
- virtual void YY_FogLocateParser_ERROR(char *msg) YY_FogLocateParser_ERROR_BODY;
+ virtual void YY_FogLocateParser_ERROR(const char *msg) YY_FogLocateParser_ERROR_BODY;
 #ifdef YY_FogLocateParser_PURE
 #ifdef YY_FogLocateParser_LSP_NEEDED
  virtual int  YY_FogLocateParser_LEX (YY_FogLocateParser_STYPE *YY_FogLocateParser_LVAL,YY_FogLocateParser_LTYPE *YY_FogLocateParser_LLOC) YY_FogLocateParser_LEX_BODY;
@@ -1419,9 +1419,9 @@ static void __yy_bcopy (from, to, count)
 #endif
 #endif
 {
-  register char *f = from;
-  register char *t = to;
-  register int i = count;
+  char *f = from;
+  char *t = to;
+  int i = count;
 
   while (i-- > 0)
     *t++ = *f++;
@@ -1443,10 +1443,10 @@ YY_FogLocateParser_PARSE_PARAM_DEF
 #endif
 #endif
 {
-  register int yystate;
-  register int yyn;
-  register short *yyssp;
-  register YY_FogLocateParser_STYPE *yyvsp;
+  int yystate;
+  int yyn;
+  short *yyssp;
+  YY_FogLocateParser_STYPE *yyvsp;
   int yyerrstatus;      /*  number of tokens to shift before error messages enabled */
   int yychar1=0;          /*  lookahead token as an internal (translated) token number */
 
@@ -1995,7 +1995,7 @@ void FogLocateParser::add_arg()
 //
 //	Pass msg to the lexer to get a sensible error message.
 //
-inline void FogLocateParser::yyerror(char *msg) { ERRMSGZ(msg); }
+inline void FogLocateParser::yyerror(const char *msg) { ERRMSGZ(msg); }
 
 //
 //	Instruct the lexer to produce another token.

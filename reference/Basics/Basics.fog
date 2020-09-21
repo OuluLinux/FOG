@@ -1,0 +1,179 @@
+
+// #warning some warning
+$Builtin::Warning("some warning");
+
+// #define PI 3.14159
+auto double PI = 3.14159;
+
+// #define MAX(a, b) ((a) > (b) ? (a) : (b))
+auto expression MAX(expression a, expression b) { $a > $b ? $a : $b }
+
+// #include "included.h"
+using "included.fog";
+
+
+//#if defined(UNIX)
+//    static const char *temp_path = "/tmp/";
+//#else
+//    static const char *temp_path = "C:\\Temp\\";
+//#endif
+auto bool unix = $Builtin::GetCpp(UNIX);
+auto if (unix)
+    static const char *temp_path = "/tmp/";
+else
+    static const char *temp_path = "C:\\Temp\\";
+
+
+/*
+#define var specific_var
+#if defined(var)
+	static const char *undefined = "false";
+#endif*/
+auto identifier var = specific_var;
+if ($Builtin::Defined(var))
+	static const char *undefined = "false";
+
+
+int main {
+	// if defined
+	// @ $ difference
+	// for, while, do while, for-list, if else
+	// class specifier, function, declaration
+	// Scope, Global, Super
+	// meta-statements meta-expressions
+	
+	// auto namespace
+		
+		Builtin::Diagnostic(@This);
+		int i = 1 + 2;
+/*
+segments
+	- entry, exit
+*/
+}
+
+// - meta constructor, meta main
+/*auto string std::date()
+auto string std::file()
+auto string std::time()
+
+
+s 371
+
+
+enum
+auto declaration NamedEnum(identifier aName)
+{
+public enum Enum { $aName };
+public static const char *names[] = { ""$aName };
+}
+*/
+
+
+/*
+class ReNested
+{
+private:
+    class Nested
+    {
+    private:
+        class Potential
+        {
+        };
+    };
+};
+*/
+auto declaration nest(identifier anId, class_specifier aClass)
+{
+    class $anId
+    {
+        $aClass;
+    };
+}
+auto declaration cached = $nest(Nested, class Potential {});
+class ReNested
+{
+    $cached;
+};
+
+
+/*
+int main0() {
+	int var0 = 0;
+	int var1 = 1;
+	int var2 = 2;
+	int var3 = 3;
+}
+*/
+auto statement ImplementationStmt() {
+	auto identifier counter_id = $impl_counter;
+	int var${counter_id} = ${impl_counter};
+	auto impl_counter++;
+}
+
+int main0() {
+	auto int impl_counter = 0;
+
+	auto if (1) {
+		// the whole content is evaluated during exporting
+		$ImplementationStmt();
+		$ImplementationStmt();
+		$ImplementationStmt();
+		$ImplementationStmt();
+	}
+}
+
+// OR
+
+auto statement ImplementationStmtB(identifier prefix, identifier postfix, int s) {
+	int ${prefix}${postfix} = $s;
+}
+
+int main0b() {
+	auto for (int i = 0; i < 4; ++i) {
+		$ImplementationStmtB(var, $i, $i);
+	}
+}
+
+
+
+	
+
+	
+
+
+
+
+
+/*
+	static const char *dayTable[] =
+	{ "Sunday", "Monday", "Tuesday", "Wednesday",
+	"Thursday", "Friday", "Saturday" };
+	static const int maxDay = 7;*/
+
+auto statement nextDay(string dayText)
+{
+    dayTable[$dayCount] = $dayText;
+    auto dayCount++;
+}
+
+int main1() {
+	
+	auto if (1) {
+		static const char *dayTable[7];
+		
+		auto int dayCount = 0;
+		
+		$nextDay("Sunday");
+		$nextDay("Monday");
+		$nextDay("Tuesday");
+		$nextDay("Wednesday");
+		$nextDay("Thursday");
+		$nextDay("Friday");
+		$nextDay("Saturday");
+		
+		static const int maxDay = $dayCount;
+	}
+}
+
+

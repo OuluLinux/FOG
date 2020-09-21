@@ -707,7 +707,7 @@ static const int REDUCE_HERE;
  #endif
 public:
  int YY_FogParser_PARSE(YY_FogParser_PARSE_PARAM);
- virtual void YY_FogParser_ERROR(char *msg) YY_FogParser_ERROR_BODY;
+ virtual void YY_FogParser_ERROR(const char *msg) YY_FogParser_ERROR_BODY;
  #ifdef YY_FogParser_PURE
   #ifdef YY_FogParser_LSP_NEEDED
    virtual int  YY_FogParser_LEX(YY_FogParser_STYPE *YY_FogParser_LVAL,YY_FogParser_LTYPE *YY_FogParser_LLOC) YY_FogParser_LEX_BODY;

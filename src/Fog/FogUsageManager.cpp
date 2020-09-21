@@ -63,7 +63,7 @@ void FogUsageManager::compile() {
 	
 	for (FogUsageConstListOfRefIterator p(_usages); p; ++p) {
 		FogUsage& aUsage = *p;        //   Establish file names
-		aUsage.precompile(*this);       //    and register dependencies.
+		aUsage.precompile(*this);       //    and dependencies.
 	}
 	
 	_usages.vacate();

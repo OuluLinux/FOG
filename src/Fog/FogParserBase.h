@@ -60,14 +60,14 @@ public:
 protected:
 	FogRaw *compile_statement(FogRaw *aDeclaration);
 	void diagnostic(const char *msg);
-	void error(char *msg);
+	void error(const char *msg);
 	FogLine& make_current_line();
 	void *mark(bool hasLookAhead);
 	size_t nest() {
 		return _nest++;
 	}
 	
-	void raw_error(char *msg);
+	void raw_error(const char *msg);
 	void remark(void *);
 	void set_result(FogToken *aResult, bool hasLookAhead);
 	void unmark(const FogToken *aToken, bool hasLookAhead);

@@ -1,0 +1,84 @@
+
+// "Flyweight"
+
+class String {
+	auto declaration StaticFlyweight(identifier name, string init = "") {
+		public static const String& ${name}() {
+			static const String staticInstance($init);
+			return staticInstance;
+		}
+	}
+};
+
+class DayOfWeek {
+	$String::StaticFlyweight(monday, "Mon");
+	$String::StaticFlyweight(tuesday, "Tue");
+};
+
+
+// Members
+auto declaration MemberGetSet(identifier type, identifier name, expression init = 0) {
+	private $type $name = $init;
+	protected void Set${Builtin::VarFn($name)}(const $type& value) {
+		this->$name = value;
+	}
+	public const $type& Get${Builtin::VarFn($name)}() const {
+		return $name;
+	}
+};
+
+class SomeClass {
+	$MemberGetSet(int, some_var1, 123);
+	$MemberGetSet(int, some_var2, 123 + 45);
+};
+
+
+
+
+
+// Referenced objects
+
+
+
+class ReferenceCount {
+private:
+	mutable unsigned int shares;
+	
+public:
+	ReferenceCount() : shares(1) {}
+	ReferenceCount(const ReferenceCount&) : shares(1) {}
+	ReferenceCount& operator=(const ReferenceCount&) { return *this; }
+	~ReferenceCount() { /* ASSERT(_shares == 1); */ }
+	bool Dec() const { if (shares == 1) return false; shares--; return true; }
+	bool DecHeapOnly() const { return --_shares != 0; }
+	void Inc() const { shares++; }
+	unsigned int GetShareCount() const { return shares; }
+};
+
+auto declaration ReferenceCount::install(bool heapOnly = false) {
+	auto if (!Builtin::Defined(has_reference_count)) {
+		auto bool has_reference_count = true;
+		private ReferenceCount shares;
+		public void Inc() const { shares.Inc(); }
+		auto if ($heapOnly) {
+			public void Dec() const {
+				if (!shares.DecHeapOnly())
+					delete ($Scope *)this;
+			}
+			protected ~${Scope}() :{ derived(true) {} };
+		}
+		else {
+			public void Dec() const {
+				if (!shares.Dec())
+					delete ($Scope *)this;
+			}
+		}
+		friend inline void Dec(const $Scope *anObject) { if (anObject) anObject->Dec(); }
+	}
+}
+
+class ApplicationClass {
+	$ReferenceCount::install();
+	
+};
+

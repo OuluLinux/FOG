@@ -1,0 +1,98 @@
+
+/*
+
+
+FOG compiler has powerful meta-template features.
+
+However, they are currently buggy. They are well defined in the Ed Willink's thesis, though.
+
+	
+What SHOULD work:
+
+	template <class T> class list {};
+	
+	template <class Whole, class Part> class WholePart {
+		
+	};
+	
+	template <class Whole, class Part>
+	auto declaration WholePart::install() {
+		
+		class $Whole {
+			friend $Dynamic;
+			private list<$Part> parts;
+			// optional construction, delegations and destruction
+		};
+		class $Part {
+			friend $Dynamic;
+			private $Whole *whole;
+			// optional construction, delegations and destruction
+		};
+	}
+	
+	class A {};
+	class B {};
+	class C {};
+	
+	WholePart<A, B> wp1;
+	WholePart<B, C> wp2;
+	
+	$WholePart<A, B>::install();
+	$WholePart<B, C>::install();
+
+
+
+And what (almost) works:
+*/
+
+class Core {};
+
+template <class T> public class Core::List {public !inline List() {}};
+
+public static void Core::ASSERT(bool b) {if (!b) {int* i = 0; *i = 0;}}
+
+template <class Whole, class Part> public class Core::WholePart {
+	public inline void Use(Whole& w, Part& p) {w.whole_value++; p.part_value--;}
+};
+
+auto declaration Core::WholePart::install(type Whole, type Part) {
+	public class $Part {
+		typedef class WholePart <$Whole, $Part> WholeHandler;
+		friend class WholeHandler;
+		private $Whole *whole;
+		protected int whole_value = 0;
+		// optional construction, delegations and destruction
+	};
+	public class $Whole {
+		typedef class WholePart <$Whole, $Part> PartHandler;
+		friend class PartHandler;
+		private Core::List<$Part> parts;
+		protected int part_value = 0;
+		// optional construction, delegations and destruction
+	};
+}
+
+public class Core::C {};
+public class Core::B {};
+public class Core::A {};
+
+
+class Core {
+	$WholePart::install(B, C);
+	$WholePart::install(A, B);
+};
+
+class TemplateExample : public Core {
+	
+	WholePart<A, B> wp1;
+	WholePart<B, C> wp2;
+
+	public int Main() {
+		A a;
+		B b;
+		wp1.Use(a, b);
+	}
+};
+
+TemplateExample app;
+!inline int main() {return app.Main();}

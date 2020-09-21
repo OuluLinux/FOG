@@ -1,0 +1,73 @@
+
+/*
+
+The problem:
+ - You have three classes with "method()" method
+ - You want to call the "method()" from inherited class in DerivedClass
+
+class BaseClass {
+	void method() {}
+};
+class IntermediateClass : public BaseClass {
+	void method() {} // <---- only DerivedClass::method() works, which leads to fragile code
+};
+class DerivedClass : public IntermediateClass {
+	void method() {} // <---- only IntermediateClass::method() works, which leads to fragile code
+};
+
+
+
+1. solution, where "Inherited" is always the inherited class:
+class BaseClass {
+	void method() {}
+};
+class IntermediateClass : public BaseClass {
+	typedef BaseClass Inherited;
+	void method() {Inherited::method();}
+};
+class DerivedClass : public IntermediateClass {
+	typedef IntermediateClass Inherited; // <---- required additional code, leads to accidents
+	void method() {Inherited::method();}
+};
+
+*/
+
+// FOG solution:
+class BaseClass0 {
+	export/interface "Example0.h";
+	export/implementation "Example0.cpp";
+	
+	void method() {}
+};
+class IntermediateClass0 : public BaseClass0 {
+	export/all BaseClass0;
+	
+	void method() {${Super}::method();}
+};
+class DerivedClass0 : public IntermediateClass0 {
+	export/all BaseClass0;
+	
+	void method() {${Super}::method();}
+};
+
+
+// And if you really want the "Inherited" type:
+auto declaration InheritedTypedef() {
+	public typedef @Super Inherited :{ derived(!is_root()); };
+}
+
+class BaseClass1 {
+	export/interface "Example1.h";
+	export/implementation "Example1.cpp";
+	
+	$InheritedTypedef();
+};
+class IntermediateClass1 : public BaseClass1 {
+	export/all BaseClass1;
+	
+};
+class DerivedClass1 : public IntermediateClass1 {
+	export/all BaseClass1;
+	
+};
+

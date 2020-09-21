@@ -1,0 +1,64 @@
+
+
+auto declaration VisitorBaseElement(identifier V) {
+	public typedef $V Visitor;
+	public virtual void accept($V& aVisitor) = 0;
+};
+
+auto declaration VisitorDerivedElement() {
+	public virtual void accept(Visitor& aVisitor) {
+		aVisitor.accept_${Scope}(*this);
+	}
+	
+	public virtual void Visitor::accept_${Scope}($Scope& aData) {}
+};
+
+// The abstract classes may invoke the pattern as
+
+class AbstractAlgorithm {
+	
+};
+
+class AbstractData {
+	$VisitorBaseElement(AbstractAlgorithm);
+};
+
+class DerivedData1 : public AbstractData {
+	$VisitorDerivedElement();
+};
+
+class DerivedData2 : public AbstractData {
+	$VisitorDerivedElement();
+};
+
+class DerivedDerivedData : public DerivedData2 {
+	$VisitorDerivedElement();
+};
+
+class DerivedAlgorithm1 : public AbstractAlgorithm {
+	using accept_DerivedData1 {
+	
+	}
+};
+
+using accept_DerivedData1 DerivedAlgorithm1::accept_DerivedData1 {
+	
+}
+
+// or directly at the cost of requiring distributed editing to change a signature:
+
+void DerivedAlgorithm1::accept_DerivedData1(DerivedData1& aData) {
+	
+}
+
+
+
+class VisitorExample {
+	public int Main() {
+		
+		return 0;
+	}
+};
+
+VisitorExample app;
+!inline int main() {return app.Main();}

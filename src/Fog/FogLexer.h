@@ -398,7 +398,7 @@ class YY_FogLexer_CLASS YY_FogLexer_INHERIT
   =0
 #endif
   ;
- virtual void  YY_FogLexer_FATAL_ERROR(char *msg)
+ virtual void  YY_FogLexer_FATAL_ERROR(const char *msg)
 #ifdef YY_FogLexer_FATAL_ERROR_PURE
   =0
 #endif

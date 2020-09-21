@@ -821,7 +821,7 @@ enum YY_FogSubstituteParser_ENUM_TOKEN { YY_FogSubstituteParser_NULL_TOKEN=0
 #endif
 public:
  int YY_FogSubstituteParser_PARSE (YY_FogSubstituteParser_PARSE_PARAM);
- virtual void YY_FogSubstituteParser_ERROR(char *msg) YY_FogSubstituteParser_ERROR_BODY;
+ virtual void YY_FogSubstituteParser_ERROR(const char *msg) YY_FogSubstituteParser_ERROR_BODY;
 #ifdef YY_FogSubstituteParser_PURE
 #ifdef YY_FogSubstituteParser_LSP_NEEDED
  virtual int  YY_FogSubstituteParser_LEX (YY_FogSubstituteParser_STYPE *YY_FogSubstituteParser_LVAL,YY_FogSubstituteParser_LTYPE *YY_FogSubstituteParser_LLOC) YY_FogSubstituteParser_LEX_BODY;
@@ -1426,9 +1426,9 @@ static void __yy_bcopy (from, to, count)
 #endif
 #endif
 {
-  register char *f = from;
-  register char *t = to;
-  register int i = count;
+  char *f = from;
+  char *t = to;
+  int i = count;
 
   while (i-- > 0)
     *t++ = *f++;
@@ -1450,10 +1450,10 @@ YY_FogSubstituteParser_PARSE_PARAM_DEF
 #endif
 #endif
 {
-  register int yystate;
-  register int yyn;
-  register short *yyssp;
-  register YY_FogSubstituteParser_STYPE *yyvsp;
+  int yystate;
+  int yyn;
+  short *yyssp;
+  YY_FogSubstituteParser_STYPE *yyvsp;
   int yyerrstatus;      /*  number of tokens to shift before error messages enabled */
   int yychar1=0;          /*  lookahead token as an internal (translated) token number */
 
@@ -2078,7 +2078,7 @@ void FogSubstituteParser::substitute_id(FogKeyword *anId)
 //
 //	Pass msg to the lexer to get a sensible error message.
 //
-inline void FogSubstituteParser::yyerror(char *msg) { ERRMSGZ(msg); }
+inline void FogSubstituteParser::yyerror(const char *msg) { ERRMSGZ(msg); }
 
 int FogSubstituteParser::yylex()
 {

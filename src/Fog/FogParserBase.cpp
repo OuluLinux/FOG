@@ -67,7 +67,7 @@ FogRaw *FogParserBase::compile_declaration(FogUtility *utilityMode, FogRaw *aDec
 
 FogRaw *FogParserBase::compile_statement(FogRaw *aDeclaration) { return aDeclaration; }
 void FogParserBase::diagnostic(const char *msg) { DIAMSGZ(msg); }
-void FogParserBase::error(char *msg) { ERRMSGZ(msg); }
+void FogParserBase::error(const char *msg) { ERRMSGZ(msg); }
 void FogParserBase::garbage_add(const FogToken *aToken) { if (aToken) _lexer.add_garbage(*aToken); }
 void FogParserBase::garbage_adopt(const FogToken *aToken) { if (aToken) _lexer.adopt_garbage(*aToken); }
 
@@ -394,7 +394,7 @@ void FogParserBase::queue(FogToken& firstToken)
 //  
 //  	Emit an erro message directly, bypassing any marks.
 //  
-void FogParserBase::raw_error(char *msg)
+void FogParserBase::raw_error(const char *msg)
 {
  FogNullMonitor rawMonitor;
  error(msg);

@@ -704,7 +704,7 @@ static const int FloatingLiteral;
  #endif
 public:
  int YY_FogSubstituteParser_PARSE(YY_FogSubstituteParser_PARSE_PARAM);
- virtual void YY_FogSubstituteParser_ERROR(char *msg) YY_FogSubstituteParser_ERROR_BODY;
+ virtual void YY_FogSubstituteParser_ERROR(const char *msg) YY_FogSubstituteParser_ERROR_BODY;
  #ifdef YY_FogSubstituteParser_PURE
   #ifdef YY_FogSubstituteParser_LSP_NEEDED
    virtual int  YY_FogSubstituteParser_LEX(YY_FogSubstituteParser_STYPE *YY_FogSubstituteParser_LVAL,YY_FogSubstituteParser_LTYPE *YY_FogSubstituteParser_LLOC) YY_FogSubstituteParser_LEX_BODY;

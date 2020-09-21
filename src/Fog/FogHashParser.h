@@ -715,7 +715,7 @@ static const int FloatingLiteral;
  #endif
 public:
  int YY_FogHashParser_PARSE(YY_FogHashParser_PARSE_PARAM);
- virtual void YY_FogHashParser_ERROR(char *msg) YY_FogHashParser_ERROR_BODY;
+ virtual void YY_FogHashParser_ERROR(const char *msg) YY_FogHashParser_ERROR_BODY;
  #ifdef YY_FogHashParser_PURE
   #ifdef YY_FogHashParser_LSP_NEEDED
    virtual int  YY_FogHashParser_LEX(YY_FogHashParser_STYPE *YY_FogHashParser_LVAL,YY_FogHashParser_LTYPE *YY_FogHashParser_LLOC) YY_FogHashParser_LEX_BODY;

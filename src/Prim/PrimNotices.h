@@ -29,6 +29,7 @@
 #include <Prim/PrimNotice_Warning.h>
 #endif
 #ifndef _STRSTREAM_
+#define _BACKWARD_BACKWARD_WARNING_H 1
 #include <strstream>
 #endif
 

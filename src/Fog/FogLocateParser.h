@@ -699,7 +699,7 @@ static const int FloatingLiteral;
  #endif
 public:
  int YY_FogLocateParser_PARSE(YY_FogLocateParser_PARSE_PARAM);
- virtual void YY_FogLocateParser_ERROR(char *msg) YY_FogLocateParser_ERROR_BODY;
+ virtual void YY_FogLocateParser_ERROR(const char *msg) YY_FogLocateParser_ERROR_BODY;
  #ifdef YY_FogLocateParser_PURE
   #ifdef YY_FogLocateParser_LSP_NEEDED
    virtual int  YY_FogLocateParser_LEX(YY_FogLocateParser_STYPE *YY_FogLocateParser_LVAL,YY_FogLocateParser_LTYPE *YY_FogLocateParser_LLOC) YY_FogLocateParser_LEX_BODY;

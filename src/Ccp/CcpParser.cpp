@@ -377,7 +377,7 @@ enum YY_CcpParser_ENUM_TOKEN { YY_CcpParser_NULL_TOKEN=0
 #endif
 public:
  int YY_CcpParser_PARSE (YY_CcpParser_PARSE_PARAM);
- virtual void YY_CcpParser_ERROR(char *msg) YY_CcpParser_ERROR_BODY;
+ virtual void YY_CcpParser_ERROR(const char *msg) YY_CcpParser_ERROR_BODY;
 #ifdef YY_CcpParser_PURE
 #ifdef YY_CcpParser_LSP_NEEDED
  virtual int  YY_CcpParser_LEX (YY_CcpParser_STYPE *YY_CcpParser_LVAL,YY_CcpParser_LTYPE *YY_CcpParser_LLOC) YY_CcpParser_LEX_BODY;
@@ -724,9 +724,9 @@ static void __yy_bcopy (from, to, count)
 #endif
 #endif
 {
-  register char *f = from;
-  register char *t = to;
-  register int i = count;
+  char *f = from;
+  char *t = to;
+  int i = count;
 
   while (i-- > 0)
     *t++ = *f++;
@@ -747,10 +747,10 @@ YY_CcpParser_PARSE_PARAM_DEF
 #endif
 #endif
 {
-  register int yystate;
-  register int yyn;
-  register short *yyssp;
-  register YY_CcpParser_STYPE *yyvsp;
+  int yystate;
+  int yyn;
+  short *yyssp;
+  YY_CcpParser_STYPE *yyvsp;
   int yyerrstatus;      /*   number of tokens to shift before error messages enabled */
   int yychar1=0;          /*   lookahead token as an internal (translated) token number */
 
@@ -1285,7 +1285,7 @@ TYPEINFO_SINGLE(CcpParser, CcpParserContext)
 // 
 // 	Pass msg to the lexer to get a sensible error message.
 // 
-void CcpParser::yyerror(char *msg) { CcpParserContext::yyerror(msg); }
+void CcpParser::yyerror(const char *msg) { CcpParserContext::yyerror(msg); }
 
 // 
 // 	Instruct the lexer to produce another token.

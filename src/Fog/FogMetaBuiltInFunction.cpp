@@ -1,5 +1,6 @@
 #include <Fog/FogIncludeAll.h>
 
+#define _BACKWARD_BACKWARD_WARNING_H 1
 #include <strstream>
 
 

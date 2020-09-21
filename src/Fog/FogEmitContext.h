@@ -323,7 +323,7 @@ public:
 };
 
 //  
-//    A FogNestedEmitContext decorates a FogEmitContext to register emission within a nested scope. 
+//    A FogNestedEmitContext decorates a FogEmitContext to emission within a nested scope. 
 //  
 class FogNestedEmitContext : public FogDecoratedEmitContext
 {

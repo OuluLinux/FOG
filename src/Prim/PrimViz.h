@@ -49,7 +49,7 @@ public:
 
 //#ifndef __GNUC__
 template <class T>
-inline PrimViz<T> __cdecl viz(const T& aClient) {
+inline PrimViz<T> viz(const T& aClient) {
 	return PrimViz<T>(aClient);
 }
 

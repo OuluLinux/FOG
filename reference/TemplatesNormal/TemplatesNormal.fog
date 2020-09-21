@@ -1,0 +1,64 @@
+/*
+
+	FOG is very buggy, but normal templates should work well enough.
+
+	friend statements are pitfall, just use public
+
+*/
+
+class Core {};
+
+template <class T> class List {public inline List() {}};
+
+public static void Core::ASSERT(bool b) {if (!b) {int* i = 0; *i = 0;}}
+
+template <class Whole, class Part> class WholePart {
+	public inline void Use(Whole& w, Part& p) {w.whole_value++; p.part_value--;}
+};
+
+struct B;
+struct A;
+
+struct C {
+	void* whole ;
+	int part_value;
+	C() {whole = 0; part_value = 0;}
+};
+
+struct B {
+	List<C> parts;
+	void* whole;
+	int part_value;
+	int whole_value;
+	B() {whole = 0; part_value = 0; whole_value = 0;}
+};
+
+struct A {
+	List<B> parts;
+	int whole_value;
+	A() {whole_value = 0;}
+};
+
+
+class TemplateExample : public Core {
+	using/interface A;
+	using/interface B;
+	using/interface C;
+	
+	WholePart<A, B> wp1;
+	WholePart<B, C> wp2;
+
+	public int Main() {
+		A a;
+		B b;
+		C c;
+		wp1.Use(a, b);
+		ASSERT(a.whole_value == 1 && b.part_value == -1);
+		wp2.Use(b, c);
+		ASSERT(b.whole_value == 1 && c.part_value == -1);
+	}
+};
+
+TemplateExample app;
+!inline int main() {return app.Main();}
+

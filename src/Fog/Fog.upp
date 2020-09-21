@@ -1,6 +1,8 @@
 uses
 	Prim;
 
+options(GCC|CLANG) -Wno-undefined-var-template;
+
 file
 	Readme.txt,
 	FogLexer.l,

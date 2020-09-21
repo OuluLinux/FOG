@@ -271,7 +271,7 @@ enum YY_CcpParser_ENUM_TOKEN { YY_CcpParser_NULL_TOKEN=0
 #endif
 public:
  int YY_CcpParser_PARSE(YY_CcpParser_PARSE_PARAM);
- virtual void YY_CcpParser_ERROR(char *msg) YY_CcpParser_ERROR_BODY;
+ virtual void YY_CcpParser_ERROR(const char *msg) YY_CcpParser_ERROR_BODY;
 #ifdef YY_CcpParser_PURE
 #ifdef YY_CcpParser_LSP_NEEDED
  virtual int  YY_CcpParser_LEX(YY_CcpParser_STYPE *YY_CcpParser_LVAL,YY_CcpParser_LTYPE *YY_CcpParser_LLOC) YY_CcpParser_LEX_BODY;

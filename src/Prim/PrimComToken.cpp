@@ -38,7 +38,7 @@ PrimComToken::PrimComToken()
 {}
 
 //  
-//  	Create a new token named aName and register it with someOptions and aUsage for use with aParser.
+//  	Create a new token named aName and it with someOptions and aUsage for use with aParser.
 //  
 PrimComToken::PrimComToken(PrimComParse& aParser, const char *aName, const char *aUsage,
   const TokenOptions& someOptions)

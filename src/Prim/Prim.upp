@@ -1,5 +1,7 @@
 noblitz;
 
+options(GCC|CLANG) -Wno-undefined-var-template;
+
 file
 	PrimIncludeAll.h,
 	Prim.h,
