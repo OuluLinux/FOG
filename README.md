@@ -13,7 +13,7 @@ This is the program from [http://www.computing.surrey.ac.uk/research/dsrg/fog/](
 ```
 git clone https://github.com/UltimateScript/Fog FOG
 sudo pkg install upp
-umk FOG/src Fog CLANG ~/fog
+umk FOG/src Fog CLANG +CLANG ~/fog
 ~/fog
 ```
 
