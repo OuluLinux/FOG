@@ -1,0 +1,9 @@
+Validating "the global namespace".
+  Validating "class: PrimMapOfRefToConstFunctions < _1 >".
+    ERROR -- Utility "class: PrimMapOfRefToConstFunctions < _1 >" extended by non-utility "function: void PrimMapOfRefToConstFunctions < _1 >::annul2(const _1& )"
+Writing "tests/burg/results/BurgInstance.C"
+Writing "tests/burg/results/Test.cxx"
+Writing "tests/burg/results/Test.hxx"
+Writing "tests/burg/results/global.cxx"
+Writing "tests/burg/results/global.hxx"
+1 errors reported.

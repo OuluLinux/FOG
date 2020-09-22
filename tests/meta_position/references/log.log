@@ -1,0 +1,30 @@
+old
+pre
+old
+pre
+old
+post
+new
+Reading "tests/meta_position/meta_position.fog".
+  At "tests/meta_position/meta_position.fog".17.71: auto declaration_seq f(number n) exclusive { $std::diagnostic("exc"); };
+    Activating "meta-function-declaration: meta-function, f".
+      ERROR -- Cannot compose exclusive meta-function "meta-function-declaration: meta-function, f"
+  At "tests/meta_position/meta_position.fog".18.61: auto declaration_seq f(number m) { $std::diagnostic("exc"); };
+    Activating "meta-function-declaration: meta-function, f".
+      ERROR -- Must have consistent argument types and names for "meta-function-declaration: meta-function, f"
+  At "tests/meta_position/meta_position.fog".19.65: auto declaration_seq f(expression n) { $std::diagnostic("exc"); };
+    Activating "meta-function-declaration: meta-function, f".
+      ERROR -- Must have consistent argument types and names for "meta-function-declaration: meta-function, f"
+  At "tests/meta_position/meta_position.fog".20.57: auto declaration f(number n) { $std::diagnostic("exc"); };
+    Activating "meta-function-declaration: meta-function, f".
+      ERROR -- Cannot change type of "meta-function: f" to FogMetaType(declaration)
+  At "tests/meta_position/meta_position.fog".21.53: auto declaration_seq f() { $std::diagnostic("exc"); };
+    Activating "meta-function-declaration: meta-function, f".
+      ERROR -- Must have consistent argument types and names for "meta-function-declaration: meta-function, f"
+  At "tests/meta_position/meta_position.fog".22.71: auto declaration_seq f(number n, number m) { $std::diagnostic("exc"); };
+    Activating "meta-function-declaration: meta-function, f".
+      ERROR -- Must have consistent argument types and names for "meta-function-declaration: meta-function, f"
+new
+Writing "tests/meta_position/results/global.cxx"
+Writing "tests/meta_position/results/global.hxx"
+6 errors reported.

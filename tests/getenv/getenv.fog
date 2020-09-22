@@ -1,0 +1,7 @@
+//auto identifier std::getenv_id(string envName) { Fred }
+
+static const char *user = ""$std::getenv("TESTNAME");
+static const char *undefined = ""$std::getcpp("DEFINE");
+static const char *defined = ""$std::getcpp("MACRO");
+static const char *__stdc__ = ""$std::getcpp("__STDC__");
+static const char *__c_plus_plus = ""$std::getcpp("__cplusplus");

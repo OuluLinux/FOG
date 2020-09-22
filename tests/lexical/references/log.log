@@ -1,0 +1,12 @@
+Reading "tests/lexical/lexical.fog".
+  At "tests/lexical/lexical.fog".5.4: void f()
+    At "tests/lexical/lexical.fog".3: "expression-statement: static int i$default = 45".
+      ERROR -- Failed to resolve semantics of "expression: static int i$default = 45"
+        Looks like an identifier did not contain a valid character sequence within the declaration of a variable
+  At End of File
+    At "tests/lexical/lexical.fog".14: "expression-statement: externCunsigned ulb3 = 6".
+      ERROR -- Failed to resolve semantics of "expression: externCunsigned ulb3 = 6"
+		Looks like a type has been used prior to declaration in the declaration of a variable
+Writing "tests/lexical/results/global.cxx"
+Writing "tests/lexical/results/global.hxx"
+2 errors reported.

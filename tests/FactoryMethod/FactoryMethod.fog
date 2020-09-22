@@ -1,0 +1,96 @@
+//
+//	The pattern
+//
+auto declaration FactoryMethod(function_specifier Method)
+{
+	auto expression make_new = new @Scope;
+	public virtual/pure $Method
+		:{ derived(!Scope.is_pure()) { return @{@{$${Scope}_class}::make_new}; } };
+};
+
+//
+//	Abstract classes
+//
+class Creator /* ... */
+{
+	export/interface "AbstractFactoryMethod.hxx";
+	export/implementation "AbstractFactoryMethod.cxx";
+	// ...
+};
+
+class Product1 /* ... */
+{
+	export/interface Creator;
+	export/implementation Creator;
+	// ...
+	$FactoryMethod(Product1 *${Namespace}::Creator::make_product1());
+};
+
+class Product2 /* ... */
+{
+	export/interface Creator;
+	export/implementation Creator;
+	// ...
+private:
+	const char *_name;
+public:
+	@{Scope}(const char *aName) : _name(aName) :{ derived(is_root()) {} };
+//	using @Scope : @{Super}(aName) :{ derived(!is_root()) {} };
+	@{Scope}(const char *aName) : @{Super}(aName) :{ derived(!is_root()) {} };
+	$FactoryMethod(Product2 *${Namespace}::Creator::make_product2(const char *aName));
+	auto expression make_new = new @{Scope}(aName);
+};
+
+class Class;
+
+class Product3 /* ... */
+{
+	export/interface Creator;
+	export/implementation Creator;
+	// ...
+public:
+	@{Scope}(Class& aClass) :{ derived(!is_root()) {} };
+public:
+	$FactoryMethod(Product3 *${Namespace}::Creator::make_product3(Class& aClass));
+	auto expression make_new = new @{Scope}(aClass);
+};
+
+//
+//	Concrete classes
+//
+class MyCreator : public Creator
+{
+	export/interface "ConcreteFactoryMethod.hxx";
+	export/implementation "ConcreteFactoryMethod.cxx";
+	// ...
+public:
+	auto identifier Product1_class = MyProduct1;
+	auto identifier Product2_class = MyProduct2;
+	auto identifier Product3_class = MyProduct3;
+};
+
+class MyProduct1 : public Product1
+{
+	export/interface MyCreator;
+	export/implementation MyCreator;
+	// ...
+};
+
+class MyProduct2 : public Product2
+{
+	export/interface MyCreator;
+	export/implementation MyCreator;
+	// ...
+};
+
+class MyProduct3 : public Product3
+{
+	export/interface MyCreator;
+	export/implementation MyCreator;
+	// ...
+private:
+	Class& _class;
+public:
+//	using @{Scope}(const char *aName) : _class(aClass) {}
+	@{Scope}(Class& aClass) : _class(aClass) {}
+};

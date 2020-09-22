@@ -1,0 +1,14 @@
+Reading "tests/includes/includes.fog".
+  At "tests/includes/includes.fog".1.27: using/include "Level3.inc";
+    At "tests/includes/Level3.inc".1.27: using/include "Level2.inc";
+      At "tests/includes/Level2.inc".2.21: #include "Level1.inc"
+        At "tests/includes/Level1.inc".1.27: using/include "Level0.inc";
+          ERROR -- Should not include "Level0.inc" as EMIT while at HASH
+          At "tests/includes/Level0.inc".14.21: #include <Level0.inc>
+            ERROR -- Should not attempt to use using-input "tests/includes/Level0.inc" as a hash-input
+Writing "tests/includes/results/Level2.cxx"
+Writing "tests/includes/results/Level3.cxx"
+Writing "tests/includes/results/Level3.hxx"
+Writing "tests/includes/results/global.cxx"
+Writing "tests/includes/results/global.hxx"
+2 errors reported.

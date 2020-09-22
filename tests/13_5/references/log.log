@@ -1,0 +1,27 @@
+Reading "tests/13_5/13_5.fog".
+  At "tests/13_5/13_5.fog".38.6: Vector<int**> vppi;
+    At "tests/13_5/13_5.fog".29: "template-specifier : template < class T > class Vector < T * > ".
+      At "tests/13_5/13_5.fog".29: "expression-statement: class Vector < T * > ".
+        WARNING -- Base class name "Vector" is hidden by "class: Vector < _1 * >"
+  At "tests/13_5/13_5.fog".41.8: template<class T> class List1 {};			// error general template after specialization.
+    At "tests/13_5/13_5.fog".40: "template-specifier : template < class T > class List1 < T * > ".
+      At "tests/13_5/13_5.fog".40: "expression-statement: class List1 < T * > ".
+        ERROR -- Failed to resolve semantics of "class-specifier: class List1 < _1 * > "
+		Looks like a template has been used prior to declaration in the declaration of a type
+Writing "tests/13_5/results/List1.C"
+Writing "tests/13_5/results/List1.H"
+Writing "tests/13_5/results/List2.C"
+Writing "tests/13_5/results/List2.H"
+Writing "tests/13_5/results/List3.C"
+Writing "tests/13_5/results/List3.H"
+Writing "tests/13_5/results/Vector.C"
+Writing "tests/13_5/results/Vector.H"
+Writing "tests/13_5/results/global.cxx"
+Writing "tests/13_5/results/global.hxx"
+WARNING -- The following entities have no implementation:
+	Vector < _1 >::Vector()
+	Vector < _1 >::Vector(int)
+	_1& Vector < _1 >::operator[](int)
+	void *& Vector < void * >::operator[](int)
+1 errors reported.
+2 warnings reported.

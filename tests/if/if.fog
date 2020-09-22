@@ -1,0 +1,74 @@
+struct If;
+
+#define X
+#if X
+protected static const int *If::x = &yes;
+#endif
+#if defined X
+protected static const int *If::defined_x = &yes;
+#endif
+#if !defined X
+static const int *If::not_defined_x = X;
+#endif
+#if defined(X)
+protected static const int *If::defined_bracket_x = &yes;
+#endif
+#if ! defined ( X )
+static const int *If::not_defined_bracket_x = X;
+#endif
+
+#define X0 0
+#if X0
+static const int *If::x0 = X0;
+#endif				/* Gratuitous  C comment */
+
+#define X1 1
+#if X1
+protected static const int *If::x1 = &yes;
+#endif				// Gratuitous  C++ comment
+
+#if defined(X0) && defined(X1)
+protected static const int *If::x0_x1 = &yes;
+#endif
+
+#if defined(Y0) && defined(X1)
+static const int *If::y0_x1 = &no;
+#endif
+
+#if defined(X0) && defined(Y1)
+static const int *If::x0_y1 = &no;
+#endif
+
+#if defined(Y0) && defined(Y1)
+static const int *If::y0_y1 = &no;
+#endif
+
+#ifdef X
+ #ifndef X0
+  #ifdef X1
+	static const int *If::X_x0_X1 = &no;
+  #else
+	static const int *If::X_x0_x1 = &no;
+  #endif
+ #else
+  #ifdef X1
+	public static const int *If::X_X0_X1 = &yes;
+  #else
+	static const int *If::X_X0_x1 = &no;
+  #endif
+ #endif
+#else
+ #ifndef X0
+  #ifdef X1
+	static const int *If::x_x0_X1 = &no;
+  #else
+	static const int *If::x_x0_x1 = &no;
+  #endif
+ #else
+  #ifdef X1
+	static const int *If::x_X0_X1 = &no;
+  #else
+	static const int *If::x_X0_x1 = &no;
+  #endif
+ #endif
+#endif

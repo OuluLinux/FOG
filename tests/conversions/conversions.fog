@@ -1,0 +1,22 @@
+auto character character(character t) { $t }
+auto identifier identifier(identifier t) { $t }
+auto number number(number t) { $t }
+auto string string(string t) { $t }
+
+auto character to_character(token t) { $t }
+auto identifier to_identifier(token t) { $t }
+auto number to_number(token t) { $t }
+auto string to_string(token t) { $t }
+
+const char chars1[] = { $character('9'), $character(a), $character(9), $character("9") };
+const char chars2[] = { $to_character('9'), $to_character(a), $to_character(9), $to_character("9") };
+const char chars3[] = { '''9', ''a, ''9, ''"9" };
+const int ids1[] = { $identifier('a'), $identifier(b), $identifier(c), $identifier("d") };
+const int ids2[] = { $to_identifier('a'), $to_identifier(b), $to_identifier(c), $to_identifier("d") };
+const int nums1[] = { $number('9'), $number(a), $number(9), $number("9") };
+const int nums2[] = { $to_number('9'), $to_number(a), $to_number(9), $to_number("9") };
+const char *strings1[] = { $string('9'), $string(a), $string(9), $string("9") }; 
+const char *strings2[] = { $to_string('9'), $to_string(a), $to_string(9), $to_string("9") }; 
+const char *strings3[] = { ""'9', ""a, ""9, """9" }; 
+const int ids1e[] = { $identifier('9'), $identifier(a), $identifier(9), $identifier("9") };
+const int ids2e[] = { $to_identifier('9'), $to_identifier(a), $to_identifier(9), $to_identifier("9") };

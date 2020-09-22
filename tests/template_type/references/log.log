@@ -1,0 +1,10 @@
+Reading "tests/template_type/template_type.fog".
+  At "tests/template_type/template_type.fog".3.17: A<b<c,d>e> f1 = 0; 				// Syntax error first > ends template.
+    At "tests/template_type/template_type.fog".3.17: A<b<c,d>e> f1 = 0; 				// Syntax error first > ends template.
+      ERROR -- Extra text ignored before ';'.
+  At "tests/template_type/template_type.fog".6.19: A<A<c,d>e,g> f4 = 0;			// Syntax error bad template paramter.
+    At "tests/template_type/template_type.fog".6.9: A<A<c,d>e,g> f4 = 0;			// Syntax error bad template paramter.
+      ERROR -- Bad template argument
+Writing "tests/template_type/results/global.cxx"
+Writing "tests/template_type/results/global.hxx"
+2 errors reported.

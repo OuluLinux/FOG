@@ -1,0 +1,7 @@
+Writing "tests/ambig/results/Ambig.cxx"
+Writing "tests/ambig/results/Ambig.hxx"
+Writing "tests/ambig/results/global.cxx"
+Writing "tests/ambig/results/global.hxx"
+WARNING -- The following entities have no implementation:
+	void Ambig::annul(const Ambig& )
+1 warnings reported.

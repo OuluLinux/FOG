@@ -1,0 +1,86 @@
+template <class T> class vector;
+
+auto declaration Observer(identifier O, identifier S, identifier M)
+{
+	class $M
+	{
+	public:
+		auto identifier ObserverClass = $O;
+		auto identifier SubjectClass = $S;
+		virtual !inline void dispatch_to($O& anObserver, $S& aSubject) const
+			{ anObserver.observe(aSubject, *this); };
+	};
+	class $S
+	{
+	private:
+		vector<$O *> _observers;
+	public:
+		void attach($O *anObserver) { _observers.push_back(anObserver); }
+		void detach($O *anObserver) { _observers.remove(anObserver); }
+		!inline void notify(const $M& aMessage)
+		{
+			for ($O *p = _observers.begin(); p != _observers.end(); ++p)
+				aMessage.dispatch_to(*p, *this);
+		}
+	};
+	class $O
+	{
+	public:
+		virtual !inline void observe($S& aSubject, const $M& aMessage) {}
+		typedef void observe_${M}($S& aSubject, const $M& aMessage);
+	};
+};
+
+auto declaration ObservableMessage()
+{
+	public !inline using dispatch_to { anObserver.observe(aSubject, *this); };
+	public typedef void ${Namespace}::${ObserverClass}::observe_${This}($SubjectClass& aSubject, const $This& aMessage); 
+	public virtual !inline using observe_${This} ${Namespace}::${ObserverClass}::observe {} 
+};
+
+class MyObserver /* ... */
+{
+	export/interface "MyObserver.hxx";
+	export/implementation "MyObserver.cxx";
+	// ...
+};
+
+class MyMessage /* ... */
+{
+	export/interface MyObserver;
+	export/implementation MyObserver;
+	// ...
+};
+
+class MySubject /* ... */
+{
+	export/interface MyObserver;
+	export/implementation MyObserver;
+	// ...
+};
+
+$Observer(MyObserver, MySubject, MyMessage);
+
+class MyMessage1 : public MyMessage
+{
+	export/interface MyMessage;
+	export/implementation MyMessage;
+	$ObservableMessage();
+private:
+	int _count;
+	int _count1;
+public:
+	MyMessage1(int aCount) : _count(aCount) {}
+	int count() const { return _count; }
+};
+
+class MyObserver1 : public MyObserver
+{
+	export/interface MyObserver;
+	export/implementation MyObserver;
+};
+
+public using observe_MyMessage1 MyObserver1::observe
+{
+	cout << aSubject << " changed count to " << aMessage.count() << endl;
+}

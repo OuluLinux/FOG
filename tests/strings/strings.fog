@@ -1,0 +1,20 @@
+class Strings
+{
+	static const char* p = "";
+	static const char* p0 = "p0";
+	static const char* p1 = "p""1";
+	auto int a2 = 2;
+	static const char* p$a2 = "p"$a2;
+	auto int a3 = ($a2 + 1);
+	static const char* p$a3 = "p\\\'\"@=$";
+	static const char* p4 = "...
+							;
+	static const char* p5 = "...\
+		";
+	auto string a6 = " abc " " def "
+		" ghi ";
+	static const char *p6 = $a6;
+	auto string a7 = "a|\xa" "0|\xa" "h|\0" "0|\44" "8|\55" "7|\666" "7|\u0055" "h|\U00000055"
+			"h|\xabcde" "012|\xabc" "33";
+	static const char *p7 = $a7;
+};

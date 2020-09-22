@@ -1,0 +1,14 @@
+static const char *s1 = "\tu\015" "\a" "\0" "bc";
+static const char c = '\t';
+static int i"\044"default = 45;
+
+void f()
+{
+	static const char *s1 = "\tu\015" "\a" "\0" "bc";
+	s << '\t' << '\0' << '\a' << '\015';
+}
+
+extern "C" unsigned long ulb = 6;
+extern "C"unsigned long lb = 6;
+extern "C"/**/unsigned long ulb2 = 6;
+extern"C"unsigned ulb3 = 6;

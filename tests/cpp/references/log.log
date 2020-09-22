@@ -1,0 +1,13 @@
+Reading "tests/cpp/cpp.fog".
+  At "tests/cpp/cpp.fog".9.1: #pramga
+    WARNING -- Unexpected trailing token(s) ignored
+  At "tests/cpp/cpp.fog".5.0: #error "?:5"
+    ERROR -- #error "?:5"
+  At "fred".7.0: #error "fred:7"
+    ERROR -- #error "fred:7"
+Writing "tests/cpp/results/Cpp.cxx"
+Writing "tests/cpp/results/Cpp.hxx"
+Writing "tests/cpp/results/global.cxx"
+Writing "tests/cpp/results/global.hxx"
+2 errors reported.
+1 warnings reported.

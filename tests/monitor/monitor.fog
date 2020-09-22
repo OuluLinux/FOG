@@ -1,0 +1,13 @@
+using "monitor.inc";
+
+class Monitored
+{
+	$DerivedMonitor::install();
+private:
+	int *_i;
+public:
+	int *f() { return _i; }
+	const int *fc() const { return _i; }
+	const volatile int *fcv() const volatile { return _i; }
+	volatile int *fv() volatile { return _i; }
+};

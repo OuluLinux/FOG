@@ -1,0 +1,48 @@
+auto declaration auto_statements(identifier prefix)
+{
+	auto int t = 2;
+	auto do
+	{
+		int ${prefix}i = 0;
+		auto switch (t)
+		{
+			auto case 3:
+				int ${prefix}do_while_$t = -$t;
+				auto break;
+			auto case 5:
+				auto while (true)
+				{
+					long ${prefix}do_while_$t = $t;
+					auto break;
+				}
+				auto break;
+			auto default:
+				int ${prefix}do_while_$t = $t;
+				auto break;
+		}
+		auto t++;
+	} while(t < 8);
+	auto for (int i = 5; i < 16; i++)
+		auto if (i == 7)
+			auto continue;
+		else if (i == 9)
+			auto break;
+		else
+			int ${prefix}for_$i = $i;
+	auto int k = 5;
+	auto while(true)
+	{
+		auto if (k > 9)
+			auto break;
+		int ${prefix}while_$k = $k;
+		auto k++;
+	}		
+}
+
+int f()
+{
+	$auto_statements(local_);
+}
+
+$auto_statements(global_);
+

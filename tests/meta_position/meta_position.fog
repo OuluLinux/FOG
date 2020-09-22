@@ -1,0 +1,24 @@
+auto declaration f(number n) { $std::diagnostic("old"); };
+
+$f(1);
+
+auto declaration f(number n) prepend { $std::diagnostic("pre"); };
+
+$f(1);
+
+auto declaration f(number n) append { $std::diagnostic("post"); };
+
+$f(1);
+
+auto declaration f(number n) replace { $std::diagnostic("new"); };
+
+$f(1);
+
+auto declaration f(number n) exclusive { $std::diagnostic("exc"); };
+auto declaration f(number m) { $std::diagnostic("exc"); };
+auto declaration f(expression n) { $std::diagnostic("exc"); };
+auto declaration f(number n) { $std::diagnostic("exc"); };
+auto declaration f() { $std::diagnostic("exc"); };
+auto declaration f(number n, number m) { $std::diagnostic("exc"); };
+
+$f(1);

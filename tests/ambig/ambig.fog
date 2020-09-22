@@ -1,0 +1,28 @@
+// This example asserted that annul was ambiguous for the  initialiser because
+// at that time only annul rather than PrimMapOfRefToConstFunctions::annul was used
+// in discovering whether that name was a template-name.
+
+class Ambig
+{
+public:
+	void annul(const Ambig& anElement);
+};
+
+class Ambig1
+{
+	export/interface Ambig; export/implementation Ambig;
+	friend inline void annul(const $This& anElement);
+};
+
+private static void (*Ambig1::_functions[])(const int&) =
+{
+	(void (*)(const int&))&Ambig::annul
+};
+
+class Ambig2
+{
+	export/interface Ambig; export/implementation Ambig;
+	friend inline void annul(const $This& anElement);
+};
+
+

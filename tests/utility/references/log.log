@@ -1,0 +1,61 @@
+Reading "tests/utility/utility.fog".
+  At "tests/utility/utility.fog".22.7: private void UtilityRef2::f() {}				// Requires files to be emitted.
+    At "tests/utility/utility.fog".17: "expression-statement: class UtilityInc1".
+      ERROR -- Should not provide emit extension to utility "class: UtilityInc1"
+Validating "the global namespace".
+  Validating "class: UtilitySet".
+    ERROR -- Utility "class: UtilitySet" extended by non-utility "variable: UtilitySet::d0"
+    ERROR -- Utility "class: UtilitySet" extended by non-utility "variable: UtilitySet::d1"
+    ERROR -- Utility "class: UtilitySet" extended by non-utility "variable: UtilitySet::d3"
+    ERROR -- Utility "class: UtilitySet" extended by non-utility "variable:  UtilitySet::d4"
+  Validating "class: UtilityInc1".
+    ERROR -- Utility "class: UtilityInc1" extended by non-utility "variable: UtilityInc1::_extend"
+  Validating "class: UtilityInc2".
+    ERROR -- Utility "class: UtilityInc2" extended by non-utility "function: void UtilityInc2::f()"
+Writing "tests/utility/results/Utility.cxx"
+Writing "tests/utility/results/Utility.hxx"
+ERROR -- Cannot emit "tests/utility/results/UtilityInc1.hxx" containing both utility and non-utility contributions.
+	Utility contributions from 4 entities :
+		UtilityInc1
+		UtilityInc1::_x
+		const PrimTypeInfo& UtilityInc1::dynamic_type_info() const
+		const PrimTypeInfo& UtilityInc1::static_type_info()
+	Non-utility contributions from 1 entities :
+		UtilityInc1::_extend
+Validating non-utility contents of utility "tests/utility/results/UtilityInc1.hxx".
+  WARNING -- The following interfaces were not emitted:
+	UtilityInc1::_extend
+ERROR -- Cannot emit "tests/utility/results/UtilityInc2.hxx" containing both utility and non-utility contributions.
+	Utility contributions from 2 entities :
+		UtilityInc2
+		UtilityInc2::_x
+	Non-utility contributions from 1 entities :
+		void UtilityInc2::f()
+Validating non-utility contents of utility "tests/utility/results/UtilityInc2.hxx".
+  WARNING -- The following interfaces were not emitted:
+	void UtilityInc2::f()
+Writing "tests/utility/results/UtilityRef1.cxx"
+Writing "tests/utility/results/UtilityRef1.hxx"
+Writing "tests/utility/results/UtilityRef2.cxx"
+Writing "tests/utility/results/UtilityRef2.hxx"
+ERROR -- Cannot emit "tests/utility/results/UtilitySet.hxx" containing both utility and non-utility contributions.
+	Utility contributions from 2 entities :
+		UtilitySet
+		UtilitySet::d2
+	Non-utility contributions from 4 entities :
+		UtilitySet::d0
+		UtilitySet::d1
+		UtilitySet::d3
+		UtilitySet::d4
+Validating non-utility contents of utility "tests/utility/results/UtilitySet.hxx".
+  WARNING -- The following interfaces were not emitted:
+	UtilitySet::d0
+	UtilitySet::d1
+	UtilitySet::d3
+	UtilitySet::d4
+Writing "tests/utility/results/global.cxx"
+Writing "tests/utility/results/global.hxx"
+WARNING -- The following entities have no implementation file:
+	void UtilityInc2::f()
+10 errors reported.
+4 warnings reported.

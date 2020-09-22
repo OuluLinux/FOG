@@ -1,0 +1,31 @@
+diagnostic from 2
+Reading "tests/error/error.fog".
+  At "tests/error/error.fog".29.10: $braced(0);
+    At "tests/error/error.fog".28: "expression-statement: ${braced(1)}".
+      At "tests/error/error.fog".3: "statement: if (!${n})".
+        At "tests/error/error.fog".7: "statement: if (${n} > 1)".
+          At "tests/error/error.fog".13: "statement-seq : ${std::warning("warning from "${n})}; ...".
+            At "tests/error/error.fog".13: "expression-statement: ${std::warning("warning from "${n})}".
+              WARNING -- warning from 1
+  At "tests/error/error.fog".30.12: $unbraced(2);
+    At "tests/error/error.fog".29: "expression-statement: ${braced(0)}".
+      At "tests/error/error.fog".3: "statement: if (!${n})".
+        At "tests/error/error.fog".5: "statement-seq : ${std::error("error from "${n})}; ...".
+          At "tests/error/error.fog".5: "expression-statement: ${std::error("error from "${n})}".
+            ERROR -- error from 0
+diagnostic from 2
+  At "tests/error/error.fog".32.12: $unbraced(0);
+    At "tests/error/error.fog".31: "expression-statement: ${unbraced(1)}".
+      At "tests/error/error.fog".19: "statement: if (!${n})".
+        At "tests/error/error.fog".21: "statement: if (${n} > 1)".
+          At "tests/error/error.fog".24: "expression-statement: ${std::warning("warning from "${n})}".
+            WARNING -- warning from 1
+  At End of File
+    At "tests/error/error.fog".32: "expression-statement: ${unbraced(0)}".
+      At "tests/error/error.fog".19: "statement: if (!${n})".
+        At "tests/error/error.fog".20: "expression-statement: ${std::error("error from "${n})}".
+          ERROR -- error from 0
+Writing "tests/error/results/global.cxx"
+Writing "tests/error/results/global.hxx"
+2 errors reported.
+2 warnings reported.

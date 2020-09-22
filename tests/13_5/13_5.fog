@@ -1,0 +1,91 @@
+template<class T> class Vector {
+	T* v;
+	int sz;
+public:
+	Vector();
+	Vector(int);	
+	T& elem(int i) { return v[i]; }
+	T& operator[](int i);
+	void swap(Vector&);
+};
+
+class Shape;
+class string;
+class Node;
+
+Vector<int> vi;
+Vector<Shape*> vps;
+Vector<string> vs;
+Vector<char*> vpc;
+Vector<Node*> vpn;
+
+template<> class Vector<void*> {
+	void** p;
+	void*& operator[](int i);
+};
+
+Vector<void*> vpv;
+
+template<class T> class Vector<T*> : private Vector<void*>{
+public:
+	typedef Vector<void*> Base;
+	Vector() : Base() {}
+	explicit Vector(int i) : Base(i) {}	
+	T& elem(int i) { return static_cast<T*&>(Base::elem(i)); }
+	T& operator[](int i) { return static_cast<T*&>(Base::operator[](i)); }
+};
+
+Vector<int**> vppi;
+
+template<class T> class List1<T*> {};
+template<class T> class List1 {};			// error general template after specialization.
+
+template<class T> class List2 {};
+template<class T> class List2<T*> {};
+
+template<class T> class List3 {};
+List3<int*> li;
+template<class T> class List3<T*> {};		// error
+
+template<class T> class Vector2;
+template<class T> class Vector2<T*>;
+template<> class Vector2<void*>;
+
+template<class T> bool less(T a, T b) { return a<b; }
+template<class T> void sort(Vector<T>& v)
+{
+	const size_t n = v.size();
+	for (int gap=n/2; 0<gap; gap/=2)
+		for (int gap=n/2; i<n; i++)
+			for (int j=i-gap; 0<=j; j-=gap)
+				if (less(v[j+gap],v[j])) swap(v[j],v[j+gap]);
+}
+
+template<> bool less<const char*>(const char* a, const char* b)
+{
+	return strcmp(a,b)<0;
+}
+
+template<> bool less(const unsigned char* a, const unsigned char* b)
+{
+	return memcmp(a,b)<0;
+}
+
+template<class T> void swap(T& x, T& y)
+{
+	T t = x;
+	x = y;
+	y = t;
+}
+
+template<class T> void Vector<T>::swap(Vector& a)
+{
+	swap(v,a.v);
+	swap(sz,a.sz);
+}
+
+//template<class T> void swap(Vector<T>& x, Vector<T>& y)
+template<class T> void swap< Vector<T> >(Vector<T>& x, Vector<T>& y)
+{
+	x.swap(y);
+}

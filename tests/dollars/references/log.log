@@ -1,0 +1,32 @@
+Reading "tests/dollars/dollars.fog".
+  At "tests/dollars/dollars.fog".52.1: };
+    At "tests/dollars/dollars.fog".9.31: 	auto string wse_1 = L "wse1";					// Space is a syntax error.
+      ERROR -- Bad declaration.
+    At "tests/dollars/dollars.fog".25.31: 	auto string se3_ = "se" $nl3;						// Space is a syntax error.
+      ERROR -- Bad declaration.
+    At "tests/dollars/dollars.fog".38.35: 	auto string se4_3_ = "se" $ne(4);					// Space is a syntax error.
+      ERROR -- Bad declaration.
+  At End of File
+    At "tests/dollars/dollars.fog".1: "expression-statement: class Dollars".
+      At "tests/dollars/dollars.fog".3: "declaration-seq : auto string se1 = "se1" ...".
+        At "tests/dollars/dollars.fog".22: "meta-expression-statement: auto string se3_ = "se"${xl2()}".
+          ERROR -- Failed to resolve "identifier: xl2" in "class: Dollars"
+        At "tests/dollars/dollars.fog".23: "meta-expression-statement: auto string se3_ = "se"${n3}".
+          ERROR -- Failed to resolve "identifier: n3" in "class: Dollars"
+        At "tests/dollars/dollars.fog".24: "meta-expression-statement: auto string se3_ = "se"${nl3()}".
+          ERROR -- Meta-function rather than meta-variable expected for "meta-variable: Dollars::nl3"
+        At "tests/dollars/dollars.fog".35: "meta-expression-statement: auto string se4_0 = "se"${nl}".
+          ERROR -- Meta-variable rather than meta-function expected for "meta-function: Dollars::nl"
+        At "tests/dollars/dollars.fog".36: "meta-expression-statement: auto string se4_1 = "se"${nl()}".
+          ERROR -- Missing "meta-argument: n" for "meta-function: Dollars::nl"
+        At "tests/dollars/dollars.fog".37: "meta-expression-statement: auto string se4_2 = "se"${nl(1, 2, 3)}".
+          ERROR -- Extra arguments ignored for "meta-function: Dollars::nl"
+        At "tests/dollars/dollars.fog".46: "meta-expression-statement: auto identifier it1 = ${This::se1}".
+          ERROR -- Failed to find "name: This::se1" in "class: Dollars"
+        At "tests/dollars/dollars.fog".49: "meta-expression-statement: auto identifier it2".
+          ERROR -- Initial value required for meta-variable "it2".
+Writing "tests/dollars/results/Dollars.cxx"
+Writing "tests/dollars/results/Dollars.hxx"
+Writing "tests/dollars/results/global.cxx"
+Writing "tests/dollars/results/global.hxx"
+11 errors reported.

@@ -1,0 +1,8 @@
+Reading "tests/if/if.fog".
+  At "tests/if/if.fog".4.0: #if X
+    ERROR -- Missing term in preprocessor constant expression.
+Writing "tests/if/results/If.cxx"
+Writing "tests/if/results/If.hxx"
+Writing "tests/if/results/global.cxx"
+Writing "tests/if/results/global.hxx"
+1 errors reported.

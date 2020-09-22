@@ -1,0 +1,60 @@
+struct Templates {};
+
+template <class T> class Y;
+
+template <class T>
+class X
+{
+	export/interface Templates;
+	export/implementation Templates;
+private:
+	T _t;
+	static int _i;
+public:
+	X(T aT) : _t(aT) {}
+};
+
+//template <class T> protected X<T> Z::f(T& aT) { z(); }
+
+//template <class T> protected X<T>::operator T&() const { return _t; }
+
+//struct Z
+//{
+//	export/interface Templates;
+//	export/implementation Templates;
+//};
+
+template <>
+class X < int >
+{
+	export/interface Templates;
+	export/implementation Templates;
+private:
+	int _var;
+};
+								
+/*template <>*/ public void X<double>::dummy() {}	// ANSI requires explicit prefix.
+
+template <> int X<float>::_i = 5;					// Requires propagation of primary to instantiation.
+template <> int X<float>::i = 5;					// Illegal instantiation specialisation.
+
+template <class T>
+class Z
+{
+private:
+	T _t;
+public:
+	Z(T aT) : _t(aT) {}
+	!inline void not_inline() { not_inline_code(); }
+};
+
+template <>
+class Z < double >
+{
+private:
+	double _var;
+	!inline void not_inline(double d) { not_inline_code(d); }
+};
+
+public static Z < char * > Templates::temp = 0;
+

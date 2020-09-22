@@ -1,0 +1,18 @@
+Reading "tests/conversions/conversions.fog".
+  At "tests/conversions/conversions.fog".17.5: const int nums2[] = { $to_number('9'), $to_number(a), $to_number(9), $to_number("9") };
+    At "tests/conversions/conversions.fog".16: "expression-statement: const int nums1[] = { ${number('9')}, ${number(a)}, ${number(9)}, ${number("9")} }".
+      ERROR -- Decimal number should not have non-decimal digits.
+  At "tests/conversions/conversions.fog".18.5: const char *strings1[] = { $string('9'), $string(a), $string(9), $string("9") }; 
+    At "tests/conversions/conversions.fog".17: "expression-statement: const int nums2[] = { ${to_number('9')}, ${to_number(a)}, ${to_number(9)}, ${to_number("9")} }".
+      ERROR -- Decimal number should not have non-decimal digits.
+  At "tests/conversions/conversions.fog".22.5: const int ids2e[] = { $to_identifier('9'), $to_identifier(a), $to_identifier(9), $to_identifier("9") };
+    At "tests/conversions/conversions.fog".21: "expression-statement: const int ids1e[] = { ${identifier('9')}, ${identifier(a)}, ${identifier(9)}, ${identifier("9")} }".
+      ERROR -- Failed to resolve semantics of "expression: const int ids1e[] = { 9, a, 9, 9 }"
+        Looks like an identifier did not contain a valid character sequence within the declaration of a variable
+  At End of File
+    At "tests/conversions/conversions.fog".22: "expression-statement: const int ids2e[] = { ${to_identifier('9')}, ${to_identifier(a)}, ${to_identifier(9)}, ${to_identifier("9")} }".
+      ERROR -- Failed to resolve semantics of "expression: const int ids2e[] = { 9, a, 9, 9 }"
+        Looks like an identifier did not contain a valid character sequence within the declaration of a variable
+Writing "tests/conversions/results/global.cxx"
+Writing "tests/conversions/results/global.hxx"
+4 errors reported.

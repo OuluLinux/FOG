@@ -1,0 +1,33 @@
+auto declaration PrimRef_Destructor(identifier Class)
+{
+	class $Class
+	{
+	private:
+		!inline static void destruct()
+		{
+			~${Class}Null();
+		};
+	};
+};
+
+class X;
+class Bugs
+{
+	using/implementation X;
+	inline void f() {}
+};
+
+$PrimRef_Destructor(Bugs);
+
+//------------------ ensure forward class and extern are not tangled.
+class tangledClass;
+extern "C"
+{
+    typedef unsigned int TangledExtern;
+};
+
+class Bugs
+{
+	TangledExtern _tangled_extern;
+	tangledClass& _tangled_class;
+};

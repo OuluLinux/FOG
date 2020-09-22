@@ -1,0 +1,52 @@
+class Dollars
+{
+	auto string se1 = "se1";
+	auto string sl1 = "sl1" ;
+	static const char *se1 = $se1;
+	static const char * sl1 = $ sl1 ;
+//
+	auto string wse_0 = L"wse1";						// Type error.
+	auto string wse_1 = L "wse1";					// Space is a syntax error.
+	auto string wse1 = L"wse1";
+	auto string wsl1 = L"wsl1" ;
+	static const wchar_t *wse1 = $wse1;
+	static const wchar_t *wsl1 = $wsl1 ;
+//
+	auto string se2 = "se" "2";
+	auto string sl2 = "sl" "2";
+	static const char *i$se2 = $se2;
+	static const char *i$sl2 = $sl2;
+//
+	auto int nl3 = (1 + 1 * 2);
+	auto int ne3 = (($nl3 * $nl3) - $nl3)/2;
+	auto string se3_ = "se"$xl2();						// xl2 is undefined.
+	auto string se3_ = "se"$n3;							// n3 is undefined.
+	auto string se3_ = "se"$nl3();						// nl2 is not a meta-function.
+	auto string se3_ = "se" $nl3;						// Space is a syntax error.
+	auto string se3 = "se"$nl3;
+	auto string sl3 = "sl"$ne3;
+	static const char *i$se3 = $se3;
+	static const char *i$sl3 = $sl3;
+	static int ie$ne3 = $ne3;
+	static int il$nl3 = $nl3;
+//
+	auto number ne(number n) { $n }
+	auto number nl(number n) { $n; }
+	auto string se4_0 = "se"$nl;						// Missing parentheses.
+	auto string se4_1 = "se"$nl();						// Missing argument.
+	auto string se4_2 = "se"$nl(1, 2, 3);				// Extra argument.
+	auto string se4_3_ = "se" $ne(4);					// Space is a syntax error.
+	auto string se4 = "se"${ne(4)}"";
+	auto string sl4 = "sl"$nl ( 4 ) "";
+	static const char *i$se4 = ${se4};
+	static const char *i$sl4 = $sl4;
+	static const char *i$ne(4) = $se4;
+	static const char *i$ne($ne(4))_${se4}_$sl$ne(4) = $se4;
+//
+	auto identifier it1 = $This::se1;					// No scope This
+	static const char **it2 = &${This}::se1;	
+	static const char *st = ""$This;	
+	auto identifier it2;								// Missing initialiser
+	auto identifier it3 = it3;
+	static const char *$it3 = ""$it3;	
+};

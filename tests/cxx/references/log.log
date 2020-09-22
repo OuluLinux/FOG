@@ -1,0 +1,10 @@
+Writing "tests/cxx/results/Cxx.cxx"
+Writing "tests/cxx/results/Cxx.hxx"
+Writing "tests/cxx/results/global.cxx"
+Writing "tests/cxx/results/global.hxx"
+WARNING -- The following entities have no implementation:
+	Cxx& Cxx::g2(unsigned int)
+	Cxx& Cxx::no_code(unsigned int)
+	Cxx::~Cxx()
+	size_t Cxx::length() const
+1 warnings reported.

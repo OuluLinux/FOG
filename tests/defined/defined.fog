@@ -1,0 +1,27 @@
+#if defined(defined)
+	static const char *hash_undefined = "false";
+#else
+	static const char *hash_undefined = "true";
+#endif
+
+#define defined hash_defined
+
+#if defined(defined)
+	static const char *defined = "true";
+#else
+	static const char *defined = "false";
+#endif
+
+#undef defined
+
+if ($std::defined(defined))
+	static const char *undefined = "false";
+else
+	static const char *undefined = "true";
+
+auto identifier defined = defined;
+
+if (std::defined(defined))
+	static const char *defined = "true";
+else
+	static const char *defined = "false";

@@ -1,0 +1,24 @@
+class Iterator
+{
+	int _i;
+};
+
+class B : public Iterator
+{
+	export/interface Iterator; export/implementation Iterator;
+};
+
+class C
+{
+	export/interface Iterator; export/implementation Iterator;
+};
+
+class D : public B, public C
+{
+	export/interface Iterator; export/implementation Iterator;
+};
+
+using "iterator.inc";
+
+class Iterator : auto virtual Meta {};
+class C : auto virtual Meta {};

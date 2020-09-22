@@ -1,0 +1,32 @@
+auto declaration braced(number n)
+{
+	if (!$n)
+	{
+		$std::error("error from "$n);
+	}
+	else if ($n > 1)
+	{
+		$std::diagnostic("diagnostic from "$n);
+	}
+	else
+	{
+		$std::warning("warning from "$n);
+	}
+};
+
+auto declaration unbraced(number n)
+{
+	if (!$n)
+		$std::error("error from "$n);
+	else if ($n > 1)
+		$std::diagnostic("diagnostic from "$n);
+	else
+		$std::warning("warning from "$n);
+};
+
+$braced(2);
+$braced(1);
+$braced(0);
+$unbraced(2);
+$unbraced(1);
+$unbraced(0);

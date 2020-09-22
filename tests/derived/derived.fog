@@ -1,0 +1,101 @@
+struct File {};
+class Front;
+class Level0
+{
+	export/implementation=File;
+	export/interface=File;
+	typedef @Super Super :{ derived(!is_root()); };
+	typedef @Scope Level0_Root :{ derived(is_root()); };
+	typedef @Scope Level0_Branch :{ derived(!is_root() && !is_leaf()); };
+	typedef @Scope Level0_Leaf :{ derived(is_leaf()); };
+	typedef @Scope Level0_Tree :{ derived(true); };
+	typedef @Scope Level0_Pure :{ derived(is_pure()); };
+	typedef @Scope Level0_Boundary :{ derived(is_boundary()); };
+	typedef @Scope Level0_Concrete :{ derived(!is_pure()); };
+};
+
+class Level1 : public Level0
+{
+	export/implementation=File;
+	export/interface=File;
+	typedef @Scope Level1_Root :{ derived(is_root()); };
+	typedef @Scope Level1_Branch :{ derived(!is_root() && !is_leaf()); };
+	typedef @Scope Level1_Leaf :{ derived(is_leaf()); };
+	typedef @Scope Level1_Tree :{ derived(true); };
+	typedef @Scope Level1_Pure :{ derived(is_pure()); };
+	typedef @Scope Level1_Boundary :{ derived(is_boundary()); };
+	typedef @Scope Level1_Concrete :{ derived(!is_pure()); };
+};
+
+class Multiple
+{
+	export/implementation=File;
+	export/interface=File;
+	typedef @Scope Multiple_Root :{ derived(is_root()); };
+	typedef @Scope Multiple_Branch :{ derived(!is_root() && !is_leaf()); };
+	typedef @Scope Multiple_Leaf :{ derived(is_leaf()); };
+	typedef @Scope Multiple_Tree :{ derived(true); };
+	typedef @Scope Multiple_Pure :{ derived(Scope.is_pure()); };
+	typedef @Scope Multiple_Boundary :{ derived(is_boundary()); };
+	typedef @Scope Multiple_Concrete :{ derived(!Scope.is_pure()); };
+};
+
+class Level2 : public Level1, private Multiple
+{
+	export/implementation=File;
+	export/interface=File;
+	typedef @Scope Level2_Root :{ derived(is_root()); };
+	typedef @Scope Level2_Branch :{ derived(!is_root() && !is_leaf()); };
+	typedef @Scope Level2_Leaf :{ derived(is_leaf()); };
+	typedef @Scope Level2_Tree :{ derived(true); };
+	typedef @Scope Level2_Pure :{ derived(Scope.is_pure()); };
+	typedef @Scope Level2_Boundary :{ derived(is_boundary()); };
+	typedef @Scope Level2_Concrete :{ derived(!Scope.is_pure()); };
+};
+
+class Level3 : public Level2
+{
+	export/implementation=File;
+	export/interface=File;
+	typedef @Scope Level3_Root :{ derived(is_root()); };
+	typedef @Scope Level3_Branch :{ derived(!is_root() && !is_leaf()); };
+	typedef @Scope Level3_Leaf :{ derived(is_leaf()); };
+	typedef @Scope Level3_Tree :{ derived(true); };
+	typedef @Scope Level3_Pure :{ derived(is_pure()); };
+	typedef @Scope Level3_Boundary :{ derived(is_boundary()); };
+	typedef @Scope Level3_Concrete :{ derived(!is_pure()); };
+};
+
+class Level4 : public Level3
+{
+	export/implementation=File;
+	export/interface=File;
+	typedef @Scope Level4_Root :{ derived(is_root()); };
+	typedef @Scope Level4_Branch :{ derived(!is_root() && !is_leaf()); };
+	typedef @Scope Level4_Leaf :{ derived(is_leaf()); };
+	typedef @Scope Level4_Tree :{ derived(true); };
+	typedef @Scope Level4_Pure :{ derived(is_pure()); };
+	typedef @Scope Level4_Boundary :{ derived(is_boundary()); };
+	typedef @Scope Level4_Concrete :{ derived(!is_pure()); };
+};
+
+public virtual const Level0 *Level0::clone() const :{ derived(true) { return new @{Scope}(*this); }; };
+
+public inline/interface Front *Level0::derived_clone() const
+:{
+	derived(is_root()) { return clone(); };
+	derived(!is_root()) { Level1 *p = clone(); return p ? p : 0; };
+};
+
+private virtual/pure const Multiple *Multiple::boundary_clone() const
+	 :{ derived(is_root()); derived(is_boundary()) { return new @{Scope}(*this); }; };
+
+private virtual/pure const Multiple *Multiple::boundary_method() const;
+private virtual const Multiple *Level3::boundary_method() const { return new @{Scope}(*this); };
+
+protected static const char *Level0::class_name :{ derived(true) = ""@Scope; }; 
+
+public inline bool Level3::is_bool() const
+{
+	return _number.is_bool();
+};

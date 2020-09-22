@@ -1,0 +1,28 @@
+class Message
+{
+	// ...
+};
+
+class StockReport : public Message
+{
+	export/interface Message; export/implementation Message;
+private:
+	unsigned long _item_number;
+	short _stock_level;
+	// ...
+};
+
+//class DoubleReport : public Message
+//{
+//	export/interface Message; export/implementation Message;
+//private:
+//	double _value;
+//	// ...
+//};
+
+using "marshal.inc";
+
+class Message
+{
+	$Marshal::install();
+};

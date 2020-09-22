@@ -1,0 +1,40 @@
+
+#undef T
+#define T
+#undef T
+#define T(A,B) asgsag\
+asgsfgagh\
+dhdf  sdhsdh
+
+#pramga
+#pragma
+
+#line 5
+#error "?:5"
+#line 7 "fred"
+#error "fred:7"
+
+#define X
+
+class Cpp;
+
+#ifndef Y
+protected static const char *Cpp::p1 = "Right Should detect Y defined";
+#else
+protected static const char *Cpp::p2 = "Wrong - Should not detect Y defined";
+#define MULTI_LINE dsfsfhshd\
+asdfasg\
+  #ifdef X
+
+	#ifdef X
+protected static const char *Cpp::p3 = "Wrong - Should not detect Y then X defined";
+	#endif
+protected static const char *Cpp::p3 = "Wrong - Should not detect Y defined";
+#else
+protected static const char *Cpp::p4 = "Right Should detect Y not defined";
+#/* */ifdef X
+protected static const char *Cpp::p5 = "Right - Should detect Y not then X defined";
+# /* */else
+protected static const char *Cpp::p6 = "Wrong Should not detect Y then X defined";
+#/* */ endif
+#endif

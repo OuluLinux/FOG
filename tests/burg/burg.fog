@@ -1,0 +1,52 @@
+#include <burg.inc>
+
+class BurgInstance;
+
+using template <>
+class Burg<BurgInstance>
+{
+	export/implementation "BurgInstance.C";
+};
+
+template <>
+void (*Burg< BurgInstance >::_functions)(const int&) =
+	{ (void (*)(const int&))&Burg< BurgInstance >::dummy };
+
+template <>
+void Burg< BurgInstance >::adopt(const BurgInstance& anElem) { instance_code(); }
+
+//static Burg<ios> _temp;
+class Test;
+
+typedef Burg<Test> BurgOfTest;
+
+class Test
+{
+	BurgOfTest _a;
+	Test() : _a(BurgInstance::y()) {}
+	char c() { return ':'; }
+	void f() { s << "\\t  case " << _number << ": /* T_" << id() << " */ {\\n"; }
+	void m() { p->number(); }
+};
+
+using template <class E>
+class PrimMapOfRefToConstFunctions
+{
+	export/interface Burg;
+	export/implementation Burg;
+	export/utility;
+public:
+	void annul1(const E& anElement);
+	friend void placed() :{ export/implementation Test; {} };
+};
+
+using template <class E>
+public !inline void PrimMapOfRefToConstFunctions<E>::annul2(const E& anElement) { anElement.annul(); }
+
+using template <>
+class PrimMapOfRefToConstFunctions< BurgInstance >
+{
+	export/implementation = Burg;
+public:
+	!inline void annul1(const BurgInstance& anElement) { anElement.annul(); }
+};

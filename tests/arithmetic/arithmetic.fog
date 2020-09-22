@@ -1,0 +1,39 @@
+auto declaration m_init(identifier Class)
+{
+	namespace ${Class}A
+	{
+		auto number count = 0;
+		auto number ${Class}B::count = 5;
+	};
+	auto number ${Class}B::count = 10;
+	auto number count = 15;
+	auto number ${Class}C::${Class}B::count =20;
+};
+
+auto declaration m(identifier Class, identifier Name)
+{
+	namespace ${Class}A
+	{
+		public int ${Name}$count = $count;
+		count++;
+		public static int ${Class}B::${Name}${${Class}B::count} = ${${Class}B::count};
+		${Class}B::count = ${Class}B::count + 1;
+	};
+	protected static int ${Class}B::${Name}${${Class}B::count} = ${${Class}B::count};
+	${Class}B::count++;
+	static int ${Name}$count = $count;
+	count = count + 1;
+	private static int ${Class}C::${Class}B::${Name}${${Class}C::${Class}B::count} = ${${Class}C::${Class}B::count};
+	${Class}C::${Class}B::count = ${Class}C::${Class}B::count + 1;
+};
+
+namespace QqqA;
+protected class QqqA::QqqB;
+union QqqB;
+struct QqqC;
+private struct QqqC::QqqB;
+
+$m_init(Qqq);
+$m(Qqq,x);
+$m(Qqq,y);
+$m(Qqq,z);

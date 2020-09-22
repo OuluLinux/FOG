@@ -1,0 +1,54 @@
+class MultiDollar {};
+
+class A
+{
+	export/interface MultiDollar; export/implementation MultiDollar;
+	class B
+	{
+		export/interface MultiDollar; export/implementation MultiDollar;
+		auto declaration f(identifier anArg)					// A::B::f
+		{
+			class A
+			{
+				export/interface MultiDollar; export/implementation MultiDollar;
+				auto declaration g(identifier anArg)
+				{
+					static const char *p0 = ""Scope;			// "Scope"
+					static const char *p1 = ""${Scope.long_name()};		// ::F::G
+					static const char *p2 = ""$${Scope.long_name()};	// ::D::E::A
+					static const char *p3 = ""$$${Scope.long_name()};	// ::D::E
+					static const char *p4 = ""$$$${Scope.long_name()};	// ::A::B
+					static const char *p5 = ""$$$$${Scope.long_name()};	// ::A
+					static const char *p6 = ""$$$$$${Scope.long_name()};	// "" ::
+					static const char *p7 = ""$$$$$$${Scope.long_name()};	// error
+					static const char *p8 = ""@{Scope.long_name()};		// ::F::G
+					static const char *a0 = ""anArg;			// "anArg"
+					static const char *a1 = ""$anArg;			// "y"
+					static const char *a2 = ""$$anArg;			// "x"
+					static const char *a3 = ""$$$anArg;			// "x"
+					static const char *a4 = ""$$$$anArg;		// error
+				}
+			};
+		}
+	};
+};
+
+class D
+{
+	export/interface MultiDollar; export/implementation MultiDollar;
+	class E
+	{
+		export/interface MultiDollar; export/implementation MultiDollar;
+		$A::B::f(x);
+	};
+};
+
+class F
+{
+	export/interface MultiDollar; export/implementation MultiDollar;
+	class G
+	{
+		export/interface MultiDollar; export/implementation MultiDollar;
+		$D::E::A::g(y);
+	};
+};

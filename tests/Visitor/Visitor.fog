@@ -1,0 +1,72 @@
+auto declaration VisitorBaseElement(identifier V)
+{
+	public typedef $V Visitor;
+	public typedef $Scope Element;
+	public !inline virtual bool accept($V& aVisitor) { return false; }
+};
+
+auto declaration VisitorDerivedElement()
+{
+	public !inline virtual bool accept(Visitor& aVisitor)
+		{ return aVisitor.accept_${Scope}(*this) || @{Super}::accept_${Super}(aVisitor); };
+	public !inline virtual bool Visitor::accept_${Scope}($Scope& anElement)
+		:{ derived(is_root()) { return false; };
+		   derived(!is_root()) exit { return true; }; };
+};
+
+class Visitor
+{
+	export/interface "Visitor.hxx"; export/implementation "Visitor.cxx";
+	// ...
+};
+
+class Element
+{
+	export/interface Visitor; export/implementation Visitor;
+	// ...
+	$VisitorBaseElement(Visitor);
+	//...
+};
+
+class DerivedElement1 : public Element
+{
+	export/interface Visitor; export/implementation Visitor;
+	// ...
+	$VisitorDerivedElement();
+	//...
+};
+
+class DerivedElement2 : public Element
+{
+	export/interface Visitor; export/implementation Visitor;
+	// ...
+	$VisitorDerivedElement();
+	//...
+};
+
+class DerivedElement3 : public Element
+{
+	export/interface Visitor; export/implementation Visitor;
+	// ...
+	$VisitorDerivedElement();
+	//...
+};
+
+class DerivedDerivedElement : public DerivedElement2
+{
+	export/interface Visitor; export/implementation Visitor;
+	// ...
+	$VisitorDerivedElement();
+	//...
+};
+
+class DerivedVisitor : public Visitor
+{
+	export/interface Visitor; export/implementation Visitor;
+	// ...
+};
+
+using DerivedVisitor::accept_DerivedElement1
+{ cout << "DerivedVisitor accepts DerivedElement1" << endl; }
+using DerivedVisitor::accept_DerivedElement2
+{ cout << "DerivedVisitor accepts DerivedElement2" << endl; }

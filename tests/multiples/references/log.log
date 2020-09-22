@@ -1,0 +1,29 @@
+Resolving derivation rules within "the global namespace".
+  Resolving derivation rules within "class: Derived".
+    Deriving into "variable: Derived::x1".
+      Actualizing "potential-declaration: public static !const !volatile char *Derived::x1".
+        ERROR -- Should not merge incompatible "variable-specifier: protected static !const !volatile char *x1 = 0" and "variable-specifier: public static !const !volatile char *x1"
+      Actualizing "potential-declaration: protected static const !volatile char *Derived::x1".
+        ERROR -- Should not merge incompatible "variable-specifier: protected public static !const !volatile char *x1 = 0" and "variable-specifier: protected static const !volatile char *x1"
+      Actualizing "potential-declaration: protected static !const !volatile int *Derived::x1".
+        ERROR -- Should not merge incompatible "variable-specifier: protected public static !const const !volatile char *x1 = 0" and "variable-specifier: protected static !const !volatile int *x1"
+        ERROR -- Should not merge incompatible "built-in-specifier: char" and "built-in-specifier: int"
+      Actualizing "potential-declaration: protected static !const !volatile char **Derived::x1".
+        ERROR -- Should not merge incompatible "variable-specifier: protected public static !const const !volatile char *x1 = 0" and "variable-specifier: protected static !const !volatile char **x1"
+      Actualizing "potential-declaration: protected static !const !volatile char *Derived::x1[]".
+        ERROR -- Should not merge incompatible "variable-specifier: protected public static !const const !volatile char *x1 = 0" and "variable-specifier: protected static !const !volatile char *x1[]"
+        ERROR -- Should not merge incompatible "decl-modifier: *" and "decl-modifier: []"
+      Actualizing "potential-declaration: protected static !const !volatile char *Derived::x1 = 5".
+        ERROR -- Should not merge incompatible "variable-specifier: protected public static !const const !volatile char *x1 = 0" and "variable-specifier: protected static !const !volatile char *x1 = 5"
+        ERROR -- Should not merge incompatible "number: 0" and "number: 5"
+      Actualizing "potential-declaration: protected static !const !volatile char *Derived::x1 = 5".
+        ERROR -- Should not merge incompatible "variable-specifier: protected public static !const const !volatile char *x1 = 0" and "variable-specifier: protected static !const !volatile char *x1 = 5"
+        ERROR -- Should not merge incompatible "number: 0" and "number: 5"
+Writing "tests/multiples/results/Multiple.cxx"
+Generating "tests/multiples/results/Multiple.hxx".
+  Emitting interface for "variable: Derived::x1".
+    ERROR -- Unique accessibility definition not available for "variable: Derived::x1"
+Writing "tests/multiples/results/Multiple.hxx"
+Writing "tests/multiples/results/global.cxx"
+Writing "tests/multiples/results/global.hxx"
+12 errors reported.

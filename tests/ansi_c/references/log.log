@@ -1,0 +1,14 @@
+Reading "tests/ansi_c/ansi_c.fog".
+  At "tests/ansi_c/ansi_c.fog".46.0: #define OBJ_LIKE		(0)			/* different token sequence */
+    ERROR -- Illegal macro redefinition.
+  At "tests/ansi_c/ansi_c.fog".47.0: #define OBJ_LIKE		(1 - 1)		/* different white space */
+    ERROR -- Illegal macro redefinition.
+  At "tests/ansi_c/ansi_c.fog".48.0: #define FTN_LIKE(b)		( a )		/* different parameter usage */
+    ERROR -- Illegal macro redefinition.
+  At "tests/ansi_c/ansi_c.fog".49.0: #define FTN_LIKE(b)		( b )		/* different parameter spelling */
+    ERROR -- Illegal macro redefinition.
+  At "tests/ansi_c/ansi_c.fog".51.0: #include xstr(INCFILE(2).hxx)
+    ERROR -- Failed to to find #include file "vers2.hxx" along any include path.
+Writing "tests/ansi_c/results/global.cxx"
+Writing "tests/ansi_c/results/global.hxx"
+5 errors reported.

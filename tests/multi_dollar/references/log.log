@@ -1,0 +1,16 @@
+Reading "tests/multi_dollar/multi_dollar.fog".
+  At End of File
+    At "tests/multi_dollar/multi_dollar.fog".46: "expression-statement: class F".
+      At "tests/multi_dollar/multi_dollar.fog".48: "declaration-seq : export/interface ...".
+        At "tests/multi_dollar/multi_dollar.fog".49: "expression-statement: class G".
+          At "tests/multi_dollar/multi_dollar.fog".51: "declaration-seq : export/interface ...".
+            At "tests/multi_dollar/multi_dollar.fog".52: "expression-statement: ${D::E::A::g(y)}".
+              At "tests/multi_dollar/multi_dollar.fog".23: "expression-statement: static const char *p7 = ""$$$$$$${Scope.long_name()}".
+                ERROR -- Failed to resolve "tree-literal: $$$$$$$Scope.long_name()" in "class: F::G"
+              At "tests/multi_dollar/multi_dollar.fog".29: "expression-statement: static const char *a4 = ""$$$${anArg}".
+                ERROR -- Failed to resolve "tree-literal: $$$$anArg" in "class: F::G"
+Writing "tests/multi_dollar/results/MultiDollar.cxx"
+Writing "tests/multi_dollar/results/MultiDollar.hxx"
+Writing "tests/multi_dollar/results/global.cxx"
+Writing "tests/multi_dollar/results/global.hxx"
+2 errors reported.

@@ -1,0 +1,29 @@
+
+
+class Multiple
+{
+protected:
+	public static int x = 5;
+	static char *x1 = 0 :{ derived(is_leaf()); }, *x2 = ""@Super :{ derived(!is_root()); }, *const *const x3 = f(5, x4 = 6), x4 = 0;
+	private const char **x2 = 0 :{ derived(is_root()); };
+};
+
+class Derived : public Multiple {};
+
+protected static char *Derived::x1;
+public static char *Derived::x1;				// INCOMPATIBLE_ACCESS
+protected static char *Derived::x1;
+protected static const char *Derived::x1;		// INCOMPATIBLE_CONST
+protected static int *Derived::x1;				// INCOMPATIBLE_TYPE_IDENTIFIER
+protected static char **Derived::x1;			// INCOMPATIBLE_DECLARATOR
+protected static char *Derived::x1[];			// INCOMPATIBLE_DECLARATOR
+protected static char *Derived::x1 = 5;			// INCOMPATIBLE_VALUE
+
+class Derived
+{
+	export/implementation Multiple;
+	export/interface Multiple;
+	protected static char *x1;
+};
+
+protected static char *Derived::x1 = 5;

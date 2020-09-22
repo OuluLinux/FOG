@@ -1,0 +1,43 @@
+using/utility "utility.inc";
+
+class Utility : public PrimPrint
+{
+	int _x;
+};
+
+$PRIMPRINT_RTTI_1(Utility,PrimPrint);
+
+class UtilityRef1 : public PrimPrint								// Requires files to be emitted.
+{
+	int _extend;
+};
+
+$PRIMPRINT_RTTI_1(UtilityRef1,PrimPrint);
+
+class UtilityInc1
+{
+	int _extend;								// Error cannot extend utility.
+};
+
+private void UtilityRef2::f() {}				// Requires files to be emitted.
+
+private void UtilityInc2::f() {}				// Error cannot extend utility.
+
+class UtilitySet
+{
+	int d0;										// non-utility but later set/utility invalidates.
+};
+
+class UtilitySet
+{
+	int d1;										// non-utility but later set/utility invalidates.
+	export/utility;
+	int d2;										// utility
+};
+
+class UtilitySet
+{
+	int d3;										// non-utility but prior set/utility invalidates.
+};
+
+int UtilitySet::d4;								// non-utility but prior set/utility invalidates.

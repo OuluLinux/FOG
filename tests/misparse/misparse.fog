@@ -1,0 +1,3 @@
+class Fred;
+
+Fred (a)[5] = {};					// Initially parsed as consdtructor before rrearrangement as array.

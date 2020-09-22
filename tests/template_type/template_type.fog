@@ -1,0 +1,9 @@
+template <class T1, class T2> class A;
+
+A<b<c,d>e> f1 = 0; 				// Syntax error first > ends template.
+A<b<c,(d>e)> f2 = 0;
+A<A<c,d>,e> f3 = 0;
+A<A<c,d>e,g> f4 = 0;			// Syntax error bad template paramter.
+A<A<c,d>(e),g> f5 = 0;
+//A<A<c,d>(e),g> f6(0);
+//A<A<c,d>(e),2> f7(0,1);

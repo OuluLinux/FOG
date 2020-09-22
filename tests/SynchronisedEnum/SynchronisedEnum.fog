@@ -1,0 +1,16 @@
+class SynchronisedEnum
+{
+	public enum Enum {};
+	public static const char *texts[] = {};
+//	auto number values = 0;													// Meta-variable
+	auto declaration Define(identifier aName, expression aValue)
+	{
+		enum SynchronisedEnum::Enum { $aName = $aValue };
+		static const char *SynchronisedEnum::texts[] = { [$aValue] ""$aName };
+//		auto values++;												// Meta-expression
+	}
+};
+
+$SynchronisedEnum::Define(LABEL, 40);
+$SynchronisedEnum::Define(FIRST, 1);
+$SynchronisedEnum::Define(THIRD, 3);

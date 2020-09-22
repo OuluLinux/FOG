@@ -1,0 +1,13 @@
+class Anon
+{
+	public int i5 : 5;
+	int : 3, i7 : 7 = -5;
+	int : 0;
+	private int i9 : 9 = 15;
+	public typedef enum { E5 = 5, E7 = 7 } first_var = 7, the_type, second_var = E7;
+	protected enum { TEST, V3 = 2 } e = V3, f;
+	protected union { int c1; int c2; };
+	private union { int a; int b; } u;
+	protected union { int d1; int d2; };
+	typedef int ptrdiff_t;
+};

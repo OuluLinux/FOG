@@ -1,0 +1,57 @@
+class Dependent;
+class NotDependent;
+
+class PrimEnum;
+
+extern "C"
+{
+	typedef unsigned int size_t;
+};
+
+class Cxx
+{
+	friend class ostream;
+public:
+	enum Enum
+	{
+		INVALID,
+		WRAP
+	};
+private:
+	Enum _enum;
+public:
+	Cxx(Enum anEnum = INVALID) : _enum(anEnum) {}
+	Cxx & mixed_decl(unsigned int = 5);
+	Cxx & g2(unsigned int);
+	Cxx & no_code(unsigned int);
+	virtual ~Cxx();
+	Enum val() const { return _enum; }
+	size_t length() const;
+	Cxx* tie(Cxx *);
+	Cxx* tie();
+	static const PrimEnum& values();
+	void	clear(int = 0);		// set the stream state
+
+	static NotDependent _v1 = 0;
+	Dependent _v2;
+	operator const Enum() { return _enum; }
+	operator Enum *() const { return 0; }
+	friend ostream& operator<<(ostream& s, const Cxx& aCxx) { s << "Cxx"; }
+};
+
+inline void Cxx::clear(int i) {
+    STREAM_RMUTEX_LOCK(this, lckp);
+    unsafe_ios::clear(i);
+}
+
+Cxx & g1(unsigned int _i) { return *this; }
+Cxx & g2(unsigned int _i) { return *this; }
+Cxx & Cxx::mixed_decl(unsigned int i) { return i; }
+
+Cxx* Cxx::tie() { return this;  }    
+inline Cxx* Cxx::tie(Cxx *s) { return this; }
+
+const PrimEnum& Cxx::values()
+{
+	return theValues;
+}

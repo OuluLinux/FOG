@@ -1,0 +1,23 @@
+Reading "tests/templates/templates.fog".
+  At "tests/templates/templates.fog".38.8: template <> int X<float>::_i = 5;					// Requires propagation of primary to instantiation.
+    At "tests/templates/templates.fog".36: "expression-statement: public void X < double > ::dummy()".
+      WARNING -- Missing "template <>" for explicit specialisation of "class: X < double >"
+      ERROR -- Failed to find primary function for specialisation by "class: X < double >"
+  At "tests/templates/templates.fog".41.8: template <class T>
+    At "tests/templates/templates.fog".39: "template-specifier : template <> int X < float > ::i = 5".
+      At "tests/templates/templates.fog".39: "expression-statement: int X < float > ::i = 5".
+        ERROR -- Failed to find primary variable for specialisation by "class: X < float >"
+Validating "the global namespace".
+  Validating "class: X < _1 >".
+    Validating "class: X < float >".
+      ERROR -- Template instantiation should not contain specialisation "variable: X < float >::i".
+    Validating "class: X < double >".
+      ERROR -- Template instantiation should not contain specialisation "function: void X < double >::dummy()".
+Writing "tests/templates/results/Templates.cxx"
+Writing "tests/templates/results/Templates.hxx"
+Writing "tests/templates/results/Z.C"
+Writing "tests/templates/results/Z.H"
+Writing "tests/templates/results/global.cxx"
+Writing "tests/templates/results/global.hxx"
+4 errors reported.
+1 warnings reported.
