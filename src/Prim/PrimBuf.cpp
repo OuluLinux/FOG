@@ -3,11 +3,6 @@
 
 
 
-
-
-
-
-
 const char *const PrimBufRep::_null_buf = "";
 const PrimBufRep PrimBufRep::_null_rep;
 

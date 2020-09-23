@@ -77,27 +77,38 @@ void FogStream::append(const char *aString, int aSize)
 //  
 //  	Output sufficient new lines to ensure that subsequent output starts after a blank line.
 //  
-FogStream& FogStream::change_to_access(const FogAccess& anAccess)
-{
- if (access().value() != anAccess.value())
- {
-  if (anAccess)
-  {
-   next();
-   if (_emit_scope && _emit_scope->has_access())
-   {
-    int aDepth = _depth;
-    int indentSize = Fog::get_indent_size();
-    if (_depth >= indentSize)
-     _depth -= indentSize;
-    *this << anAccess.str() << ":\n";
-    _depth = aDepth;
-    dummy_blank_line();
-   }
-  }
-  _access = anAccess;
- }
- return *this;
+FogStream& FogStream::change_to_access(const FogAccess& anAccess) {
+	if (access().value() != anAccess.value()) {
+		// Skip "public:" for namespaces
+		if (_emit_scope->tag().is_namespace_tag() &&
+			!_access->is_valid() && anAccess.is_public()) {
+			next();
+		}
+		// Skip "private:" for class
+		else if (_emit_scope->tag().is_class_tag() &&
+			!_access->is_valid() && anAccess.is_private()) {
+			next();
+		}
+		// Skip "public:" for struct
+		else if (_emit_scope->tag().is_struct_tag() &&
+			!_access->is_valid() && anAccess.is_public()) {
+			next();
+		}
+		else if (anAccess) {
+			next();
+			if (_emit_scope && _emit_scope->has_access()) {
+				int aDepth = _depth;
+				int indentSize = Fog::get_indent_size();
+				if (_depth >= indentSize)
+					_depth -= indentSize;
+				*this << anAccess.str() << ":\n";
+				_depth = aDepth;
+				dummy_blank_line();
+			}
+		}
+		_access = anAccess;
+	}
+	return *this;
 }
 
 //  
