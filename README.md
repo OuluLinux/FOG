@@ -12,13 +12,13 @@ Compiling following with FOG
 auto declaration BuildInterface() {
         auto for (iterator k = $variables(); k; ++k) {
                 !inline $k->derive_type() get_${k->name()} () {return $k->name();}
-                !inline void set_${k->name()} (const $k->derive_type()& v) {$k->name() = v;;}
+                !inline void set_${k->name()} (const $k->derive_type()& v) {$k->name() = v;}
         }
 }
-
+h
 struct Person {
         int age;
-        double length;
+        double height;
 
         $BuildInterface();
 
@@ -28,12 +28,12 @@ produces header:
 ```
 struct Person {
     int age;
-    double length;
+    double height;
     
     int get_age();
-    double get_length();
+    double get_height();
     void set_age(const int& v);
-    void set_length(const double& v);
+    void set_height(const double& v);
 };
 ```
 and implementation:
@@ -42,16 +42,16 @@ int Person::get_age() {
     return age;
 };
 
-double Person::get_length() {
-    return length;
+double Person::get_height() {
+    return height;
 };
 
 void Person::set_age(const int& v) {
     age = v;
 };
 
-void Person::set_length(const double& v) {
-    length = v;
+void Person::set_height(const double& v) {
+    height = v;
 };
 ```
 
