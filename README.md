@@ -6,6 +6,12 @@ FOG renders the C preprocessor obsolete, eliminates substantial lexical redundan
 
 This is the program from [http://www.computing.surrey.ac.uk/research/dsrg/fog/](http://www.computing.surrey.ac.uk/research/dsrg/fog/).
 
+### Getting started ###
+Before starting, you should learn how to compile programs with the [https://www.ultimatepp.org/](Ultimate++ IDE). Use their documentation.
+
+Compile the latest fog executable with the IDE and add it's directory to your PATH environment variable.
+Then create new assembly in the IDE's startup dialog. Set the directory of the assembly as the example directory.
+Open the Main project. Compile and run it by pressing F5 key.
 
 ### Compiling FOG ###
 
