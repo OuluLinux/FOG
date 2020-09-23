@@ -1,0 +1,10 @@
+using "Main/ExampleApp.fog";
+
+
+using/implementation ExampleApp;
+export/interface Main;
+export/implementation Main;
+
+!inline int main() {
+	return ExampleApp().Main();
+}

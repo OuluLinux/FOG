@@ -1,0 +1,8 @@
+description "This is some FOG library used by Main FOG project.\377";
+
+file
+	SomeLibFile.fog,
+	"Support C++" readonly separator,
+	Console.h,
+	Console.cpp;
+

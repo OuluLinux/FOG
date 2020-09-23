@@ -1,0 +1,29 @@
+using "Library/SomeLibFile.fog";
+
+namespace Main {}
+
+
+
+class ExampleApp {
+	using / interface Library;
+	export / interface ExampleApp;
+	export / implementation ExampleApp;
+	
+	
+	
+	public int Main() {
+	
+		Console::Put("Hello world!\nAlso, write something: ");
+		
+		char buf[1024];
+		if (Console::Get(buf, 1024)) {
+			Console::Put("You said: ");
+			Console::Put(buf);
+			Console::Put("\n");
+		}
+		
+		return 0;
+	}
+};
+
+

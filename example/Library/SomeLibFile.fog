@@ -1,0 +1,12 @@
+
+namespace Library {}
+
+
+struct Console {
+	export/interface Library;
+	
+	
+	static int Get(char* buf, int size);
+	static void Put(const char* msg);
+	
+};
