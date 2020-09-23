@@ -6,6 +6,55 @@ FOG renders the C preprocessor obsolete, eliminates substantial lexical redundan
 
 This is the program from [http://www.computing.surrey.ac.uk/research/dsrg/fog/](http://www.computing.surrey.ac.uk/research/dsrg/fog/).
 
+### Example ###
+Compiling following with FOG
+```
+auto declaration BuildInterface() {
+        auto for (iterator k = $variables(); k; ++k) {
+                !inline $k->derive_type() get_${k->name()} () {return $k->name();}
+                !inline void set_${k->name()} (const $k->derive_type()& v) {$k->name() = v;;}
+        }
+}
+
+struct Person {
+        int age;
+        double length;
+
+        $BuildInterface();
+
+};
+```
+produces header:
+```
+struct Person {
+    int age;
+    double length;
+    
+    int get_age();
+    double get_length();
+    void set_age(const int& v);
+    void set_length(const double& v);
+};
+```
+and implementation:
+```
+int Person::get_age() {
+    return age;
+};
+
+double Person::get_length() {
+    return length;
+};
+
+void Person::set_age(const int& v) {
+    age = v;
+};
+
+void Person::set_length(const double& v) {
+    length = v;
+};
+```
+
 ### Getting started ###
 Before starting, you should learn how to compile programs with the [Ultimate++ IDE](https://www.ultimatepp.org/). Use their documentation.
 
