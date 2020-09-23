@@ -15,7 +15,7 @@ auto declaration BuildInterface() {
                 !inline void set_${k->name()} (const $k->derive_type()& v) {$k->name() = v;}
         }
 }
-h
+
 struct Person {
         int age;
         double height;
