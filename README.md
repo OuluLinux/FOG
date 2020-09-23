@@ -9,6 +9,8 @@ This is the program from [http://www.computing.surrey.ac.uk/research/dsrg/fog/](
 ### Getting started ###
 Before starting, you should learn how to compile programs with the [Ultimate++ IDE](https://www.ultimatepp.org/). Use their documentation.
 
+![Debugging the FOG application in TheIDE in Ubuntu Linux](https://raw.githubusercontent.com/UltimateScript/FOG/master/fog_ide.jpg)
+
 Compile the latest fog executable with the IDE and add it's directory to your PATH environment variable.
 Then create new assembly in the IDE's startup dialog. Set the directory of the assembly as the example directory.
 Open the Main project. Compile and run it by pressing F5 key.
