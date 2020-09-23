@@ -368,6 +368,37 @@ FOGMETAFUNCTION_CLASS_METHOD(FogMetaType_Object_Type, type, "type", IS_ENCAPSULA
     return true;
 }
 
+FOGMETAFUNCTION_CLASS_METHOD(FogMetaType_Object_DeriveType, type, "derive_type", IS_ENCAPSULATED)
+{
+    FogDerivable *aDerivable = callContext.dynamic_token().is_derivable();
+    if (!aDerivable)
+        return false;
+    const FogObjectSpecifier& aSpecifier = aDerivable->specifier(callContext.calling_context());
+    const FogName *typeName = aSpecifier.get_type();
+    if (typeName)
+    {
+        const PrimId *typeId = typeName->is_resolved();         //  .bugbug scoping and templating
+        if (!typeId)
+        {
+            ERRMSG("Failed to resolve type name " << *typeId << " for " << viz(*this));
+            return false;
+        }
+        FogEntity *theType = callContext.dynamic_scope().find_type(*typeId, IN_ANY_SCOPE);
+        if (!theType)
+        {
+            ERRMSG("Failed to locate type " << *typeId << " for " << viz(*this));
+            return false;
+        }
+        returnValue.assign(*theType);
+    }
+    else
+    {
+        ERRMSG("BUG - no type for " << viz(*this));
+        return false;
+    }
+    return true;
+}
+
 FOGMETAFUNCTION_CLASS_METHOD(FogMetaType_ObjectStatement_IsBoundary, bool, "is_boundary", IS_ENCAPSULATED)
 {
     const FogPotentialDeclaration *potentialDeclaration = callContext.calling_context().dynamic_token().is_potential_declaration();
@@ -869,6 +900,7 @@ void FogMetaType::add_object_slots()
     _slots.adopt(new FogMetaType_Object_IsVolatile(object_type()));
     _slots.adopt(new FogMetaType_Object_Specifier(object_type()));
     _slots.adopt(new FogMetaType_Object_Type(object_type()));
+    _slots.adopt(new FogMetaType_Object_DeriveType(object_type()));
 }
 
 void FogMetaType::add_object_specifier_slots()
