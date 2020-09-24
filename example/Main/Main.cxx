@@ -1,5 +1,5 @@
 /*!$@FOG@$!
- *	Generated at Wed Sep 23 05:53:58 2020
+ *	Generated at Wed Sep 23 06:49:24 2020
  *
  *	by fog 0.1.a of 04:38:49 Sep 23 2020
  *
@@ -19,10 +19,10 @@
 #include <Main.hxx>
 #endif
 
-#line 8 "/home/sblo/FOG/example/Main/Main.mfog"
+#line 10 "/home/sblo/FOG/example/Main/Main.mfog"
 int main()
 {
-#line 9
+#line 11
     return ExampleApp().Main();
 };
 

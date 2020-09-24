@@ -18,6 +18,9 @@ file
 	Library.cxx,
 	Console.cxx;
 
+mainconfig
+	"" = "";
+
 custom() "mfog",
 	"fog -cd$(DIR) -t4 -I.. -global Main $(PATH)\n",
 	"$(PATH)/Main.hxx\n";
