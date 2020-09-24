@@ -7,6 +7,9 @@ FOG renders the C preprocessor obsolete, eliminates substantial lexical redundan
 This is the program from [http://www.computing.surrey.ac.uk/research/dsrg/fog/](http://www.computing.surrey.ac.uk/research/dsrg/fog/).
 
 ### Example ###
+If you like C++, then you **really** should read the [Meta-Compilation for C++](https://github.com/UltimateScript/FOG/blob/master/FogThesis.pdf).
+The FOG is much more complex language than C++ and it requires a bit of boring reading of a scientific paper.
+
 Compiling following with FOG
 ```
 auto declaration BuildInterface() {
