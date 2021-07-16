@@ -186,6 +186,9 @@ public:
 	virtual void emit_scope_head(FogStream& s) const;
 	virtual void emit_scope_tail(FogStream& s) const;
 	virtual void emit_template_prefix(FogEmitContext& emitContext) const;
+	
+	void emit_scope_namespace(FogEmitContext& emitContext, const FogScope& inScope) const;
+	
 	void emit_template_suffix(FogEmitContext& emitContext) const {
 		_templates.emit_suffix(emitContext);
 	}

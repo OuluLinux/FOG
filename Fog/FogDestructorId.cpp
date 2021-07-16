@@ -76,6 +76,7 @@ std::ostream& FogDestructorId::print_members(std::ostream& s, int aDepth) const
 
 char FogDestructorId::print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const
 {
+	
  if (scopeId)
  {
   tailChar = FogStream::space_and_emit(s, tailChar, scopeId->str());
@@ -84,7 +85,8 @@ char FogDestructorId::print_named(std::ostream& s, const PrimId *scopeId, char t
  if (_resolved_id)
   return FogStream::space_and_emit(s, tailChar, _resolved_id.str());
  tailChar = FogStream::space_and_emit(s, tailChar, "~");
- return Super::print_named(s, 0, tailChar);
+ //return Super::print_named(s, 0, tailChar);
+ 	return _name->print_named(s, 0, tailChar);
 }
 
 std::ostream& FogDestructorId::print_viz(std::ostream& s) const

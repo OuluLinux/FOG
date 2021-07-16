@@ -106,7 +106,8 @@ FogMetaType *FogTag::meta_type_name() const
         case CLASS: return &FogMetaType::class_type();
         case ENUM: return &FogMetaType::enum_type();
         case LINKAGE: return &FogMetaType::linkage_type();
-        case NAMESPACE: return &FogMetaType::namespace_type();
+        case NAMESPACE:
+			return &FogMetaType::namespace_type();
         case SCOPE: return &FogMetaType::scope_type();
 //          case TYPEDEF: return &FogMetaType::class_type();
         case TYPENAME: return &FogMetaType::typename_type();

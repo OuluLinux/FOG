@@ -54,69 +54,60 @@ PrimMapOfRefImp::~PrimMapOfRefImp()
 //  	All behaviours generate an error message for an allocation failure.
 //  
 bool PrimMapOfRefImp::add(const PrimMapOfRefFuncs& supportFunctions, const PrimRefValue& anObject,
- AddMode addMode)
-{
- if ((_tally >= _capacity/2) && !set_capacity(supportFunctions, 2 * _tally + 1)) //   Expand map if would be over half full.
-  return false;
- const PrimId& anId = supportFunctions.id(anObject);
- const PrimRefValue **p = _contents + hash(anId);
- const PrimRefValue *const *const pMax = _contents + _capacity;
- for (size_t n = _capacity; n > 0; n--, p = ++p >= pMax ? _contents : p)
- {
-  if (!*p)
-  {
-   *p = &anObject;
-   _tally++;
-   if (addMode == REHASH)
-    return true;
-   supportFunctions.share(**p);
-   check(supportFunctions);
-   return true;
-  }
-  else if (supportFunctions.id(**p) == anId)  //   Collision ?
-  {
-   if (addMode == REPLACE)
-   {
-    if (*p != &anObject)
-    {
-     supportFunctions.share(anObject);
-     supportFunctions.annul(**p);
-     *p = &anObject;
-     return true;
-    }
-   }
-   else if (addMode == FILTER)
-   {
-    if (*p != &anObject)
-    {
-     PrimOstrstream ss;
-     ss << *this << " ignored ";
-     supportFunctions.print_instance(anObject, ss);
-     ss << " in conflict with ";
-     supportFunctions.print_instance(**p, ss);
-     ss << "." << std::ends;
-     ERRMSGZ(ss.str());
-    }
-    
-   }
-   else
-   {
-    PrimOstrstream ss;
-    ss << *this << " ignored duplicate ";
-    supportFunctions.print_instance(anObject, ss);
-    ss << "." << std::ends;
-    ERRMSGZ(ss.str());
-   }
-   return false;
-  }
- }
- PrimOstrstream ss;
- ss << *this << " failed to find space for ";
- supportFunctions.print_instance(anObject, ss);
- ss << "." << std::ends;
- ERRMSGZ(ss.str());
- return false;
+		AddMode addMode) {
+	if ((_tally >= _capacity / 2) && !set_capacity(supportFunctions, 2 * _tally + 1)) //   Expand map if would be over half full.
+		return false;
+	const PrimId& anId = supportFunctions.id(anObject);
+	const PrimRefValue **p = _contents + hash(anId);
+	const PrimRefValue *const *const pMax = _contents + _capacity;
+	for (size_t n = _capacity; n > 0; n--, p = ++p >= pMax ? _contents : p) {
+		if (!*p) {
+			*p = &anObject;
+			_tally++;
+			if (addMode == REHASH)
+				return true;
+			supportFunctions.share(**p);
+			check(supportFunctions);
+			return true;
+		}
+		else if (supportFunctions.id(**p) == anId) { //   Collision ?
+			if (addMode == REPLACE) {
+				if (*p != &anObject) {
+					supportFunctions.share(anObject);
+					supportFunctions.annul(**p);
+					*p = &anObject;
+					return true;
+				}
+			}
+			else if (addMode == FILTER) {
+				if (*p != &anObject) {
+					PrimOstrstream ss;
+					ss << *this << " ignored ";
+					supportFunctions.print_instance(anObject, ss);
+					ss << " in conflict with ";
+					supportFunctions.print_instance(**p, ss);
+					ss << "." << std::ends;
+					ERRMSGZ(ss.str());
+				}
+			}
+			else {
+				PrimOstrstream ss;
+				ss << *this << " ignored duplicate ";
+				supportFunctions.print_instance(anObject, ss);
+				ss << "." << std::ends;
+				ERRMSGZ(ss.str());
+			}
+			return false;
+		}
+	}
+	PrimOstrstream ss;
+	ss << *this << " failed to find space for ";
+	supportFunctions.print_instance(anObject, ss);
+	ss << "." << std::ends;
+	ERRMSGZ(ss.str());
+	return false;
 }
+
 
 //  
 //  	Add each of the members of aMap to this map.

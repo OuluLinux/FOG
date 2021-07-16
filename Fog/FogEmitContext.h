@@ -206,6 +206,8 @@ protected:
     virtual const char *set_separator(const char *elementSeparator);
     virtual const char *set_terminator(const char *elementTerminator);
 public:
+	FogEmitContext& get_context() {return _context;}
+	
     virtual bool do_jump() const;
     virtual FogToken& dynamic_token();
     virtual const FogToken& dynamic_token() const;

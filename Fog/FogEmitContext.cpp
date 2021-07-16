@@ -54,6 +54,13 @@ bool FogEmitContext::emit_id(const PrimId& anId, const FogToken& aToken) {
 			anEntity = aToken.find_entity_in(rootContext, FIND_SCOPE);
 		}
 		
+		
+		// HAX
+		if (!anEntity) {
+			anEntity = dynamic_scope().find_entity_in(rootContext, FIND_SCOPE);
+		}
+		
+		
 		if (emit_full_types() && anEntity)
 			return emit_identifier(anEntity->global_signature_id());
 			
@@ -64,6 +71,7 @@ bool FogEmitContext::emit_id(const PrimId& anId, const FogToken& aToken) {
 			return emit_identifier(anId);
 		}
 		
+		
 		ERRMSG("Failed to locate " << viz(aToken) << " as type in " << viz(*this));
 	}
 	
@@ -71,6 +79,7 @@ bool FogEmitContext::emit_id(const PrimId& anId, const FogToken& aToken) {
 	
 	return emit_identifier(anId);
 }
+
 
 //
 //    Emit a scope prefix to establish the current scope.

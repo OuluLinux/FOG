@@ -56,6 +56,7 @@ bool FogNestedName::emit(FogEmitContext& emitContext) const
     else
     {
         FogToken *theScope = find_scope(emitContext);
+        if (0) {if (!theScope) theScope = find_entity_in(emitContext, FIND_SCOPE);}
         if (theScope)
         {
             FogNestedEmitContext nestedContext(emitContext, *theScope);
@@ -78,17 +79,51 @@ FogEntity *FogNestedName::find_entity_in(FogScopeContext& inScope, FindStrategy 
 
 FogToken *FogNestedName::find_scope(FogScopeContext& inScope) const
 {
-    FogScope& dynamicScope = inScope.dynamic_scope();
-    if (dynamicScope.is_null())                         //   If an any old scope form of resolve_semantics
-        return 0;
-    if (inScope.is_unresolvable())
-        ERRMSG("INVESTIGATE -- Invoking FogNestedName::find_scope in unexpected phase");
-    FogToken *newScope = _scope->find_entity_in(inScope, FIND_SCOPE);
-//    if (newScope && !hasArgs && newScope->is_templated())
-//    {
-//        ERRMSG("ROUNDTUIT -- missing code to select default secondary template.");
-//    }
-    return newScope;
+	if (0) {
+	    FogScope& dynamicScope = inScope.dynamic_scope();
+	    if (dynamicScope.is_null()) {
+			//   If an any old scope form of resolve_semantics
+	        return 0;
+	    }
+	    if (inScope.is_unresolvable())
+	        ERRMSG("INVESTIGATE -- Invoking FogNestedName::find_scope in unexpected phase");
+	    FogToken *newScope = _scope->find_entity_in(inScope, FIND_SCOPE);
+	//    if (newScope && !hasArgs && newScope->is_templated())
+	//    {
+	//        ERRMSG("ROUNDTUIT -- missing code to select default secondary template.");
+	//    }
+	    return newScope;
+	}
+	else {
+	    FogScopeContext* ctx = &inScope;
+	    if (ctx->is_unresolvable())
+	        ERRMSG("INVESTIGATE -- Invoking FogNestedName::find_scope in unexpected phase");
+	    int depth = 0;
+		while (ctx) {
+			FogEntity* newScope = _scope->find_entity_in(*ctx, FIND_SCOPE);
+			if (newScope) {
+				if (!depth)
+					return newScope;
+				else {
+					newScope = find_entity_in(*ctx, FIND_SCOPE);
+					if (newScope)
+						return newScope;
+				}
+			}
+			const FogScopeContext* par = ctx->get_parent();
+			if (par)
+				ctx = const_cast<FogScopeContext*>(par);
+			else {
+				FogDecoratedEmitContext* emitctx = dynamic_cast<FogDecoratedEmitContext*>(ctx);
+				if (emitctx)
+					ctx = &emitctx->get_context();
+				else
+					ctx = 0;
+			}
+			depth++;
+		}
+		return 0;
+	}
 }
 
 const FogMetaSlot *FogNestedName::find_slot_in(FogScopeContext& scopeContext) const

@@ -215,7 +215,7 @@ int& Fog::inline_threshold() {
 }
 
 bool& Fog::long_long_type() {
-	static PrimGetEnv<bool> longLong("Fog::long_long_type", false);
+	static PrimGetEnv<bool> longLong("Fog::long_long_type", true);
 	return longLong;
 }
 
@@ -459,7 +459,7 @@ int& Fog::tab_size() {
 	
 	if (!initialised) {
 		initialised = true;
-		static const PrimGetEnv<int> tabSize("Fog::tab_size", 8);
+		static const PrimGetEnv<int> tabSize("Fog::tab_size", 4);
 		static const int& tabSizeRef = tabSize;  //   DevStudio V5 workaround.
 		_tab_size = tabSizeRef;
 	}

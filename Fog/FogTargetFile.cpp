@@ -319,6 +319,9 @@ void FogTargetFile::emit_contents(FogStream& s, const FogRoot& aRoot) const {
 		next(s);
 	}
 	
+	s << "#include <new>\n";
+	s << "#include <typeinfo>\n";
+	
 	PrimIdMap visibleFiles(_visible_files.tally());
 	
 	visibleFiles |= unique_id();        //   Inhibit a self inclusion
@@ -493,6 +496,7 @@ void FogTargetFile::emit_file(FogRoot& aRoot) const {
 		diagnose_non_emission();
 		return;
 	}
+	
 	
 	FogStream s(aRoot, this);
 	

@@ -649,6 +649,38 @@ FOGMETAFUNCTION_CLASS_METHOD(FogMetaType_Specifier_Name, identifier, "name", IS_
     return true;
 }
 
+// identical to following function
+FOGMETAFUNCTION_CLASS_METHOD(FogMetaType_Specifier_TypeName, identifier, "type_name", IS_EXPOSED)
+{
+    FogSpecifier *aSpecifier = callContext.get_specifier();
+    if (!aSpecifier)
+        return false;
+    const FogName *typeName = aSpecifier->get_type();
+    if (typeName)
+    {
+        const PrimId *typeId = typeName->is_resolved();         //  .bugbug scoping and templating
+        if (!typeId)
+        {
+            ERRMSG("Failed to resolve type name " << *typeId << " for " << viz(*this));
+            return false;
+        }
+        FogEntity *theType = callContext.dynamic_scope().find_type(*typeId, IN_ANY_SCOPE);
+        if (!theType)
+        {
+            ERRMSG("Failed to locate type " << *typeId << " for " << viz(*this));
+            return false;
+        }
+        returnValue.assign(*theType);
+    }
+    else
+    {
+        ERRMSG("BUG - no type for " << viz(*this));
+        return false;
+    }
+    return true;
+}
+
+
 FOGMETAFUNCTION_CLASS_METHOD(FogMetaType_Specifier_Type, type, "type", IS_ENCAPSULATED)
 {
     FogSpecifier *aSpecifier = callContext.get_specifier();
@@ -767,6 +799,7 @@ FOGMETAVARIABLE_CLASS_METHOD(FogMetaType_Token_This, entity, "This", IS_ENCAPSUL
     return true;
 }
  
+
 void FogMetaType::add_array_modifier_slots() {}
 void FogMetaType::add_asm_definition_slots() {}
 

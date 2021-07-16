@@ -8,7 +8,7 @@
 //  		Compare two strings as for strcmp() but ignoring case inequalities.
 //  
 int strcasecmp(const char *p, const char *q) 
-#ifdef flagCLANG
+#if defined flagCLANG && !defined flagFREEBSD
 throw()
 #endif
 {

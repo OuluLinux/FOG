@@ -234,8 +234,10 @@ int main(int argc, char *argv[]) {
 			if (!parseError && theToken) {
 				FogRaw *aDeclaration = theToken->is_raw();
 				
-				//FogRaws* r = dynamic_cast<FogRaws*>(theToken);
-				//PrintAST(*r);
+				if (0) {
+					FogRaws* r = dynamic_cast<FogRaws*>(theToken);
+					PrintAST(*r);
+				}
 				
 				//return 0;
 				//if (aDeclaration)
@@ -243,6 +245,7 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
+	
 	
 	aFog->compile();
 	

@@ -283,6 +283,7 @@ void FogUsage::add_precursors_to(FogTargetFile& aFile)
 }
 
 VERBOSE(int counter = 0;)
+#undef CONDMSG
 #define CONDMSG(file, msg) VERBOSE(std::cout << counter << " " << msg << std::endl; /*if (counter == 26) {int* i = 0; *i = 0;}*/ counter++;)
 
 //
