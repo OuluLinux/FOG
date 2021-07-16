@@ -204,7 +204,7 @@ const char *FogLexerInput::get(FogTokenContext& tokenContext)
  }
  for ( ; !p->is_empty(); p->pop())
  {
-  const char *stateName = stateName = p->get(tokenContext);
+  const char *stateName = p->get(tokenContext);
   if (stateName)
   {
    if (tokenContext.token().is_line() && _token.is_null())
@@ -772,7 +772,7 @@ const char *FogLexerInput_Stream::peek(FogTokenRef& tokenValue, size_t nextIndex
  while (nextIndex < _contents.tally())       //   If replaying.
  {
   tokenValue = _contents[nextIndex++];
-  if (!tokenValue->is_skip(skipWhite));
+  if (!tokenValue->is_skip(skipWhite))
    return "<INPUT_REPEEK>";
  }
  return _lexer.peek(tokenValue, skipWhite);

@@ -249,9 +249,9 @@ TMPL_HACK_FIX_DO(FogUsage)
 FogUsage::FogUsage()
 :
 //	_entity(FogEntity::mutable_null()),
-	_entity(0),
 //	_type(NAME),
 	_type(INVALID),
+	_entity(0),
 	_file(0),
 	_usage_number(0)
 {}

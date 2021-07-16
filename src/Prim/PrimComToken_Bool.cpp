@@ -16,8 +16,8 @@ PrimComToken_Bool::PrimComToken_Bool(PrimComParse& aParser, bool &theValue, cons
  const char *aUsage, const TokenOptions& someOptions)
 :
  Super(aParser, aName, aUsage, someOptions),
- _value(theValue),
- _default_value(false)
+ _default_value(false),
+ _value(theValue)
 {}
 
 //  
@@ -28,8 +28,8 @@ PrimComToken_Bool::PrimComToken_Bool(PrimComParse& aParser, bool &theValue, cons
  const char *aUsage, const bool& defaultValue, const TokenOptions& someOptions)
 :
  Super(aParser, aName, aUsage, someOptions),
- _value(theValue),
- _default_value(defaultValue)
+ _default_value(defaultValue),
+ _value(theValue)
 {}
 
 //  

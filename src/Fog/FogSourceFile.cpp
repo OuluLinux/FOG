@@ -14,8 +14,8 @@ TMPL_HACK_FIX_DO(FogSourceFile)
 
 FogSourceFile::FogSourceFile()
 :
- _has_been_read(false),
- _source_type(FogSourceFileType::invalid())
+ _source_type(FogSourceFileType::invalid()),
+ _has_been_read(false)
 {}
 
 FogSourceFile::FogSourceFile(const PrimId& pathedId, const PrimId& fileIdent,
@@ -23,8 +23,8 @@ FogSourceFile::FogSourceFile(const PrimId& pathedId, const PrimId& fileIdent,
 :
  _pathed_id(pathedId),
  _short_id(fileIdent),
- _has_been_read(false),
- _source_type(sourceType)
+ _source_type(sourceType),
+ _has_been_read(false)
 {}
 
 //  const FogMetaType *FogSourceFile::meta_type() const { return &FogMetaType::source_file_type(); }

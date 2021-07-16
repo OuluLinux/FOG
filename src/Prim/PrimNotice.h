@@ -39,7 +39,7 @@ public:
 //  		augmenting with their own field comparisons. However this proved to be stupid for the test
 //  		suite which multiply inherited the notice and so had an inconsistent type for it.
 //  
- bool compare(const PrimNotice& aNotice) const { UNUSED(&aNotice); return (true); }
+ bool compare(const PrimNotice& /*aNotice*/) const { /*UNUSED(&aNotice);*/ return (true); }
  virtual bool not_posted() const;
 //  
 //  		Report the notifier that posted this notice. The return may be 0 if unknown.

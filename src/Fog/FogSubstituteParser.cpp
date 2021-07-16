@@ -2043,7 +2043,7 @@ void FogSubstituteParser::substitute_hash_id(FogKeyword *anId)
 	const FogTokenListOfRef& theTokens = replacementMacro.tokens();
 	bool gotWhite = false;				// Flag compressing multi-white, stripping trailing white.
 	bool gotNonWhite = false;			// Flag stripping leading white.
-	for (int i = 0; i < theTokens.tally(); ++i)
+	for (size_t i = 0; i < theTokens.tally(); ++i)
 	{
 		const FogToken& theToken = *theTokens[i];
 		if (theToken.is_white())

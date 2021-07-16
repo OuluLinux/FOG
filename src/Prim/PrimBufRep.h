@@ -55,7 +55,7 @@ public:
 //  
 //  	Create a default string representation which is the null buffer representation.
 //  
- PrimBufRep() : _bytes(_null_buf), _share_count(0), _size(0) {}
+ PrimBufRep() : _bytes(_null_buf), _size(0), _share_count(0) {}
  ~PrimBufRep(); 
 };
 #endif

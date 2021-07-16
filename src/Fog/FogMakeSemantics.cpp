@@ -217,7 +217,7 @@ bool FogMakeSemantics::make_specifier(FogBaseMakeSpecifierContext& aContext, Fog
             if (scopeSpecifier)
                 return aContext.adopt_specifier(new FogTypeParameterSpecifier(aContext, *scopeSpecifier));
             ERRMSG("BUG -- should have made template-type-parameter from an elaborated-type-specifier");
-            false;
+            return false;
         }
 //        case MAKE_USING: return new FogUsingSpecifier(aContext, *aName);
         case MAKE_VALUE_PARAMETER:

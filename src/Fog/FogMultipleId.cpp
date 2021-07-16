@@ -29,8 +29,8 @@ FogMultipleId::FogMultipleId(const FogElementType& elementType)
 FogMultipleId::FogMultipleId(const This& thatName)
 :
     Super(thatName),
-    _element_type(thatName._element_type),
     _tokens(thatName._tokens),
+    _element_type(thatName._element_type),
     _resolved_id(thatName._resolved_id),
     _resolved(thatName._resolved),
     _resolved_in(thatName._resolved_in),

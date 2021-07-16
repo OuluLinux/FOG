@@ -437,7 +437,7 @@ FogFunction *FogFunction::deduce_specialisation(FogMakeSpecifierContext& makeSpe
             //    Initialise map of parameters to be deduced.
             //  
             FogExprSetOfRef deducedValues;
-            for (int i1 = firstNumber+1; i1 <= lastNumber; i1++)
+            for (size_t i1 = firstNumber+1; i1 <= lastNumber; i1++)
             {
                 const FogTemplateParameterSpecifier& tP = templateParameters.template_parameter_number(i1);
                 const FogName& tPN = tP.name();
@@ -492,7 +492,7 @@ FogFunction *FogFunction::deduce_specialisation(FogMakeSpecifierContext& makeSpe
             if (failedDeductions)
                 return 0;
             FogListOfExprRef exprList(new FogListOfExpr, FogListOfExprRef::ADOPT);
-            for (int i2 = firstNumber+1; i2 <= lastNumber; i2++)
+            for (size_t i2 = firstNumber+1; i2 <= lastNumber; i2++)
             {
                 const FogTemplateParameterSpecifier& tP = templateParameters.template_parameter_number(i2);
                 const FogName& tPN = tP.name();

@@ -540,9 +540,9 @@ std::ostream& PrimMapOfRefImp::print_on(const PrimMapOfRefFuncs& supportFunction
 //  
 //  	Provide the dimensions as part of a brief diagnostic.
 //  
-std::ostream& PrimMapOfRefImp::print_this(const PrimMapOfRefFuncs& supportFunctions, std::ostream& s) const
+std::ostream& PrimMapOfRefImp::print_this(const PrimMapOfRefFuncs& /*supportFunctions*/, std::ostream& s) const
 {
- UNUSED(&supportFunctions);
+ /*UNUSED(&supportFunctions);*/
  s << _tally << '/' << _capacity;
  return s;
 }

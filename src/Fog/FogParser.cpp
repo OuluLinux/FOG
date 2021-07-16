@@ -7413,7 +7413,7 @@ case 768:
 { yyval.declaration = YACC_DERIVED_CLAUSE(yyvsp[-4].expression, yyvsp[-1].subspace); ;
     break;}
 case 769:
-{ yyval.declaration = yyval.declaration = YACC_DERIVED_CLAUSE(yyvsp[-8].expression, yyvsp[-5].subspace); YACC_UNBANG(yyvsp[-2].bang, "Bad object-statement."); ;
+{ yyval.declaration  = YACC_DERIVED_CLAUSE(yyvsp[-8].expression, yyvsp[-5].subspace); YACC_UNBANG(yyvsp[-2].bang, "Bad object-statement."); ;
     break;}
 case 772:
 { yyval.function_body = YACC_CTOR_FUNCTION_BLOCK(0, yyvsp[-1].mem_initializers); ;

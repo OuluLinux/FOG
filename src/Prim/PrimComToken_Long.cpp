@@ -17,8 +17,8 @@ PrimComToken_Long::PrimComToken_Long(PrimComParse& aParser, long &theValue, cons
  const char *aUsage, const TokenOptions& someOptions)
 :
  Super(aParser, aName, aUsage, someOptions),
- _value(theValue),
  _default_value(0),
+ _value(theValue),
  _number_base(default_number_base())
 {}
 
@@ -32,8 +32,8 @@ PrimComToken_Long::PrimComToken_Long(PrimComParse& aParser, long &theValue, cons
  const char *aUsage, long defaultValue, const int& numberBase, const TokenOptions& someOptions)
 :
  Super(aParser, aName, aUsage, someOptions),
- _value(theValue),
  _default_value(defaultValue),
+ _value(theValue),
  _number_base(numberBase)
 {}
 

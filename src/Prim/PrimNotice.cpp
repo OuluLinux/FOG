@@ -29,9 +29,9 @@ bool PrimNotice::not_posted() const
 //  	can respond to the message using the run-time type information mechanism and then use a message
 //  	specific method to post the notice.
 //  
-bool PrimNotice::posted_on(PrimNotifier& aNoticeBoard) const
+bool PrimNotice::posted_on(PrimNotifier& /*aNoticeBoard*/) const
 {
- UNUSED(&aNoticeBoard);
+ /*UNUSED(&aNoticeBoard);*/
  return not_posted();
 }
 

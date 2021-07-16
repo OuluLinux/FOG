@@ -153,9 +153,9 @@ void PrimListOfRefImp::clone(const PrimRefFuncs& supportFunctions, const PrimLis
 //  
 //  	Return a non-null pointer if anElement is non-null and matches one of the list pointers.
 //  
-const PrimRefValue *PrimListOfRefImp::find(const PrimRefFuncs& supportFunctions, const PrimRefValue& anElement) const
+const PrimRefValue *PrimListOfRefImp::find(const PrimRefFuncs& /*supportFunctions*/, const PrimRefValue& anElement) const
 {
- UNUSED(&supportFunctions);
+ /*UNUSED(&supportFunctions);*/
  const PrimRefBase *p = contents();
  for (size_t i = tally(); i-- > 0; p++)
   if (*p == anElement)
@@ -252,9 +252,9 @@ std::ostream& PrimListOfRefImp::print_on(const PrimRefFuncs& supportFunctions, s
 //  
 //  	Display the list dimensions as part of an inline diagnostic.
 //  
-std::ostream& PrimListOfRefImp::print_this(const PrimRefFuncs& supportFunctions, std::ostream& s) const
+std::ostream& PrimListOfRefImp::print_this(const PrimRefFuncs& /*supportFunctions*/, std::ostream& s) const
 {
- UNUSED(&supportFunctions);
+ /*UNUSED(&supportFunctions);*/
  return (s << tally() << '/' << capacity());
 }
 

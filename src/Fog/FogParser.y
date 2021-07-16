@@ -1673,7 +1673,7 @@ object_statement:                   ';'                                         
     |                               derived_clause object_statement                             { $$ = YACC_DERIVED_CLAUSE($1, $2); }
     |                               derived_clause ':' '{' object_statement_seq.opt '}'         { $$ = YACC_DERIVED_CLAUSE($1, $4); }
     |                               derived_clause ':' '{' object_statement_seq.opt looping_object_statement '#' bang error '#'
-                                                { $$ = $$ = YACC_DERIVED_CLAUSE($1, $4); YACC_UNBANG($7, "Bad object-statement."); }
+                                                { $$ = YACC_DERIVED_CLAUSE($1, $4); YACC_UNBANG($7, "Bad object-statement."); }
 function_used_block:                function_block
     |                               function_try_block
     |                               ctor_initializer ';'                                        { $$ = YACC_CTOR_FUNCTION_BLOCK(0, $1); }

@@ -102,8 +102,8 @@ FogDeclarationParseContext::FogDeclarationParseContext(FogToken& aToken)
 
 FogDeclarationParseContext::FogDeclarationParseContext(FogToken& aToken, FogScopeContext& _scope_context)
 :
-    _static_token(aToken),
-    FogParseContext(_scope_context)
+    FogParseContext(_scope_context),
+    _static_token(aToken)
 //    _target_file(0)
 {}
 
