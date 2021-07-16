@@ -4,7 +4,7 @@
 
 
 
-
+/*
 //  
 //  \		PrimBit_TN defines bit N in an unsigned T.
 //  \		PrimSignedBits_MTN defines a M bit field with least significant bit N in a signed T.
@@ -52,7 +52,8 @@
 //  		All standard one bit fields are predeclared. Multiple bit fields must be explicitly declared.
 //  
 //  		When templates are available the () can be replaced by <>, and the declarations removed.
-//  
+//
+*/
 #define PrimBit(T,aBit) name3(PrimBit_,T,aBit)
 #define PrimBitdeclare(T,N)                  \
 class PrimBit(T,N)                    \

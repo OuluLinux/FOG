@@ -31,7 +31,7 @@ protected:
 //  
  PrimComTokenStr(PrimComParse& aParser, const char *aName, const char *aUsage,
   const TokenOptions& someOptions, PrimStringHandle& theValue, const PrimString& defaultValue)
-  : Super(aParser, aName, aUsage, someOptions), _value(theValue), _default_value(defaultValue) {}
+  : Super(aParser, aName, aUsage, someOptions), _default_value(defaultValue), _value(theValue) {}
  virtual ~PrimComTokenStr();
  virtual void initialise_parse(PrimComParse& aParser);
  virtual const char *parse_text(PrimComParse& aParser, const char *someText);

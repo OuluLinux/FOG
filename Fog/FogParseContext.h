@@ -180,7 +180,7 @@ class FogDecoratedParseContext : public FogParseContext
 private:
     FogParseContext& _parse_context;
 protected:
-    FogDecoratedParseContext(FogParseContext& parseContext) : _parse_context(parseContext), FogParseContext(parseContext) {}
+    FogDecoratedParseContext(FogParseContext& parseContext) : FogParseContext(parseContext), _parse_context(parseContext) {}
     FogParseContext& parse_context() { return _parse_context; }
 public:
     virtual const FogAccess& access() const;

@@ -30,9 +30,9 @@ FogCharacter::FogCharacter()
 FogCharacter::FogCharacter(const PrimId& rawId, const PrimId& binId, unsigned long aValue, CharacterType characterType)
 		:
 		_raw_id(rawId),
-		_bin_id(binId),
 		_character_type(characterType),
-		_value(aValue) {}
+		_value(aValue),
+		_bin_id(binId) {}
 		
 FogCharacter::~FogCharacter() {}
 

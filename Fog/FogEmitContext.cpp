@@ -376,8 +376,8 @@ FogStaticEmitContext::FogStaticEmitContext(FogStream& s, FogToken& aToken, ForUs
 		:
 		_static_token(aToken),
 		_in_scope(IN_ANY_SCOPE),
-		_for_use_as(forUseAs),
 		_s(s),
+		_for_use_as(forUseAs),
 		_separator(0),
 		_terminator(0) {}
 		

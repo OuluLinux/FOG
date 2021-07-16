@@ -16,15 +16,15 @@ TMPL_HACK_FIX_DO(FogIterationDomain)
 FogIterationDomain::FogIterationDomain()
 :
     _meta_type(FogMetaType::void_type()),
-    _executable_tokens(0),
-    _source_lines(0)
+    _source_lines(0),
+    _executable_tokens(0)
 {}
 
 FogIterationDomain::FogIterationDomain(const FogMetaType& metaType)
 :
     _meta_type(metaType),
-    _executable_tokens(0),
-    _source_lines(0)
+    _source_lines(0),
+    _executable_tokens(0)
 {}
 
 FogIterationDomain::FogIterationDomain(const This& tokenList)
@@ -32,8 +32,8 @@ FogIterationDomain::FogIterationDomain(const This& tokenList)
     Super(tokenList),
     _meta_type(tokenList._meta_type),
     _tokens(tokenList._tokens),
-    _executable_tokens(tokenList._executable_tokens),
-    _source_lines(tokenList._source_lines)
+    _source_lines(tokenList._source_lines),
+    _executable_tokens(tokenList._executable_tokens)
 {}
 
 FogIterationDomain::~FogIterationDomain() {}

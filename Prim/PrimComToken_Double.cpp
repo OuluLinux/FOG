@@ -16,8 +16,8 @@ PrimComToken_Double::PrimComToken_Double(PrimComParse& aParser, double &theValue
  const char *aUsage, const TokenOptions& someOptions)
 :
  Super(aParser, aName, aUsage, someOptions),
- _value(theValue),
- _default_value(0.0)
+ _default_value(0.0),
+ _value(theValue)
 {}
 
 //  
@@ -28,8 +28,8 @@ PrimComToken_Double::PrimComToken_Double(PrimComParse& aParser, double &theValue
  const char *aUsage, double defaultValue, const TokenOptions& someOptions)
 :
  Super(aParser, aName, aUsage, someOptions),
- _value(theValue),
- _default_value(defaultValue)
+ _default_value(defaultValue),
+ _value(theValue)
 {}
 
 //  

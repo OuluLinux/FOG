@@ -26,15 +26,15 @@ TMPL_HACK_FIX_DO(FogRoot)
 FogRoot::FogRoot()
 		:
 		Super(FogTag::namespace_tag(), *this, *PrimIdHandle("$null$")),
-		_reader(*this),
 		_program("?"),
+		_reader(*this),
 		_root_context(*this) {}
 		
 FogRoot::FogRoot(const PrimId& anId)
 		:
 		Super(FogTag::namespace_tag(), *this, *PrimIdHandle(anId ? anId.str() : "<unnamed>")),
-		_reader(*this),
 		_program("?"),
+		_reader(*this),
 		_meta_base(new FogAuto(*this), FogScopeRef::ADOPT),
 		_std(new FogStd(*this), FogScopeRef::ADOPT),
 		_root_context(*this) {

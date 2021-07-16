@@ -68,13 +68,13 @@ FogScope::FogScope(const FogTag& aTag, FogScope& parentScope, const PrimId& anId
 :
     Super(parentScope, anId, anId),
     _nested(&parentScope == this ? 0 : parentScope.nesting_depth()+1),  //   Avoid recursion for global scope.
-    _templates(*this),
     _tag(aTag),
     _braced(false),
     _is_leaf(FogLazyBool::make_undecided()),
     _is_frozen(false),
     _done_meta_construct(false),
-    _inline_usage(0)
+    _inline_usage(0),
+    _templates(*this)
 {}
 
 FogScope::~FogScope() {}

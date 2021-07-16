@@ -38,7 +38,7 @@ bool FogInline_Flyweights::initialise()
         _flyweights[p->_inline_enum] = flyWeights[p->_inline_enum].pointer();
     }
     _flyweights[FogInline::EXPLICIT_IF_SHORT] = &FogTokenType::get_inline(FogTokenType::INLINE);
-    for (int i = 0; i < (sizeof(_flyweights)/sizeof(_flyweights[0])); i++)
+    for (size_t i = 0; i < (sizeof(_flyweights)/sizeof(_flyweights[0])); i++)
     {
         if (!_flyweights[i])
         {

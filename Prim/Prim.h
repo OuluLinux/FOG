@@ -320,12 +320,14 @@ PRIM_AND_SHARED_MAP(T)
 
 #define PRIM_THAT_AND_LIST(T) PRIM_AND_LIST(T)
 #define PRIM_THAT_AND_1LIST(T) PRIM_AND_1LIST(T)
+/*
 // typedef PrimSinglyLinkedListOfRefToConst<name2(T,That)> name2(T,1ListOfRefToConst); \
 // typedef PrimSinglyLinkedListOfRef<name2(T,That)> name2(T,1ListOfRef); \
 // typedef PrimSinglyLinkedListOfRefToConstIterator<name2(T,That)> name2(T,1ListOfRefToConstIterator); \
 // typedef PrimSinglyLinkedListOfRefIterator<name2(T,That)> name2(T,1ListOfRefIterator); \
 // typedef PrimConstSinglyLinkedListOfRefToConstIterator<name2(T,That)> name2(T,Const1ListOfRefToConstIterator); \
 // typedef PrimConstSinglyLinkedListOfRefIterator<name2(T,That)> name2(T,1LinkedListOfRefIterator);
+*/
 #define PRIM_THAT_AND_MAP(T) PRIM_AND_MAP(T)
 #define PRIM_THAT_AND_REF(T) PRIM_AND_REF(T)
 #define PRIM_THAT_WITH_REF(T) PRIM_WITH_REF(T)

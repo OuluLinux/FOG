@@ -78,21 +78,21 @@ FogMetaEntity *FogMetaVariableSlot::get_meta_entity(FogScopeContext& inScope) co
     FogMetaEntity *metaEntity = NULL;//found_meta_entities[this];
     
     if (!metaEntity) {
-	    inToken = get_scope_in(inScope);
+	inToken = get_scope_in(inScope);
 		
-		VERBOSE(printf("DEBUG   inToken %x\n", &inToken);)
+	VERBOSE(printf("DEBUG   inToken %x\n", &inToken);)
 	    
-	    if (!inToken)
-	        return 0;
+	if (!inToken)
+	    return 0;
 	    
-		VERBOSE(printf("DEBUG   find entity %s\n", id().str());)
+	VERBOSE(printf("DEBUG   find entity %s\n", id().str());)
 		
-		metaEntity = inToken->find_meta_entity(id());
+	metaEntity = inToken->find_meta_entity(id());
 		
-		VERBOSE(if (metaEntity) {std::strstream str;metaEntity->print_viz(str);printf("DEBUG   found %x %s\n", metaEntity, str.str());})
+	VERBOSE(if (metaEntity) {std::strstream str;metaEntity->print_viz(str);printf("DEBUG   found %x %s\n", metaEntity, str.str());})
     }
     else {
-		VERBOSE(printf("DEBUG   old entity %x\n", metaEntity);)
+	VERBOSE(printf("DEBUG   old entity %x\n", metaEntity);)
     }
     
     

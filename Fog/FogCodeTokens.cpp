@@ -15,8 +15,8 @@ TMPL_HACK_FIX_DO(FogCodeTokens)
 
 FogCodeTokens::FogCodeTokens()
 :
-    _executable_tokens(0),
-    _source_lines(0)
+    _source_lines(0),
+    _executable_tokens(0)
 {}
 
 
@@ -24,8 +24,8 @@ FogCodeTokens::FogCodeTokens(const This& tokenList)
 :
     Super(tokenList),
     _tokens(tokenList._tokens),
-    _executable_tokens(tokenList._executable_tokens),
-    _source_lines(tokenList._source_lines)
+    _source_lines(tokenList._source_lines),
+    _executable_tokens(tokenList._executable_tokens)
 {}
 
 FogCodeTokens::~FogCodeTokens() {}

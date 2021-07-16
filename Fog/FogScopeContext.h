@@ -142,8 +142,8 @@ private:
 private:
     This& operator=(const This& scopeContext);
 protected:
-    FogDecoratedScopeContext(FogScopeContext& scopeContext) : _context(scopeContext), Super(scopeContext, 123) {}
-    FogDecoratedScopeContext(This& scopeContext) : _context(scopeContext), Super(scopeContext, 123) {}
+    FogDecoratedScopeContext(FogScopeContext& scopeContext) : Super(scopeContext, 123), _context(scopeContext) {}
+    FogDecoratedScopeContext(This& scopeContext) : Super(scopeContext, 123), _context(scopeContext) {}
 public:
     FogScopeContext& scope_context() { return _context; }
     const FogScopeContext& scope_context() const { return _context; }

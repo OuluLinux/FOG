@@ -18,14 +18,14 @@ TYPEINFO_SINGLE(FogTemplateManager, Super)
 
 FogTemplateManager::FogTemplateManager(FogEntity& primaryEntity)
 :
-    _classification(NON_TEMPLATE),
-    _primary(primaryEntity)
+    _primary(primaryEntity),
+    _classification(NON_TEMPLATE)
 {}
 
 FogTemplateManager::FogTemplateManager(FogEntity& primaryEntity, FogMakerContext& makerContext)
 :
-    _classification(classify_primary(makerContext)),
     _primary(primaryEntity),
+    _classification(classify_primary(makerContext)),
     _parameter_specifiers(is_templated() ? makerContext.template_parameters() : 0)
 {
 //    install_parameters(makerContext); -- must be in caller to ensure that parent has become at least a FogScope
@@ -34,8 +34,8 @@ FogTemplateManager::FogTemplateManager(FogEntity& primaryEntity, FogMakerContext
 
 FogTemplateManager::FogTemplateManager(FogMakeTemplateContext& makeTemplateContext)
 :
-    _classification(classify_secondary(makeTemplateContext)),
     _primary(makeTemplateContext.primary()),
+    _classification(classify_secondary(makeTemplateContext)),
     _arguments(makeTemplateContext.template_args()),
     _parameter_specifiers(makeTemplateContext.template_parameters())
 {

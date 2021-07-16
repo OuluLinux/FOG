@@ -113,7 +113,7 @@ void FogUsageManager::compile() {
 				while (true) {
 					FogUsage *nextUsage = endUsage->pick_cyclic_use_of(*this);
 					if (nextUsage == endUsage) {
-						int i = 0;
+						i = 0;
 					}
 					
 					if (!nextUsage)        //   Only occurs if a bug has left endUsage acyclic

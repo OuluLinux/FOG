@@ -102,9 +102,11 @@ public:
 /*   Inclusion of PrimComToken used to include everything, so if this include file
  * is the first of the family to be included, the old policy is presumably assumed
  * so include the lot. Just to make the tests harder PrimComToken_Enum was separate. */
+/*
 //  #if !defined(PRIMCOMPARSE_HXX) && (!defined(PRIMCOMTOKENSTR_HXX) || defined(PRIMCOMTOKEN_ENUM_HXX)) \
 //  	&& !defined(PRIMCOMTOKENSTRS_HXX) && !defined(PRIMCOMTOKEN_BOOL_HXX) && !defined(PRIMCOMTOKEN_DOUBLE_HXX) \
 //  	&& !defined(PRIMCOMTOKEN_INT_HXX) && !defined(PRIMCOMTOKEN_LONG_HXX)
 //  #include <PrimComs.h>
+*/
 #endif
  

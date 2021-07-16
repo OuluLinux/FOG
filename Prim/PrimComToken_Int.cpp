@@ -17,8 +17,8 @@ PrimComToken_Int::PrimComToken_Int(PrimComParse& aParser, int &theValue, const c
  const char *aUsage, const TokenOptions& someOptions)
 :
  Super(aParser, aName, aUsage, someOptions),
- _value(theValue),
  _default_value(0),
+ _value(theValue),
  _number_base(default_number_base())
 {}
 
@@ -32,8 +32,8 @@ PrimComToken_Int::PrimComToken_Int(PrimComParse& aParser, int &theValue, const c
  const char *aUsage, int defaultValue, const int& numberBase, const TokenOptions& someOptions)
 :
  Super(aParser, aName, aUsage, someOptions),
- _value(theValue),
  _default_value(defaultValue),
+ _value(theValue),
  _number_base(numberBase)
 {}
 

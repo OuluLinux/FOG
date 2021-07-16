@@ -179,10 +179,10 @@ PrimSinglyLinkedListOfRefElement **PrimSinglyLinkedListOfRefImp::find(const Prim
 //  
 //  	Return a non-null pointer if anElement is non-null and matches one of the list pointers.
 //  
-const PrimRefValue *PrimSinglyLinkedListOfRefImp::find(const PrimRefFuncs& supportFunctions,
+const PrimRefValue *PrimSinglyLinkedListOfRefImp::find(const PrimRefFuncs& /*supportFunctions*/,
   const PrimRefValue& anElement) const
 {
- UNUSED(&supportFunctions);
+ /*UNUSED(&supportFunctions);*/
  return find(anElement) ? &anElement : 0;
 }
 
@@ -298,10 +298,10 @@ std::ostream& PrimSinglyLinkedListOfRefImp::print_on(const PrimRefFuncs& support
 //  
 //  	Display the list dimensions as part of an inline diagnostic.
 //  
-std::ostream& PrimSinglyLinkedListOfRefImp::print_this(const PrimRefFuncs& supportFunctions,
+std::ostream& PrimSinglyLinkedListOfRefImp::print_this(const PrimRefFuncs& /*supportFunctions*/,
   std::ostream& s) const
 {
- UNUSED(&supportFunctions);
+ /*UNUSED(&supportFunctions);*/
  return s << tally();
 }
 

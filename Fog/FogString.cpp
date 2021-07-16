@@ -30,8 +30,8 @@ FogString::FogString()
 FogString::FogString(const PrimId& rawId, const PrimId& binId, StringType stringType)
 :
  _raw_id(rawId),
- _bin_id(binId),
- _string_type(stringType)
+ _string_type(stringType),
+ _bin_id(binId)
 {}
 
 FogString::~FogString() {}
