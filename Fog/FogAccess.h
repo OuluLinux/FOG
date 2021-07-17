@@ -20,7 +20,7 @@ public:
 	};
 	
 public:
-	enum Size { ARRAY_SIZE = INVALID+1 };
+	enum Size { ARRAY_SIZE = INVALID + 1 };
 };
 
 struct FogAccess_Flyweights {
@@ -28,7 +28,7 @@ struct FogAccess_Flyweights {
 	friend class FogAccess;
 	
 private:
-	static FogAccess *_flyweights[FogAccessEnums::ARRAY_SIZE];
+	static FogAccess* _flyweights[FogAccessEnums::ARRAY_SIZE];
 	static bool _initialised;
 	
 private:
@@ -107,12 +107,12 @@ private:
 	
 protected:
 	friend  bool FogAccess_Flyweights::initialise();
-	FogAccess(const char *aName = 0, Mask aMask = INVALID_MASK, Enum anEnum = INVALID);
+	FogAccess(const char* aName = 0, Mask aMask = INVALID_MASK, Enum anEnum = INVALID);
 	virtual ~FogAccess() {}
 	
 public:
-	operator const IsValid *() const {
-		return (const IsValid *)(_access.is_valid() ? this : 0);
+	operator const IsValid* () const {
+		return (const IsValid*)(_access.is_valid() ? this : 0);
 	}
 	
 	bool operator!() const {
@@ -154,10 +154,10 @@ public:
 		return firstAccess._access == secondAccess._access;
 	}
 	
-//  	friend bool operator==(const FogAccess& firstAccess, FogAccess::Enum secondAccess)
-//  		{ return firstAccess._access == secondAccess; }
-//  	friend std::ostream& operator<<(std::ostream& s, const FogAccess& anAccess);
-
+	//  	friend bool operator==(const FogAccess& firstAccess, FogAccess::Enum secondAccess)
+	//  		{ return firstAccess._access == secondAccess; }
+	//  	friend std::ostream& operator<<(std::ostream& s, const FogAccess& anAccess);
+	
 public:
 	static FogAccess& auto_access() {
 		return *FogAccess_Flyweights::_flyweights[AUTO];

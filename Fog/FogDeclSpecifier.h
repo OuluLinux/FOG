@@ -14,16 +14,16 @@ struct FogDeclSpecifier_Flyweights {      //   dbxtool goes infinite if T has st
 	
 private:
 	static const FogDeclSpecifier_Initializer _invalid_init;
-	static FogDeclSpecifier *_explicit;
-	static FogDeclSpecifier *_ex_port;
-	static FogDeclSpecifier *_extern;
-	static FogDeclSpecifier *_friend;
-	static FogDeclSpecifier *_invalid;
-	static FogDeclSpecifier *_mutable;
-	static FogDeclSpecifier *_register;
-	static FogDeclSpecifier *_typedef;
-	static FogDeclSpecifier *_template;
-	static FogDeclSpecifier *_using;
+	static FogDeclSpecifier* _explicit;
+	static FogDeclSpecifier* _ex_port;
+	static FogDeclSpecifier* _extern;
+	static FogDeclSpecifier* _friend;
+	static FogDeclSpecifier* _invalid;
+	static FogDeclSpecifier* _mutable;
+	static FogDeclSpecifier* _register;
+	static FogDeclSpecifier* _typedef;
+	static FogDeclSpecifier* _template;
+	static FogDeclSpecifier* _using;
 	static FogDeclSpecifier& invalid();
 };
 
@@ -45,7 +45,7 @@ protected:
 	friend struct FogDeclSpecifier_Flyweights;
 	friend void FogTokenType::initialise();
 	FogDeclSpecifier(const FogDeclSpecifier_Initializer& declSpecifier = FogDeclSpecifier_Flyweights::_invalid_init);
-	FogDeclSpecifier(const char *anId, Mask aMask);
+	FogDeclSpecifier(const char* anId, Mask aMask);
 	virtual ~FogDeclSpecifier() {}
 	
 public:
@@ -54,7 +54,7 @@ public:
 	}
 	
 	virtual const FogDeclSpecifierValue& decl_specifiers() const;
-	virtual FogDeclSpecifier *is_decl_specifier();
+	virtual FogDeclSpecifier* is_decl_specifier();
 	virtual const FogMetaType& meta_type() const;
 	virtual bool resolve_semantics(FogSemanticsContext& theSemantics) const;
 	
@@ -105,7 +105,7 @@ public:
 };
 
 struct FogDeclSpecifier_Initializer {
-	const char *_name;
+	const char* _name;
 	FogTokenType::TokenType _table_enum;    //   Index for storage in FogTokenType_id_table
 	FogTokenType::TokenType _pp_enum;     //   Token type for preprocessor level parsing.
 	FogTokenType::TokenType _enum;      //   Token type for normal level parsing.

@@ -15,17 +15,17 @@
 TYPEINFO_SINGLE(FogClassSpecifier, Super)
 FOGTOKEN_READ_ONLY_IMPL(FogClassSpecifier)
 
-FogClassSpecifier::FogClassSpecifier(const FogTag& aTag, FogName *aName, FogBaseSpecifiers *baseSpecifiers)
-		:
-		Super(aTag, aName ? *aName : FogName::make_anon(),
-			  aTag.is_class_tag() ? FogAccess::private_access() : FogAccess::public_access()),
-		_bases(baseSpecifiers) {}
-		
-FogClassSpecifier::FogClassSpecifier(const This &thatSpecifier)
-		:
-		Super(thatSpecifier),
-		_bases(thatSpecifier._bases) {}
-		
+FogClassSpecifier::FogClassSpecifier(const FogTag& aTag, FogName* aName, FogBaseSpecifiers* baseSpecifiers)
+	:
+	Super(aTag, aName ? * aName : FogName::make_anon(),
+	      aTag.is_class_tag() ? FogAccess::private_access() : FogAccess::public_access()),
+	_bases(baseSpecifiers) {}
+
+FogClassSpecifier::FogClassSpecifier(const This& thatSpecifier)
+	:
+	Super(thatSpecifier),
+	_bases(thatSpecifier._bases) {}
+
 FogClassSpecifier::~FogClassSpecifier() {}
 
 bool FogClassSpecifier::is_actual(const FogScopeContext& scopeContext) const {
@@ -37,16 +37,16 @@ void FogClassSpecifier::make_actual_from(FogMakeActualContext& makeActualContext
 	_bases->make_actual(_bases.to_const(), makeActualContext);
 }
 
-FogEntity *FogClassSpecifier::make_type_entity(FogMakeEntityContext& makeEntityContext) const {
+FogEntity* FogClassSpecifier::make_type_entity(FogMakeEntityContext& makeEntityContext) const {
 	FogScopeContext::InScope inScope = tag() ? FogMakeEntityContext::IN_THIS_SCOPE : makeEntityContext.in_scope();
 	FogInScopeMakeEntityContext inScopeContext(makeEntityContext, inScope);
 	FogEntityMakerContext makerContext(inScopeContext, *this, &FogScope::make_scope);
-	FogEntity *theEntity = make_entity(makerContext);
+	FogEntity* theEntity = make_entity(makerContext);
 	
 	if (!theEntity)
 		return 0;
 		
-	FogScope *madeScope = theEntity->is_scope();
+	FogScope* madeScope = theEntity->is_scope();
 	
 	if (!madeScope) {
 		ERRMSG("BUG - made " << viz(*theEntity) << " when scope expected.");
@@ -54,20 +54,17 @@ FogEntity *FogClassSpecifier::make_type_entity(FogMakeEntityContext& makeEntityC
 	}
 	
 	madeScope->set_access(access());
-	
 	FogNestedMakeEntityContext madeEntityContext(makeEntityContext, *madeScope);
 	
 	for (FogBaseSpecifierConstListOfRefToConstIterator p(_bases->bases()); p; ++p)
 		p->make_base(madeEntityContext, *madeScope);
 		
 	make_body(madeEntityContext, *madeScope);
-	
 	FogRoot& globalScope  = theEntity->global_scope();
-	
-	const FogSourceFile *sourceFile = globalScope.source_file();
+	const FogSourceFile* sourceFile = globalScope.source_file();
 	
 	if (sourceFile) {
-		FogTargetFile *targetFile = globalScope.file_manager().make_target_file(*sourceFile);
+		FogTargetFile* targetFile = globalScope.file_manager().make_target_file(*sourceFile);
 		
 		if (targetFile)
 			targetFile->add_internal(theEntity->name_usage());
@@ -101,11 +98,10 @@ bool FogClassSpecifier::resolve_semantics(FogSemanticsContext& theSemantics) con
 		return false;
 		
 	/*
-    std::strstream str;
-    print_viz(str);
-    std::cout << str.str() << endl;
-    */
-    
+	    std::strstream str;
+	    print_viz(str);
+	    std::cout << str.str() << endl;
+	*/
 	theSemantics.reset();
 	
 	if (nameSemantics.is_scoped_identifier_opt() || nameSemantics.is_scoped_class_name()) {
@@ -125,6 +121,6 @@ bool FogClassSpecifier::resolve_semantics(FogSemanticsContext& theSemantics) con
 	// TODO if deeply in FogTemplateParameterParseContext
 	// - find the name what was replaced with _1, _2, etc.
 	// - add variable to waiting for meta function declare
-	// - 
+	// -
 	return true;
 }

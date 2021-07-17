@@ -25,7 +25,7 @@ public:
 	};
 	
 private:
-	enum SizeofCharacterType { SIZEOF_CHARACTERTYPE = LITERAL+1 };
+	enum SizeofCharacterType { SIZEOF_CHARACTERTYPE = LITERAL + 1 };
 	
 private:
 	const PrimIdHandle _raw_id;     //   The source text.
@@ -48,7 +48,7 @@ private:
 private:
 	FogCharacter(const PrimId& rawId, const PrimId& binId, unsigned long aValue, CharacterType characterType);
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 	const PrimId& put_id() const;
@@ -68,12 +68,12 @@ public:
 	virtual const PrimNumber& get_number(FogScopeContext& inScope) const;
 	virtual bool get_number_token(FogTokenRef& returnValue, FogScopeContext& inScope) const;
 	virtual bool get_string(PrimIdHandle& returnId, FogScopeContext& inScope);
-	virtual const FogCharacter *is_character() const;
+	virtual const FogCharacter* is_character() const;
 	virtual bool is_wide() const;
 	virtual const FogMetaType& meta_type() const;
 	virtual FogTokenType::TokenType pp_token_type_enum() const;
 	virtual std::ostream& print_diagnostic(std::ostream& s, int aDepth) const;
-	virtual char print_named(std::ostream& s, const PrimId *fullId, char tailChar) const;
+	virtual char print_named(std::ostream& s, const PrimId* fullId, char tailChar) const;
 	virtual std::ostream& print_source(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_stringized(std::ostream& s) const;
 	virtual std::ostream& print_this(std::ostream& s) const;
@@ -86,10 +86,10 @@ public:
 	}
 	
 public:
-	static unsigned long get(const unsigned char *&p, const unsigned char *pEnd);
+	static unsigned long get(const unsigned char*& p, const unsigned char* pEnd);
 	static FogCharacter& make(const PrimId& rawId, const PrimId& binId, CharacterType characterType);
 	static FogCharacter& make(const PrimId& anId, CharacterType characterType);
-	static FogCharacter& make(const char *aBuffer, size_t aLength, CharacterType characterType);
+	static FogCharacter& make(const char* aBuffer, size_t aLength, CharacterType characterType);
 	static size_t put(std::ostream& s, unsigned long aValue, AsCharacter asCharacter);
 	friend std::ostream& operator<<(std::ostream& s, const FogCharacter& aCharacter) {
 		return aCharacter.print_this(s);

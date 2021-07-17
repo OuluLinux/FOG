@@ -24,20 +24,20 @@ PRIMREFS_IMPL(FogRoot)
 TMPL_HACK_FIX_DO(FogRoot)
 
 FogRoot::FogRoot()
-		:
-		Super(FogTag::namespace_tag(), *this, *PrimIdHandle("$null$")),
-		_program("?"),
-		_reader(*this),
-		_root_context(*this) {}
-		
+	:
+	Super(FogTag::namespace_tag(), *this, *PrimIdHandle("$null$")),
+	_program("?"),
+	_reader(*this),
+	_root_context(*this) {}
+
 FogRoot::FogRoot(const PrimId& anId)
-		:
-		Super(FogTag::namespace_tag(), *this, *PrimIdHandle(anId ? anId.str() : "<unnamed>")),
-		_program("?"),
-		_reader(*this),
-		_meta_base(new FogAuto(*this), FogScopeRef::ADOPT),
-		_std(new FogStd(*this), FogScopeRef::ADOPT),
-		_root_context(*this) {
+	:
+	Super(FogTag::namespace_tag(), *this, *PrimIdHandle(anId ? anId.str() : "<unnamed>")),
+	_program("?"),
+	_reader(*this),
+	_meta_base(new FogAuto(*this), FogScopeRef::ADOPT),
+	_std(new FogStd(*this), FogScopeRef::ADOPT),
+	_root_context(*this) {
 	CONDMSG(Fog::debug_make(), "Created " << *this);
 	install_types();
 	add_scope(meta_base());
@@ -67,49 +67,41 @@ void FogRoot::add_missing_implementation(const PrimId& anId) {
 }
 
 bool FogRoot::compile() {
-//  	for (FogScopeConstMapOfRefIterator p(_linkages); p; ++p)
-//  		p->do_meta_construct();
-//  	do_meta_construct();
+	//  	for (FogScopeConstMapOfRefIterator p(_linkages); p; ++p)
+	//  		p->do_meta_construct();
+	//  	do_meta_construct();
 	static FogStaticDeriveContext deriveContext(*this);
 	
 	for (FogScopeConstMapOfRefIterator p2(_linkages); p2; ++p2)
 		p2->do_derive(deriveContext);
 		
 	do_derive(deriveContext);
-	
-//  	for (FogScopeConstMapOfRefIterator p(_linkages); p; ++p)
-//  		p->do_compile();
+	//  	for (FogScopeConstMapOfRefIterator p(_linkages); p; ++p)
+	//  		p->do_compile();
 	static FogStaticCompileContext compileContext(*this);
 	
 	for (FogScopeConstListOfRefIterator p(_scopes); p; ++p)
 		p->do_compile(compileContext);
 		
-//  	for (FogScopeConstMapOfRefIterator p(_linkages); p; ++p)
-//  		p->create_usages();
+	//  	for (FogScopeConstMapOfRefIterator p(_linkages); p; ++p)
+	//  		p->create_usages();
 	for (FogScopeConstListOfRefIterator p4(_scopes); p4; ++p4)
 		p4->create_usages();
 		
 	_usage.compile();
-	
 	_files.compile();
-	
 	_source_list = _reader.sources();
-	
 	_source_list.sort(&PrimId::sort_compare);
-	
 	_missing_interface_file.sort(&PrimId::sort_compare);
-	
 	_missing_implementation.sort(&PrimId::sort_compare);
-	
 	_missing_implementation_file.sort(&PrimId::sort_compare);
-	
 	return true;
 }
 
 const FogInline& FogRoot::default_inline() const {
-	const FogSourceFile *sourceFile = _reader.source_file();
+	const FogSourceFile* sourceFile = _reader.source_file();
 	return sourceFile && !sourceFile->source_type().is_top()
-		   ? FogInline::in_interface() : FogInline::out_of_line();
+	       ? FogInline::in_interface() : FogInline::out_of_line();
 }
 
 void FogRoot::destroy() {
@@ -143,7 +135,6 @@ void FogRoot::emit_dependencies(const PrimString& fileName) const {
 		oFile.s() << " \\\n\t" << *p;
 		
 	oFile.s() << '\n';
-	
 	_files.emit_dependencies(oFile.s(), _source_list);
 }
 
@@ -190,19 +181,15 @@ void FogRoot::emit_template_prefix(FogEmitContext& emitContext) const {}
 
 void FogRoot::find_entities_in(FogScopeContext& inScope, FogEntityFinding& theFinding) const {
 	switch (inScope.in_scope()) {
-	
-		case IN_THIS_SCOPE:
+	case IN_THIS_SCOPE:
+	case IN_BASE_SCOPE:
+	case IN_ANY_SCOPE:
+		theFinding.add(mutate());   //  .bugbug cast - cheap form of inScope.global_scope()
+		break;
 		
-		case IN_BASE_SCOPE:
-		
-		case IN_ANY_SCOPE:
-			theFinding.add(mutate());   //  .bugbug cast - cheap form of inScope.global_scope()
-			break;
-			
-		case IN_BASE_NOT_THIS_SCOPE:
-		
-		case IN_ANY_NOT_THIS_SCOPE:
-			break;
+	case IN_BASE_NOT_THIS_SCOPE:
+	case IN_ANY_NOT_THIS_SCOPE:
+		break;
 	}
 }
 
@@ -218,7 +205,7 @@ FogUsage& FogRoot::inline_usage() {
 	return FogUsage::mutable_null();
 }
 
-FogBuiltInScope *FogRoot::install_built_in(FogBuiltInScope *theType, const char *p1) {
+FogBuiltInScope* FogRoot::install_built_in(FogBuiltInScope* theType, const char* p1) {
 	PrimIdHandle typeId(p1);
 	
 	if (!theType) {
@@ -229,14 +216,13 @@ FogBuiltInScope *FogRoot::install_built_in(FogBuiltInScope *theType, const char 
 			theType->annul();
 		}
 	}
-	
 	else
 		add_type(*typeId, *theType);
 		
 	return theType;
 }
 
-FogBuiltInScope *FogRoot::install_built_in(FogBuiltInScope *theType, const char *p1, const char *p2) {
+FogBuiltInScope* FogRoot::install_built_in(FogBuiltInScope* theType, const char* p1, const char* p2) {
 	if (!theType) {
 		PrimOstrstream s;
 		s << p1 << ' ' << p2;
@@ -251,18 +237,15 @@ FogBuiltInScope *FogRoot::install_built_in(FogBuiltInScope *theType, const char 
 	}
 	
 	for (int i = 1; i <= 3; i++) {
-		const char *tmp;
-		const char *ps[2] = { p1, p2 };
+		const char* tmp;
+		const char* ps[2] = { p1, p2 };
 		
 		if (i & 1)
 			tmp = ps[0], ps[0] = ps[1], ps[1] = tmp;
 			
 		PrimOstrstream s;
-		
 		s << ps[0] << ' ' << ps[1];
-		
 		size_t aSize = s.pcount();
-		
 		PrimIdHandle typeId(s.str(), aSize);
 		
 		if (!find_local_type(*typeId))
@@ -272,8 +255,8 @@ FogBuiltInScope *FogRoot::install_built_in(FogBuiltInScope *theType, const char 
 	return theType;
 }
 
-FogBuiltInScope *FogRoot::install_built_in(FogBuiltInScope *theType,
-		const char *p1, const char *p2, const char *p3) {
+FogBuiltInScope* FogRoot::install_built_in(FogBuiltInScope* theType,
+        const char* p1, const char* p2, const char* p3) {
 	if (!theType) {
 		PrimOstrstream s;
 		s << p1 << ' ' << p2 << ' ' << p3;
@@ -288,8 +271,8 @@ FogBuiltInScope *FogRoot::install_built_in(FogBuiltInScope *theType,
 	}
 	
 	for (int i = 1; i <= 7; i++) {
-		const char *tmp;
-		const char *ps[3] = { p1, p2, p3 };
+		const char* tmp;
+		const char* ps[3] = { p1, p2, p3 };
 		
 		if (i & 1)
 			tmp = ps[0], ps[0] = ps[1], ps[1] = tmp;
@@ -301,11 +284,8 @@ FogBuiltInScope *FogRoot::install_built_in(FogBuiltInScope *theType,
 			tmp = ps[1], ps[1] = ps[2], ps[2] = tmp;
 			
 		PrimOstrstream s;
-		
 		s << ps[0] << ' ' << ps[1] << ' ' << ps[2];
-		
 		size_t aSize = s.pcount();
-		
 		PrimIdHandle typeId(s.str(), aSize);
 		
 		if (!find_local_type(*typeId))
@@ -322,51 +302,28 @@ void FogRoot::install_types() {
 		install_built_in(0, "bool");
 		
 	install_built_in(0, "char");
-	
 	install_built_in(0, "signed", "char");
-	
 	install_built_in(0, "unsigned", "char");
-	
 	install_built_in(0, "double");
-	
 	install_built_in(0, "long", "double");
-	
 	install_built_in(0, "float");
-	
-	FogBuiltInScope *intType = install_built_in(0, "int");
-	
-	FogBuiltInScope *signedIntType = install_built_in(0, "signed", "int");
-	
-	FogBuiltInScope *unsignedIntType = install_built_in(0, "unsigned", "int");
-	
+	FogBuiltInScope* intType = install_built_in(0, "int");
+	FogBuiltInScope* signedIntType = install_built_in(0, "signed", "int");
+	FogBuiltInScope* unsignedIntType = install_built_in(0, "unsigned", "int");
 	install_built_in(signedIntType, "signed");
-	
 	install_built_in(unsignedIntType, "unsigned");
-	
-	FogBuiltInScope *longType = install_built_in(0, "long");
-	
-	FogBuiltInScope *signedLongType = install_built_in(0, "signed", "long");
-	
-	FogBuiltInScope *unsignedLongType = install_built_in(0, "unsigned", "long");
-	
+	FogBuiltInScope* longType = install_built_in(0, "long");
+	FogBuiltInScope* signedLongType = install_built_in(0, "signed", "long");
+	FogBuiltInScope* unsignedLongType = install_built_in(0, "unsigned", "long");
 	install_built_in(longType, "long", "int");
-	
 	install_built_in(signedLongType, "signed", "long", "int");
-	
 	install_built_in(unsignedLongType, "unsigned", "long", "int");
-	
-	FogBuiltInScope *shortType = install_built_in(0, "short");
-	
-	FogBuiltInScope *signedShortType = install_built_in(0, "signed", "short");
-	
-	FogBuiltInScope *unsignedShortType = install_built_in(0, "unsigned", "short");
-	
+	FogBuiltInScope* shortType = install_built_in(0, "short");
+	FogBuiltInScope* signedShortType = install_built_in(0, "signed", "short");
+	FogBuiltInScope* unsignedShortType = install_built_in(0, "unsigned", "short");
 	install_built_in(shortType, "short", "int");
-	
 	install_built_in(signedShortType, "signed", "short", "int");
-	
 	install_built_in(unsignedShortType, "unsigned", "short", "int");
-	
 	install_built_in(0, "void");
 	
 	if (!Fog::no_wchar_t_type())
@@ -410,21 +367,20 @@ const PrimId& FogRoot::long_id() const {
 	return PrimId::null();
 }
 
-FogScope *FogRoot::make_linkage(const FogLinkageSpecifier& rawLinkage) {
+FogScope* FogRoot::make_linkage(const FogLinkageSpecifier& rawLinkage) {
 	static unsigned long externCounter = 0;
 	const PrimId& linkageName = rawLinkage.linkage();
 	PrimOstrstream externId;
 	externId << Fog::extern_prefix();
-	const char *p = linkageName.str();
+	const char* p = linkageName.str();
 	
 	if (p)
 		for (; *p; p++)
 			externId << ((isalnum(*p) || (*p == '_')) ? *p : '_');
 			
-//  	externId << '_' << externCounter++;
+	//  	externId << '_' << externCounter++;
 	const PrimId& linkageId = externId.id();
-	
-	FogScope *aScope = _linkages.find(linkageId);
+	FogScope* aScope = _linkages.find(linkageId);
 	
 	if (!aScope) {
 		aScope = new FogLinkage(*this, linkageId, linkageName);
@@ -463,12 +419,12 @@ std::ostream& FogRoot::print_depth(std::ostream& s, int aDepth) const {
 	
 	if (_linkages.tally()) {
 		s << indent(aDepth) << "extern linkages\n";
-		_linkages.print_depth(s, aDepth+1);
+		_linkages.print_depth(s, aDepth + 1);
 	}
 	
 	if (_scopes.tally()) {
 		s << indent(aDepth) << "construction ordering\n";
-		_scopes.print_members(s, aDepth+1);
+		_scopes.print_members(s, aDepth + 1);
 	}
 	
 	return s;
@@ -485,12 +441,12 @@ std::ostream& FogRoot::print_members(std::ostream& s, int aDepth) const {
 	
 	if (_linkages.tally()) {
 		s << indent(aDepth) << "extern linkages\n";
-		_linkages.print_members(s, aDepth+1);
+		_linkages.print_members(s, aDepth + 1);
 	}
 	
 	if (_scopes.tally()) {
 		s << indent(aDepth) << "construction ordering\n";
-		_scopes.print_members(s, aDepth+1);
+		_scopes.print_members(s, aDepth + 1);
 	}
 	
 	return s;

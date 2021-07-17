@@ -26,53 +26,53 @@ PRIMSETELEMENT_IMPL(FogEntitySetOfListOfRefElement)
 TMPL_HACK_FIX_DO_TEMPLATE(FogEntitySetOfListOfRefElement)
 
 FogEntity::FogEntity()
-		:
-		_global_scope(FogRoot::null()),
-		_scope(FogRoot::null()),
-		_is_boundary(FogLazyBool::make_false()),
-		_is_pure(FogLazyBool::make_false()),
-		_done_compile(false),
-		_done_derive(false) {}
-		
+	:
+	_global_scope(FogRoot::null()),
+	_scope(FogRoot::null()),
+	_is_boundary(FogLazyBool::make_false()),
+	_is_pure(FogLazyBool::make_false()),
+	_done_compile(false),
+	_done_derive(false) {}
+
 //
 //  	Construct the root entity named anId in the root scope aRoot.
 //
 FogEntity::FogEntity(FogScope& aScope, const PrimId& shortId, const PrimId& longId)
-		:
-		Super(shortId, longId),
-		_global_scope(&aScope == this ? *(FogRoot *)this : aScope.global_scope()), //   Avoid recursion on global scope
-		_scope(aScope),
-		_is_boundary(FogLazyBool::make_undecided()),
-		_is_pure(FogLazyBool::make_undecided()),
-		_done_compile(false),
-		_done_derive(false) {}
-		
+	:
+	Super(shortId, longId),
+	_global_scope(&aScope == this ? * (FogRoot*)this : aScope.global_scope()), //   Avoid recursion on global scope
+	_scope(aScope),
+	_is_boundary(FogLazyBool::make_undecided()),
+	_is_pure(FogLazyBool::make_undecided()),
+	_done_compile(false),
+	_done_derive(false) {}
+
 //
 //  	Construct an entity named anId in aScope.
 //
 FogEntity::FogEntity(FogMakerContext& makerContext, const FogLazyBool& isPure)
-		:
-		Super(makerContext),
-		_global_scope(&makerContext.dynamic_scope() == this ? *(FogRoot *)this : makerContext.dynamic_scope().global_scope()),
-		_scope(makerContext.dynamic_scope()),
-		_is_boundary(isPure),
-		_is_pure(isPure),
-		_done_compile(false),
-		_done_derive(false) {}
-		
+	:
+	Super(makerContext),
+	_global_scope(&makerContext.dynamic_scope() == this ? * (FogRoot*)this : makerContext.dynamic_scope().global_scope()),
+	_scope(makerContext.dynamic_scope()),
+	_is_boundary(isPure),
+	_is_pure(isPure),
+	_done_compile(false),
+	_done_derive(false) {}
+
 //
 //  	Construct an entity named anId in aScope.
 //
 FogEntity::FogEntity(FogMakeTemplateContext& makeTemplateContext, const FogLazyBool& isPure)
-		:
-		Super(makeTemplateContext),
-		_global_scope(makeTemplateContext.dynamic_scope().global_scope()),
-		_scope(makeTemplateContext.dynamic_scope()),
-		_is_boundary(isPure),
-		_is_pure(isPure),
-		_done_compile(false),
-		_done_derive(false) {}
-		
+	:
+	Super(makeTemplateContext),
+	_global_scope(makeTemplateContext.dynamic_scope().global_scope()),
+	_scope(makeTemplateContext.dynamic_scope()),
+	_is_boundary(isPure),
+	_is_pure(isPure),
+	_done_compile(false),
+	_done_derive(false) {}
+
 FogEntity::~FogEntity() {}
 
 const FogAccess& FogEntity::access() const {
@@ -91,44 +91,40 @@ void FogEntity::add_use_by(FogUsageContext& usageContext) {
 }
 
 void FogEntity::add_use_by(FogEntity& anEntity, const FogOfUseBy& ofUseBy) {
-//  	if (is_null())							// Null entities signal null behaviour.
-//  		return;
-	FogEntity *ofEntity = this;
-	FogScope *ofScope = ofEntity->outer_scope();
-	
+	//  	if (is_null())							// Null entities signal null behaviour.
+	//  		return;
+	FogEntity* ofEntity = this;
+	FogScope* ofScope = ofEntity->outer_scope();
 	
 	if (!ofScope)       //   Use of the global scope is degenerate and certainly
 		return;        //    does not merit an error message.
 		
 	for (; ofScope; ofEntity = ofScope, ofScope = ofScope->outer_scope()) {
 		VERBOSE(std::cout << "NEW OF ENTITY " << ofEntity << "\n";
-			std::strstream str;
-			ofEntity->name_scope().print_viz(str);
-			std::cout << "NAME SCOPE\n" << str.str() << std::endl;);
-		
+		        std::strstream str;
+		        ofEntity->name_scope().print_viz(str);
+		        std::cout << "NAME SCOPE\n" << str.str() << std::endl;);
 		FogScope& ofNameScope = ofScope->name_scope();
-		FogEntity *byEntity = &anEntity;
-		FogScope *byScope = byEntity->outer_scope();
-		const FogOfUseBy *useBy = &ofUseBy;
+		FogEntity* byEntity = &anEntity;
+		FogScope* byScope = byEntity->outer_scope();
+		const FogOfUseBy* useBy = &ofUseBy;
 		
 		for (; byScope; byEntity = byScope, byScope = byScope->outer_scope(), useBy = &useBy->by_head()) {
 			VERBOSE(std::cout << "NEW BY ... " << byEntity << "\n";);
-			
 			FogScope& byNameScope = byScope->name_scope();
-//  			if ((&byNameScope == &ofNameScope) || useBy->is_by_implementation() || ofEntity->is_typedef())
-
+			//  			if ((&byNameScope == &ofNameScope) || useBy->is_by_implementation() || ofEntity->is_typedef())
+			
 			if ((&byNameScope == &ofNameScope) || useBy->is_by_implementation()) {
 				if (ofEntity != byEntity) {  //   == for a member that mentions its scope.
 					FogUsage& ofUsage = useBy->is_of_tail() ? ofEntity->interface_usage_finish() :
-										ofEntity->name_usage();
+					                    ofEntity->name_usage();
 					FogUsage& byUsage = useBy->is_by_head() ? byEntity->interface_usage_start() :
-										useBy->is_by_name() ? byEntity->name_usage() :
-										byEntity->implementation_usage();
+					                    useBy->is_by_name() ? byEntity->name_usage() :
+					                    byEntity->implementation_usage();
 					ofUsage.add_use_by(byUsage);
 				}
 				
 				VERBOSE(std::cout << "RET\n";)
-				
 				return;
 			}
 		}
@@ -137,7 +133,7 @@ void FogEntity::add_use_by(FogEntity& anEntity, const FogOfUseBy& ofUseBy) {
 	ERRMSG("BUG - failed to locate the "  << ofUseBy << " usage of " << viz(*this) << " by " << viz(anEntity));
 }
 
-const FogMetaSlot *FogEntity::adopt_slot(const FogMetaSlot *aSlot) {
+const FogMetaSlot* FogEntity::adopt_slot(const FogMetaSlot* aSlot) {
 	if (aSlot) {
 		_slots.add_or_replace(*aSlot);   //   Slots can be replaced.
 		aSlot->annul();
@@ -170,7 +166,6 @@ bool FogEntity::do_compile(FogCompileContext& inScope) {
 	}
 	
 	_done_compile = true;
-	
 	return true;
 }
 
@@ -181,7 +176,6 @@ bool FogEntity::do_derive(FogDeriveContext& inScope) {
 	}
 	
 	_done_derive = true;
-	
 	return true;
 }
 
@@ -207,12 +201,12 @@ void FogEntity::find_entities_in(FogScopeContext& inScope, FogEntityFinding& the
 	inScope.find_entities(theFinder);
 }
 
-const FogMetaSlot *FogEntity::find_local_slot(const PrimId& anId) const {
-	const FogMetaSlot *aSlot = _slots.find(anId);
+const FogMetaSlot* FogEntity::find_local_slot(const PrimId& anId) const {
+	const FogMetaSlot* aSlot = _slots.find(anId);
 	return aSlot ? aSlot : Super::find_local_slot(anId);
 }
 
-FogEntity *FogEntity::find_template(FogMakeTemplateContext& makeTemplateContext) {
+FogEntity* FogEntity::find_template(FogMakeTemplateContext& makeTemplateContext) {
 	ERRMSG("BUG - should not find_template " << viz(makeTemplateContext) << " of " << viz(*this));
 	return this;
 }
@@ -223,25 +217,23 @@ bool FogEntity::get_character(PrimIdHandle& returnId, FogScopeContext& inScope) 
 }
 
 bool FogEntity::get_dyadic(FogTokenRef& returnValue, FogScopeContext& inScope,
-		FogTokenType::TokenType dyadicOp, const FogToken& rightValue) const {
+                           FogTokenType::TokenType dyadicOp, const FogToken& rightValue) const {
 	switch (dyadicOp) {
-	
-		case '.': {
-			const FogName *rightName = rightValue.is_name();
-			
-			if (!rightName) {
-				ERRMSG("Expected name as member name for " << viz(*this) << " in " << viz(inScope));
-				returnValue = FogFailure::make();
-				return false;
-			}
-			
-			FogNestedScopeContext scopeContext(inScope, mutate());      //  .bugbug cast
-			
-			return rightName->get_meta_entity_in(returnValue, scopeContext);
+	case '.': {
+		const FogName* rightName = rightValue.is_name();
+		
+		if (!rightName) {
+			ERRMSG("Expected name as member name for " << viz(*this) << " in " << viz(inScope));
+			returnValue = FogFailure::make();
+			return false;
 		}
 		
-		default:
-			return Super::get_dyadic(returnValue, inScope, dyadicOp, rightValue);
+		FogNestedScopeContext scopeContext(inScope, mutate());      //  .bugbug cast
+		return rightName->get_meta_entity_in(returnValue, scopeContext);
+	}
+	
+	default:
+		return Super::get_dyadic(returnValue, inScope, dyadicOp, rightValue);
 	}
 }
 
@@ -259,8 +251,8 @@ FogRoot& FogEntity::global_scope() {
 	return _global_scope;
 }
 
-FogTargetFile *FogEntity::implementation_file() {
-	FogTargetFile *implementationFile = Super::implementation_file();
+FogTargetFile* FogEntity::implementation_file() {
+	FogTargetFile* implementationFile = Super::implementation_file();
 	return implementationFile ? implementationFile : _scope.implementation_file();
 }
 
@@ -271,15 +263,15 @@ FogScope& FogEntity::inner_scope() {
 	return _scope;
 }
 
-FogEntity *FogEntity::instantiate(FogScopeContext& inScope, InstantiateOption ifRequired) {
+FogEntity* FogEntity::instantiate(FogScopeContext& inScope, InstantiateOption ifRequired) {
 	ERRMSG("BUG - should not instantiate " << viz(*this));
 	return 0;
 }
 
 void FogEntity::instantiate_into(FogEntity& instantiatingEntity) {}
 
-FogTargetFile *FogEntity::interface_file_sink() {
-	FogTargetFile *interfaceFile = Super::interface_file_sink();
+FogTargetFile* FogEntity::interface_file_sink() {
+	FogTargetFile* interfaceFile = Super::interface_file_sink();
 	
 	if (interfaceFile)
 		return interfaceFile;
@@ -290,8 +282,8 @@ FogTargetFile *FogEntity::interface_file_sink() {
 	return raw_interface_file();
 }
 
-FogTargetFile *FogEntity::interface_file_source() {
-	FogTargetFile *interfaceFile = Super::interface_file_source();
+FogTargetFile* FogEntity::interface_file_source() {
+	FogTargetFile* interfaceFile = Super::interface_file_source();
 	
 	if (interfaceFile)
 		return interfaceFile;
@@ -319,7 +311,7 @@ const FogLazyBool& FogEntity::is_boundary() const {
 	return *_is_boundary;
 }
 
-FogEntity *FogEntity::is_entity() {
+FogEntity* FogEntity::is_entity() {
 	return this;
 }
 
@@ -385,7 +377,7 @@ FogScope& FogEntity::name_emit_transient_scope() {
 //  	The default implementation just returns the interface. Derived classes may return 0 for entities that
 //  	can be forward declared, need no declaration or are generated pre-declared (templates)
 //
-FogTargetFile *FogEntity::name_file() {
+FogTargetFile* FogEntity::name_file() {
 	return interface_file_source();
 }
 
@@ -410,7 +402,7 @@ FogScope& FogEntity::name_space() {
 //
 //  	Return the specialisation of this for makeContext.
 //
-FogEntity *FogEntity::new_template(FogMakeTemplateContext& makeTemplateContext) {
+FogEntity* FogEntity::new_template(FogMakeTemplateContext& makeTemplateContext) {
 	ERRMSG("BUG - should not new_template of " << viz(*this));
 	return 0;
 }
@@ -425,7 +417,7 @@ std::ostream& FogEntity::print_depth(std::ostream& s, int aDepth) const {
 	
 	if (_slots.tally()) {
 		s << indent(aDepth) << "slots\n";
-		_slots.print_depth(s, aDepth+1);
+		_slots.print_depth(s, aDepth + 1);
 	}
 	
 	return s;
@@ -436,20 +428,19 @@ std::ostream& FogEntity::print_members(std::ostream& s, int aDepth) const {
 	
 	if (_slots.tally()) {
 		s << indent(aDepth) << "slots\n";
-		_slots.print_members(s, aDepth+1);
+		_slots.print_members(s, aDepth + 1);
 	}
 	
 	return s;
 }
 
-char FogEntity::print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+char FogEntity::print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 	if (*scopeId)
 		tailChar = FogStream::space_and_emit(s, tailChar, scopeId->str());
 	else
 		tailChar = FogStream::space(s, tailChar, 'a');
 		
 	tailChar = FogStream::space_and_emit(s, tailChar, local_id());
-	
 	return tailChar;
 }
 
@@ -484,7 +475,6 @@ void FogEntity::set_is_boundary(const FogLazyBool& isBoundary) {
 		if (*_is_boundary != isBoundary)
 			ERRMSG("BUG - should not set_is_boundary(" << isBoundary << ") for " << *_is_boundary << " " << viz(*this));
 	}
-	
 	else {
 		_is_boundary = isBoundary;
 		CONDMSG(Fog::debug_purity(), "set_is_boundary(" << isBoundary << ") for " << viz(*this));
@@ -496,7 +486,6 @@ void FogEntity::set_is_pure(const FogLazyBool& isPure) {
 		if (*_is_pure != isPure)
 			ERRMSG("BUG - should not set_is_pure(" << isPure << ") for " << *_is_pure << " " << viz(*this));
 	}
-	
 	else {
 		_is_pure = isPure;
 		CONDMSG(Fog::debug_purity(), "set_is_pure(" << isPure << ") for " << viz(*this));

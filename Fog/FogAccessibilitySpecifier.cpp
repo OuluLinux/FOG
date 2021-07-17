@@ -9,15 +9,15 @@ TYPEINFO_SINGLE(FogAccessibilitySpecifier, Super)
 FOGTOKEN_LEAF_IMPL(FogAccessibilitySpecifier)
 
 FogAccessibilitySpecifier::FogAccessibilitySpecifier(const FogAccess& anAccess)
-		:
-		_access(anAccess) {}
-		
+	:
+	_access(anAccess) {}
+
 bool FogAccessibilitySpecifier::compile_parsed(FogParseContext& parseContext) {
 	parseContext.set_access(*_access);
 	return true;
 }
 
-char FogAccessibilitySpecifier::print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+char FogAccessibilitySpecifier::print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 	tailChar = FogStream::space_and_emit(s, tailChar, _access->str());
 	tailChar = FogStream::space_and_emit(s, tailChar, ": ");
 	return tailChar;

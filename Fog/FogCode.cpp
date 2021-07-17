@@ -9,12 +9,12 @@ FOGTOKEN_LEAF_IMPL(FogCode)
 TMPL_HACK_FIX_DO(FogCode)
 
 FogCode::FogCode()
-		:
-		_is_exclusive(false),
-		_is_not_implemented(false),
-		_is_redundant(false),
-		_is_replacement(false) {}
-		
+	:
+	_is_exclusive(false),
+	_is_not_implemented(false),
+	_is_redundant(false),
+	_is_replacement(false) {}
+
 //
 //  	Create a code segment from { aString }, for which the { occured in braceColumn at lineContext.
 //
@@ -31,31 +31,31 @@ FogCode::FogCode()
 //  	in the source. Extra leading and trailing whitespace is preserved for re-use on emission.
 //
 FogCode::FogCode(FogRaw& codeBody)
-		:
-		_is_exclusive(false),
-		_is_not_implemented(false),
-		_is_redundant(false),
-		_is_replacement(false),
-		_body(codeBody) {}
-		
+	:
+	_is_exclusive(false),
+	_is_not_implemented(false),
+	_is_redundant(false),
+	_is_replacement(false),
+	_body(codeBody) {}
+
 FogCode::FogCode(const FogCode& thatCode)
-		:
-		Super(thatCode),
-		_position(thatCode._position),
-		_segment(thatCode._segment),
-		_used_files(thatCode._used_files),
-		_is_exclusive(thatCode._is_exclusive),
-		_is_not_implemented(thatCode._is_not_implemented),
-		_is_redundant(thatCode._is_redundant),
-		_is_replacement(thatCode._is_replacement),
-		_ctor_inits(thatCode._ctor_inits),
-		_body(thatCode._body) {}
-		
+	:
+	Super(thatCode),
+	_position(thatCode._position),
+	_segment(thatCode._segment),
+	_used_files(thatCode._used_files),
+	_is_exclusive(thatCode._is_exclusive),
+	_is_not_implemented(thatCode._is_not_implemented),
+	_is_redundant(thatCode._is_redundant),
+	_is_replacement(thatCode._is_replacement),
+	_ctor_inits(thatCode._ctor_inits),
+	_body(thatCode._body) {}
+
 FogCode::~FogCode() {}
 
 void FogCode::compile() {
-//  	if (!_position.is_valid())
-//  		_position = FogPosition::EXCLUSIVE;
+	//  	if (!_position.is_valid())
+	//  		_position = FogPosition::EXCLUSIVE;
 	if (!_segment->is_valid())
 		_segment = FogSegment::BODY;
 		
@@ -84,7 +84,7 @@ size_t FogCode::executable_tokens() const {
 }
 
 bool FogCode::emit(FogEmitContext& emitContext) const {
-//  	ERRMSG("BUG -- should not FogCode::emit.");
+	//  	ERRMSG("BUG -- should not FogCode::emit.");
 	emitContext.emit_space_and_text(" /*...*/ ");
 	return true;
 }
@@ -95,12 +95,12 @@ void FogCode::install(FogInstallContext& installContext) const {
 
 bool FogCode::is_actual(const FogScopeContext& scopeContext) const {
 	return Super::is_actual(scopeContext) && _used_files->is_actual(scopeContext)
-		   && _ctor_inits->is_actual(scopeContext) && _body->is_actual(scopeContext);
+	       && _ctor_inits->is_actual(scopeContext) && _body->is_actual(scopeContext);
 }
 
 void FogCode::make_actual_from(FogMakeActualContext& makeActualContext) {
 	Super::make_actual_from(makeActualContext);
-//  	_used_files->make_actual(_used_files.to_const(), makeActualContext);
+	//  	_used_files->make_actual(_used_files.to_const(), makeActualContext);
 	_ctor_inits->make_actual(_ctor_inits.to_const(), makeActualContext);
 	_body->make_actual(_body.to_const(), makeActualContext);
 }
@@ -108,8 +108,8 @@ void FogCode::make_actual_from(FogMakeActualContext& makeActualContext) {
 bool FogCode::make_specifier(FogMakeSpecifierContext& makeSpecifierContext) {
 	compile();
 	FogToken& inToken = makeSpecifierContext.dynamic_token();
-	FogPotentialDeclaration *potentialDeclaration = inToken.is_potential_declaration();
-	FogFunction *aFunction = potentialDeclaration ? potentialDeclaration->entity().is_function() : 0;
+	FogPotentialDeclaration* potentialDeclaration = inToken.is_potential_declaration();
+	FogFunction* aFunction = potentialDeclaration ? potentialDeclaration->entity().is_function() : 0;
 	
 	if (!aFunction) {
 		ERRMSG("Cannot compile code for non-function " << viz(inToken));
@@ -117,9 +117,8 @@ bool FogCode::make_specifier(FogMakeSpecifierContext& makeSpecifierContext) {
 	}
 	
 	FogCtorInitMapOfRefToConst& ctorInits = aFunction->raw_ctor_inits();
-	
-	FogCodeTokensRef *derivedCodes = aFunction->raw_derived_codes();
-	FogCodeTokensRef *localCodes = aFunction->raw_local_codes();
+	FogCodeTokensRef* derivedCodes = aFunction->raw_derived_codes();
+	FogCodeTokensRef* localCodes = aFunction->raw_local_codes();
 	
 	if (_is_not_implemented)
 		aFunction->set_not_implemented();
@@ -139,21 +138,21 @@ bool FogCode::make_specifier(FogMakeSpecifierContext& makeSpecifierContext) {
 			theTokens->add(*_body);
 	}
 	
-	FogTargetFile *targetFile = aFunction->implementation_file();
+	FogTargetFile* targetFile = aFunction->implementation_file();
 	
 	if (targetFile)
 		for (FogFileIdConstListOfRefToConstIterator p(_used_files->ids()); p; ++p) {
-			FogTargetFile *includeFile = p->make(makeSpecifierContext);
+			FogTargetFile* includeFile = p->make(makeSpecifierContext);
 			
 			if (includeFile)
 				targetFile->add_include(*includeFile);
 		}
 		
-//  	if (_implementation)
-//  	{
-//  		FogTargetFile *targetFile = _implementation->make(parseContext);
-//  		aFunction.set_implementation_file(targetFile);
-//  	}
+	//  	if (_implementation)
+	//  	{
+	//  		FogTargetFile *targetFile = _implementation->make(parseContext);
+	//  		aFunction.set_implementation_file(targetFile);
+	//  	}
 	return true;
 }
 
@@ -179,12 +178,12 @@ const FogMerge& FogCode::needs_merge_from(FogMergeContext& mergeContext, const T
 std::ostream& FogCode::print_depth(std::ostream& s, int aDepth) const {
 	Super::print_depth(s, aDepth);
 	s << indent(aDepth) << "ctor-inits\n";
-	_ctor_inits->print_depth(s, aDepth+1);
+	_ctor_inits->print_depth(s, aDepth + 1);
 	_body->print_depth(s, aDepth);
 	
 	if (_used_files->tally()) {
 		s << indent(aDepth) << "files used for implementation\n";
-		_used_files->print_members(s, aDepth+1);
+		_used_files->print_members(s, aDepth + 1);
 	}
 	
 	return s;
@@ -193,18 +192,18 @@ std::ostream& FogCode::print_depth(std::ostream& s, int aDepth) const {
 std::ostream& FogCode::print_members(std::ostream& s, int aDepth) const {
 	Super::print_members(s, aDepth);
 	s << indent(aDepth) << "ctor-inits\n";
-	_ctor_inits->print_members(s, aDepth+1);
+	_ctor_inits->print_members(s, aDepth + 1);
 	_body->print_members(s, aDepth);
 	
 	if (_used_files->tally()) {
 		s << indent(aDepth) << "files used for implementation\n";
-		_used_files->print_members(s, aDepth+1);
+		_used_files->print_members(s, aDepth + 1);
 	}
 	
 	return s;
 }
 
-char FogCode::print_named(std::ostream& s, const PrimId *fullId, char tailChar) const {
+char FogCode::print_named(std::ostream& s, const PrimId* fullId, char tailChar) const {
 	tailChar = FogStream::space_and_emit(s, tailChar, "{ /* ");
 	tailChar = FogStream::space_and_emit(s, tailChar, segment().str());
 	tailChar = FogStream::space_and_emit(s, tailChar, " */ }");
@@ -221,10 +220,10 @@ std::ostream& FogCode::print_viz(std::ostream& s) const {
 
 bool FogCode::resolve_semantics(FogSemanticsContext& theSemantics) const {
 	FogSemantics exprSemantics;
-//  	if (!expr().resolve_semantics(exprSemantics, inScope))
-//  		return false;
+	//  	if (!expr().resolve_semantics(exprSemantics, inScope))
+	//  		return false;
 	theSemantics.reset();
-//  	if (exprSemantics.is_basic_expression())
+	//  	if (exprSemantics.is_basic_expression())
 	theSemantics.set(FogSemantics::IS_FUNCTION_BODY);
 	return true;
 }

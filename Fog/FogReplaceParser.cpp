@@ -3,98 +3,98 @@
 
 /*  A Bison++ parser, made from FogReplaceParser.y  */
 
- /* with Bison++ version bison++ Version 1.21.9-1, adapted from GNU bison by coetmeur@icdc.fr
-Maintained by Magnus Ekdahl <magnus@debian.org>
-  */
+/*  with Bison++ version bison++ Version 1.21.9-1, adapted from GNU bison by coetmeur@icdc.fr
+    Maintained by Magnus Ekdahl <magnus@debian.org>
+*/
 
 #define YY_USE_CLASS
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
-/* Skeleton output parser for bison,
-   Copyright (C) 1984, 1989, 1990 Bob Corbett and Richard Stallman
+/*  Skeleton output parser for bison,
+    Copyright (C) 1984, 1989, 1990 Bob Corbett and Richard Stallman
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 1, or (at your option)
-   any later version.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 1, or (at your option)
+    any later version.
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-   As a special exception, when this file is copied by Bison++ into a
-   Bison++ output file, you may use that output file without restriction.
-   This special exception was added by the Free Software Foundation
-   in version 1.24 of Bison, and has been in Bison++ since 1.21.9.  
+    As a special exception, when this file is copied by Bison++ into a
+    Bison++ output file, you may use that output file without restriction.
+    This special exception was added by the Free Software Foundation
+    in version 1.24 of Bison, and has been in Bison++ since 1.21.9.
 
 */
 
 /* HEADER SECTION */
-#if defined( _MSDOS ) || defined(MSDOS) || defined(__MSDOS__) 
- #define __MSDOS_AND_ALIKE
+#if defined( _MSDOS ) || defined(MSDOS) || defined(__MSDOS__)
+	#define __MSDOS_AND_ALIKE
 #endif
 
 #if defined(_WINDOWS) && defined(_MSC_VER)
- #define __HAVE_NO_ALLOCA
- #define __MSDOS_AND_ALIKE
+	#define __HAVE_NO_ALLOCA
+	#define __MSDOS_AND_ALIKE
 #endif
 
 #ifndef alloca
- #if defined( __GNUC__)
-  #define alloca __builtin_alloca
+#if defined( __GNUC__)
+#define alloca __builtin_alloca
 
- #elif (!defined (__STDC__) && defined (sparc)) || defined (__sparc__) || defined (__sparc)  || defined (__sgi)
-  #include <alloca.h>
+#elif (!defined (__STDC__) && defined (sparc)) || defined (__sparc__) || defined (__sparc)  || defined (__sgi)
+#include <alloca.h>
 
- #elif defined (__MSDOS_AND_ALIKE)
-  #include <malloc.h>
-  #ifndef __TURBOC__
-   /* MS C runtime lib */
-   #define alloca _alloca
-  #endif
+#elif defined (__MSDOS_AND_ALIKE)
+#include <malloc.h>
+#ifndef __TURBOC__
+	/* MS C runtime lib */
+	#define alloca _alloca
+#endif
 
- #elif defined(_AIX)
-  /* pragma must be put before any C/C++ instruction !! */
-  #pragma alloca
-  #include <malloc.h>
+#elif defined(_AIX)
+/* pragma must be put before any C/C++ instruction !! */
+#pragma alloca
+#include <malloc.h>
 
- #elif defined(__hpux)
-  #ifdef __cplusplus
-   extern "C" {
-     void *alloca (unsigned int);
-   };
-  #else /* not __cplusplus */
-   void *alloca ();
-  #endif /* not __cplusplus */
+#elif defined(__hpux)
+#ifdef __cplusplus
+extern "C" {
+void* alloca (unsigned int);
+};
+#else /* not __cplusplus */
+void* alloca ();
+#endif /* not __cplusplus */
 
- #endif /* not _AIX  not MSDOS, or __TURBOC__ or _AIX, not sparc.  */
+#endif /* not _AIX  not MSDOS, or __TURBOC__ or _AIX, not sparc.  */
 #endif /* alloca not defined.  */
 
 #ifdef c_plusplus
- #ifndef __cplusplus
-  #define __cplusplus
- #endif
+	#ifndef __cplusplus
+		#define __cplusplus
+	#endif
 #endif
 
 #ifdef __cplusplus
- #ifndef YY_USE_CLASS
-/*#warning "For C++ its recomended to use bison++, otherwise classes won't be generated"*/
- #endif
+	#ifndef YY_USE_CLASS
+		/*#warning "For C++ its recomended to use bison++, otherwise classes won't be generated"*/
+	#endif
 #else
- #ifndef __STDC__
-  #define const
- #endif
- #ifdef YY_USE_CLASS
-  #error "This is a C++ header generated by bison++, please use a C++ compiler!"
- #endif
+	#ifndef __STDC__
+		#define const
+	#endif
+	#ifdef YY_USE_CLASS
+		#error "This is a C++ header generated by bison++, please use a C++ compiler!"
+	#endif
 #endif
 
 #include <stdio.h>
-#define YYBISON 1  
+#define YYBISON 1
 #define YY_FogReplaceParser_DEBUG  1
 #define YY_FogReplaceParser_ENUM_TOKEN  FogReplaceParserEnums
 #define YY_FogReplaceParser_STYPE  FogParserValue
@@ -109,12 +109,12 @@ Maintained by Magnus Ekdahl <magnus@debian.org>
 	const FogMacro *_invoke; \
 	FogMacroListOfRefToConst _args; \
 	FogTokensRef _arg_toks; \
-private: \
+	private: \
 	void add_arg(); \
 	void invoke_function(); \
 	void invoke_test(FogKeyword& anId); \
 	static FogToken& join(FogToken& firstToken, FogToken& secondToken); \
-public: \
+	public: \
 	virtual ~FogReplaceParser(); \
 	FogTokens& input_tokens() { return *_input_tokens; } \
 	int parse_function(const FogMacro& aMacro, const FogMacroListOfRefToConst& locatedArguments); \
@@ -133,64 +133,64 @@ public: \
 #define YY_FogReplaceParser_CONSTRUCTOR_CODE  \
 	YY_FogReplaceParser_DEBUG_FLAG = Fog::debug_yacc(); \
 	CONDMSG(YY_FogReplaceParser_DEBUG_FLAG || Fog::debug_lex2replace(), \
-		"\nStarting macro replacement parser for " << _macro_id.str());
+	        "\nStarting macro replacement parser for " << _macro_id.str());
 
 #include <Fog/FogIncludeAll.h>
 /* %{ and %header{ and %union, during decl */
 #define YY_FogReplaceParser_BISON 1
 
 #ifndef YY_FogReplaceParser_COMPATIBILITY
- #ifndef YY_USE_CLASS
-  #define  YY_FogReplaceParser_COMPATIBILITY 1
- #else
-  #define  YY_FogReplaceParser_COMPATIBILITY 0
- #endif
+	#ifndef YY_USE_CLASS
+		#define  YY_FogReplaceParser_COMPATIBILITY 1
+	#else
+		#define  YY_FogReplaceParser_COMPATIBILITY 0
+	#endif
 #endif
 
 #if YY_FogReplaceParser_COMPATIBILITY != 0
- /* backward compatibility */
- #ifdef YYLTYPE
-  #ifndef YY_FogReplaceParser_LTYPE
-   #define YY_FogReplaceParser_LTYPE YYLTYPE
-  #endif
- #endif
-/* Testing alternative bison solution
-   /#ifdef YYSTYPE*/
-#ifndef YY_FogReplaceParser_STYPE 
-   #define YY_FogReplaceParser_STYPE YYSTYPE
-#endif
-/*#endif*/
- #ifdef YYDEBUG
-  #ifndef YY_FogReplaceParser_DEBUG
-   #define  YY_FogReplaceParser_DEBUG YYDEBUG
-  #endif
- #endif
- 
- /* use goto to be compatible */
- #ifndef YY_FogReplaceParser_USE_GOTO
-  #define YY_FogReplaceParser_USE_GOTO 1
- #endif
+	/* backward compatibility */
+	#ifdef YYLTYPE
+		#ifndef YY_FogReplaceParser_LTYPE
+			#define YY_FogReplaceParser_LTYPE YYLTYPE
+		#endif
+	#endif
+	/*  Testing alternative bison solution
+	/#ifdef YYSTYPE*/
+	#ifndef YY_FogReplaceParser_STYPE
+		#define YY_FogReplaceParser_STYPE YYSTYPE
+	#endif
+	/*#endif*/
+	#ifdef YYDEBUG
+		#ifndef YY_FogReplaceParser_DEBUG
+			#define  YY_FogReplaceParser_DEBUG YYDEBUG
+		#endif
+	#endif
+	
+	/* use goto to be compatible */
+	#ifndef YY_FogReplaceParser_USE_GOTO
+		#define YY_FogReplaceParser_USE_GOTO 1
+	#endif
 #endif
 
 /* use no goto to be clean in C++ */
 #ifndef YY_FogReplaceParser_USE_GOTO
- #define YY_FogReplaceParser_USE_GOTO 0
+	#define YY_FogReplaceParser_USE_GOTO 0
 #endif
 
 #ifndef YY_FogReplaceParser_PURE
-/*  YY_FogReplaceParser_PURE */
+	/*  YY_FogReplaceParser_PURE */
 #endif
 
 /* section apres lecture def, avant lecture grammaire S2 */
 /* prefix */
 #ifndef YY_FogReplaceParser_DEBUG
-#define YY_FogReplaceParser_DEBUG 1
-/* YY_FogReplaceParser_DEBUG */
+	#define YY_FogReplaceParser_DEBUG 1
+	/* YY_FogReplaceParser_DEBUG */
 #endif
 
 
 #ifndef YY_FogReplaceParser_LSP_NEEDED
- /* YY_FogReplaceParser_LSP_NEEDED*/
+	/* YY_FogReplaceParser_LSP_NEEDED*/
 #endif
 
 
@@ -201,113 +201,112 @@ public: \
 #ifndef BISON_YYLTYPE_ISDECLARED
 #define BISON_YYLTYPE_ISDECLARED
 typedef
-  struct yyltype
-    {
-      int timestamp;
-      int first_line;
-      int first_column;
-      int last_line;
-      int last_column;
-      char *text;
-   }
-  yyltype;
+struct yyltype {
+	int timestamp;
+	int first_line;
+	int first_column;
+	int last_line;
+	int last_column;
+	char* text;
+}
+yyltype;
 
 #endif
 #define YY_FogReplaceParser_LTYPE yyltype
 #endif
 #endif
 /* DEFAULT STYPE*/
-      /* We used to use `unsigned long' as YY_FogReplaceParser_STYPE on MSDOS,
-	 but it seems better to be consistent.
-	 Most programs should declare their own type anyway.  */
+/*  We used to use `unsigned long' as YY_FogReplaceParser_STYPE on MSDOS,
+    but it seems better to be consistent.
+    Most programs should declare their own type anyway.  */
 
 #ifndef YY_FogReplaceParser_STYPE
-#define YY_FogReplaceParser_STYPE int
+	#define YY_FogReplaceParser_STYPE int
 #endif
 /* DEFAULT MISCELANEOUS */
 #ifndef YY_FogReplaceParser_PARSE
-#define YY_FogReplaceParser_PARSE yyparse
+	#define YY_FogReplaceParser_PARSE yyparse
 #endif
 #ifndef YY_FogReplaceParser_LEX
-#define YY_FogReplaceParser_LEX yylex
+	#define YY_FogReplaceParser_LEX yylex
 #endif
 #ifndef YY_FogReplaceParser_LVAL
-#define YY_FogReplaceParser_LVAL yylval
+	#define YY_FogReplaceParser_LVAL yylval
 #endif
 #ifndef YY_FogReplaceParser_LLOC
-#define YY_FogReplaceParser_LLOC yylloc
+	#define YY_FogReplaceParser_LLOC yylloc
 #endif
 #ifndef YY_FogReplaceParser_CHAR
-#define YY_FogReplaceParser_CHAR yychar
+	#define YY_FogReplaceParser_CHAR yychar
 #endif
 #ifndef YY_FogReplaceParser_NERRS
-#define YY_FogReplaceParser_NERRS yynerrs
+	#define YY_FogReplaceParser_NERRS yynerrs
 #endif
 #ifndef YY_FogReplaceParser_DEBUG_FLAG
-#define YY_FogReplaceParser_DEBUG_FLAG yydebug
+	#define YY_FogReplaceParser_DEBUG_FLAG yydebug
 #endif
 #ifndef YY_FogReplaceParser_ERROR
-#define YY_FogReplaceParser_ERROR yyerror
+	#define YY_FogReplaceParser_ERROR yyerror
 #endif
 
 #ifndef YY_FogReplaceParser_PARSE_PARAM
- #ifndef YY_USE_CLASS
-  #ifdef YYPARSE_PARAM
-   #define YY_FogReplaceParser_PARSE_PARAM void* YYPARSE_PARAM 
-  #else
-   #ifndef __STDC__
-    #ifndef __cplusplus
-     #define YY_FogReplaceParser_PARSE_PARAM
-    #endif
-   #endif
-  #endif
- #endif
- #ifndef YY_FogReplaceParser_PARSE_PARAM
-  #define YY_FogReplaceParser_PARSE_PARAM void
- #endif
+	#ifndef YY_USE_CLASS
+		#ifdef YYPARSE_PARAM
+			#define YY_FogReplaceParser_PARSE_PARAM void* YYPARSE_PARAM
+		#else
+			#ifndef __STDC__
+				#ifndef __cplusplus
+					#define YY_FogReplaceParser_PARSE_PARAM
+				#endif
+			#endif
+		#endif
+	#endif
+	#ifndef YY_FogReplaceParser_PARSE_PARAM
+		#define YY_FogReplaceParser_PARSE_PARAM void
+	#endif
 #endif
 
 #if YY_FogReplaceParser_COMPATIBILITY != 0
-/* backward compatibility */
-#ifdef YY_FogReplaceParser_LTYPE
-#ifndef YYLTYPE
-#define YYLTYPE YY_FogReplaceParser_LTYPE
-#else
-/* WARNING obsolete !!! user defined YYLTYPE not reported into generated header */
-#endif
-#endif
-
-/* Removed due to bison compabilityproblems
-/#ifndef YYSTYPE
-/#define YYSTYPE YY_FogReplaceParser_STYPE
-/#else*/
-/* WARNING obsolete !!! user defined YYSTYPE not reported into generated header */
-/*#endif*/
-
-#ifdef YY_FogReplaceParser_PURE
-#  ifndef YYPURE
-#    define YYPURE YY_FogReplaceParser_PURE
-#  endif
-#endif
-
-#ifdef YY_FogReplaceParser_DEBUG
-#  ifndef YYDEBUG
-#    define YYDEBUG YY_FogReplaceParser_DEBUG 
-#  endif
-#endif
-
-#ifndef YY_FogReplaceParser_ERROR_VERBOSE
- #ifdef YYERROR_VERBOSE
-  #define YY_FogReplaceParser_ERROR_VERBOSE YYERROR_VERBOSE
- #endif
-#endif
-
-#ifndef YY_FogReplaceParser_LSP_NEEDED
-#  ifdef YYLSP_NEEDED
-#    define YY_FogReplaceParser_LSP_NEEDED YYLSP_NEEDED
-#  endif
-#endif
-
+	/* backward compatibility */
+	#ifdef YY_FogReplaceParser_LTYPE
+		#ifndef YYLTYPE
+			#define YYLTYPE YY_FogReplaceParser_LTYPE
+		#else
+			/* WARNING obsolete !!! user defined YYLTYPE not reported into generated header */
+		#endif
+	#endif
+	
+	/*  Removed due to bison compabilityproblems
+	/#ifndef YYSTYPE
+	/#define YYSTYPE YY_FogReplaceParser_STYPE
+	/#else*/
+	/* WARNING obsolete !!! user defined YYSTYPE not reported into generated header */
+	/*#endif*/
+	
+	#ifdef YY_FogReplaceParser_PURE
+		#ifndef YYPURE
+			#define YYPURE YY_FogReplaceParser_PURE
+		#endif
+	#endif
+	
+	#ifdef YY_FogReplaceParser_DEBUG
+		#ifndef YYDEBUG
+			#define YYDEBUG YY_FogReplaceParser_DEBUG
+		#endif
+	#endif
+	
+	#ifndef YY_FogReplaceParser_ERROR_VERBOSE
+		#ifdef YYERROR_VERBOSE
+			#define YY_FogReplaceParser_ERROR_VERBOSE YYERROR_VERBOSE
+		#endif
+	#endif
+	
+	#ifndef YY_FogReplaceParser_LSP_NEEDED
+		#ifdef YYLSP_NEEDED
+			#define YY_FogReplaceParser_LSP_NEEDED YYLSP_NEEDED
+		#endif
+	#endif
+	
 #endif
 
 #ifndef YY_USE_CLASS
@@ -467,558 +466,556 @@ typedef
 #define	IntegerLiteral	410
 #define	FloatingLiteral	411
 
- /* #defines tokens */
+/* #defines tokens */
 #else
 /* CLASS */
 #ifndef YY_FogReplaceParser_CLASS
-#define YY_FogReplaceParser_CLASS FogReplaceParser
+	#define YY_FogReplaceParser_CLASS FogReplaceParser
 #endif
 #ifndef YY_FogReplaceParser_INHERIT
-#define YY_FogReplaceParser_INHERIT
+	#define YY_FogReplaceParser_INHERIT
 #endif
 #ifndef YY_FogReplaceParser_MEMBERS
-#define YY_FogReplaceParser_MEMBERS 
+	#define YY_FogReplaceParser_MEMBERS
 #endif
 #ifndef YY_FogReplaceParser_LEX_BODY
-#define YY_FogReplaceParser_LEX_BODY  
+	#define YY_FogReplaceParser_LEX_BODY
 #endif
 #ifndef YY_FogReplaceParser_ERROR_BODY
-#define YY_FogReplaceParser_ERROR_BODY  
+	#define YY_FogReplaceParser_ERROR_BODY
 #endif
 #ifndef YY_FogReplaceParser_CONSTRUCTOR_PARAM
-#define YY_FogReplaceParser_CONSTRUCTOR_PARAM
+	#define YY_FogReplaceParser_CONSTRUCTOR_PARAM
 #endif
 #ifndef YY_FogReplaceParser_CONSTRUCTOR_CODE
-#define YY_FogReplaceParser_CONSTRUCTOR_CODE
+	#define YY_FogReplaceParser_CONSTRUCTOR_CODE
 #endif
 #ifndef YY_FogReplaceParser_CONSTRUCTOR_INIT
-#define YY_FogReplaceParser_CONSTRUCTOR_INIT
+	#define YY_FogReplaceParser_CONSTRUCTOR_INIT
 #endif
 /* choose between enum and const */
 #ifndef YY_FogReplaceParser_USE_CONST_TOKEN
-#define YY_FogReplaceParser_USE_CONST_TOKEN 0
-/* yes enum is more compatible with flex,  */
-/* so by default we use it */ 
+	#define YY_FogReplaceParser_USE_CONST_TOKEN 0
+	/* yes enum is more compatible with flex,  */
+	/* so by default we use it */
 #endif
 #if YY_FogReplaceParser_USE_CONST_TOKEN != 0
-#ifndef YY_FogReplaceParser_ENUM_TOKEN
-#define YY_FogReplaceParser_ENUM_TOKEN yy_FogReplaceParser_enum_token
-#endif
+	#ifndef YY_FogReplaceParser_ENUM_TOKEN
+		#define YY_FogReplaceParser_ENUM_TOKEN yy_FogReplaceParser_enum_token
+	#endif
 #endif
 
-class YY_FogReplaceParser_CLASS YY_FogReplaceParser_INHERIT
-{
-public: 
+class YY_FogReplaceParser_CLASS YY_FogReplaceParser_INHERIT {
+public:
 #if YY_FogReplaceParser_USE_CONST_TOKEN != 0
-/* static const int token ... */
-static const int ASM;
-static const int AUTO;
-static const int BREAK;
-static const int CASE;
-static const int CATCH;
-static const int CLASS;
-static const int CONST;
-static const int CONST_CAST;
-static const int CONTINUE;
-static const int DEFAULT;
-static const int DELETE;
-static const int DO;
-static const int DYNAMIC_CAST;
-static const int ELSE;
-static const int ENUM;
-static const int EXPLICIT;
-static const int EXPORT;
-static const int EXTERN;
-static const int FALSE;
-static const int FOR;
-static const int FRIEND;
-static const int GOTO;
-static const int IF;
-static const int INLINE;
-static const int MUTABLE;
-static const int NAMESPACE;
-static const int NEW;
-static const int OPERATOR;
-static const int PRIVATE;
-static const int PROTECTED;
-static const int PUBLIC;
-static const int REGISTER;
-static const int REINTERPRET_CAST;
-static const int RETURN;
-static const int SIZEOF;
-static const int STATIC;
-static const int STATIC_CAST;
-static const int STRUCT;
-static const int SWITCH;
-static const int TEMPLATE;
-static const int THIS;
-static const int THROW;
-static const int TRUE;
-static const int TRY;
-static const int TYPEDEF;
-static const int TYPEID;
-static const int TYPENAME;
-static const int UNION;
-static const int USING;
-static const int VIRTUAL;
-static const int VOLATILE;
-static const int WHILE;
-static const int ELLIPSIS;
-static const int SCOPE;
-static const int SHL;
-static const int SHR;
-static const int EQ;
-static const int NE;
-static const int LE;
-static const int GE;
-static const int LOG_AND;
-static const int LOG_OR;
-static const int INC;
-static const int DEC;
-static const int ARROW;
-static const int ARROW_STAR;
-static const int DOT_STAR;
-static const int ASS_ADD;
-static const int ASS_AND;
-static const int ASS_DIV;
-static const int ASS_MOD;
-static const int ASS_MUL;
-static const int ASS_OR;
-static const int ASS_SHL;
-static const int ASS_SHR;
-static const int ASS_SUB;
-static const int ASS_XOR;
-static const int BuiltInTypeSpecifier;
-static const int CharacterLiteral;
-static const int Identifier;
-static const int MetaType;
-static const int NewLine;
-static const int NumberLiteral;
-static const int StringLiteral;
-static const int TreeLiteral;
-static const int ERROR;
-static const int NIL;
-static const int RAMMARG;
-static const int BODY;
-static const int DERIVED;
-static const int EMIT;
-static const int ENTRY;
-static const int EXIT;
-static const int FILE;
-static const int FROZEN;
-static const int GUARD;
-static const int IMPLEMENTATION;
-static const int INCLUDE;
-static const int INTERFACE;
-static const int NOGUARD;
-static const int NOIMPLEMENTATION;
-static const int OVERLOAD;
-static const int PATH;
-static const int POOL;
-static const int POST;
-static const int PRE;
-static const int PREFIX;
-static const int PURE;
-static const int SUFFIX;
-static const int UTILITY;
-static const int ALL;
-static const int PLACEHOLDER;
-static const int PLACEMENT;
-static const int NOAUTO;
-static const int HASH_BLANK;
-static const int HASH_DEFINE;
-static const int HASH_ELIF;
-static const int HASH_ELSE;
-static const int HASH_ENDIF;
-static const int HASH_ERROR;
-static const int HASH_IF;
-static const int HASH_IFDEF;
-static const int HASH_IFNDEF;
-static const int HASH_INCLUDE;
-static const int HASH_LINE;
-static const int HASH_PRAGMA;
-static const int HASH_UNDEF;
-static const int HASH_HASH;
-static const int DI_HASH_HASH;
-static const int DI_HASH;
-static const int DI_SQUARE;
-static const int DI_ERAUQS;
-static const int DI_ECARB;
-static const int DEFINED;
-static const int DO_FUNCTION;
-static const int MacroId;
-static const int Punct;
-static const int Text;
-static const int SHIFT_THERE;
-static const int REDUCE_HERE_MOSTLY;
-static const int REDUCE_HERE;
-static const int BOOL;
-static const int CHAR;
-static const int DOUBLE;
-static const int FLOAT;
-static const int INT;
-static const int LONG;
-static const int SHORT;
-static const int SIGNED;
-static const int UNSIGNED;
-static const int VOID;
-static const int WCHAR_T;
-static const int IntegerLiteral;
-static const int FloatingLiteral;
-
- /* decl const */
+	/* static const int token ... */
+	static const int ASM;
+	static const int AUTO;
+	static const int BREAK;
+	static const int CASE;
+	static const int CATCH;
+	static const int CLASS;
+	static const int CONST;
+	static const int CONST_CAST;
+	static const int CONTINUE;
+	static const int DEFAULT;
+	static const int DELETE;
+	static const int DO;
+	static const int DYNAMIC_CAST;
+	static const int ELSE;
+	static const int ENUM;
+	static const int EXPLICIT;
+	static const int EXPORT;
+	static const int EXTERN;
+	static const int FALSE;
+	static const int FOR;
+	static const int FRIEND;
+	static const int GOTO;
+	static const int IF;
+	static const int INLINE;
+	static const int MUTABLE;
+	static const int NAMESPACE;
+	static const int NEW;
+	static const int OPERATOR;
+	static const int PRIVATE;
+	static const int PROTECTED;
+	static const int PUBLIC;
+	static const int REGISTER;
+	static const int REINTERPRET_CAST;
+	static const int RETURN;
+	static const int SIZEOF;
+	static const int STATIC;
+	static const int STATIC_CAST;
+	static const int STRUCT;
+	static const int SWITCH;
+	static const int TEMPLATE;
+	static const int THIS;
+	static const int THROW;
+	static const int TRUE;
+	static const int TRY;
+	static const int TYPEDEF;
+	static const int TYPEID;
+	static const int TYPENAME;
+	static const int UNION;
+	static const int USING;
+	static const int VIRTUAL;
+	static const int VOLATILE;
+	static const int WHILE;
+	static const int ELLIPSIS;
+	static const int SCOPE;
+	static const int SHL;
+	static const int SHR;
+	static const int EQ;
+	static const int NE;
+	static const int LE;
+	static const int GE;
+	static const int LOG_AND;
+	static const int LOG_OR;
+	static const int INC;
+	static const int DEC;
+	static const int ARROW;
+	static const int ARROW_STAR;
+	static const int DOT_STAR;
+	static const int ASS_ADD;
+	static const int ASS_AND;
+	static const int ASS_DIV;
+	static const int ASS_MOD;
+	static const int ASS_MUL;
+	static const int ASS_OR;
+	static const int ASS_SHL;
+	static const int ASS_SHR;
+	static const int ASS_SUB;
+	static const int ASS_XOR;
+	static const int BuiltInTypeSpecifier;
+	static const int CharacterLiteral;
+	static const int Identifier;
+	static const int MetaType;
+	static const int NewLine;
+	static const int NumberLiteral;
+	static const int StringLiteral;
+	static const int TreeLiteral;
+	static const int ERROR;
+	static const int NIL;
+	static const int RAMMARG;
+	static const int BODY;
+	static const int DERIVED;
+	static const int EMIT;
+	static const int ENTRY;
+	static const int EXIT;
+	static const int FILE;
+	static const int FROZEN;
+	static const int GUARD;
+	static const int IMPLEMENTATION;
+	static const int INCLUDE;
+	static const int INTERFACE;
+	static const int NOGUARD;
+	static const int NOIMPLEMENTATION;
+	static const int OVERLOAD;
+	static const int PATH;
+	static const int POOL;
+	static const int POST;
+	static const int PRE;
+	static const int PREFIX;
+	static const int PURE;
+	static const int SUFFIX;
+	static const int UTILITY;
+	static const int ALL;
+	static const int PLACEHOLDER;
+	static const int PLACEMENT;
+	static const int NOAUTO;
+	static const int HASH_BLANK;
+	static const int HASH_DEFINE;
+	static const int HASH_ELIF;
+	static const int HASH_ELSE;
+	static const int HASH_ENDIF;
+	static const int HASH_ERROR;
+	static const int HASH_IF;
+	static const int HASH_IFDEF;
+	static const int HASH_IFNDEF;
+	static const int HASH_INCLUDE;
+	static const int HASH_LINE;
+	static const int HASH_PRAGMA;
+	static const int HASH_UNDEF;
+	static const int HASH_HASH;
+	static const int DI_HASH_HASH;
+	static const int DI_HASH;
+	static const int DI_SQUARE;
+	static const int DI_ERAUQS;
+	static const int DI_ECARB;
+	static const int DEFINED;
+	static const int DO_FUNCTION;
+	static const int MacroId;
+	static const int Punct;
+	static const int Text;
+	static const int SHIFT_THERE;
+	static const int REDUCE_HERE_MOSTLY;
+	static const int REDUCE_HERE;
+	static const int BOOL;
+	static const int CHAR;
+	static const int DOUBLE;
+	static const int FLOAT;
+	static const int INT;
+	static const int LONG;
+	static const int SHORT;
+	static const int SIGNED;
+	static const int UNSIGNED;
+	static const int VOID;
+	static const int WCHAR_T;
+	static const int IntegerLiteral;
+	static const int FloatingLiteral;
+	
+	/* decl const */
 #else
-enum YY_FogReplaceParser_ENUM_TOKEN { YY_FogReplaceParser_NULL_TOKEN=0
-	,ASM=258
-	,AUTO=259
-	,BREAK=260
-	,CASE=261
-	,CATCH=262
-	,CLASS=263
-	,CONST=264
-	,CONST_CAST=265
-	,CONTINUE=266
-	,DEFAULT=267
-	,DELETE=268
-	,DO=269
-	,DYNAMIC_CAST=270
-	,ELSE=271
-	,ENUM=272
-	,EXPLICIT=273
-	,EXPORT=274
-	,EXTERN=275
-	,FALSE=276
-	,FOR=277
-	,FRIEND=278
-	,GOTO=279
-	,IF=280
-	,INLINE=281
-	,MUTABLE=282
-	,NAMESPACE=283
-	,NEW=284
-	,OPERATOR=285
-	,PRIVATE=286
-	,PROTECTED=287
-	,PUBLIC=288
-	,REGISTER=289
-	,REINTERPRET_CAST=290
-	,RETURN=291
-	,SIZEOF=292
-	,STATIC=293
-	,STATIC_CAST=294
-	,STRUCT=295
-	,SWITCH=296
-	,TEMPLATE=297
-	,THIS=298
-	,THROW=299
-	,TRUE=300
-	,TRY=301
-	,TYPEDEF=302
-	,TYPEID=303
-	,TYPENAME=304
-	,UNION=305
-	,USING=306
-	,VIRTUAL=307
-	,VOLATILE=308
-	,WHILE=309
-	,ELLIPSIS=310
-	,SCOPE=311
-	,SHL=312
-	,SHR=313
-	,EQ=314
-	,NE=315
-	,LE=316
-	,GE=317
-	,LOG_AND=318
-	,LOG_OR=319
-	,INC=320
-	,DEC=321
-	,ARROW=322
-	,ARROW_STAR=323
-	,DOT_STAR=324
-	,ASS_ADD=325
-	,ASS_AND=326
-	,ASS_DIV=327
-	,ASS_MOD=328
-	,ASS_MUL=329
-	,ASS_OR=330
-	,ASS_SHL=331
-	,ASS_SHR=332
-	,ASS_SUB=333
-	,ASS_XOR=334
-	,BuiltInTypeSpecifier=335
-	,CharacterLiteral=336
-	,Identifier=337
-	,MetaType=338
-	,NewLine=339
-	,NumberLiteral=340
-	,StringLiteral=341
-	,TreeLiteral=342
-	,ERROR=343
-	,NIL=344
-	,RAMMARG=345
-	,BODY=346
-	,DERIVED=347
-	,EMIT=348
-	,ENTRY=349
-	,EXIT=350
-	,FILE=351
-	,FROZEN=352
-	,GUARD=353
-	,IMPLEMENTATION=354
-	,INCLUDE=355
-	,INTERFACE=356
-	,NOGUARD=357
-	,NOIMPLEMENTATION=358
-	,OVERLOAD=359
-	,PATH=360
-	,POOL=361
-	,POST=362
-	,PRE=363
-	,PREFIX=364
-	,PURE=365
-	,SUFFIX=366
-	,UTILITY=367
-	,ALL=368
-	,PLACEHOLDER=369
-	,PLACEMENT=370
-	,NOAUTO=371
-	,HASH_BLANK=372
-	,HASH_DEFINE=373
-	,HASH_ELIF=374
-	,HASH_ELSE=375
-	,HASH_ENDIF=376
-	,HASH_ERROR=377
-	,HASH_IF=378
-	,HASH_IFDEF=379
-	,HASH_IFNDEF=380
-	,HASH_INCLUDE=381
-	,HASH_LINE=382
-	,HASH_PRAGMA=383
-	,HASH_UNDEF=384
-	,HASH_HASH=385
-	,DI_HASH_HASH=386
-	,DI_HASH=387
-	,DI_SQUARE=388
-	,DI_ERAUQS=389
-	,DI_ECARB=390
-	,DEFINED=391
-	,DO_FUNCTION=392
-	,MacroId=393
-	,Punct=394
-	,Text=395
-	,SHIFT_THERE=396
-	,REDUCE_HERE_MOSTLY=397
-	,REDUCE_HERE=398
-	,BOOL=399
-	,CHAR=400
-	,DOUBLE=401
-	,FLOAT=402
-	,INT=403
-	,LONG=404
-	,SHORT=405
-	,SIGNED=406
-	,UNSIGNED=407
-	,VOID=408
-	,WCHAR_T=409
-	,IntegerLiteral=410
-	,FloatingLiteral=411
-
- /* enum token */
-     }; /* end of enum declaration */
+	enum YY_FogReplaceParser_ENUM_TOKEN { YY_FogReplaceParser_NULL_TOKEN = 0
+	, ASM = 258
+	, AUTO = 259
+	, BREAK = 260
+	, CASE = 261
+	, CATCH = 262
+	, CLASS = 263
+	, CONST = 264
+	, CONST_CAST = 265
+	, CONTINUE = 266
+	, DEFAULT = 267
+	, DELETE = 268
+	, DO = 269
+	, DYNAMIC_CAST = 270
+	, ELSE = 271
+	, ENUM = 272
+	, EXPLICIT = 273
+	, EXPORT = 274
+	, EXTERN = 275
+	, FALSE = 276
+	, FOR = 277
+	, FRIEND = 278
+	, GOTO = 279
+	, IF = 280
+	, INLINE = 281
+	, MUTABLE = 282
+	, NAMESPACE = 283
+	, NEW = 284
+	, OPERATOR = 285
+	, PRIVATE = 286
+	, PROTECTED = 287
+	, PUBLIC = 288
+	, REGISTER = 289
+	, REINTERPRET_CAST = 290
+	, RETURN = 291
+	, SIZEOF = 292
+	, STATIC = 293
+	, STATIC_CAST = 294
+	, STRUCT = 295
+	, SWITCH = 296
+	, TEMPLATE = 297
+	, THIS = 298
+	, THROW = 299
+	, TRUE = 300
+	, TRY = 301
+	, TYPEDEF = 302
+	, TYPEID = 303
+	, TYPENAME = 304
+	, UNION = 305
+	, USING = 306
+	, VIRTUAL = 307
+	, VOLATILE = 308
+	, WHILE = 309
+	, ELLIPSIS = 310
+	, SCOPE = 311
+	, SHL = 312
+	, SHR = 313
+	, EQ = 314
+	, NE = 315
+	, LE = 316
+	, GE = 317
+	, LOG_AND = 318
+	, LOG_OR = 319
+	, INC = 320
+	, DEC = 321
+	, ARROW = 322
+	, ARROW_STAR = 323
+	, DOT_STAR = 324
+	, ASS_ADD = 325
+	, ASS_AND = 326
+	, ASS_DIV = 327
+	, ASS_MOD = 328
+	, ASS_MUL = 329
+	, ASS_OR = 330
+	, ASS_SHL = 331
+	, ASS_SHR = 332
+	, ASS_SUB = 333
+	, ASS_XOR = 334
+	, BuiltInTypeSpecifier = 335
+	, CharacterLiteral = 336
+	, Identifier = 337
+	, MetaType = 338
+	, NewLine = 339
+	, NumberLiteral = 340
+	, StringLiteral = 341
+	, TreeLiteral = 342
+	, ERROR = 343
+	, NIL = 344
+	, RAMMARG = 345
+	, BODY = 346
+	, DERIVED = 347
+	, EMIT = 348
+	, ENTRY = 349
+	, EXIT = 350
+	, FILE = 351
+	, FROZEN = 352
+	, GUARD = 353
+	, IMPLEMENTATION = 354
+	, INCLUDE = 355
+	, INTERFACE = 356
+	, NOGUARD = 357
+	, NOIMPLEMENTATION = 358
+	, OVERLOAD = 359
+	, PATH = 360
+	, POOL = 361
+	, POST = 362
+	, PRE = 363
+	, PREFIX = 364
+	, PURE = 365
+	, SUFFIX = 366
+	, UTILITY = 367
+	, ALL = 368
+	, PLACEHOLDER = 369
+	, PLACEMENT = 370
+	, NOAUTO = 371
+	, HASH_BLANK = 372
+	, HASH_DEFINE = 373
+	, HASH_ELIF = 374
+	, HASH_ELSE = 375
+	, HASH_ENDIF = 376
+	, HASH_ERROR = 377
+	, HASH_IF = 378
+	, HASH_IFDEF = 379
+	, HASH_IFNDEF = 380
+	, HASH_INCLUDE = 381
+	, HASH_LINE = 382
+	, HASH_PRAGMA = 383
+	, HASH_UNDEF = 384
+	, HASH_HASH = 385
+	, DI_HASH_HASH = 386
+	, DI_HASH = 387
+	, DI_SQUARE = 388
+	, DI_ERAUQS = 389
+	, DI_ECARB = 390
+	, DEFINED = 391
+	, DO_FUNCTION = 392
+	, MacroId = 393
+	, Punct = 394
+	, Text = 395
+	, SHIFT_THERE = 396
+	, REDUCE_HERE_MOSTLY = 397
+	, REDUCE_HERE = 398
+	, BOOL = 399
+	, CHAR = 400
+	, DOUBLE = 401
+	, FLOAT = 402
+	, INT = 403
+	, LONG = 404
+	, SHORT = 405
+	, SIGNED = 406
+	, UNSIGNED = 407
+	, VOID = 408
+	, WCHAR_T = 409
+	, IntegerLiteral = 410
+	, FloatingLiteral = 411
+	
+	/* enum token */
+	                                    }; /* end of enum declaration */
 #endif
 public:
- int YY_FogReplaceParser_PARSE (YY_FogReplaceParser_PARSE_PARAM);
- virtual void YY_FogReplaceParser_ERROR(const char *msg) YY_FogReplaceParser_ERROR_BODY;
+	int YY_FogReplaceParser_PARSE (YY_FogReplaceParser_PARSE_PARAM);
+	virtual void YY_FogReplaceParser_ERROR(const char* msg) YY_FogReplaceParser_ERROR_BODY;
 #ifdef YY_FogReplaceParser_PURE
 #ifdef YY_FogReplaceParser_LSP_NEEDED
- virtual int  YY_FogReplaceParser_LEX (YY_FogReplaceParser_STYPE *YY_FogReplaceParser_LVAL,YY_FogReplaceParser_LTYPE *YY_FogReplaceParser_LLOC) YY_FogReplaceParser_LEX_BODY;
+	virtual int  YY_FogReplaceParser_LEX (YY_FogReplaceParser_STYPE* YY_FogReplaceParser_LVAL, YY_FogReplaceParser_LTYPE* YY_FogReplaceParser_LLOC) YY_FogReplaceParser_LEX_BODY;
 #else
- virtual int  YY_FogReplaceParser_LEX (YY_FogReplaceParser_STYPE *YY_FogReplaceParser_LVAL) YY_FogReplaceParser_LEX_BODY;
+	virtual int  YY_FogReplaceParser_LEX (YY_FogReplaceParser_STYPE* YY_FogReplaceParser_LVAL) YY_FogReplaceParser_LEX_BODY;
 #endif
 #else
- virtual int YY_FogReplaceParser_LEX() YY_FogReplaceParser_LEX_BODY;
- YY_FogReplaceParser_STYPE YY_FogReplaceParser_LVAL;
+	virtual int YY_FogReplaceParser_LEX() YY_FogReplaceParser_LEX_BODY;
+	YY_FogReplaceParser_STYPE YY_FogReplaceParser_LVAL;
 #ifdef YY_FogReplaceParser_LSP_NEEDED
- YY_FogReplaceParser_LTYPE YY_FogReplaceParser_LLOC;
+	YY_FogReplaceParser_LTYPE YY_FogReplaceParser_LLOC;
 #endif
- int   YY_FogReplaceParser_NERRS;
- int    YY_FogReplaceParser_CHAR;
+	int   YY_FogReplaceParser_NERRS;
+	int    YY_FogReplaceParser_CHAR;
 #endif
 #if YY_FogReplaceParser_DEBUG != 0
- int YY_FogReplaceParser_DEBUG_FLAG;   /*  nonzero means print parse trace     */
+	int YY_FogReplaceParser_DEBUG_FLAG;   /*  nonzero means print parse trace     */
 #endif
 public:
- YY_FogReplaceParser_CLASS(YY_FogReplaceParser_CONSTRUCTOR_PARAM);
+	YY_FogReplaceParser_CLASS(YY_FogReplaceParser_CONSTRUCTOR_PARAM);
 public:
- YY_FogReplaceParser_MEMBERS 
+	YY_FogReplaceParser_MEMBERS
 };
 /* other declare folow */
 #if YY_FogReplaceParser_USE_CONST_TOKEN != 0
-const int YY_FogReplaceParser_CLASS::ASM=258;
-const int YY_FogReplaceParser_CLASS::AUTO=259;
-const int YY_FogReplaceParser_CLASS::BREAK=260;
-const int YY_FogReplaceParser_CLASS::CASE=261;
-const int YY_FogReplaceParser_CLASS::CATCH=262;
-const int YY_FogReplaceParser_CLASS::CLASS=263;
-const int YY_FogReplaceParser_CLASS::CONST=264;
-const int YY_FogReplaceParser_CLASS::CONST_CAST=265;
-const int YY_FogReplaceParser_CLASS::CONTINUE=266;
-const int YY_FogReplaceParser_CLASS::DEFAULT=267;
-const int YY_FogReplaceParser_CLASS::DELETE=268;
-const int YY_FogReplaceParser_CLASS::DO=269;
-const int YY_FogReplaceParser_CLASS::DYNAMIC_CAST=270;
-const int YY_FogReplaceParser_CLASS::ELSE=271;
-const int YY_FogReplaceParser_CLASS::ENUM=272;
-const int YY_FogReplaceParser_CLASS::EXPLICIT=273;
-const int YY_FogReplaceParser_CLASS::EXPORT=274;
-const int YY_FogReplaceParser_CLASS::EXTERN=275;
-const int YY_FogReplaceParser_CLASS::FALSE=276;
-const int YY_FogReplaceParser_CLASS::FOR=277;
-const int YY_FogReplaceParser_CLASS::FRIEND=278;
-const int YY_FogReplaceParser_CLASS::GOTO=279;
-const int YY_FogReplaceParser_CLASS::IF=280;
-const int YY_FogReplaceParser_CLASS::INLINE=281;
-const int YY_FogReplaceParser_CLASS::MUTABLE=282;
-const int YY_FogReplaceParser_CLASS::NAMESPACE=283;
-const int YY_FogReplaceParser_CLASS::NEW=284;
-const int YY_FogReplaceParser_CLASS::OPERATOR=285;
-const int YY_FogReplaceParser_CLASS::PRIVATE=286;
-const int YY_FogReplaceParser_CLASS::PROTECTED=287;
-const int YY_FogReplaceParser_CLASS::PUBLIC=288;
-const int YY_FogReplaceParser_CLASS::REGISTER=289;
-const int YY_FogReplaceParser_CLASS::REINTERPRET_CAST=290;
-const int YY_FogReplaceParser_CLASS::RETURN=291;
-const int YY_FogReplaceParser_CLASS::SIZEOF=292;
-const int YY_FogReplaceParser_CLASS::STATIC=293;
-const int YY_FogReplaceParser_CLASS::STATIC_CAST=294;
-const int YY_FogReplaceParser_CLASS::STRUCT=295;
-const int YY_FogReplaceParser_CLASS::SWITCH=296;
-const int YY_FogReplaceParser_CLASS::TEMPLATE=297;
-const int YY_FogReplaceParser_CLASS::THIS=298;
-const int YY_FogReplaceParser_CLASS::THROW=299;
-const int YY_FogReplaceParser_CLASS::TRUE=300;
-const int YY_FogReplaceParser_CLASS::TRY=301;
-const int YY_FogReplaceParser_CLASS::TYPEDEF=302;
-const int YY_FogReplaceParser_CLASS::TYPEID=303;
-const int YY_FogReplaceParser_CLASS::TYPENAME=304;
-const int YY_FogReplaceParser_CLASS::UNION=305;
-const int YY_FogReplaceParser_CLASS::USING=306;
-const int YY_FogReplaceParser_CLASS::VIRTUAL=307;
-const int YY_FogReplaceParser_CLASS::VOLATILE=308;
-const int YY_FogReplaceParser_CLASS::WHILE=309;
-const int YY_FogReplaceParser_CLASS::ELLIPSIS=310;
-const int YY_FogReplaceParser_CLASS::SCOPE=311;
-const int YY_FogReplaceParser_CLASS::SHL=312;
-const int YY_FogReplaceParser_CLASS::SHR=313;
-const int YY_FogReplaceParser_CLASS::EQ=314;
-const int YY_FogReplaceParser_CLASS::NE=315;
-const int YY_FogReplaceParser_CLASS::LE=316;
-const int YY_FogReplaceParser_CLASS::GE=317;
-const int YY_FogReplaceParser_CLASS::LOG_AND=318;
-const int YY_FogReplaceParser_CLASS::LOG_OR=319;
-const int YY_FogReplaceParser_CLASS::INC=320;
-const int YY_FogReplaceParser_CLASS::DEC=321;
-const int YY_FogReplaceParser_CLASS::ARROW=322;
-const int YY_FogReplaceParser_CLASS::ARROW_STAR=323;
-const int YY_FogReplaceParser_CLASS::DOT_STAR=324;
-const int YY_FogReplaceParser_CLASS::ASS_ADD=325;
-const int YY_FogReplaceParser_CLASS::ASS_AND=326;
-const int YY_FogReplaceParser_CLASS::ASS_DIV=327;
-const int YY_FogReplaceParser_CLASS::ASS_MOD=328;
-const int YY_FogReplaceParser_CLASS::ASS_MUL=329;
-const int YY_FogReplaceParser_CLASS::ASS_OR=330;
-const int YY_FogReplaceParser_CLASS::ASS_SHL=331;
-const int YY_FogReplaceParser_CLASS::ASS_SHR=332;
-const int YY_FogReplaceParser_CLASS::ASS_SUB=333;
-const int YY_FogReplaceParser_CLASS::ASS_XOR=334;
-const int YY_FogReplaceParser_CLASS::BuiltInTypeSpecifier=335;
-const int YY_FogReplaceParser_CLASS::CharacterLiteral=336;
-const int YY_FogReplaceParser_CLASS::Identifier=337;
-const int YY_FogReplaceParser_CLASS::MetaType=338;
-const int YY_FogReplaceParser_CLASS::NewLine=339;
-const int YY_FogReplaceParser_CLASS::NumberLiteral=340;
-const int YY_FogReplaceParser_CLASS::StringLiteral=341;
-const int YY_FogReplaceParser_CLASS::TreeLiteral=342;
-const int YY_FogReplaceParser_CLASS::ERROR=343;
-const int YY_FogReplaceParser_CLASS::NIL=344;
-const int YY_FogReplaceParser_CLASS::RAMMARG=345;
-const int YY_FogReplaceParser_CLASS::BODY=346;
-const int YY_FogReplaceParser_CLASS::DERIVED=347;
-const int YY_FogReplaceParser_CLASS::EMIT=348;
-const int YY_FogReplaceParser_CLASS::ENTRY=349;
-const int YY_FogReplaceParser_CLASS::EXIT=350;
-const int YY_FogReplaceParser_CLASS::FILE=351;
-const int YY_FogReplaceParser_CLASS::FROZEN=352;
-const int YY_FogReplaceParser_CLASS::GUARD=353;
-const int YY_FogReplaceParser_CLASS::IMPLEMENTATION=354;
-const int YY_FogReplaceParser_CLASS::INCLUDE=355;
-const int YY_FogReplaceParser_CLASS::INTERFACE=356;
-const int YY_FogReplaceParser_CLASS::NOGUARD=357;
-const int YY_FogReplaceParser_CLASS::NOIMPLEMENTATION=358;
-const int YY_FogReplaceParser_CLASS::OVERLOAD=359;
-const int YY_FogReplaceParser_CLASS::PATH=360;
-const int YY_FogReplaceParser_CLASS::POOL=361;
-const int YY_FogReplaceParser_CLASS::POST=362;
-const int YY_FogReplaceParser_CLASS::PRE=363;
-const int YY_FogReplaceParser_CLASS::PREFIX=364;
-const int YY_FogReplaceParser_CLASS::PURE=365;
-const int YY_FogReplaceParser_CLASS::SUFFIX=366;
-const int YY_FogReplaceParser_CLASS::UTILITY=367;
-const int YY_FogReplaceParser_CLASS::ALL=368;
-const int YY_FogReplaceParser_CLASS::PLACEHOLDER=369;
-const int YY_FogReplaceParser_CLASS::PLACEMENT=370;
-const int YY_FogReplaceParser_CLASS::NOAUTO=371;
-const int YY_FogReplaceParser_CLASS::HASH_BLANK=372;
-const int YY_FogReplaceParser_CLASS::HASH_DEFINE=373;
-const int YY_FogReplaceParser_CLASS::HASH_ELIF=374;
-const int YY_FogReplaceParser_CLASS::HASH_ELSE=375;
-const int YY_FogReplaceParser_CLASS::HASH_ENDIF=376;
-const int YY_FogReplaceParser_CLASS::HASH_ERROR=377;
-const int YY_FogReplaceParser_CLASS::HASH_IF=378;
-const int YY_FogReplaceParser_CLASS::HASH_IFDEF=379;
-const int YY_FogReplaceParser_CLASS::HASH_IFNDEF=380;
-const int YY_FogReplaceParser_CLASS::HASH_INCLUDE=381;
-const int YY_FogReplaceParser_CLASS::HASH_LINE=382;
-const int YY_FogReplaceParser_CLASS::HASH_PRAGMA=383;
-const int YY_FogReplaceParser_CLASS::HASH_UNDEF=384;
-const int YY_FogReplaceParser_CLASS::HASH_HASH=385;
-const int YY_FogReplaceParser_CLASS::DI_HASH_HASH=386;
-const int YY_FogReplaceParser_CLASS::DI_HASH=387;
-const int YY_FogReplaceParser_CLASS::DI_SQUARE=388;
-const int YY_FogReplaceParser_CLASS::DI_ERAUQS=389;
-const int YY_FogReplaceParser_CLASS::DI_ECARB=390;
-const int YY_FogReplaceParser_CLASS::DEFINED=391;
-const int YY_FogReplaceParser_CLASS::DO_FUNCTION=392;
-const int YY_FogReplaceParser_CLASS::MacroId=393;
-const int YY_FogReplaceParser_CLASS::Punct=394;
-const int YY_FogReplaceParser_CLASS::Text=395;
-const int YY_FogReplaceParser_CLASS::SHIFT_THERE=396;
-const int YY_FogReplaceParser_CLASS::REDUCE_HERE_MOSTLY=397;
-const int YY_FogReplaceParser_CLASS::REDUCE_HERE=398;
-const int YY_FogReplaceParser_CLASS::BOOL=399;
-const int YY_FogReplaceParser_CLASS::CHAR=400;
-const int YY_FogReplaceParser_CLASS::DOUBLE=401;
-const int YY_FogReplaceParser_CLASS::FLOAT=402;
-const int YY_FogReplaceParser_CLASS::INT=403;
-const int YY_FogReplaceParser_CLASS::LONG=404;
-const int YY_FogReplaceParser_CLASS::SHORT=405;
-const int YY_FogReplaceParser_CLASS::SIGNED=406;
-const int YY_FogReplaceParser_CLASS::UNSIGNED=407;
-const int YY_FogReplaceParser_CLASS::VOID=408;
-const int YY_FogReplaceParser_CLASS::WCHAR_T=409;
-const int YY_FogReplaceParser_CLASS::IntegerLiteral=410;
-const int YY_FogReplaceParser_CLASS::FloatingLiteral=411;
-
- /* const YY_FogReplaceParser_CLASS::token */
+	const int YY_FogReplaceParser_CLASS::ASM = 258;
+	const int YY_FogReplaceParser_CLASS::AUTO = 259;
+	const int YY_FogReplaceParser_CLASS::BREAK = 260;
+	const int YY_FogReplaceParser_CLASS::CASE = 261;
+	const int YY_FogReplaceParser_CLASS::CATCH = 262;
+	const int YY_FogReplaceParser_CLASS::CLASS = 263;
+	const int YY_FogReplaceParser_CLASS::CONST = 264;
+	const int YY_FogReplaceParser_CLASS::CONST_CAST = 265;
+	const int YY_FogReplaceParser_CLASS::CONTINUE = 266;
+	const int YY_FogReplaceParser_CLASS::DEFAULT = 267;
+	const int YY_FogReplaceParser_CLASS::DELETE = 268;
+	const int YY_FogReplaceParser_CLASS::DO = 269;
+	const int YY_FogReplaceParser_CLASS::DYNAMIC_CAST = 270;
+	const int YY_FogReplaceParser_CLASS::ELSE = 271;
+	const int YY_FogReplaceParser_CLASS::ENUM = 272;
+	const int YY_FogReplaceParser_CLASS::EXPLICIT = 273;
+	const int YY_FogReplaceParser_CLASS::EXPORT = 274;
+	const int YY_FogReplaceParser_CLASS::EXTERN = 275;
+	const int YY_FogReplaceParser_CLASS::FALSE = 276;
+	const int YY_FogReplaceParser_CLASS::FOR = 277;
+	const int YY_FogReplaceParser_CLASS::FRIEND = 278;
+	const int YY_FogReplaceParser_CLASS::GOTO = 279;
+	const int YY_FogReplaceParser_CLASS::IF = 280;
+	const int YY_FogReplaceParser_CLASS::INLINE = 281;
+	const int YY_FogReplaceParser_CLASS::MUTABLE = 282;
+	const int YY_FogReplaceParser_CLASS::NAMESPACE = 283;
+	const int YY_FogReplaceParser_CLASS::NEW = 284;
+	const int YY_FogReplaceParser_CLASS::OPERATOR = 285;
+	const int YY_FogReplaceParser_CLASS::PRIVATE = 286;
+	const int YY_FogReplaceParser_CLASS::PROTECTED = 287;
+	const int YY_FogReplaceParser_CLASS::PUBLIC = 288;
+	const int YY_FogReplaceParser_CLASS::REGISTER = 289;
+	const int YY_FogReplaceParser_CLASS::REINTERPRET_CAST = 290;
+	const int YY_FogReplaceParser_CLASS::RETURN = 291;
+	const int YY_FogReplaceParser_CLASS::SIZEOF = 292;
+	const int YY_FogReplaceParser_CLASS::STATIC = 293;
+	const int YY_FogReplaceParser_CLASS::STATIC_CAST = 294;
+	const int YY_FogReplaceParser_CLASS::STRUCT = 295;
+	const int YY_FogReplaceParser_CLASS::SWITCH = 296;
+	const int YY_FogReplaceParser_CLASS::TEMPLATE = 297;
+	const int YY_FogReplaceParser_CLASS::THIS = 298;
+	const int YY_FogReplaceParser_CLASS::THROW = 299;
+	const int YY_FogReplaceParser_CLASS::TRUE = 300;
+	const int YY_FogReplaceParser_CLASS::TRY = 301;
+	const int YY_FogReplaceParser_CLASS::TYPEDEF = 302;
+	const int YY_FogReplaceParser_CLASS::TYPEID = 303;
+	const int YY_FogReplaceParser_CLASS::TYPENAME = 304;
+	const int YY_FogReplaceParser_CLASS::UNION = 305;
+	const int YY_FogReplaceParser_CLASS::USING = 306;
+	const int YY_FogReplaceParser_CLASS::VIRTUAL = 307;
+	const int YY_FogReplaceParser_CLASS::VOLATILE = 308;
+	const int YY_FogReplaceParser_CLASS::WHILE = 309;
+	const int YY_FogReplaceParser_CLASS::ELLIPSIS = 310;
+	const int YY_FogReplaceParser_CLASS::SCOPE = 311;
+	const int YY_FogReplaceParser_CLASS::SHL = 312;
+	const int YY_FogReplaceParser_CLASS::SHR = 313;
+	const int YY_FogReplaceParser_CLASS::EQ = 314;
+	const int YY_FogReplaceParser_CLASS::NE = 315;
+	const int YY_FogReplaceParser_CLASS::LE = 316;
+	const int YY_FogReplaceParser_CLASS::GE = 317;
+	const int YY_FogReplaceParser_CLASS::LOG_AND = 318;
+	const int YY_FogReplaceParser_CLASS::LOG_OR = 319;
+	const int YY_FogReplaceParser_CLASS::INC = 320;
+	const int YY_FogReplaceParser_CLASS::DEC = 321;
+	const int YY_FogReplaceParser_CLASS::ARROW = 322;
+	const int YY_FogReplaceParser_CLASS::ARROW_STAR = 323;
+	const int YY_FogReplaceParser_CLASS::DOT_STAR = 324;
+	const int YY_FogReplaceParser_CLASS::ASS_ADD = 325;
+	const int YY_FogReplaceParser_CLASS::ASS_AND = 326;
+	const int YY_FogReplaceParser_CLASS::ASS_DIV = 327;
+	const int YY_FogReplaceParser_CLASS::ASS_MOD = 328;
+	const int YY_FogReplaceParser_CLASS::ASS_MUL = 329;
+	const int YY_FogReplaceParser_CLASS::ASS_OR = 330;
+	const int YY_FogReplaceParser_CLASS::ASS_SHL = 331;
+	const int YY_FogReplaceParser_CLASS::ASS_SHR = 332;
+	const int YY_FogReplaceParser_CLASS::ASS_SUB = 333;
+	const int YY_FogReplaceParser_CLASS::ASS_XOR = 334;
+	const int YY_FogReplaceParser_CLASS::BuiltInTypeSpecifier = 335;
+	const int YY_FogReplaceParser_CLASS::CharacterLiteral = 336;
+	const int YY_FogReplaceParser_CLASS::Identifier = 337;
+	const int YY_FogReplaceParser_CLASS::MetaType = 338;
+	const int YY_FogReplaceParser_CLASS::NewLine = 339;
+	const int YY_FogReplaceParser_CLASS::NumberLiteral = 340;
+	const int YY_FogReplaceParser_CLASS::StringLiteral = 341;
+	const int YY_FogReplaceParser_CLASS::TreeLiteral = 342;
+	const int YY_FogReplaceParser_CLASS::ERROR = 343;
+	const int YY_FogReplaceParser_CLASS::NIL = 344;
+	const int YY_FogReplaceParser_CLASS::RAMMARG = 345;
+	const int YY_FogReplaceParser_CLASS::BODY = 346;
+	const int YY_FogReplaceParser_CLASS::DERIVED = 347;
+	const int YY_FogReplaceParser_CLASS::EMIT = 348;
+	const int YY_FogReplaceParser_CLASS::ENTRY = 349;
+	const int YY_FogReplaceParser_CLASS::EXIT = 350;
+	const int YY_FogReplaceParser_CLASS::FILE = 351;
+	const int YY_FogReplaceParser_CLASS::FROZEN = 352;
+	const int YY_FogReplaceParser_CLASS::GUARD = 353;
+	const int YY_FogReplaceParser_CLASS::IMPLEMENTATION = 354;
+	const int YY_FogReplaceParser_CLASS::INCLUDE = 355;
+	const int YY_FogReplaceParser_CLASS::INTERFACE = 356;
+	const int YY_FogReplaceParser_CLASS::NOGUARD = 357;
+	const int YY_FogReplaceParser_CLASS::NOIMPLEMENTATION = 358;
+	const int YY_FogReplaceParser_CLASS::OVERLOAD = 359;
+	const int YY_FogReplaceParser_CLASS::PATH = 360;
+	const int YY_FogReplaceParser_CLASS::POOL = 361;
+	const int YY_FogReplaceParser_CLASS::POST = 362;
+	const int YY_FogReplaceParser_CLASS::PRE = 363;
+	const int YY_FogReplaceParser_CLASS::PREFIX = 364;
+	const int YY_FogReplaceParser_CLASS::PURE = 365;
+	const int YY_FogReplaceParser_CLASS::SUFFIX = 366;
+	const int YY_FogReplaceParser_CLASS::UTILITY = 367;
+	const int YY_FogReplaceParser_CLASS::ALL = 368;
+	const int YY_FogReplaceParser_CLASS::PLACEHOLDER = 369;
+	const int YY_FogReplaceParser_CLASS::PLACEMENT = 370;
+	const int YY_FogReplaceParser_CLASS::NOAUTO = 371;
+	const int YY_FogReplaceParser_CLASS::HASH_BLANK = 372;
+	const int YY_FogReplaceParser_CLASS::HASH_DEFINE = 373;
+	const int YY_FogReplaceParser_CLASS::HASH_ELIF = 374;
+	const int YY_FogReplaceParser_CLASS::HASH_ELSE = 375;
+	const int YY_FogReplaceParser_CLASS::HASH_ENDIF = 376;
+	const int YY_FogReplaceParser_CLASS::HASH_ERROR = 377;
+	const int YY_FogReplaceParser_CLASS::HASH_IF = 378;
+	const int YY_FogReplaceParser_CLASS::HASH_IFDEF = 379;
+	const int YY_FogReplaceParser_CLASS::HASH_IFNDEF = 380;
+	const int YY_FogReplaceParser_CLASS::HASH_INCLUDE = 381;
+	const int YY_FogReplaceParser_CLASS::HASH_LINE = 382;
+	const int YY_FogReplaceParser_CLASS::HASH_PRAGMA = 383;
+	const int YY_FogReplaceParser_CLASS::HASH_UNDEF = 384;
+	const int YY_FogReplaceParser_CLASS::HASH_HASH = 385;
+	const int YY_FogReplaceParser_CLASS::DI_HASH_HASH = 386;
+	const int YY_FogReplaceParser_CLASS::DI_HASH = 387;
+	const int YY_FogReplaceParser_CLASS::DI_SQUARE = 388;
+	const int YY_FogReplaceParser_CLASS::DI_ERAUQS = 389;
+	const int YY_FogReplaceParser_CLASS::DI_ECARB = 390;
+	const int YY_FogReplaceParser_CLASS::DEFINED = 391;
+	const int YY_FogReplaceParser_CLASS::DO_FUNCTION = 392;
+	const int YY_FogReplaceParser_CLASS::MacroId = 393;
+	const int YY_FogReplaceParser_CLASS::Punct = 394;
+	const int YY_FogReplaceParser_CLASS::Text = 395;
+	const int YY_FogReplaceParser_CLASS::SHIFT_THERE = 396;
+	const int YY_FogReplaceParser_CLASS::REDUCE_HERE_MOSTLY = 397;
+	const int YY_FogReplaceParser_CLASS::REDUCE_HERE = 398;
+	const int YY_FogReplaceParser_CLASS::BOOL = 399;
+	const int YY_FogReplaceParser_CLASS::CHAR = 400;
+	const int YY_FogReplaceParser_CLASS::DOUBLE = 401;
+	const int YY_FogReplaceParser_CLASS::FLOAT = 402;
+	const int YY_FogReplaceParser_CLASS::INT = 403;
+	const int YY_FogReplaceParser_CLASS::LONG = 404;
+	const int YY_FogReplaceParser_CLASS::SHORT = 405;
+	const int YY_FogReplaceParser_CLASS::SIGNED = 406;
+	const int YY_FogReplaceParser_CLASS::UNSIGNED = 407;
+	const int YY_FogReplaceParser_CLASS::VOID = 408;
+	const int YY_FogReplaceParser_CLASS::WCHAR_T = 409;
+	const int YY_FogReplaceParser_CLASS::IntegerLiteral = 410;
+	const int YY_FogReplaceParser_CLASS::FloatingLiteral = 411;
+	
+	/* const YY_FogReplaceParser_CLASS::token */
 #endif
 /*apres const  */
-YY_FogReplaceParser_CLASS::YY_FogReplaceParser_CLASS(YY_FogReplaceParser_CONSTRUCTOR_PARAM) YY_FogReplaceParser_CONSTRUCTOR_INIT
-{
+YY_FogReplaceParser_CLASS::YY_FogReplaceParser_CLASS(YY_FogReplaceParser_CONSTRUCTOR_PARAM) YY_FogReplaceParser_CONSTRUCTOR_INIT {
 #if YY_FogReplaceParser_DEBUG != 0
-YY_FogReplaceParser_DEBUG_FLAG=0;
+	YY_FogReplaceParser_DEBUG_FLAG = 0;
 #endif
-YY_FogReplaceParser_CONSTRUCTOR_CODE;
+	YY_FogReplaceParser_CONSTRUCTOR_CODE;
 };
 #endif
 
@@ -1030,340 +1027,342 @@ YY_FogReplaceParser_CONSTRUCTOR_CODE;
 #define YYTRANSLATE(x) ((unsigned)(x) <= 411 ? yytranslate[x] : 198)
 
 static const short yytranslate[] = {     0,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,   187,   177,   185,   161,   183,   172,   174,   184,   162,
-   163,   170,   168,   181,   169,   167,   171,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,   165,   164,   179,
-   178,   180,   166,   182,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-   159,   186,   160,   173,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,   157,   175,   158,   176,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     1,     2,     3,     4,     5,
-     6,     7,     8,     9,    10,    11,    12,    13,    14,    15,
-    16,    17,    18,    19,    20,    21,    22,    23,    24,    25,
-    26,    27,    28,    29,    30,    31,    32,    33,    34,    35,
-    36,    37,    38,    39,    40,    41,    42,    43,    44,    45,
-    46,    47,    48,    49,    50,    51,    52,    53,    54,    55,
-    56,    57,    58,    59,    60,    61,    62,    63,    64,    65,
-    66,    67,    68,    69,    70,    71,    72,    73,    74,    75,
-    76,    77,    78,    79,    80,    81,    82,    83,    84,    85,
-    86,    87,    88,    89,    90,    91,    92,    93,    94,    95,
-    96,    97,    98,    99,   100,   101,   102,   103,   104,   105,
-   106,   107,   108,   109,   110,   111,   112,   113,   114,   115,
-   116,   117,   118,   119,   120,   121,   122,   123,   124,   125,
-   126,   127,   128,   129,   130,   131,   132,   133,   134,   135,
-   136,   137,   138,   139,   140,   141,   142,   143,   144,   145,
-   146,   147,   148,   149,   150,   151,   152,   153,   154,   155,
-   156
-};
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,   187,   177,   185,   161,   183,   172,   174,   184,   162,
+                                         163,   170,   168,   181,   169,   167,   171,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,   165,   164,   179,
+                                         178,   180,   166,   182,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         159,   186,   160,   173,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,   157,   175,   158,   176,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                         2,     2,     2,     2,     2,     1,     2,     3,     4,     5,
+                                         6,     7,     8,     9,    10,    11,    12,    13,    14,    15,
+                                         16,    17,    18,    19,    20,    21,    22,    23,    24,    25,
+                                         26,    27,    28,    29,    30,    31,    32,    33,    34,    35,
+                                         36,    37,    38,    39,    40,    41,    42,    43,    44,    45,
+                                         46,    47,    48,    49,    50,    51,    52,    53,    54,    55,
+                                         56,    57,    58,    59,    60,    61,    62,    63,    64,    65,
+                                         66,    67,    68,    69,    70,    71,    72,    73,    74,    75,
+                                         76,    77,    78,    79,    80,    81,    82,    83,    84,    85,
+                                         86,    87,    88,    89,    90,    91,    92,    93,    94,    95,
+                                         96,    97,    98,    99,   100,   101,   102,   103,   104,   105,
+                                         106,   107,   108,   109,   110,   111,   112,   113,   114,   115,
+                                         116,   117,   118,   119,   120,   121,   122,   123,   124,   125,
+                                         126,   127,   128,   129,   130,   131,   132,   133,   134,   135,
+                                         136,   137,   138,   139,   140,   141,   142,   143,   144,   145,
+                                         146,   147,   148,   149,   150,   151,   152,   153,   154,   155,
+                                         156
+                                   };
 
 #if YY_FogReplaceParser_DEBUG != 0
 static const short yyprhs[] = {     0,
-     0,     1,     4,     7,    10,    13,    16,    19,    22,    25,
-    28,    34,    36,    39,    42,    45,    50,    52,    54,    56,
-    59,    62,    65,    67,    69,    71,    73,    75,    77,    79,
-    81,    83,    86,    88,    91,    94,    96,    98,   100,   102,
-   104,   106,   108,   110,   112,   114,   116,   118,   120,   122,
-   124,   126,   128,   130,   132,   134,   136,   138,   140,   142,
-   144,   146,   148,   150,   152,   154,   156,   158,   160,   162,
-   164,   166,   167,   170
-};
+                                    0,     1,     4,     7,    10,    13,    16,    19,    22,    25,
+                                    28,    34,    36,    39,    42,    45,    50,    52,    54,    56,
+                                    59,    62,    65,    67,    69,    71,    73,    75,    77,    79,
+                                    81,    83,    86,    88,    91,    94,    96,    98,   100,   102,
+                                    104,   106,   108,   110,   112,   114,   116,   118,   120,   122,
+                                    124,   126,   128,   130,   132,   134,   136,   138,   140,   142,
+                                    144,   146,   148,   150,   152,   154,   156,   158,   160,   162,
+                                    164,   166,   167,   170
+                              };
 
 static const short yyrhs[] = {    -1,
-   190,   196,     0,   190,   181,     0,   190,   163,     0,   190,
-   157,     0,   190,    81,     0,   190,   138,     0,   190,    85,
-     0,   190,    86,     0,   190,   191,     0,   190,   191,   137,
-   197,   193,     0,   188,     0,   189,   162,     0,   189,   187,
-     0,   189,    84,     0,   190,   191,   137,   197,     0,   189,
-     0,    82,     0,   162,     0,   192,   194,     0,   192,   181,
-     0,   192,   163,     0,   196,     0,   157,     0,   187,     0,
-    81,     0,    82,     0,   138,     0,    84,     0,    85,     0,
-    86,     0,   195,   163,     0,   162,     0,   195,   194,     0,
-   195,   181,     0,   139,     0,   130,     0,    57,     0,    58,
-     0,    59,     0,    60,     0,    61,     0,    62,     0,    63,
-     0,    64,     0,   161,     0,   158,     0,   159,     0,   160,
-     0,   164,     0,   165,     0,   166,     0,   167,     0,   168,
-     0,   169,     0,   170,     0,   171,     0,   172,     0,   173,
-     0,   174,     0,   175,     0,   176,     0,   177,     0,   178,
-     0,   179,     0,   180,     0,   182,     0,   183,     0,   184,
-     0,   185,     0,   186,     0,     0,   197,   187,     0,   197,
-    84,     0
-};
+                                  190,   196,     0,   190,   181,     0,   190,   163,     0,   190,
+                                  157,     0,   190,    81,     0,   190,   138,     0,   190,    85,
+                                  0,   190,    86,     0,   190,   191,     0,   190,   191,   137,
+                                  197,   193,     0,   188,     0,   189,   162,     0,   189,   187,
+                                  0,   189,    84,     0,   190,   191,   137,   197,     0,   189,
+                                  0,    82,     0,   162,     0,   192,   194,     0,   192,   181,
+                                  0,   192,   163,     0,   196,     0,   157,     0,   187,     0,
+                                  81,     0,    82,     0,   138,     0,    84,     0,    85,     0,
+                                  86,     0,   195,   163,     0,   162,     0,   195,   194,     0,
+                                  195,   181,     0,   139,     0,   130,     0,    57,     0,    58,
+                                  0,    59,     0,    60,     0,    61,     0,    62,     0,    63,
+                                  0,    64,     0,   161,     0,   158,     0,   159,     0,   160,
+                                  0,   164,     0,   165,     0,   166,     0,   167,     0,   168,
+                                  0,   169,     0,   170,     0,   171,     0,   172,     0,   173,
+                                  0,   174,     0,   175,     0,   176,     0,   177,     0,   178,
+                                  0,   179,     0,   180,     0,   182,     0,   183,     0,   184,
+                                  0,   185,     0,   186,     0,     0,   197,   187,     0,   197,
+                                  84,     0
+                             };
 
 #endif
 
-#if (YY_FogReplaceParser_DEBUG != 0) || defined(YY_FogReplaceParser_ERROR_VERBOSE) 
+#if (YY_FogReplaceParser_DEBUG != 0) || defined(YY_FogReplaceParser_ERROR_VERBOSE)
 static const short yyrline[] = { 0,
-   250,   251,   252,   253,   254,   255,   256,   257,   258,   259,
-   260,   261,   262,   263,   264,   265,   266,   268,   270,   271,
-   272,   273,   275,   276,   277,   278,   279,   280,   281,   282,
-   283,   284,   286,   287,   288,   290,   290,   290,   290,   290,
-   290,   290,   290,   290,   290,   291,   291,   291,   291,   291,
-   291,   291,   291,   292,   292,   292,   292,   292,   292,   292,
-   292,   292,   292,   292,   292,   292,   293,   293,   293,   293,
-   293,   295,   296,   297
-};
+                                 250,   251,   252,   253,   254,   255,   256,   257,   258,   259,
+                                 260,   261,   262,   263,   264,   265,   266,   268,   270,   271,
+                                 272,   273,   275,   276,   277,   278,   279,   280,   281,   282,
+                                 283,   284,   286,   287,   288,   290,   290,   290,   290,   290,
+                                 290,   290,   290,   290,   290,   291,   291,   291,   291,   291,
+                                 291,   291,   291,   292,   292,   292,   292,   292,   292,   292,
+                                 292,   292,   292,   292,   292,   292,   293,   293,   293,   293,
+                                 293,   295,   296,   297
+                               };
 
-static const char * const yytname[] = {   "$","error","$illegal.","ASM","AUTO",
-"BREAK","CASE","CATCH","CLASS","CONST","CONST_CAST","CONTINUE","DEFAULT","DELETE",
-"DO","DYNAMIC_CAST","ELSE","ENUM","EXPLICIT","EXPORT","EXTERN","FALSE","FOR",
-"FRIEND","GOTO","IF","INLINE","MUTABLE","NAMESPACE","NEW","OPERATOR","PRIVATE",
-"PROTECTED","PUBLIC","REGISTER","REINTERPRET_CAST","RETURN","SIZEOF","STATIC",
-"STATIC_CAST","STRUCT","SWITCH","TEMPLATE","THIS","THROW","TRUE","TRY","TYPEDEF",
-"TYPEID","TYPENAME","UNION","USING","VIRTUAL","VOLATILE","WHILE","ELLIPSIS",
-"SCOPE","SHL","SHR","EQ","NE","LE","GE","LOG_AND","LOG_OR","INC","DEC","ARROW",
-"ARROW_STAR","DOT_STAR","ASS_ADD","ASS_AND","ASS_DIV","ASS_MOD","ASS_MUL","ASS_OR",
-"ASS_SHL","ASS_SHR","ASS_SUB","ASS_XOR","BuiltInTypeSpecifier","CharacterLiteral",
-"Identifier","MetaType","NewLine","NumberLiteral","StringLiteral","TreeLiteral",
-"ERROR","NIL","RAMMARG","BODY","DERIVED","EMIT","ENTRY","EXIT","FILE","FROZEN",
-"GUARD","IMPLEMENTATION","INCLUDE","INTERFACE","NOGUARD","NOIMPLEMENTATION",
-"OVERLOAD","PATH","POOL","POST","PRE","PREFIX","PURE","SUFFIX","UTILITY","ALL",
-"PLACEHOLDER","PLACEMENT","NOAUTO","HASH_BLANK","HASH_DEFINE","HASH_ELIF","HASH_ELSE",
-"HASH_ENDIF","HASH_ERROR","HASH_IF","HASH_IFDEF","HASH_IFNDEF","HASH_INCLUDE",
-"HASH_LINE","HASH_PRAGMA","HASH_UNDEF","HASH_HASH","DI_HASH_HASH","DI_HASH",
-"DI_SQUARE","DI_ERAUQS","DI_ECARB","DEFINED","DO_FUNCTION","MacroId","Punct",
-"Text","SHIFT_THERE","REDUCE_HERE_MOSTLY","REDUCE_HERE","BOOL","CHAR","DOUBLE",
-"FLOAT","INT","LONG","SHORT","SIGNED","UNSIGNED","VOID","WCHAR_T","IntegerLiteral",
-"FloatingLiteral","'{'","'}'","'['","']'","'#'","'('","')'","';'","':'","'?'",
-"'.'","'+'","'-'","'*'","'/'","'%'","'^'","'&'","'|'","'~'","'!'","'='","'<'",
-"'>'","','","'@'","'$'","'\\''","'\"'","'\\\\'","' '","gram0","gram3","gram",
-"id","args1","args","tokens","toks0","punct","ws.opt",""
-};
+static const char* const yytname[] = {   "$", "error", "$illegal.", "ASM", "AUTO",
+                                         "BREAK", "CASE", "CATCH", "CLASS", "CONST", "CONST_CAST", "CONTINUE", "DEFAULT", "DELETE",
+                                         "DO", "DYNAMIC_CAST", "ELSE", "ENUM", "EXPLICIT", "EXPORT", "EXTERN", "FALSE", "FOR",
+                                         "FRIEND", "GOTO", "IF", "INLINE", "MUTABLE", "NAMESPACE", "NEW", "OPERATOR", "PRIVATE",
+                                         "PROTECTED", "PUBLIC", "REGISTER", "REINTERPRET_CAST", "RETURN", "SIZEOF", "STATIC",
+                                         "STATIC_CAST", "STRUCT", "SWITCH", "TEMPLATE", "THIS", "THROW", "TRUE", "TRY", "TYPEDEF",
+                                         "TYPEID", "TYPENAME", "UNION", "USING", "VIRTUAL", "VOLATILE", "WHILE", "ELLIPSIS",
+                                         "SCOPE", "SHL", "SHR", "EQ", "NE", "LE", "GE", "LOG_AND", "LOG_OR", "INC", "DEC", "ARROW",
+                                         "ARROW_STAR", "DOT_STAR", "ASS_ADD", "ASS_AND", "ASS_DIV", "ASS_MOD", "ASS_MUL", "ASS_OR",
+                                         "ASS_SHL", "ASS_SHR", "ASS_SUB", "ASS_XOR", "BuiltInTypeSpecifier", "CharacterLiteral",
+                                         "Identifier", "MetaType", "NewLine", "NumberLiteral", "StringLiteral", "TreeLiteral",
+                                         "ERROR", "NIL", "RAMMARG", "BODY", "DERIVED", "EMIT", "ENTRY", "EXIT", "FILE", "FROZEN",
+                                         "GUARD", "IMPLEMENTATION", "INCLUDE", "INTERFACE", "NOGUARD", "NOIMPLEMENTATION",
+                                         "OVERLOAD", "PATH", "POOL", "POST", "PRE", "PREFIX", "PURE", "SUFFIX", "UTILITY", "ALL",
+                                         "PLACEHOLDER", "PLACEMENT", "NOAUTO", "HASH_BLANK", "HASH_DEFINE", "HASH_ELIF", "HASH_ELSE",
+                                         "HASH_ENDIF", "HASH_ERROR", "HASH_IF", "HASH_IFDEF", "HASH_IFNDEF", "HASH_INCLUDE",
+                                         "HASH_LINE", "HASH_PRAGMA", "HASH_UNDEF", "HASH_HASH", "DI_HASH_HASH", "DI_HASH",
+                                         "DI_SQUARE", "DI_ERAUQS", "DI_ECARB", "DEFINED", "DO_FUNCTION", "MacroId", "Punct",
+                                         "Text", "SHIFT_THERE", "REDUCE_HERE_MOSTLY", "REDUCE_HERE", "BOOL", "CHAR", "DOUBLE",
+                                         "FLOAT", "INT", "LONG", "SHORT", "SIGNED", "UNSIGNED", "VOID", "WCHAR_T", "IntegerLiteral",
+                                         "FloatingLiteral", "'{'", "'}'", "'['", "']'", "'#'", "'('", "')'", "';'", "':'", "'?'",
+                                         "'.'", "'+'", "'-'", "'*'", "'/'", "'%'", "'^'", "'&'", "'|'", "'~'", "'!'", "'='", "'<'",
+                                         "'>'", "','", "'@'", "'$'", "'\\''", "'\"'", "'\\\\'", "' '", "gram0", "gram3", "gram",
+                                         "id", "args1", "args", "tokens", "toks0", "punct", "ws.opt", ""
+                                     };
 #endif
 
 static const short yyr1[] = {     0,
-   188,   188,   188,   188,   188,   188,   188,   188,   188,   188,
-   188,   189,   189,   189,   189,   190,   190,   191,   192,   192,
-   192,   193,   194,   194,   194,   194,   194,   194,   194,   194,
-   194,   194,   195,   195,   195,   196,   196,   196,   196,   196,
-   196,   196,   196,   196,   196,   196,   196,   196,   196,   196,
-   196,   196,   196,   196,   196,   196,   196,   196,   196,   196,
-   196,   196,   196,   196,   196,   196,   196,   196,   196,   196,
-   196,   197,   197,   197
-};
+                                  188,   188,   188,   188,   188,   188,   188,   188,   188,   188,
+                                  188,   189,   189,   189,   189,   190,   190,   191,   192,   192,
+                                  192,   193,   194,   194,   194,   194,   194,   194,   194,   194,
+                                  194,   194,   195,   195,   195,   196,   196,   196,   196,   196,
+                                  196,   196,   196,   196,   196,   196,   196,   196,   196,   196,
+                                  196,   196,   196,   196,   196,   196,   196,   196,   196,   196,
+                                  196,   196,   196,   196,   196,   196,   196,   196,   196,   196,
+                                  196,   197,   197,   197
+                            };
 
 static const short yyr2[] = {     0,
-     0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     5,     1,     2,     2,     2,     4,     1,     1,     1,     2,
-     2,     2,     1,     1,     1,     1,     1,     1,     1,     1,
-     1,     2,     1,     2,     2,     1,     1,     1,     1,     1,
-     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-     1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-     1,     0,     2,     2
-};
+                                  0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+                                  5,     1,     2,     2,     2,     4,     1,     1,     1,     2,
+                                  2,     2,     1,     1,     1,     1,     1,     1,     1,     1,
+                                  1,     2,     1,     2,     2,     1,     1,     1,     1,     1,
+                                  1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+                                  1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+                                  1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+                                  1,     0,     2,     2
+                            };
 
 static const short yydefact[] = {     1,
-    12,    17,     0,    15,    13,    14,    38,    39,    40,    41,
-    42,    43,    44,    45,     6,    18,     8,     9,    37,     7,
-    36,     5,    47,    48,    49,    46,     4,    50,    51,    52,
-    53,    54,    55,    56,    57,    58,    59,    60,    61,    62,
-    63,    64,    65,    66,     3,    67,    68,    69,    70,    71,
-    10,     2,    72,    16,    74,    19,    73,     0,    11,    26,
-    27,    29,    30,    31,    28,    24,    33,    22,    21,    25,
-    20,     0,    23,    32,    35,    34,     0,     0
-};
+                                      12,    17,     0,    15,    13,    14,    38,    39,    40,    41,
+                                      42,    43,    44,    45,     6,    18,     8,     9,    37,     7,
+                                      36,     5,    47,    48,    49,    46,     4,    50,    51,    52,
+                                      53,    54,    55,    56,    57,    58,    59,    60,    61,    62,
+                                      63,    64,    65,    66,     3,    67,    68,    69,    70,    71,
+                                      10,     2,    72,    16,    74,    19,    73,     0,    11,    26,
+                                      27,    29,    30,    31,    28,    24,    33,    22,    21,    25,
+                                      20,     0,    23,    32,    35,    34,     0,     0
+                                };
 
 static const short yydefgoto[] = {     1,
-     2,     3,    51,    58,    59,    71,    72,    73,    54
-};
+                                       2,     3,    51,    58,    59,    71,    72,    73,    54
+                                 };
 
 static const short yypact[] = {-32768,
--32768,   -83,     0,-32768,-32768,-32768,-32768,-32768,-32768,-32768,
--32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,
--32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,
--32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,
--32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,
-  -134,-32768,-32768,   -82,-32768,-32768,-32768,    59,-32768,-32768,
--32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,-32768,
--32768,   190,-32768,-32768,-32768,-32768,     4,-32768
-};
+                               -32768,   -83,     0, -32768, -32768, -32768, -32768, -32768, -32768, -32768,
+                               -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768,
+                               -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768,
+                               -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768,
+                               -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768,
+                               -134, -32768, -32768,   -82, -32768, -32768, -32768,    59, -32768, -32768,
+                               -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768, -32768,
+                               -32768,   190, -32768, -32768, -32768, -32768,     4, -32768
+                               };
 
 static const short yypgoto[] = {-32768,
--32768,-32768,-32768,-32768,-32768,   -67,-32768,     3,-32768
-};
+                                -32768, -32768, -32768, -32768, -32768,   -67, -32768,     3, -32768
+                                };
 
 
 #define	YYLAST		377
 
 
 static const short yytable[] = {    77,
-     4,    55,    53,    78,    76,    52,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     7,     8,     9,    10,
-    11,    12,    13,    14,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     5,    56,
-    15,    16,     0,     0,    17,    18,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     6,    57,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     7,     8,     9,    10,    11,
-    12,    13,    14,     0,     0,     0,     0,     0,     0,    19,
-     0,     0,     0,     0,     0,     0,     0,    20,    21,    60,
-    61,     0,    62,    63,    64,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,    22,    23,    24,    25,
-    26,     0,    27,    28,    29,    30,    31,    32,    33,    34,
-    35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-    45,    46,    47,    48,    49,    50,     0,     0,    19,     0,
-     0,     0,     0,     0,     0,     0,    65,    21,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,    66,    23,    24,    25,    26,
-    67,    68,    28,    29,    30,    31,    32,    33,    34,    35,
-    36,    37,    38,    39,    40,    41,    42,    43,    44,    69,
-    46,    47,    48,    49,    50,    70,     7,     8,     9,    10,
-    11,    12,    13,    14,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-    60,    61,     0,    62,    63,    64,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,    19,
-     0,     0,     0,     0,     0,     0,     0,    65,    21,     0,
-     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     0,     0,     0,     0,     0,     0,    66,    23,    24,    25,
-    26,    67,    74,    28,    29,    30,    31,    32,    33,    34,
-    35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-    75,    46,    47,    48,    49,    50,    70
-};
+                                    4,    55,    53,    78,    76,    52,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     7,     8,     9,    10,
+                                    11,    12,    13,    14,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     5,    56,
+                                    15,    16,     0,     0,    17,    18,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     6,    57,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     7,     8,     9,    10,    11,
+                                    12,    13,    14,     0,     0,     0,     0,     0,     0,    19,
+                                    0,     0,     0,     0,     0,     0,     0,    20,    21,    60,
+                                    61,     0,    62,    63,    64,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,    22,    23,    24,    25,
+                                    26,     0,    27,    28,    29,    30,    31,    32,    33,    34,
+                                    35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+                                    45,    46,    47,    48,    49,    50,     0,     0,    19,     0,
+                                    0,     0,     0,     0,     0,     0,    65,    21,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,    66,    23,    24,    25,    26,
+                                    67,    68,    28,    29,    30,    31,    32,    33,    34,    35,
+                                    36,    37,    38,    39,    40,    41,    42,    43,    44,    69,
+                                    46,    47,    48,    49,    50,    70,     7,     8,     9,    10,
+                                    11,    12,    13,    14,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    60,    61,     0,    62,    63,    64,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,    19,
+                                    0,     0,     0,     0,     0,     0,     0,    65,    21,     0,
+                                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+                                    0,     0,     0,     0,     0,     0,    66,    23,    24,    25,
+                                    26,    67,    74,    28,    29,    30,    31,    32,    33,    34,
+                                    35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+                                    75,    46,    47,    48,    49,    50,    70
+                               };
 
 static const short yycheck[] = {     0,
-    84,    84,   137,     0,    72,     3,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    57,    58,    59,    60,
-    61,    62,    63,    64,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   162,   162,
-    81,    82,    -1,    -1,    85,    86,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,   187,   187,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    57,    58,    59,    60,    61,
-    62,    63,    64,    -1,    -1,    -1,    -1,    -1,    -1,   130,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,   138,   139,    81,
-    82,    -1,    84,    85,    86,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,   157,   158,   159,   160,
-   161,    -1,   163,   164,   165,   166,   167,   168,   169,   170,
-   171,   172,   173,   174,   175,   176,   177,   178,   179,   180,
-   181,   182,   183,   184,   185,   186,    -1,    -1,   130,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,   138,   139,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,   157,   158,   159,   160,   161,
-   162,   163,   164,   165,   166,   167,   168,   169,   170,   171,
-   172,   173,   174,   175,   176,   177,   178,   179,   180,   181,
-   182,   183,   184,   185,   186,   187,    57,    58,    59,    60,
-    61,    62,    63,    64,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    81,    82,    -1,    84,    85,    86,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   130,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,   138,   139,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-    -1,    -1,    -1,    -1,    -1,    -1,   157,   158,   159,   160,
-   161,   162,   163,   164,   165,   166,   167,   168,   169,   170,
-   171,   172,   173,   174,   175,   176,   177,   178,   179,   180,
-   181,   182,   183,   184,   185,   186,   187
-};
- /* fattrs + tables */
+                                     84,    84,   137,     0,    72,     3,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    57,    58,    59,    60,
+                                     61,    62,    63,    64,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   162,   162,
+                                     81,    82,    -1,    -1,    85,    86,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,   187,   187,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    57,    58,    59,    60,    61,
+                                     62,    63,    64,    -1,    -1,    -1,    -1,    -1,    -1,   130,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,   138,   139,    81,
+                                     82,    -1,    84,    85,    86,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,   157,   158,   159,   160,
+                                     161,    -1,   163,   164,   165,   166,   167,   168,   169,   170,
+                                     171,   172,   173,   174,   175,   176,   177,   178,   179,   180,
+                                     181,   182,   183,   184,   185,   186,    -1,    -1,   130,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,   138,   139,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,   157,   158,   159,   160,   161,
+                                     162,   163,   164,   165,   166,   167,   168,   169,   170,   171,
+                                     172,   173,   174,   175,   176,   177,   178,   179,   180,   181,
+                                     182,   183,   184,   185,   186,   187,    57,    58,    59,    60,
+                                     61,    62,    63,    64,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     81,    82,    -1,    84,    85,    86,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   130,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,   138,   139,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+                                     -1,    -1,    -1,    -1,    -1,    -1,   157,   158,   159,   160,
+                                     161,   162,   163,   164,   165,   166,   167,   168,   169,   170,
+                                     171,   172,   173,   174,   175,   176,   177,   178,   179,   180,
+                                     181,   182,   183,   184,   185,   186,   187
+                                     };
+/* fattrs + tables */
 
 /* parser code folow  */
 
 
-/* This is the parser code that is written into each bison parser
-  when the %semantic_parser declaration is not specified in the grammar.
-  It was written by Richard Stallman by simplifying the hairy parser
-  used when %semantic_parser is specified.  */
+/*  This is the parser code that is written into each bison parser
+    when the %semantic_parser declaration is not specified in the grammar.
+    It was written by Richard Stallman by simplifying the hairy parser
+    used when %semantic_parser is specified.  */
 
-/* Note: dollar marks section change
-   the next  is replaced by the list of actions, each action
-   as one case of the switch.  */ 
+/*  Note: dollar marks section change
+    the next  is replaced by the list of actions, each action
+    as one case of the switch.  */
 
 #if YY_FogReplaceParser_USE_GOTO != 0
-/* 
- SUPRESSION OF GOTO : on some C++ compiler (sun c++)
-  the goto is strictly forbidden if any constructor/destructor
-  is used in the whole function (very stupid isn't it ?)
- so goto are to be replaced with a 'while/switch/case construct'
- here are the macro to keep some apparent compatibility
+/*
+    SUPRESSION OF GOTO : on some C++ compiler (sun c++)
+    the goto is strictly forbidden if any constructor/destructor
+    is used in the whole function (very stupid isn't it ?)
+    so goto are to be replaced with a 'while/switch/case construct'
+    here are the macro to keep some apparent compatibility
 */
 #define YYGOTO(lb) {yy_gotostate=lb;continue;}
 #define YYBEGINGOTO  enum yy_labels yy_gotostate=yygotostart; \
-                     for(;;) switch(yy_gotostate) { case yygotostart: {
+	for(;;) switch(yy_gotostate) { case yygotostart: {
 #define YYLABEL(lb) } case lb: {
-#define YYENDGOTO } } 
+#define YYENDGOTO } }
 #define YYBEGINDECLARELABEL enum yy_labels {yygotostart
 #define YYDECLARELABEL(lb) ,lb
 #define YYENDDECLARELABEL  };
 #else
 /* macro to keep goto */
 #define YYGOTO(lb) goto lb
-#define YYBEGINGOTO 
+#define YYBEGINGOTO
 #define YYLABEL(lb) lb:
 #define YYENDGOTO
-#define YYBEGINDECLARELABEL 
+#define YYBEGINDECLARELABEL
 #define YYDECLARELABEL(lb)
-#define YYENDDECLARELABEL 
+#define YYENDDECLARELABEL
 #endif
 /* LABEL DECLARATION */
 YYBEGINDECLARELABEL
-  YYDECLARELABEL(yynewstate)
-  YYDECLARELABEL(yybackup)
+YYDECLARELABEL(yynewstate)
+YYDECLARELABEL(yybackup)
 /* YYDECLARELABEL(yyresume) */
-  YYDECLARELABEL(yydefault)
-  YYDECLARELABEL(yyreduce)
-  YYDECLARELABEL(yyerrlab)   /* here on detecting error */
-  YYDECLARELABEL(yyerrlab1)   /* here on error raised explicitly by an action */
-  YYDECLARELABEL(yyerrdefault)  /* current state does not do anything special for the error token. */
-  YYDECLARELABEL(yyerrpop)   /* pop the current state because it cannot handle the error token */
-  YYDECLARELABEL(yyerrhandle)  
+YYDECLARELABEL(yydefault)
+YYDECLARELABEL(yyreduce)
+YYDECLARELABEL(yyerrlab)   /* here on detecting error */
+YYDECLARELABEL(yyerrlab1)   /* here on error raised explicitly by an action */
+YYDECLARELABEL(yyerrdefault)  /* current state does not do anything special for the error token. */
+YYDECLARELABEL(yyerrpop)   /* pop the current state because it cannot handle the error token */
+YYDECLARELABEL(yyerrhandle)
 YYENDDECLARELABEL
 /* ALLOCA SIMULATION */
 /* __HAVE_NO_ALLOCA */
 #ifdef __HAVE_NO_ALLOCA
-int __alloca_free_ptr(char *ptr,char *ref)
-{if(ptr!=ref) free(ptr);
- return 0;}
+int __alloca_free_ptr(char* ptr, char* ref) {
+	if (ptr != ref) free(ptr);
+	
+	return 0;
+}
 
 #define __ALLOCA_alloca(size) malloc(size)
 #define __ALLOCA_free(ptr,ref) __alloca_free_ptr((char *)ptr,(char *)ref)
 
 #ifdef YY_FogReplaceParser_LSP_NEEDED
 #define __ALLOCA_return(num) \
-            do { return( __ALLOCA_free(yyss,yyssa)+\
-		    __ALLOCA_free(yyvs,yyvsa)+\
-		    __ALLOCA_free(yyls,yylsa)+\
-		   (num)); } while(0)
+	do { return( __ALLOCA_free(yyss,yyssa)+\
+		             __ALLOCA_free(yyvs,yyvsa)+\
+		             __ALLOCA_free(yyls,yylsa)+\
+		             (num)); } while(0)
 #else
 #define __ALLOCA_return(num) \
-            do { return( __ALLOCA_free(yyss,yyssa)+\
-		    __ALLOCA_free(yyvs,yyvsa)+\
-		   (num)); } while(0)
+	do { return( __ALLOCA_free(yyss,yyssa)+\
+		             __ALLOCA_free(yyvs,yyvsa)+\
+		             (num)); } while(0)
 #endif
 #else
 #define __ALLOCA_return(num) do { return(num); } while(0)
 #define __ALLOCA_alloca(size) alloca(size)
-#define __ALLOCA_free(ptr,ref) 
+#define __ALLOCA_free(ptr,ref)
 #endif
 
 /* ENDALLOCA SIMULATION */
@@ -1375,57 +1374,57 @@ int __alloca_free_ptr(char *ptr,char *ref)
 #define YYACCEPT        __ALLOCA_return(0)
 #define YYABORT         __ALLOCA_return(1)
 #define YYERROR         YYGOTO(yyerrlab1)
-/* Like YYERROR except do call yyerror.
-   This remains here temporarily to ease the
-   transition to the new meaning of YYERROR, for GCC.
-   Once GCC version 2 has supplanted version 1, this can go.  */
+/*  Like YYERROR except do call yyerror.
+    This remains here temporarily to ease the
+    transition to the new meaning of YYERROR, for GCC.
+    Once GCC version 2 has supplanted version 1, this can go.  */
 #define YYFAIL          YYGOTO(yyerrlab)
 #define YYRECOVERING()  (!!yyerrstatus)
 #define YYBACKUP(token, value) \
-do                                                              \
-  if (YY_FogReplaceParser_CHAR == YYEMPTY && yylen == 1)                               \
-    { YY_FogReplaceParser_CHAR = (token), YY_FogReplaceParser_LVAL = (value);                 \
-      yychar1 = YYTRANSLATE (YY_FogReplaceParser_CHAR);                                \
-      YYPOPSTACK;                                               \
-      YYGOTO(yybackup);                                            \
-    }                                                           \
-  else                                                          \
-    { YY_FogReplaceParser_ERROR ("syntax error: cannot back up"); YYERROR; }   \
-while (0)
+	do                                                              \
+		if (YY_FogReplaceParser_CHAR == YYEMPTY && yylen == 1)                               \
+		{ YY_FogReplaceParser_CHAR = (token), YY_FogReplaceParser_LVAL = (value);                 \
+			yychar1 = YYTRANSLATE (YY_FogReplaceParser_CHAR);                                \
+			YYPOPSTACK;                                               \
+			YYGOTO(yybackup);                                            \
+		}                                                           \
+		else                                                          \
+		{ YY_FogReplaceParser_ERROR ("syntax error: cannot back up"); YYERROR; }   \
+	while (0)
 
 #define YYTERROR        1
 #define YYERRCODE       256
 
 #ifndef YY_FogReplaceParser_PURE
-/* UNPURE */
-#define YYLEX           YY_FogReplaceParser_LEX()
-#ifndef YY_USE_CLASS
-/* If nonreentrant, and not class , generate the variables here */
-int     YY_FogReplaceParser_CHAR;                      /*  the lookahead symbol        */
-YY_FogReplaceParser_STYPE      YY_FogReplaceParser_LVAL;              /*  the semantic value of the */
-				/*  lookahead symbol    */
-int YY_FogReplaceParser_NERRS;                 /*  number of parse errors so far */
-#ifdef YY_FogReplaceParser_LSP_NEEDED
-YY_FogReplaceParser_LTYPE YY_FogReplaceParser_LLOC;   /*  location data for the lookahead     */
+	/* UNPURE */
+	#define YYLEX           YY_FogReplaceParser_LEX()
+	#ifndef YY_USE_CLASS
+		/* If nonreentrant, and not class , generate the variables here */
+		int     YY_FogReplaceParser_CHAR;                      /*  the lookahead symbol        */
+		YY_FogReplaceParser_STYPE      YY_FogReplaceParser_LVAL;              /*  the semantic value of the */
+		/*  lookahead symbol    */
+		int YY_FogReplaceParser_NERRS;                 /*  number of parse errors so far */
+		#ifdef YY_FogReplaceParser_LSP_NEEDED
+			YY_FogReplaceParser_LTYPE YY_FogReplaceParser_LLOC;   /*  location data for the lookahead     */
 			/*  symbol                              */
-#endif
-#endif
-
-
+		#endif
+	#endif
+	
+	
 #else
-/* PURE */
-#ifdef YY_FogReplaceParser_LSP_NEEDED
-#define YYLEX           YY_FogReplaceParser_LEX(&YY_FogReplaceParser_LVAL, &YY_FogReplaceParser_LLOC)
-#else
-#define YYLEX           YY_FogReplaceParser_LEX(&YY_FogReplaceParser_LVAL)
-#endif
+	/* PURE */
+	#ifdef YY_FogReplaceParser_LSP_NEEDED
+		#define YYLEX           YY_FogReplaceParser_LEX(&YY_FogReplaceParser_LVAL, &YY_FogReplaceParser_LLOC)
+	#else
+		#define YYLEX           YY_FogReplaceParser_LEX(&YY_FogReplaceParser_LVAL)
+	#endif
 #endif
 #ifndef YY_USE_CLASS
-#if YY_FogReplaceParser_DEBUG != 0
-int YY_FogReplaceParser_DEBUG_FLAG;                    /*  nonzero means print parse trace     */
-/* Since this is uninitialized, it does not stop multiple parsers
-   from coexisting.  */
-#endif
+	#if YY_FogReplaceParser_DEBUG != 0
+		int YY_FogReplaceParser_DEBUG_FLAG;                    /*  nonzero means print parse trace     */
+		/*  Since this is uninitialized, it does not stop multiple parsers
+		from coexisting.  */
+	#endif
 #endif
 
 
@@ -1433,18 +1432,18 @@ int YY_FogReplaceParser_DEBUG_FLAG;                    /*  nonzero means print p
 /*  YYINITDEPTH indicates the initial size of the parser's stacks       */
 
 #ifndef YYINITDEPTH
-#define YYINITDEPTH 200
+	#define YYINITDEPTH 200
 #endif
 
 /*  YYMAXDEPTH is the maximum size the stacks can grow to
     (effective only if the built-in stack extension method is used).  */
 
 #if YYMAXDEPTH == 0
-#undef YYMAXDEPTH
+	#undef YYMAXDEPTH
 #endif
 
 #ifndef YYMAXDEPTH
-#define YYMAXDEPTH 10000
+	#define YYMAXDEPTH 10000
 #endif
 
 
@@ -1452,646 +1451,748 @@ int YY_FogReplaceParser_DEBUG_FLAG;                    /*  nonzero means print p
 #define __yy_bcopy(FROM,TO,COUNT)       __builtin_memcpy(TO,FROM,COUNT)
 #else                           /* not GNU C or C++ */
 
-/* This is the most reliable way to avoid incompatibilities
-   in available built-in functions on various systems.  */
+/*  This is the most reliable way to avoid incompatibilities
+    in available built-in functions on various systems.  */
 
 #ifdef __cplusplus
-static void __yy_bcopy (char *from, char *to, int count)
+	static void __yy_bcopy (char* from, char* to, int count)
 #else
-#ifdef __STDC__
-static void __yy_bcopy (char *from, char *to, int count)
-#else
-static void __yy_bcopy (from, to, count)
-     char *from;
-     char *to;
-     int count;
-#endif
+	#ifdef __STDC__
+		static void __yy_bcopy (char* from, char* to, int count)
+	#else
+		static void __yy_bcopy (from, to, count)
+		char* from;
+		char* to;
+		int count;
+	#endif
 #endif
 {
-  char *f = from;
-  char *t = to;
-  int i = count;
-
-  while (i-- > 0)
-    *t++ = *f++;
+	char* f = from;
+	char* t = to;
+	int i = count;
+	
+	while (i-- > 0)
+		*t++ = *f++;
 }
 #endif
 
 
 int
 #ifdef YY_USE_CLASS
- YY_FogReplaceParser_CLASS::
+	YY_FogReplaceParser_CLASS::
 #endif
-     YY_FogReplaceParser_PARSE(YY_FogReplaceParser_PARSE_PARAM)
+YY_FogReplaceParser_PARSE(YY_FogReplaceParser_PARSE_PARAM)
 #ifndef __STDC__
-#ifndef __cplusplus
-#ifndef YY_USE_CLASS
-/* parameter definition without protypes */
-YY_FogReplaceParser_PARSE_PARAM_DEF
-#endif
-#endif
+	#ifndef __cplusplus
+		#ifndef YY_USE_CLASS
+			/* parameter definition without protypes */
+			YY_FogReplaceParser_PARSE_PARAM_DEF
+		#endif
+	#endif
 #endif
 {
-  int yystate;
-  int yyn;
-  short *yyssp;
-  YY_FogReplaceParser_STYPE *yyvsp;
-  int yyerrstatus;      /*  number of tokens to shift before error messages enabled */
-  int yychar1=0;          /*  lookahead token as an internal (translated) token number */
-
-  short yyssa[YYINITDEPTH];     /*  the state stack                     */
-  YY_FogReplaceParser_STYPE yyvsa[YYINITDEPTH];        /*  the semantic value stack            */
-
-  short *yyss = yyssa;          /*  refer to the stacks thru separate pointers */
-  YY_FogReplaceParser_STYPE *yyvs = yyvsa;     /*  to allow yyoverflow to reallocate them elsewhere */
-
+	int yystate;
+	int yyn;
+	short* yyssp;
+	YY_FogReplaceParser_STYPE* yyvsp;
+	int yyerrstatus;      /*  number of tokens to shift before error messages enabled */
+	int yychar1 = 0;        /*  lookahead token as an internal (translated) token number */
+	
+	short yyssa[YYINITDEPTH];     /*  the state stack                     */
+	YY_FogReplaceParser_STYPE yyvsa[YYINITDEPTH];        /*  the semantic value stack            */
+	
+	short* yyss = yyssa;          /*  refer to the stacks thru separate pointers */
+	YY_FogReplaceParser_STYPE* yyvs = yyvsa;     /*  to allow yyoverflow to reallocate them elsewhere */
+	
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-  YY_FogReplaceParser_LTYPE yylsa[YYINITDEPTH];        /*  the location stack                  */
-  YY_FogReplaceParser_LTYPE *yyls = yylsa;
-  YY_FogReplaceParser_LTYPE *yylsp;
-
+	YY_FogReplaceParser_LTYPE yylsa[YYINITDEPTH];        /*  the location stack                  */
+	YY_FogReplaceParser_LTYPE* yyls = yylsa;
+	YY_FogReplaceParser_LTYPE* yylsp;
+	
 #define YYPOPSTACK   (yyvsp--, yyssp--, yylsp--)
 #else
 #define YYPOPSTACK   (yyvsp--, yyssp--)
 #endif
-
-  int yystacksize = YYINITDEPTH;
-
+	
+	int yystacksize = YYINITDEPTH;
+	
 #ifdef YY_FogReplaceParser_PURE
-  int YY_FogReplaceParser_CHAR;
-  YY_FogReplaceParser_STYPE YY_FogReplaceParser_LVAL;
-  int YY_FogReplaceParser_NERRS;
+	int YY_FogReplaceParser_CHAR;
+	YY_FogReplaceParser_STYPE YY_FogReplaceParser_LVAL;
+	int YY_FogReplaceParser_NERRS;
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-  YY_FogReplaceParser_LTYPE YY_FogReplaceParser_LLOC;
+	YY_FogReplaceParser_LTYPE YY_FogReplaceParser_LLOC;
 #endif
 #endif
-
-  YY_FogReplaceParser_STYPE yyval;             /*  the variable used to return         */
-				/*  semantic values from the action     */
-				/*  routines                            */
-
-  int yylen;
-/* start loop, in which YYGOTO may be used. */
-YYBEGINGOTO
-
+	
+	YY_FogReplaceParser_STYPE yyval;             /*  the variable used to return         */
+	/*  semantic values from the action     */
+	/*  routines                            */
+	
+	int yylen;
+	/* start loop, in which YYGOTO may be used. */
+	YYBEGINGOTO
+	
 #if YY_FogReplaceParser_DEBUG != 0
-  if (YY_FogReplaceParser_DEBUG_FLAG)
-    fprintf(stderr, "Starting parse\n");
+	
+	if (YY_FogReplaceParser_DEBUG_FLAG)
+		fprintf(stderr, "Starting parse\n");
+		
 #endif
-  yystate = 0;
-  yyerrstatus = 0;
-  YY_FogReplaceParser_NERRS = 0;
-  YY_FogReplaceParser_CHAR = YYEMPTY;          /* Cause a token to be read.  */
-
-  /* Initialize stack pointers.
-     Waste one element of value and location stack
-     so that they stay on the same level as the state stack.
-     The wasted elements are never initialized.  */
-
-  yyssp = yyss - 1;
-  yyvsp = yyvs;
+	yystate = 0;
+	yyerrstatus = 0;
+	YY_FogReplaceParser_NERRS = 0;
+	YY_FogReplaceParser_CHAR = YYEMPTY;          /* Cause a token to be read.  */
+	
+	/*  Initialize stack pointers.
+	    Waste one element of value and location stack
+	    so that they stay on the same level as the state stack.
+	    The wasted elements are never initialized.  */
+	
+	yyssp = yyss - 1;
+	yyvsp = yyvs;
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-  yylsp = yyls;
+	yylsp = yyls;
 #endif
-
-/* Push a new state, which is found in  yystate  .  */
-/* In all cases, when you get here, the value and location stacks
-   have just been pushed. so pushing a state here evens the stacks.  */
-YYLABEL(yynewstate)
-
-  *++yyssp = yystate;
-
-  if (yyssp >= yyss + yystacksize - 1)
-    {
-      /* Give user a chance to reallocate the stack */
-      /* Use copies of these so that the &'s don't force the real ones into memory. */
-      YY_FogReplaceParser_STYPE *yyvs1 = yyvs;
-      short *yyss1 = yyss;
+	
+	/* Push a new state, which is found in  yystate  .  */
+	/*  In all cases, when you get here, the value and location stacks
+	    have just been pushed. so pushing a state here evens the stacks.  */
+	YYLABEL(yynewstate)
+	
+	* ++yyssp = yystate;
+	
+	if (yyssp >= yyss + yystacksize - 1) {
+		/* Give user a chance to reallocate the stack */
+		/* Use copies of these so that the &'s don't force the real ones into memory. */
+		YY_FogReplaceParser_STYPE* yyvs1 = yyvs;
+		short* yyss1 = yyss;
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-      YY_FogReplaceParser_LTYPE *yyls1 = yyls;
+		YY_FogReplaceParser_LTYPE* yyls1 = yyls;
 #endif
-
-      /* Get the current used size of the three stacks, in elements.  */
-      int size = yyssp - yyss + 1;
-
+		/* Get the current used size of the three stacks, in elements.  */
+		int size = yyssp - yyss + 1;
 #ifdef yyoverflow
-      /* Each stack pointer address is followed by the size of
-	 the data in use in that stack, in bytes.  */
+		/*  Each stack pointer address is followed by the size of
+		    the data in use in that stack, in bytes.  */
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-      /* This used to be a conditional around just the two extra args,
-	 but that might be undefined if yyoverflow is a macro.  */
-      yyoverflow("parser stack overflow",
-		 &yyss1, size * sizeof (*yyssp),
-		 &yyvs1, size * sizeof (*yyvsp),
-		 &yyls1, size * sizeof (*yylsp),
-		 &yystacksize);
+		/*  This used to be a conditional around just the two extra args,
+		    but that might be undefined if yyoverflow is a macro.  */
+		yyoverflow("parser stack overflow",
+		           &yyss1, size * sizeof (*yyssp),
+		           &yyvs1, size * sizeof (*yyvsp),
+		           &yyls1, size * sizeof (*yylsp),
+		           &yystacksize);
 #else
-      yyoverflow("parser stack overflow",
-		 &yyss1, size * sizeof (*yyssp),
-		 &yyvs1, size * sizeof (*yyvsp),
-		 &yystacksize);
+		yyoverflow("parser stack overflow",
+		           &yyss1, size * sizeof (*yyssp),
+		           &yyvs1, size * sizeof (*yyvsp),
+		           &yystacksize);
 #endif
-
-      yyss = yyss1; yyvs = yyvs1;
+		yyss = yyss1; yyvs = yyvs1;
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-      yyls = yyls1;
+		yyls = yyls1;
 #endif
 #else /* no yyoverflow */
-      /* Extend the stack our own way.  */
-      if (yystacksize >= YYMAXDEPTH)
-	{
-	  YY_FogReplaceParser_ERROR("parser stack overflow");
-	  __ALLOCA_return(2);
-	}
-      yystacksize *= 2;
-      if (yystacksize > YYMAXDEPTH)
-	yystacksize = YYMAXDEPTH;
-      yyss = (short *) __ALLOCA_alloca (yystacksize * sizeof (*yyssp));
-      __yy_bcopy ((char *)yyss1, (char *)yyss, size * sizeof (*yyssp));
-      __ALLOCA_free(yyss1,yyssa);
-      yyvs = (YY_FogReplaceParser_STYPE *) __ALLOCA_alloca (yystacksize * sizeof (*yyvsp));
-      __yy_bcopy ((char *)yyvs1, (char *)yyvs, size * sizeof (*yyvsp));
-      __ALLOCA_free(yyvs1,yyvsa);
+		
+		/* Extend the stack our own way.  */
+		if (yystacksize >= YYMAXDEPTH) {
+			YY_FogReplaceParser_ERROR("parser stack overflow");
+			__ALLOCA_return(2);
+		}
+		
+		yystacksize *= 2;
+		
+		if (yystacksize > YYMAXDEPTH)
+			yystacksize = YYMAXDEPTH;
+		
+		yyss = (short*) __ALLOCA_alloca (yystacksize * sizeof (*yyssp));
+		__yy_bcopy ((char*)yyss1, (char*)yyss, size * sizeof (*yyssp));
+		__ALLOCA_free(yyss1, yyssa);
+		yyvs = (YY_FogReplaceParser_STYPE*) __ALLOCA_alloca (yystacksize * sizeof (*yyvsp));
+		__yy_bcopy ((char*)yyvs1, (char*)yyvs, size * sizeof (*yyvsp));
+		__ALLOCA_free(yyvs1, yyvsa);
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-      yyls = (YY_FogReplaceParser_LTYPE *) __ALLOCA_alloca (yystacksize * sizeof (*yylsp));
-      __yy_bcopy ((char *)yyls1, (char *)yyls, size * sizeof (*yylsp));
-      __ALLOCA_free(yyls1,yylsa);
+		yyls = (YY_FogReplaceParser_LTYPE*) __ALLOCA_alloca (yystacksize * sizeof (*yylsp));
+		__yy_bcopy ((char*)yyls1, (char*)yyls, size * sizeof (*yylsp));
+		__ALLOCA_free(yyls1, yylsa);
 #endif
 #endif /* no yyoverflow */
-
-      yyssp = yyss + size - 1;
-      yyvsp = yyvs + size - 1;
+		yyssp = yyss + size - 1;
+		yyvsp = yyvs + size - 1;
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-      yylsp = yyls + size - 1;
+		yylsp = yyls + size - 1;
 #endif
-
 #if YY_FogReplaceParser_DEBUG != 0
-      if (YY_FogReplaceParser_DEBUG_FLAG)
-	fprintf(stderr, "Stack size increased to %d\n", yystacksize);
+		
+		if (YY_FogReplaceParser_DEBUG_FLAG)
+			fprintf(stderr, "Stack size increased to %d\n", yystacksize);
+			
 #endif
-
-      if (yyssp >= yyss + yystacksize - 1)
-	YYABORT;
-    }
-
+			
+		if (yyssp >= yyss + yystacksize - 1)
+			YYABORT;
+	}
+	
 #if YY_FogReplaceParser_DEBUG != 0
-  if (YY_FogReplaceParser_DEBUG_FLAG)
-    fprintf(stderr, "Entering state %d\n", yystate);
+	
+	if (YY_FogReplaceParser_DEBUG_FLAG)
+		fprintf(stderr, "Entering state %d\n", yystate);
+		
 #endif
-
-  YYGOTO(yybackup);
-YYLABEL(yybackup)
-
-/* Do appropriate processing given the current state.  */
-/* Read a lookahead token if we need one and don't already have one.  */
-/* YYLABEL(yyresume) */
-
-  /* First try to decide what to do without reference to lookahead token.  */
-
-  yyn = yypact[yystate];
-  if (yyn == YYFLAG)
-    YYGOTO(yydefault);
-
-  /* Not known => get a lookahead token if don't already have one.  */
-
-  /* yychar is either YYEMPTY or YYEOF
-     or a valid token in external form.  */
-
-  if (YY_FogReplaceParser_CHAR == YYEMPTY)
-    {
+		
+	YYGOTO(yybackup);
+	YYLABEL(yybackup)
+	
+	/* Do appropriate processing given the current state.  */
+	/* Read a lookahead token if we need one and don't already have one.  */
+	/* YYLABEL(yyresume) */
+	
+	/* First try to decide what to do without reference to lookahead token.  */
+	
+	yyn = yypact[yystate];
+	
+	if (yyn == YYFLAG)
+		YYGOTO(yydefault);
+		
+	/* Not known => get a lookahead token if don't already have one.  */
+	
+	/*  yychar is either YYEMPTY or YYEOF
+	    or a valid token in external form.  */
+	
+	if (YY_FogReplaceParser_CHAR == YYEMPTY) {
 #if YY_FogReplaceParser_DEBUG != 0
-      if (YY_FogReplaceParser_DEBUG_FLAG)
-	fprintf(stderr, "Reading a token: ");
+	
+		if (YY_FogReplaceParser_DEBUG_FLAG)
+			fprintf(stderr, "Reading a token: ");
+			
 #endif
-      YY_FogReplaceParser_CHAR = YYLEX;
-    }
-
-  /* Convert token to internal form (in yychar1) for indexing tables with */
-
-  if (YY_FogReplaceParser_CHAR <= 0)           /* This means end of input. */
-    {
-      yychar1 = 0;
-      YY_FogReplaceParser_CHAR = YYEOF;                /* Don't call YYLEX any more */
-
+		YY_FogReplaceParser_CHAR = YYLEX;
+	}
+	
+	/* Convert token to internal form (in yychar1) for indexing tables with */
+	
+	if (YY_FogReplaceParser_CHAR <= 0) {         /* This means end of input. */
+		yychar1 = 0;
+		YY_FogReplaceParser_CHAR = YYEOF;                /* Don't call YYLEX any more */
 #if YY_FogReplaceParser_DEBUG != 0
-      if (YY_FogReplaceParser_DEBUG_FLAG)
-	fprintf(stderr, "Now at end of input.\n");
+		
+		if (YY_FogReplaceParser_DEBUG_FLAG)
+			fprintf(stderr, "Now at end of input.\n");
+			
 #endif
-    }
-  else
-    {
-      yychar1 = YYTRANSLATE(YY_FogReplaceParser_CHAR);
-
+	}
+	else {
+		yychar1 = YYTRANSLATE(YY_FogReplaceParser_CHAR);
 #if YY_FogReplaceParser_DEBUG != 0
-      if (YY_FogReplaceParser_DEBUG_FLAG)
-	{
-	  fprintf (stderr, "Next token is %d (%s", YY_FogReplaceParser_CHAR, yytname[yychar1]);
-	  /* Give the individual parser a way to print the precise meaning
-	     of a token, for further debugging info.  */
+		
+		if (YY_FogReplaceParser_DEBUG_FLAG) {
+			fprintf (stderr, "Next token is %d (%s", YY_FogReplaceParser_CHAR, yytname[yychar1]);
+			/*  Give the individual parser a way to print the precise meaning
+			    of a token, for further debugging info.  */
 #ifdef YYPRINT
-	  YYPRINT (stderr, YY_FogReplaceParser_CHAR, YY_FogReplaceParser_LVAL);
+			YYPRINT (stderr, YY_FogReplaceParser_CHAR, YY_FogReplaceParser_LVAL);
 #endif
-	  fprintf (stderr, ")\n");
-	}
-#endif
-    }
-
-  yyn += yychar1;
-  if (yyn < 0 || yyn > YYLAST || yycheck[yyn] != yychar1)
-    YYGOTO(yydefault);
-
-  yyn = yytable[yyn];
-
-  /* yyn is what to do for this token type in this state.
-     Negative => reduce, -yyn is rule number.
-     Positive => shift, yyn is new state.
-       New state is final state => don't bother to shift,
-       just return success.
-     0, or most negative number => error.  */
-
-  if (yyn < 0)
-    {
-      if (yyn == YYFLAG)
-	YYGOTO(yyerrlab);
-      yyn = -yyn;
-      YYGOTO(yyreduce);
-    }
-  else if (yyn == 0)
-    YYGOTO(yyerrlab);
-
-  if (yyn == YYFINAL)
-    YYACCEPT;
-
-  /* Shift the lookahead token.  */
-
-#if YY_FogReplaceParser_DEBUG != 0
-  if (YY_FogReplaceParser_DEBUG_FLAG)
-    fprintf(stderr, "Shifting token %d (%s), ", YY_FogReplaceParser_CHAR, yytname[yychar1]);
-#endif
-
-  /* Discard the token being shifted unless it is eof.  */
-  if (YY_FogReplaceParser_CHAR != YYEOF)
-    YY_FogReplaceParser_CHAR = YYEMPTY;
-
-  *++yyvsp = YY_FogReplaceParser_LVAL;
-#ifdef YY_FogReplaceParser_LSP_NEEDED
-  *++yylsp = YY_FogReplaceParser_LLOC;
-#endif
-
-  /* count tokens shifted since error; after three, turn off error status.  */
-  if (yyerrstatus) yyerrstatus--;
-
-  yystate = yyn;
-  YYGOTO(yynewstate);
-
-/* Do the default action for the current state.  */
-YYLABEL(yydefault)
-
-  yyn = yydefact[yystate];
-  if (yyn == 0)
-    YYGOTO(yyerrlab);
-
-/* Do a reduction.  yyn is the number of a rule to reduce with.  */
-YYLABEL(yyreduce)
-  yylen = yyr2[yyn];
-  if (yylen > 0)
-    yyval = yyvsp[1-yylen]; /* implement default value of the action */
-
-#if YY_FogReplaceParser_DEBUG != 0
-  if (YY_FogReplaceParser_DEBUG_FLAG)
-    {
-      int i;
-
-      fprintf (stderr, "Reducing via rule %d (line %d), ",
-	       yyn, yyrline[yyn]);
-
-      /* Print the symbols being reduced, and their result.  */
-      for (i = yyprhs[yyn]; yyrhs[i] > 0; i++)
-	fprintf (stderr, "%s ", yytname[yyrhs[i]]);
-      fprintf (stderr, " -> %s\n", yytname[yyr1[yyn]]);
-    }
-#endif
-
-
-  switch (yyn) {
-
-case 2:
-{ if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
-    break;}
-case 3:
-{ if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
-    break;}
-case 4:
-{ if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
-    break;}
-case 5:
-{ if (yyvsp[0].brace) _toks.add(*yyvsp[0].brace); ;
-    break;}
-case 6:
-{ if (yyvsp[0].character_literal) _toks.add(*yyvsp[0].character_literal); ;
-    break;}
-case 7:
-{ if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
-    break;}
-case 8:
-{ if (yyvsp[0].number_literal) _toks.add(*yyvsp[0].number_literal); ;
-    break;}
-case 9:
-{ if (yyvsp[0].string_literal) _toks.add(*yyvsp[0].string_literal); ;
-    break;}
-case 10:
-{;
-    break;}
-case 11:
-{ invoke_function(); _args.vacate(); ;
-    break;}
-case 13:
-{ if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
-    break;}
-case 14:
-{ if (yyvsp[0].spacing) _toks.add(*yyvsp[0].spacing); ;
-    break;}
-case 15:
-{ if (yyvsp[0].line) _toks.add(*yyvsp[0].line); ;
-    break;}
-case 16:
-{ if (yyvsp[-2].keyword) _toks.add(*yyvsp[-2].keyword); ;
-    break;}
-case 18:
-{ yyval.keyword = yyvsp[0].identifier; if (yyvsp[0].identifier) invoke_test(*yyvsp[0].identifier); ;
-    break;}
-case 19:
-{ _args.vacate(); _arg_toks.adopt(new FogTokens); ;
-    break;}
-case 21:
-{ add_arg(); _arg_toks.adopt(new FogTokens); ;
-    break;}
-case 22:
-{ add_arg(); ;
-    break;}
-case 23:
-{ if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
-    break;}
-case 24:
-{ if (yyvsp[0].brace) _arg_toks->add(*yyvsp[0].brace); ;
-    break;}
-case 25:
-{ if (yyvsp[0].spacing) _arg_toks->add(*yyvsp[0].spacing); ;
-    break;}
-case 26:
-{ if (yyvsp[0].character_literal) _arg_toks->add(*yyvsp[0].character_literal); ;
-    break;}
-case 27:
-{ if (yyvsp[0].identifier) _arg_toks->add(*yyvsp[0].identifier); ;
-    break;}
-case 28:
-{ if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
-    break;}
-case 29:
-{ if (yyvsp[0].line) _arg_toks->add(*yyvsp[0].line); ;
-    break;}
-case 30:
-{ if (yyvsp[0].number_literal) _arg_toks->add(*yyvsp[0].number_literal); ;
-    break;}
-case 31:
-{ if (yyvsp[0].string_literal) _arg_toks->add(*yyvsp[0].string_literal); ;
-    break;}
-case 32:
-{ if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
-    break;}
-case 33:
-{ if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
-    break;}
-case 35:
-{ if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
-    break;}
-}
-   /* the action file gets copied in in place of this dollarsign  */
-  yyvsp -= yylen;
-  yyssp -= yylen;
-#ifdef YY_FogReplaceParser_LSP_NEEDED
-  yylsp -= yylen;
-#endif
-
-#if YY_FogReplaceParser_DEBUG != 0
-  if (YY_FogReplaceParser_DEBUG_FLAG)
-    {
-      short *ssp1 = yyss - 1;
-      fprintf (stderr, "state stack now");
-      while (ssp1 != yyssp)
-	fprintf (stderr, " %d", *++ssp1);
-      fprintf (stderr, "\n");
-    }
-#endif
-
-  *++yyvsp = yyval;
-
-#ifdef YY_FogReplaceParser_LSP_NEEDED
-  yylsp++;
-  if (yylen == 0)
-    {
-      yylsp->first_line = YY_FogReplaceParser_LLOC.first_line;
-      yylsp->first_column = YY_FogReplaceParser_LLOC.first_column;
-      yylsp->last_line = (yylsp-1)->last_line;
-      yylsp->last_column = (yylsp-1)->last_column;
-      yylsp->text = 0;
-    }
-  else
-    {
-      yylsp->last_line = (yylsp+yylen-1)->last_line;
-      yylsp->last_column = (yylsp+yylen-1)->last_column;
-    }
-#endif
-
-  /* Now "shift" the result of the reduction.
-     Determine what state that goes to,
-     based on the state we popped back to
-     and the rule number reduced by.  */
-
-  yyn = yyr1[yyn];
-
-  yystate = yypgoto[yyn - YYNTBASE] + *yyssp;
-  if (yystate >= 0 && yystate <= YYLAST && yycheck[yystate] == *yyssp)
-    yystate = yytable[yystate];
-  else
-    yystate = yydefgoto[yyn - YYNTBASE];
-
-  YYGOTO(yynewstate);
-
-YYLABEL(yyerrlab)   /* here on detecting error */
-
-  if (! yyerrstatus)
-    /* If not already recovering from an error, report this error.  */
-    {
-      ++YY_FogReplaceParser_NERRS;
-
-#ifdef YY_FogReplaceParser_ERROR_VERBOSE
-      yyn = yypact[yystate];
-
-      if (yyn > YYFLAG && yyn < YYLAST)
-	{
-	  int size = 0;
-	  char *msg;
-	  int x, count;
-
-	  count = 0;
-	  /* Start X at -yyn if nec to avoid negative indexes in yycheck.  */
-	  for (x = (yyn < 0 ? -yyn : 0);
-	       x < (sizeof(yytname) / sizeof(char *)); x++)
-	    if (yycheck[x + yyn] == x)
-	      size += strlen(yytname[x]) + 15, count++;
-	  msg = (char *) malloc(size + 15);
-	  if (msg != 0)
-	    {
-	      strcpy(msg, "parse error");
-
-	      if (count < 5)
-		{
-		  count = 0;
-		  for (x = (yyn < 0 ? -yyn : 0);
-		       x < (sizeof(yytname) / sizeof(char *)); x++)
-		    if (yycheck[x + yyn] == x)
-		      {
-			strcat(msg, count == 0 ? ", expecting `" : " or `");
-			strcat(msg, yytname[x]);
-			strcat(msg, "'");
-			count++;
-		      }
+			fprintf (stderr, ")\n");
 		}
-	      YY_FogReplaceParser_ERROR(msg);
-	      free(msg);
-	    }
-	  else
-	    YY_FogReplaceParser_ERROR ("parse error; also virtual memory exceeded");
+		
+#endif
 	}
-      else
+	
+	yyn += yychar1;
+	
+	if (yyn < 0 || yyn > YYLAST || yycheck[yyn] != yychar1)
+		YYGOTO(yydefault);
+		
+	yyn = yytable[yyn];
+	
+	/*  yyn is what to do for this token type in this state.
+	    Negative => reduce, -yyn is rule number.
+	    Positive => shift, yyn is new state.
+	     New state is final state => don't bother to shift,
+	     just return success.
+	    0, or most negative number => error.  */
+	
+	if (yyn < 0) {
+		if (yyn == YYFLAG)
+			YYGOTO(yyerrlab);
+			
+		yyn = -yyn;
+		YYGOTO(yyreduce);
+	}
+	else if (yyn == 0)
+		YYGOTO(yyerrlab);
+		
+	if (yyn == YYFINAL)
+		YYACCEPT;
+		
+	/* Shift the lookahead token.  */
+	
+#if YY_FogReplaceParser_DEBUG != 0
+	
+	if (YY_FogReplaceParser_DEBUG_FLAG)
+		fprintf(stderr, "Shifting token %d (%s), ", YY_FogReplaceParser_CHAR, yytname[yychar1]);
+		
+#endif
+		
+	/* Discard the token being shifted unless it is eof.  */
+	if (YY_FogReplaceParser_CHAR != YYEOF)
+		YY_FogReplaceParser_CHAR = YYEMPTY;
+		
+	* ++yyvsp = YY_FogReplaceParser_LVAL;
+#ifdef YY_FogReplaceParser_LSP_NEEDED
+	* ++yylsp = YY_FogReplaceParser_LLOC;
+#endif
+	
+	/* count tokens shifted since error; after three, turn off error status.  */
+	if (yyerrstatus) yyerrstatus--;
+	
+	yystate = yyn;
+	YYGOTO(yynewstate);
+	
+	/* Do the default action for the current state.  */
+	YYLABEL(yydefault)
+	
+	yyn = yydefact[yystate];
+	
+	if (yyn == 0)
+		YYGOTO(yyerrlab);
+		
+	/* Do a reduction.  yyn is the number of a rule to reduce with.  */
+	YYLABEL(yyreduce)
+	yylen = yyr2[yyn];
+	
+	if (yylen > 0)
+		yyval = yyvsp[1 - yylen]; /* implement default value of the action */
+		
+#if YY_FogReplaceParser_DEBUG != 0
+		
+	if (YY_FogReplaceParser_DEBUG_FLAG) {
+		int i;
+		fprintf (stderr, "Reducing via rule %d (line %d), ",
+		         yyn, yyrline[yyn]);
+		         
+		/* Print the symbols being reduced, and their result.  */
+		for (i = yyprhs[yyn]; yyrhs[i] > 0; i++)
+			fprintf (stderr, "%s ", yytname[yyrhs[i]]);
+			
+		fprintf (stderr, " -> %s\n", yytname[yyr1[yyn]]);
+	}
+	
+#endif
+	
+	
+	switch (yyn) {
+	case 2: {
+		if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 3: {
+		if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 4: {
+		if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 5: {
+		if (yyvsp[0].brace) _toks.add(*yyvsp[0].brace); ;
+		
+		break;
+	}
+	
+	case 6: {
+		if (yyvsp[0].character_literal) _toks.add(*yyvsp[0].character_literal); ;
+		
+		break;
+	}
+	
+	case 7: {
+		if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 8: {
+		if (yyvsp[0].number_literal) _toks.add(*yyvsp[0].number_literal); ;
+		
+		break;
+	}
+	
+	case 9: {
+		if (yyvsp[0].string_literal) _toks.add(*yyvsp[0].string_literal); ;
+		
+		break;
+	}
+	
+	case 10: {
+		;
+		break;
+	}
+	
+	case 11: {
+		invoke_function(); _args.vacate(); ;
+		break;
+	}
+	
+	case 13: {
+		if (yyvsp[0].keyword) _toks.add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 14: {
+		if (yyvsp[0].spacing) _toks.add(*yyvsp[0].spacing); ;
+		
+		break;
+	}
+	
+	case 15: {
+		if (yyvsp[0].line) _toks.add(*yyvsp[0].line); ;
+		
+		break;
+	}
+	
+	case 16: {
+		if (yyvsp[-2].keyword) _toks.add(*yyvsp[-2].keyword); ;
+		
+		break;
+	}
+	
+	case 18: {
+		yyval.keyword = yyvsp[0].identifier; if (yyvsp[0].identifier) invoke_test(*yyvsp[0].identifier); ;
+		break;
+	}
+	
+	case 19: {
+		_args.vacate(); _arg_toks.adopt(new FogTokens); ;
+		break;
+	}
+	
+	case 21: {
+		add_arg(); _arg_toks.adopt(new FogTokens); ;
+		break;
+	}
+	
+	case 22: {
+		add_arg(); ;
+		break;
+	}
+	
+	case 23: {
+		if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 24: {
+		if (yyvsp[0].brace) _arg_toks->add(*yyvsp[0].brace); ;
+		
+		break;
+	}
+	
+	case 25: {
+		if (yyvsp[0].spacing) _arg_toks->add(*yyvsp[0].spacing); ;
+		
+		break;
+	}
+	
+	case 26: {
+		if (yyvsp[0].character_literal) _arg_toks->add(*yyvsp[0].character_literal); ;
+		
+		break;
+	}
+	
+	case 27: {
+		if (yyvsp[0].identifier) _arg_toks->add(*yyvsp[0].identifier); ;
+		
+		break;
+	}
+	
+	case 28: {
+		if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 29: {
+		if (yyvsp[0].line) _arg_toks->add(*yyvsp[0].line); ;
+		
+		break;
+	}
+	
+	case 30: {
+		if (yyvsp[0].number_literal) _arg_toks->add(*yyvsp[0].number_literal); ;
+		
+		break;
+	}
+	
+	case 31: {
+		if (yyvsp[0].string_literal) _arg_toks->add(*yyvsp[0].string_literal); ;
+		
+		break;
+	}
+	
+	case 32: {
+		if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 33: {
+		if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	
+	case 35: {
+		if (yyvsp[0].keyword) _arg_toks->add(*yyvsp[0].keyword); ;
+		
+		break;
+	}
+	}
+	
+	/* the action file gets copied in in place of this dollarsign  */
+	yyvsp -= yylen;
+	yyssp -= yylen;
+#ifdef YY_FogReplaceParser_LSP_NEEDED
+	yylsp -= yylen;
+#endif
+	
+#if YY_FogReplaceParser_DEBUG != 0
+	
+	if (YY_FogReplaceParser_DEBUG_FLAG) {
+		short* ssp1 = yyss - 1;
+		fprintf (stderr, "state stack now");
+		
+		while (ssp1 != yyssp)
+			fprintf (stderr, " %d", *++ssp1);
+			
+		fprintf (stderr, "\n");
+	}
+	
+#endif
+	
+	* ++yyvsp = yyval;
+	
+#ifdef YY_FogReplaceParser_LSP_NEEDED
+	yylsp++;
+	
+	if (yylen == 0) {
+		yylsp->first_line = YY_FogReplaceParser_LLOC.first_line;
+		yylsp->first_column = YY_FogReplaceParser_LLOC.first_column;
+		yylsp->last_line = (yylsp - 1)->last_line;
+		yylsp->last_column = (yylsp - 1)->last_column;
+		yylsp->text = 0;
+	}
+	else {
+		yylsp->last_line = (yylsp + yylen - 1)->last_line;
+		yylsp->last_column = (yylsp + yylen - 1)->last_column;
+	}
+	
+#endif
+	
+	/*  Now "shift" the result of the reduction.
+	    Determine what state that goes to,
+	    based on the state we popped back to
+	    and the rule number reduced by.  */
+	
+	yyn = yyr1[yyn];
+	
+	yystate = yypgoto[yyn - YYNTBASE] +* yyssp;
+	
+	if (yystate >= 0 && yystate <= YYLAST && yycheck[yystate] == *yyssp)
+		yystate = yytable[yystate];
+	else
+		yystate = yydefgoto[yyn - YYNTBASE];
+		
+	YYGOTO(yynewstate);
+	
+	YYLABEL(yyerrlab)   /* here on detecting error */
+	
+	if (! yyerrstatus)
+		/* If not already recovering from an error, report this error.  */
+	{
+		++YY_FogReplaceParser_NERRS;
+#ifdef YY_FogReplaceParser_ERROR_VERBOSE
+		yyn = yypact[yystate];
+		
+		if (yyn > YYFLAG && yyn < YYLAST) {
+			int size = 0;
+			char* msg;
+			int x, count;
+			count = 0;
+			
+			/* Start X at -yyn if nec to avoid negative indexes in yycheck.  */
+			for (x = (yyn < 0 ? -yyn : 0);
+			        x < (sizeof(yytname) / sizeof(char*)); x++)
+				if (yycheck[x + yyn] == x)
+					size += strlen(yytname[x]) + 15, count++;
+					
+			msg = (char*) malloc(size + 15);
+			
+			if (msg != 0) {
+				strcpy(msg, "parse error");
+				
+				if (count < 5) {
+					count = 0;
+					
+					for (x = (yyn < 0 ? -yyn : 0);
+					        x < (sizeof(yytname) / sizeof(char*)); x++)
+						if (yycheck[x + yyn] == x) {
+							strcat(msg, count == 0 ? ", expecting `" : " or `");
+							strcat(msg, yytname[x]);
+							strcat(msg, "'");
+							count++;
+						}
+				}
+				
+				YY_FogReplaceParser_ERROR(msg);
+				free(msg);
+			}
+			else
+				YY_FogReplaceParser_ERROR ("parse error; also virtual memory exceeded");
+		}
+		else
 #endif /* YY_FogReplaceParser_ERROR_VERBOSE */
-	YY_FogReplaceParser_ERROR("parse error");
-    }
-
-  YYGOTO(yyerrlab1);
-YYLABEL(yyerrlab1)   /* here on error raised explicitly by an action */
-
-  if (yyerrstatus == 3)
-    {
-      /* if just tried and failed to reuse lookahead token after an error, discard it.  */
-
-      /* return failure if at end of input */
-      if (YY_FogReplaceParser_CHAR == YYEOF)
-	YYABORT;
-
+			YY_FogReplaceParser_ERROR("parse error");
+	}
+	
+	YYGOTO(yyerrlab1);
+	YYLABEL(yyerrlab1)   /* here on error raised explicitly by an action */
+	
+	if (yyerrstatus == 3) {
+		/* if just tried and failed to reuse lookahead token after an error, discard it.  */
+		
+		/* return failure if at end of input */
+		if (YY_FogReplaceParser_CHAR == YYEOF)
+			YYABORT;
+			
 #if YY_FogReplaceParser_DEBUG != 0
-      if (YY_FogReplaceParser_DEBUG_FLAG)
-	fprintf(stderr, "Discarding token %d (%s).\n", YY_FogReplaceParser_CHAR, yytname[yychar1]);
+			
+		if (YY_FogReplaceParser_DEBUG_FLAG)
+			fprintf(stderr, "Discarding token %d (%s).\n", YY_FogReplaceParser_CHAR, yytname[yychar1]);
+			
 #endif
-
-      YY_FogReplaceParser_CHAR = YYEMPTY;
-    }
-
-  /* Else will try to reuse lookahead token
-     after shifting the error token.  */
-
-  yyerrstatus = 3;              /* Each real token shifted decrements this */
-
-  YYGOTO(yyerrhandle);
-
-YYLABEL(yyerrdefault)  /* current state does not do anything special for the error token. */
-
+		YY_FogReplaceParser_CHAR = YYEMPTY;
+	}
+	
+	/*  Else will try to reuse lookahead token
+	    after shifting the error token.  */
+	
+	yyerrstatus = 3;              /* Each real token shifted decrements this */
+	
+	YYGOTO(yyerrhandle);
+	
+	YYLABEL(yyerrdefault)  /* current state does not do anything special for the error token. */
+	
 #if 0
-  /* This is wrong; only states that explicitly want error tokens
-     should shift them.  */
-  yyn = yydefact[yystate];  /* If its default is to accept any token, ok.  Otherwise pop it.*/
-  if (yyn) YYGOTO(yydefault);
+	/*  This is wrong; only states that explicitly want error tokens
+	    should shift them.  */
+	yyn = yydefact[yystate];  /* If its default is to accept any token, ok.  Otherwise pop it.*/
+	
+	if (yyn) YYGOTO(yydefault);
+	
 #endif
-
-YYLABEL(yyerrpop)   /* pop the current state because it cannot handle the error token */
-
-  if (yyssp == yyss) YYABORT;
-  yyvsp--;
-  yystate = *--yyssp;
+	
+	YYLABEL(yyerrpop)   /* pop the current state because it cannot handle the error token */
+	
+	if (yyssp == yyss) YYABORT;
+	
+	yyvsp--;
+	yystate = *--yyssp;
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-  yylsp--;
+	yylsp--;
 #endif
-
+	
 #if YY_FogReplaceParser_DEBUG != 0
-  if (YY_FogReplaceParser_DEBUG_FLAG)
-    {
-      short *ssp1 = yyss - 1;
-      fprintf (stderr, "Error: state stack now");
-      while (ssp1 != yyssp)
-	fprintf (stderr, " %d", *++ssp1);
-      fprintf (stderr, "\n");
-    }
+	
+	if (YY_FogReplaceParser_DEBUG_FLAG) {
+		short* ssp1 = yyss - 1;
+		fprintf (stderr, "Error: state stack now");
+		
+		while (ssp1 != yyssp)
+			fprintf (stderr, " %d", *++ssp1);
+			
+		fprintf (stderr, "\n");
+	}
+	
 #endif
-
-YYLABEL(yyerrhandle)
-
-  yyn = yypact[yystate];
-  if (yyn == YYFLAG)
-    YYGOTO(yyerrdefault);
-
-  yyn += YYTERROR;
-  if (yyn < 0 || yyn > YYLAST || yycheck[yyn] != YYTERROR)
-    YYGOTO(yyerrdefault);
-
-  yyn = yytable[yyn];
-  if (yyn < 0)
-    {
-      if (yyn == YYFLAG)
-	YYGOTO(yyerrpop);
-      yyn = -yyn;
-      YYGOTO(yyreduce);
-    }
-  else if (yyn == 0)
-    YYGOTO(yyerrpop);
-
-  if (yyn == YYFINAL)
-    YYACCEPT;
-
+	
+	YYLABEL(yyerrhandle)
+	
+	yyn = yypact[yystate];
+	
+	if (yyn == YYFLAG)
+		YYGOTO(yyerrdefault);
+		
+	yyn += YYTERROR;
+	
+	if (yyn < 0 || yyn > YYLAST || yycheck[yyn] != YYTERROR)
+		YYGOTO(yyerrdefault);
+		
+	yyn = yytable[yyn];
+	
+	if (yyn < 0) {
+		if (yyn == YYFLAG)
+			YYGOTO(yyerrpop);
+			
+		yyn = -yyn;
+		YYGOTO(yyreduce);
+	}
+	else if (yyn == 0)
+		YYGOTO(yyerrpop);
+		
+	if (yyn == YYFINAL)
+		YYACCEPT;
+		
 #if YY_FogReplaceParser_DEBUG != 0
-  if (YY_FogReplaceParser_DEBUG_FLAG)
-    fprintf(stderr, "Shifting error token, ");
+		
+	if (YY_FogReplaceParser_DEBUG_FLAG)
+		fprintf(stderr, "Shifting error token, ");
+		
 #endif
-
-  *++yyvsp = YY_FogReplaceParser_LVAL;
+		
+	* ++yyvsp = YY_FogReplaceParser_LVAL;
 #ifdef YY_FogReplaceParser_LSP_NEEDED
-  *++yylsp = YY_FogReplaceParser_LLOC;
+	* ++yylsp = YY_FogReplaceParser_LLOC;
 #endif
-
-  yystate = yyn;
-  YYGOTO(yynewstate);
-/* end loop, in which YYGOTO may be used. */
-  YYENDGOTO
+	
+	yystate = yyn;
+	YYGOTO(yynewstate);
+	/* end loop, in which YYGOTO may be used. */
+	YYENDGOTO
 }
 
 /* END */
 
 #include <Fog/FogIncludeAll.h>
 
-FogReplaceParser::~FogReplaceParser()
-{
+FogReplaceParser::~FogReplaceParser() {
 	CONDMSG(YY_FogReplaceParser_DEBUG_FLAG || Fog::debug_lex2replace(),
-		"Exiting macro replacement parser for " << _macro_id.str() << "\n");
+	        "Exiting macro replacement parser for " << _macro_id.str() << "\n");
 }
 
-void FogReplaceParser::add_arg()
-{
-	if (_invoke)
-	{
+void FogReplaceParser::add_arg() {
+	if (_invoke) {
 		const PrimId& anId = _invoke->formal(_args.tally());
 		_args.adopt(new FogMacro(anId, 0, *_arg_toks));
 		_arg_toks.reset();
 	}
 }
 
-void FogReplaceParser::invoke_function()
-{
+void FogReplaceParser::invoke_function() {
 	if (_invoke)
 		_lexer.invoke_function(_toks, *_invoke, _args);
 }
 
-void FogReplaceParser::invoke_test(FogKeyword& anId)
-{
+void FogReplaceParser::invoke_test(FogKeyword& anId) {
 	if (anId.id() == _macro_id)
 		_toks.add(FogTokenType::make_macro_identifier(anId.id()));
 	else if ((_invoke = _lexer.is_defined(anId.id())) == 0)
@@ -2102,42 +2203,44 @@ void FogReplaceParser::invoke_test(FogKeyword& anId)
 		_primed = FogTokenType::get(FogTokenType::DO_FUNCTION);
 }
 
-FogToken& FogReplaceParser::join(FogToken& firstToken, FogToken& secondToken)
-{
+FogToken& FogReplaceParser::join(FogToken& firstToken, FogToken& secondToken) {
 	PrimOstrstream s;
 	firstToken.print_source(s, 0);				//.bugbug maybe print_stringize/print_named ?
 	secondToken.print_source(s, 0);
 	size_t aSize = s.pcount();
-	switch (firstToken.pp_token_type_enum())
-	{
-		case FogTokenType::CharacterLiteral:
-			if (firstToken.is_wide())
-				return FogTokenType::make_wide_character(s.str(), aSize);
-			else
-				return FogTokenType::make_narrow_character(s.str(), aSize);
-		case FogTokenType::Identifier:
-		case FogTokenType::MacroId:
-			return FogTokenType::make_identifier(s.str(), aSize);
-		case FogTokenType::NumberLiteral:
-			return FogTokenType::make_number(s.str(), aSize);
-		case FogTokenType::StringLiteral:
-			if (firstToken.is_wide())
-				return FogTokenType::make_wide_string(s.str(), aSize);
-			else
-				return FogTokenType::make_narrow_string(s.str(), aSize);
-		default:
-			ERRMSG("BUG - don't know how to concatenate " << firstToken << " and " << secondToken);
-			return firstToken;
+	
+	switch (firstToken.pp_token_type_enum()) {
+	case FogTokenType::CharacterLiteral:
+		if (firstToken.is_wide())
+			return FogTokenType::make_wide_character(s.str(), aSize);
+		else
+			return FogTokenType::make_narrow_character(s.str(), aSize);
+			
+	case FogTokenType::Identifier:
+	case FogTokenType::MacroId:
+		return FogTokenType::make_identifier(s.str(), aSize);
+		
+	case FogTokenType::NumberLiteral:
+		return FogTokenType::make_number(s.str(), aSize);
+		
+	case FogTokenType::StringLiteral:
+		if (firstToken.is_wide())
+			return FogTokenType::make_wide_string(s.str(), aSize);
+		else
+			return FogTokenType::make_narrow_string(s.str(), aSize);
+			
+	default:
+		ERRMSG("BUG - don't know how to concatenate " << firstToken << " and " << secondToken);
+		return firstToken;
 	}
 }
 
-int FogReplaceParser::parse_function(const FogMacro& aMacro, const FogMacroListOfRefToConst& locatedArguments)
-{
+int FogReplaceParser::parse_function(const FogMacro& aMacro, const FogMacroListOfRefToConst& locatedArguments) {
 	{
 		FogSubstituteParser substituteParser(_lexer, *_input_tokens, aMacro, locatedArguments);
 		int substituteStatus = substituteParser.yyparse();
-		if ((substituteStatus != 0) && !aMacro.is_bad())
-		{
+		
+		if ((substituteStatus != 0) && !aMacro.is_bad()) {
 			ERRMSG("Bad token sequence in " << viz(aMacro));
 			aMacro.set_bad();
 		}
@@ -2149,77 +2252,80 @@ int FogReplaceParser::parse_function(const FogMacro& aMacro, const FogMacroListO
 //	Perform replacement after copying inputTokens to _input_tokens replacing any ## combinations.
 //	Note that inputTokens may alias _input_tokens in the case of a function-like macro.
 //
-int FogReplaceParser::parse_object(const FogTokenListOfRef& inputTokens)
-{
-	CONDMSG(YY_FogReplaceParser_DEBUG_FLAG || Fog::debug_lex2replace(), 
-		"\nStarting macro replacement parser for " << _macro_id.str());
-	if (inputTokens.tally())
-	{
-		const FogTokenRef *p = &inputTokens[0];
+int FogReplaceParser::parse_object(const FogTokenListOfRef& inputTokens) {
+	CONDMSG(YY_FogReplaceParser_DEBUG_FLAG || Fog::debug_lex2replace(),
+	        "\nStarting macro replacement parser for " << _macro_id.str());
+	        
+	if (inputTokens.tally()) {
+		const FogTokenRef* p = &inputTokens[0];
 		size_t q = 0;
-		const FogTokenRef *pEnd = &inputTokens[inputTokens.tally()-1];
-		while (p <= pEnd)
-		{
-			if ((*p)->pp_token_type_enum() != FogTokenType::HASH_HASH)
-			{
+		const FogTokenRef* pEnd = &inputTokens[inputTokens.tally() - 1];
+		
+		while (p <= pEnd) {
+			if ((*p)->pp_token_type_enum() != FogTokenType::HASH_HASH) {
 				if (q >= _input_tokens->tally())
 					_input_tokens->add(**p);
 				else
 					_input_tokens->tokens()[q].assign(**p);
+					
 				p++;
 				q++;
 			}
-			else
-			{
+			else {
 				for (++p; (p <= pEnd) && (*p)->is_white(); p++)
 					;
+					
 				while ((q > 0) && _input_tokens->tokens()[--q]->is_white())
 					;
+					
 				if (p > pEnd)
 					ERRMSG("## should not be last token");
-				else if ((q <= 0) && _input_tokens->tokens()[q]->is_white())	
+				else if ((q <= 0) && _input_tokens->tokens()[q]->is_white())
 					ERRMSG("## should not be first token");
-				else
-				{
+				else {
 					_input_tokens->tokens()[q].assign(join(*_input_tokens->tokens()[q], **p));
 					q++;
 					p++;
 				}
 			}
 		}
+		
 		_input_tokens->tokens().set_tally(q);
 	}
+	
 	return yyparse();
 }
 
 //
 //	Pass msg to the lexer to get a sensible error message.
 //
-inline void FogReplaceParser::yyerror(const char *msg) { ERRMSGZ(msg); }
+inline void FogReplaceParser::yyerror(const char* msg) { ERRMSGZ(msg); }
 
-int FogReplaceParser::yylex()
-{
+int FogReplaceParser::yylex() {
 	FogTokenRef theToken;
-	if (_primed->pp_token_type_enum())
-	{
+	
+	if (_primed->pp_token_type_enum()) {
 		theToken = _primed;
 		_primed.reset();
 	}
-	else 
-	{
+	else {
 		if (_index >= _input_tokens->tally())
 			return 0;
+			
 		theToken = *_input_tokens->tokens()[_index++];
 	}
-	if (Fog::debug_lex2replace())
-	{
+	
+	if (Fog::debug_lex2replace()) {
 		PrimOstrstream s;
+		
 		if (yydebug)
 			s << "\t\t\t\t";
+			
 		s << "<REPLACE> >> ";
 		theToken->print_diagnostic(s, 0);
 		DIAMSGZ(s.str());
 	}
+	
 	yylval.token = theToken.pointer();
 	return theToken->pp_token_type_enum();
 }

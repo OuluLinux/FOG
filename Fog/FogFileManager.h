@@ -21,7 +21,7 @@ class FogFileManager : public PrimPrint {
 	TYPEDECL_SINGLE(This, Super)
 	
 private:
-	 //   Defining contents.
+	//   Defining contents.
 	FogSourceFile_NameSetOfRef _source_files; //   Map of list of files indexed by file-stem sub-indexed by path.
 	//    contains all files on all paths, even if not needed.
 	FogTargetFileMapOfRef _target_files;  //   Map of those files that need processing..
@@ -36,8 +36,8 @@ private:
 	This& operator=(const This&);
 	
 private:
-	const FogSourceFile *add_source_file(const PrimString& aPath, const PrimId& fileIdent,
-			const PrimId& pathedId, const FogSourceFileType& sourceType);
+	const FogSourceFile* add_source_file(const PrimString& aPath, const PrimId& fileIdent,
+	                                     const PrimId& pathedId, const FogSourceFileType& sourceType);
 	void show_cycle(const FogTargetFileListOfRefToConst& thePath, const FogTargetFile& cycleStart) const;
 	
 public:
@@ -55,10 +55,10 @@ public:
 	void destroy();
 	void emit(FogRoot& aRoot) const;
 	void emit_dependencies(std::ostream& s, const PrimIdList& sourceList) const;
-	const FogSourceFile *find_source_file(const PrimId& fileIdent, const FogSourceFileType& sourceType);
-	const FogSourceFile *make_source_file(const PrimId& fileIdent, const FogSourceFileType& sourceType);
-	FogTargetFile *make_target_file(const PrimId& aPath, const PrimId& fileIdent);
-	FogTargetFile *make_target_file(const FogSourceFile& sourceFile);
+	const FogSourceFile* find_source_file(const PrimId& fileIdent, const FogSourceFileType& sourceType);
+	const FogSourceFile* make_source_file(const PrimId& fileIdent, const FogSourceFileType& sourceType);
+	FogTargetFile* make_target_file(const PrimId& aPath, const PrimId& fileIdent);
+	FogTargetFile* make_target_file(const FogSourceFile& sourceFile);
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth) const;
 	void promote_to_independent(FogTargetFile& aFile);

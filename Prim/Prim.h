@@ -1,19 +1,19 @@
 // **************************** RACAL Confidential ****************************
-// 
+//
 // 	  Title:			Minimal include file for Prim classes
-// 
+//
 // 	  File Name:		Prim.h
-// 
+//
 // 	  Author:			E.D.Willink
-// 
+//
 // 	  Description:
-// 
+//
 // 		This include file should be the first in all compilation modules. It provides
 // 		the standard system include files, implementation constants, and miscellaneous
 // 		prototypes and variable references.
-// 
+//
 // 	  SCCS:				%W% %G%
-// 
+//
 // 	  Latest Modification:
 //  EDW	1.1		Date:	12-Nov-1992		Original renamed from prim.h
 //  EDW	1.2		Date:	18-Nov-1992		Provide PrimTypeInfo definitions to resolve PrimPrint/PrimTypeInfo
@@ -42,66 +42,66 @@
 //  EDW	7.1		Date:	18-Aug-1998		Require NEEDS_BOOL etc to define old bool
 //  EDW	7.2		Date:	 9-Jun-2000		Add NEEDS_TYPENAME, conditinalise for egcs
 // END
-// 
+//
 #ifndef PRIM_H
 #define PRIM_H
 
 #ifdef WIN32
-#pragma warning(disable:4355)    //  this in base initialiser.
-#pragma warning(disable:4390)    //  empty controlled statement as in UNUSED.
+	#pragma warning(disable:4355)    //  this in base initialiser.
+	#pragma warning(disable:4390)    //  empty controlled statement as in UNUSED.
 #endif
 
 #ifndef PRIM_TEMPLATES
-#define PRIM_TEMPLATES
+	#define PRIM_TEMPLATES
 #endif
 
 #ifndef NO_PRIM_CHECKS
-#define PRIM_CHECKS
+	#define PRIM_CHECKS
 #endif
 #ifndef NO_PRIM_FSTREAM
-#define PRIM_FSTREAM
+	#define PRIM_FSTREAM
 #endif
 #ifndef NO_PRIM_STREAMS
-#define PRIM_STREAMS
+	#define PRIM_STREAMS
 #endif
 #ifndef NO_PRIM_STATISTICS
-#define PRIM_STATISTICS
+	#define PRIM_STATISTICS
 #endif
 #ifndef NO_PRIM_TYPEINFO
-#define PRIM_TYPEINFO
+	#define PRIM_TYPEINFO
 #endif
 #ifndef NO_PRIM_UTILITIES
-#define PRIM_UTILITIES
+	#define PRIM_UTILITIES
 #endif
 #ifndef NO_DBX_SUPPORT
-#define DBX_SUPPORT
+	#define DBX_SUPPORT
 #endif
 #ifndef NO_FSTREAM_SUPPORT
-#define FSTREAM_SUPPORT
+	#define FSTREAM_SUPPORT
 #endif
 
 #include <cstddef>
 
 #ifdef NULL
-#undef NULL
+	#undef NULL
 #endif
 #define NULL 0
 
 #if !defined(__STDC__) && !defined(volatile) && !defined(SDD_GNU) && !defined(USE_VOLATILE)
-#define volatile
+	#define volatile
 #endif
 
 #ifdef NEEDS_EXPLICIT
-#define explicit
+	#define explicit
 #endif
 #ifdef NEEDS_MUTABLE
-#define mutable
+	#define mutable
 #endif
 #ifdef NEEDS_TYPENAME
-#define typename
+	#define typename
 #endif
 #ifdef NEEDS_USING
-#define using
+	#define using
 #endif
 
 #ifdef __GNUC__
@@ -112,47 +112,47 @@ class PrimFriendOfGnuC {};
 #endif
 
 #if !defined(CPP_EXPANSION) && !defined(SDD_CPP_EXPANSION)
-// 		Undefined for normal usage (comments in macros discarded).
-#define __C__(a)
+	// 		Undefined for normal usage (comments in macros discarded).
+	#define __C__(a)
 #else
-// 		Defined to leave macro comments in a form that a simple filter can rescue.
-#define __C__(a) /a/
+	// 		Defined to leave macro comments in a form that a simple filter can rescue.
+	#define __C__(a) /a/
 #endif
 
 #ifndef NO_PRIM_STREAMS
-#include <iosfwd>
+	#include <iosfwd>
 #endif
 
-// 
+//
 // 		A bool is data type supporting the boolean values TRUE and FALSE in the
 // 		most speed efficient representation for the target architecture.
-// 
+//
 #ifdef NEEDS_BOOL
-#ifdef FALSE
-#undef FALSE
-#endif
-#ifdef TRUE
-#undef TRUE
-#endif
-typedef int bool;
-const bool false = 0;
-const bool true = 1;
-// const bool FALSE = false;
-// const bool TRUE = true;
+	#ifdef FALSE
+		#undef FALSE
+	#endif
+	#ifdef TRUE
+		#undef TRUE
+	#endif
+	typedef int bool;
+	const bool false = 0;
+	const bool true = 1;
+	// const bool FALSE = false;
+	// const bool TRUE = true;
 #endif
 
 #define UNUSED(a) if (0 && a) {}       //  Used to suppress compiler warnings
 
-// 
+//
 // 		An ASCII mnemonic for the null end of string character.
-// 
+//
 const char EOS = '\0';
 
 #ifdef EXIT_FAILURE
-#undef EXIT_FAILURE
+	#undef EXIT_FAILURE
 #endif
 #ifdef EXIT_SUCCESS
-#undef EXIT_SUCCESS
+	#undef EXIT_SUCCESS
 #endif
 const int EXIT_FAILURE = 1;
 const int EXIT_SUCCESS = 0;
@@ -259,74 +259,74 @@ template <class T> class PrimStaticDestructor;
 #include <Ccp/generic.h>
 
 #define PRIM_AND_LIST(T) \
-typedef PrimListOfRefToConst<T> name2(T,ListOfRefToConst); \
-typedef PrimListOfRef<T> name2(T,ListOfRef); \
-typedef PrimListOfRefToConstIterator<T> name2(T,ListOfRefToConstIterator); \
-typedef PrimListOfRefIterator<T> name2(T,ListOfRefIterator); \
-typedef PrimConstListOfRefToConstIterator<T> name2(T,ConstListOfRefToConstIterator); \
-typedef PrimConstListOfRefIterator<T> name2(T,ConstListOfRefIterator);
+	typedef PrimListOfRefToConst<T> name2(T,ListOfRefToConst); \
+	typedef PrimListOfRef<T> name2(T,ListOfRef); \
+	typedef PrimListOfRefToConstIterator<T> name2(T,ListOfRefToConstIterator); \
+	typedef PrimListOfRefIterator<T> name2(T,ListOfRefIterator); \
+	typedef PrimConstListOfRefToConstIterator<T> name2(T,ConstListOfRefToConstIterator); \
+	typedef PrimConstListOfRefIterator<T> name2(T,ConstListOfRefIterator);
 #define PRIM_AND_MAP(T) \
-typedef PrimMapOfRefToConst<T> name2(T,MapOfRefToConst); \
-typedef PrimMapOfRef<T> name2(T,MapOfRef); \
-typedef PrimMapOfRefToConstIterator<T> name2(T,MapOfRefToConstIterator); \
-typedef PrimMapOfRefIterator<T> name2(T,MapOfRefIterator); \
-typedef PrimConstMapOfRefToConstIterator<T> name2(T,ConstMapOfRefToConstIterator); \
-typedef PrimConstMapOfRefIterator<T> name2(T,ConstMapOfRefIterator);
+	typedef PrimMapOfRefToConst<T> name2(T,MapOfRefToConst); \
+	typedef PrimMapOfRef<T> name2(T,MapOfRef); \
+	typedef PrimMapOfRefToConstIterator<T> name2(T,MapOfRefToConstIterator); \
+	typedef PrimMapOfRefIterator<T> name2(T,MapOfRefIterator); \
+	typedef PrimConstMapOfRefToConstIterator<T> name2(T,ConstMapOfRefToConstIterator); \
+	typedef PrimConstMapOfRefIterator<T> name2(T,ConstMapOfRefIterator);
 #define PRIM_AND_REF(T) \
-typedef PrimRefToConst<T> name2(T,RefToConst); \
-typedef PrimRef<T> name2(T,Ref);
+	typedef PrimRefToConst<T> name2(T,RefToConst); \
+	typedef PrimRef<T> name2(T,Ref);
 #define PRIM_AND_SHARED_LIST(T) \
-PRIM_AND_LIST(T) \
-typedef PrimConstList<T> name2(T,ConstList); \
-typedef PrimList<T> name2(T,List); \
-PRIM_AND_REF(name2(T,ConstList)) \
-PRIM_AND_REF(name2(T,List))
+	PRIM_AND_LIST(T) \
+	typedef PrimConstList<T> name2(T,ConstList); \
+	typedef PrimList<T> name2(T,List); \
+	PRIM_AND_REF(name2(T,ConstList)) \
+	PRIM_AND_REF(name2(T,List))
 #define PRIM_AND_SHARED_MAP(T) \
-PRIM_AND_MAP(T) \
-typedef PrimConstMap<T> name2(T,ConstMap); \
-typedef PrimMap<T> name2(T,Map); \
-PRIM_AND_REF(name2(T,ConstMap)) \
-PRIM_AND_REF(name2(T,Map))
+	PRIM_AND_MAP(T) \
+	typedef PrimConstMap<T> name2(T,ConstMap); \
+	typedef PrimMap<T> name2(T,Map); \
+	PRIM_AND_REF(name2(T,ConstMap)) \
+	PRIM_AND_REF(name2(T,Map))
 
 #define PRIM_WITH_REF(T) \
-class T; \
-PRIM_AND_REF(T)
+	class T; \
+	PRIM_AND_REF(T)
 #define PRIM_WITH_LIST(T) \
-class T; \
-PRIM_AND_REF(T) \
-PRIM_AND_LIST(T)
+	class T; \
+	PRIM_AND_REF(T) \
+	PRIM_AND_LIST(T)
 #define PRIM_WITH_SHARED_LIST(T) \
-class T; \
-PRIM_AND_REF(T) \
-PRIM_AND_SHARED_LIST(T)
+	class T; \
+	PRIM_AND_REF(T) \
+	PRIM_AND_SHARED_LIST(T)
 #define PRIM_WITH_MAP(T) \
-class T; \
-PRIM_AND_REF(T) \
-PRIM_AND_MAP(T)
+	class T; \
+	PRIM_AND_REF(T) \
+	PRIM_AND_MAP(T)
 #define PRIM_WITH_SHARED_MAP(T) \
-class T; \
-PRIM_AND_REF(T) \
-PRIM_AND_SHARED_MAP(T)
+	class T; \
+	PRIM_AND_REF(T) \
+	PRIM_AND_SHARED_MAP(T)
 #define PRIM_WITH_LIST_MAP(T) \
-class T; \
-PRIM_AND_REF(T) \
-PRIM_AND_LIST(T) \
-PRIM_AND_MAP(T)
+	class T; \
+	PRIM_AND_REF(T) \
+	PRIM_AND_LIST(T) \
+	PRIM_AND_MAP(T)
 #define PRIM_WITH_SHARED_LIST_MAP(T) \
-class T; \
-PRIM_AND_REF(T) \
-PRIM_AND_SHARED_LIST(T) \
-PRIM_AND_SHARED_MAP(T)
+	class T; \
+	PRIM_AND_REF(T) \
+	PRIM_AND_SHARED_LIST(T) \
+	PRIM_AND_SHARED_MAP(T)
 
 #define PRIM_THAT_AND_LIST(T) PRIM_AND_LIST(T)
 #define PRIM_THAT_AND_1LIST(T) PRIM_AND_1LIST(T)
 /*
-// typedef PrimSinglyLinkedListOfRefToConst<name2(T,That)> name2(T,1ListOfRefToConst); \
-// typedef PrimSinglyLinkedListOfRef<name2(T,That)> name2(T,1ListOfRef); \
-// typedef PrimSinglyLinkedListOfRefToConstIterator<name2(T,That)> name2(T,1ListOfRefToConstIterator); \
-// typedef PrimSinglyLinkedListOfRefIterator<name2(T,That)> name2(T,1ListOfRefIterator); \
-// typedef PrimConstSinglyLinkedListOfRefToConstIterator<name2(T,That)> name2(T,Const1ListOfRefToConstIterator); \
-// typedef PrimConstSinglyLinkedListOfRefIterator<name2(T,That)> name2(T,1LinkedListOfRefIterator);
+    // typedef PrimSinglyLinkedListOfRefToConst<name2(T,That)> name2(T,1ListOfRefToConst); \
+    // typedef PrimSinglyLinkedListOfRef<name2(T,That)> name2(T,1ListOfRef); \
+    // typedef PrimSinglyLinkedListOfRefToConstIterator<name2(T,That)> name2(T,1ListOfRefToConstIterator); \
+    // typedef PrimSinglyLinkedListOfRefIterator<name2(T,That)> name2(T,1ListOfRefIterator); \
+    // typedef PrimConstSinglyLinkedListOfRefToConstIterator<name2(T,That)> name2(T,Const1ListOfRefToConstIterator); \
+    // typedef PrimConstSinglyLinkedListOfRefIterator<name2(T,That)> name2(T,1LinkedListOfRefIterator);
 */
 #define PRIM_THAT_AND_MAP(T) PRIM_AND_MAP(T)
 #define PRIM_THAT_AND_REF(T) PRIM_AND_REF(T)
@@ -352,17 +352,17 @@ typedef PrimRef<PrimIdSharedMap> PrimIdSharedMapRef;
 typedef PrimRefToConst<PrimIdSharedMap> PrimIdSharedMapRefToConst;
 
 #ifndef NO_PRIM_STREAMS
-void *prim_operator_new(size_t aSize);
-void prim_operator_delete(void *p);
+void* prim_operator_new(size_t aSize);
+void prim_operator_delete(void* p);
 #else
-// 
+//
 // 	The non-debug implementation of an unwanted new() just returns 0.
-// 
-inline void *prim_operator_new(size_t aSize) { UNUSED(aSize); return (0); }
-// 
+//
+inline void* prim_operator_new(size_t aSize) { UNUSED(aSize); return (0); }
+//
 // 	The non-debug implementation of an unwanted delete() does nothing.
-// 
-inline void prim_operator_delete(void *p) { UNUSED(p); }
+//
+inline void prim_operator_delete(void* p) { UNUSED(p); }
 #endif
 
 #endif

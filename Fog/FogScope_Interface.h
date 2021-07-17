@@ -9,8 +9,8 @@ class FogScope_Interface {
 
 private:
 	FogTargetFileListOfRef _used_files;
-//  	FogListRefToConst _code;						// Text to be added near the head of interface file.
-
+	//  	FogListRefToConst _code;						// Text to be added near the head of interface file.
+	
 	bool _no_interface : 1;       //   True if generation of an interface suppressed.
 	bool _has_own_interface : 1;     //   True if scope has its own interface file.
 	
@@ -44,7 +44,7 @@ public:
 	
 	std::ostream& print_depth(std::ostream& s, int aDepth) const;
 	std::ostream& print_members(std::ostream& s, int aDepth) const;
-//  	void set_code(const FogList& someCode);
+	//  	void set_code(const FogList& someCode);
 	void set_no_interface() {
 		_no_interface = true;
 	}

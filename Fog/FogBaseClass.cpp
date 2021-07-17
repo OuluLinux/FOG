@@ -18,17 +18,17 @@ FOGTOKEN_LEAF_IMPL(FogBaseClass)
 TMPL_HACK_FIX_DO(FogBaseClass)
 
 FogBaseClass::FogBaseClass()
-		:
-		_base(Fog::null_scope()),
-		_compiled(false) {}
-		
+	:
+	_base(Fog::null_scope()),
+	_compiled(false) {}
+
 FogBaseClass::FogBaseClass(FogScope& baseClass, const FogAccess& anAccess, const FogVirtual& aVirtual)
-		:
-		_base(baseClass),
-		_access(anAccess),
-		_virtual(FogVirtual::VIRTUAL),
-		_base_id(baseClass.global_signature_id()),
-		_compiled(false) {
+	:
+	_base(baseClass),
+	_access(anAccess),
+	_virtual(FogVirtual::VIRTUAL),
+	_base_id(baseClass.global_signature_id()),
+	_compiled(false) {
 	set_virtual(aVirtual);
 	_base.set_not_leaf();
 }
@@ -69,22 +69,20 @@ void FogBaseClass::emit_interface(FogEmitContext& emitContext) const {
 		
 	const FogVirtual& theVirtual = get_virtual();
 	
-//  	if (!theVirtual.is_redundant())
+	//  	if (!theVirtual.is_redundant())
 	if (theVirtual.is_virtual())
 		emitContext.emit_space_and_text(theVirtual.str());
 		
 	emitContext.emit_space_and_text(access().str());
-	
 	emitContext.emit_space_and_text(_base.global_signature_id().str());
 }
 
-const FogScope *FogBaseClass::find_bases(const FogScope& inScope, PrimIdMap& visitMap,
-		FogScopeListOfRef& nonVirtualBases, FogScopeListOfRef& virtualBases) const {
+const FogScope* FogBaseClass::find_bases(const FogScope& inScope, PrimIdMap& visitMap,
+        FogScopeListOfRef& nonVirtualBases, FogScopeListOfRef& virtualBases) const {
 	if (!_compiled)
 		mutate().compile(inScope);
 		
-	const FogScope *multipleBase = visitMap.add_filtered(*_base_id) ? 0 : &_base;
-	
+	const FogScope* multipleBase = visitMap.add_filtered(*_base_id) ? 0 : &_base;
 	bool isVirtual = _virtual->is_virtual() || _access->is_auto();
 	
 	if (!multipleBase) {
@@ -103,7 +101,7 @@ const PrimId& FogBaseClass::id() const {
 	return _base.global_signature_id();
 }
 
-FogBaseClass *FogBaseClass::is_base_class() {
+FogBaseClass* FogBaseClass::is_base_class() {
 	return this;
 }
 
@@ -112,9 +110,7 @@ void FogBaseClass::merge_from(FogMergeContext& mergeContext, const This& anExpr)
 		ERRMSG("BUG -- should not merge un-compiled " << viz(*this));
 		
 	Super::merge_from(mergeContext, anExpr);
-	
 	set_virtual(get_virtual().merge_virtual(anExpr.get_virtual()));
-	
 	set_access(access().merge_access(anExpr.access()));
 }
 
@@ -132,19 +128,18 @@ const FogMerge& FogBaseClass::needs_merge_from(FogMergeContext& mergeContext, co
 		return needsMerge;
 		
 	needsMerge |= access().needs_merge_access(baseClass.access());
-	
 	return needsMerge;
 }
 
 std::ostream& FogBaseClass::print_depth(std::ostream& s, int aDepth) const {
 	Super::print_depth(s, aDepth);
-	_base.print_deep(s, aDepth+1);
+	_base.print_deep(s, aDepth + 1);
 	return s;
 }
 
 std::ostream& FogBaseClass::print_members(std::ostream& s, int aDepth) const {
 	Super::print_members(s, aDepth);
-	_base.print_on(s, aDepth+1);
+	_base.print_on(s, aDepth + 1);
 	return s;
 }
 

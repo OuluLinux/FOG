@@ -32,7 +32,7 @@ bool FogBitFieldExpr::make_specifier(FogMakeSpecifierContext& makeSpecifierConte
 	if (!expr().make_specifier(makeSpecifierContext))
 		return false;
 		
-	FogObjectSpecifier *objectSpecifier = makeSpecifierContext.get_object_specifier(*this);
+	FogObjectSpecifier* objectSpecifier = makeSpecifierContext.get_object_specifier(*this);
 	
 	if (objectSpecifier)
 		objectSpecifier->set_colon_value(expr1());
@@ -40,7 +40,7 @@ bool FogBitFieldExpr::make_specifier(FogMakeSpecifierContext& makeSpecifierConte
 	return true;
 }
 
-char FogBitFieldExpr::print_named(std::ostream& s, const PrimId *fullId, char tailChar) const {
+char FogBitFieldExpr::print_named(std::ostream& s, const PrimId* fullId, char tailChar) const {
 	tailChar = expr().print_named(s, 0, tailChar);
 	tailChar = FogStream::space_and_emit(s, tailChar, " : ");
 	tailChar = expr1().print_named(s, 0, tailChar);

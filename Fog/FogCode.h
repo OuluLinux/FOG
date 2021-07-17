@@ -19,7 +19,7 @@ class FogCode : public FogRaw {
 	FOGTOKEN_LEAF_DECLS
 	
 private:
-    //   Defining contents.
+	//   Defining contents.
 	FogPositionHandle _position;    //   Required positioning of this contribution.
 	FogSegmentHandle _segment;     //   Required segment for this contribution.
 	FogFileIdsRefToConst _used_files;   //   Files used by the implementation.
@@ -37,7 +37,7 @@ private:
 	
 private:
 	FogCode& mutate() const {
-		return *(FogCode *)this;
+		return *(FogCode*)this;
 	}
 	
 	void set_code(const PrimString& aString);
@@ -47,12 +47,12 @@ protected:
 	
 public:
 	FogCode();
-//  	FogCode(const FogConstTokens& someTokens);
+	//  	FogCode(const FogConstTokens& someTokens);
 	FogCode(FogRaw& codeBody);
-//  	void add(const FogFileId& fileId) { _used_files.add(fileId); }
+	//  	void add(const FogFileId& fileId) { _used_files.add(fileId); }
 	void compile();
 	virtual bool compile_parsed(FogParseContext& parseContext);
-//  	void create_usages(const FogCompileContext& compileContext, FogTargetFile& byFile) const;
+	//  	void create_usages(const FogCompileContext& compileContext, FogTargetFile& byFile) const;
 	size_t executable_tokens() const;
 	bool is_exclusive() const {
 		return _is_exclusive;
@@ -74,7 +74,7 @@ public:
 	
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth) const;
-//  	virtual char print_named(std::ostream& s, const PrimId *fullId, char tailChar) const;
+	//  	virtual char print_named(std::ostream& s, const PrimId *fullId, char tailChar) const;
 	virtual std::ostream& print_this(std::ostream& s) const;
 	virtual std::ostream& print_viz(std::ostream& s) const;
 	virtual bool resolve_semantics(FogSemanticsContext& theSemantics) const;

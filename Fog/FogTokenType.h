@@ -13,11 +13,11 @@
 class FogTokenType {
 
 public:
-//
-//  	The TokenType enum enumerates the formatting style to be used.
-//
+	//
+	//  	The TokenType enum enumerates the formatting style to be used.
+	//
 	enum TokenType {
-		#include "FogTokenTypeEnum.h"
+#include "FogTokenTypeEnum.h"
 	};
 	
 protected:
@@ -69,19 +69,19 @@ public:
 	}
 	
 	static FogToken& make_di_open_brace(size_t endColumn);
-	static FogKeyword& make_identifier(const char *aBuffer);
-	static FogToken& make_identifier(const char *aBuffer, size_t aLength);
+	static FogKeyword& make_identifier(const char* aBuffer);
+	static FogToken& make_identifier(const char* aBuffer, size_t aLength);
 	static FogKeyword& make_identifier(const PrimId& anId);
-	static FogToken& make_literal_character(const char *aBuffer, size_t aLength);
-	static FogToken& make_literal_string(const char *aBuffer, size_t aLength);
+	static FogToken& make_literal_character(const char* aBuffer, size_t aLength);
+	static FogToken& make_literal_string(const char* aBuffer, size_t aLength);
 	static FogToken& make_macro_identifier(const PrimId& anId);
-	static FogToken& make_narrow_character(const char *aBuffer, size_t aLength);
-	static FogToken& make_narrow_string(const char *aBuffer, size_t aLength);
-	static FogToken& make_number(const char *aBuffer, size_t aLength);
+	static FogToken& make_narrow_character(const char* aBuffer, size_t aLength);
+	static FogToken& make_narrow_string(const char* aBuffer, size_t aLength);
+	static FogToken& make_number(const char* aBuffer, size_t aLength);
 	static FogToken& make_open_brace(size_t endColumn);
 	static FogToken& make_spacing(int someSpaces);
-	static FogToken& make_wide_character(const char *aBuffer, size_t aLength);
-	static FogToken& make_wide_string(const char *aBuffer, size_t aLength);
+	static FogToken& make_wide_character(const char* aBuffer, size_t aLength);
+	static FogToken& make_wide_string(const char* aBuffer, size_t aLength);
 	static FogToken& nil();
 	static FogToken& null();
 	static void set_no_bool_type();

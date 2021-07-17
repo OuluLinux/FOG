@@ -41,7 +41,6 @@ bool FogBreakStatement::emit(FogEmitContext& emitContext) const {
 			
 		return false;
 	}
-	
 	else {
 		emitContext.emit_hash_line(line());
 		emitContext.emit_space_and_text(_is_continue ? "continue;\n" : "break;\n");
@@ -78,11 +77,10 @@ const FogMerge& FogBreakStatement::needs_merge_from(FogMergeContext& mergeContex
 	return needsMerge;
 }
 
-char FogBreakStatement::print_named(std::ostream& s, const PrimId *fullId, char tailChar) const {
+char FogBreakStatement::print_named(std::ostream& s, const PrimId* fullId, char tailChar) const {
 	if (is_meta())
 		tailChar = FogStream::space_and_emit(s, tailChar, "auto ");
 		
 	tailChar = FogStream::space_and_emit(s, tailChar, _is_continue ? "continue;" : "break;");
-	
 	return tailChar;
 }

@@ -103,7 +103,7 @@ public:
 		return true;
 	}
 	
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "export/implementation {...}");
 		return tailChar;
 	}
@@ -129,9 +129,9 @@ public:
 	
 	virtual bool compile_parsed(FogParseContext& parseContext);
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "export/all");
-//         tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
+		//         tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
 		return tailChar;
 	}
 	
@@ -154,9 +154,9 @@ public:
 	
 	virtual bool compile_parsed(FogParseContext& parseContext);
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "export/implementation");
-//         tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
+		//         tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
 		return tailChar;
 	}
 	
@@ -187,7 +187,7 @@ public:
 		return true;
 	}
 	
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "export/interface {...}");
 		return tailChar;
 	}
@@ -213,9 +213,9 @@ public:
 	
 	virtual bool compile_parsed(FogParseContext& parseContext);
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "export/interface");
-//          tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
+		//          tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
 		return tailChar;
 	}
 	
@@ -238,7 +238,7 @@ public:
 	
 	virtual bool compile_parsed(FogParseContext& parseContext);
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "export/noimplementation");
 		return tailChar;
 	}
@@ -270,7 +270,7 @@ public:
 		return true;
 	}
 	
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "export/nointerface");
 		return tailChar;
 	}
@@ -305,7 +305,7 @@ public:
 		return true;
 	}
 	
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "export/utility");
 		return tailChar;
 	}
@@ -333,9 +333,9 @@ public:
 	
 	virtual bool compile_parsed(FogParseContext& parseContext);
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "using/implementation");
-//          tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
+		//          tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
 		return tailChar;
 	}
 	
@@ -358,9 +358,9 @@ public:
 	
 	virtual bool compile_parsed(FogParseContext& parseContext);
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 		tailChar = FogStream::space_and_emit(s, tailChar, "using/interface");
-//          tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
+		//          tailChar = FogStream::space_and_emit(s, tailChar, file_id().str());
 		return tailChar;
 	}
 	
@@ -400,11 +400,11 @@ FOGTOKEN_LEAF_IMPL(FogUsingInterfaceFileSpecifier)
 //    return new FogExportImplementationCodeSpecifier(someCode);
 //  }
 
-FogRaw *FogRaw::new_set_all(const FogFileId& fileId) {
+FogRaw* FogRaw::new_set_all(const FogFileId& fileId) {
 	return new FogExportAllFileSpecifier(fileId);
 }
 
-FogRaw *FogRaw::new_set_implementation(const FogFileId& fileId) {
+FogRaw* FogRaw::new_set_implementation(const FogFileId& fileId) {
 	return new FogExportImplementationFileSpecifier(fileId);
 }
 
@@ -413,27 +413,27 @@ FogRaw *FogRaw::new_set_implementation(const FogFileId& fileId) {
 //    return new FogExportInterfaceCodeSpecifier(someCode);
 //  }
 
-FogRaw *FogRaw::new_set_interface(const FogFileId& fileId) {
+FogRaw* FogRaw::new_set_interface(const FogFileId& fileId) {
 	return new FogExportInterfaceFileSpecifier(fileId);
 }
 
-FogRaw *FogRaw::new_set_no_implementation() {
+FogRaw* FogRaw::new_set_no_implementation() {
 	return new FogExportNoImplementationSpecifier();
 }
 
-FogRaw *FogRaw::new_set_no_interface() {
+FogRaw* FogRaw::new_set_no_interface() {
 	return new FogExportNoInterfaceFileSpecifier();
 }
 
-FogRaw *FogRaw::new_set_utility(const FogUtility& aUtility) {
+FogRaw* FogRaw::new_set_utility(const FogUtility& aUtility) {
 	return new FogExportUtilitySpecifier(aUtility);
 }
 
-FogRaw *FogRaw::new_use_implementation(const FogFileId& fileId) {
+FogRaw* FogRaw::new_use_implementation(const FogFileId& fileId) {
 	return new FogUsingImplementationFileSpecifier(fileId);
 }
 
-FogRaw *FogRaw::new_use_interface(const FogFileId& fileId) {
+FogRaw* FogRaw::new_use_interface(const FogFileId& fileId) {
 	return new FogUsingInterfaceFileSpecifier(fileId);
 }
 
@@ -470,7 +470,7 @@ const FogMerge& FogExportFileSpecifier::needs_merge_from(FogMergeContext& mergeC
 	return needsMerge;
 }
 
-char FogExportFileSpecifier::print_named(std::ostream& s, const PrimId *fullId, char tailChar) const {
+char FogExportFileSpecifier::print_named(std::ostream& s, const PrimId* fullId, char tailChar) const {
 	return Super::print_named(s, fullId, tailChar);
 }
 
@@ -528,12 +528,12 @@ void FogFileDependencySpecifier::make_actual_from(FogMakeActualContext& makeActu
 	_file_id->make_actual(_file_id.to_const(), makeActualContext);
 }
 
-char FogFileDependencySpecifier::print_named(std::ostream& s, const PrimId *fullId, char tailChar) const {
+char FogFileDependencySpecifier::print_named(std::ostream& s, const PrimId* fullId, char tailChar) const {
 	return Super::print_named(s, fullId, tailChar);
 }
 
 bool FogUsingImplementationFileSpecifier::compile_parsed(FogParseContext& parseContext) {
-	FogTargetFile *aFile = file_id().make(parseContext);
+	FogTargetFile* aFile = file_id().make(parseContext);
 	
 	if (aFile)
 		parseContext.dynamic_scope().add_use_for_implementation(*aFile);
@@ -542,7 +542,7 @@ bool FogUsingImplementationFileSpecifier::compile_parsed(FogParseContext& parseC
 }
 
 bool FogUsingImplementationFileSpecifier::make_specifier(FogMakeSpecifierContext& makeSpecifierContext) {
-	FogTargetFile *aFile = file_id().make(makeSpecifierContext);
+	FogTargetFile* aFile = file_id().make(makeSpecifierContext);
 	
 	if (aFile)
 		makeSpecifierContext.dynamic_scope().add_use_for_implementation(*aFile);
@@ -552,14 +552,16 @@ bool FogUsingImplementationFileSpecifier::make_specifier(FogMakeSpecifierContext
 
 bool FogExportNoImplementationSpecifier::compile_parsed(FogParseContext& parseContext) {
 	const FogScopeContext* ctx = &parseContext;
+	
 	while (ctx) {
-	    /*std::strstream str;
-		ctx->print_viz(str);
-		printf("NO_IMPLEMENTATION\n%s\n", str.str());*/
+		/*  std::strstream str;
+		    ctx->print_viz(str);
+		    printf("NO_IMPLEMENTATION\n%s\n", str.str());*/
 		if (ctx->function) {
 			ctx->function->set_explicit_no_implementation();
 			return true;
 		}
+		
 		ctx = ctx->get_parent();
 	}
 	
@@ -568,15 +570,17 @@ bool FogExportNoImplementationSpecifier::compile_parsed(FogParseContext& parseCo
 }
 
 bool FogExportNoImplementationSpecifier::make_specifier(FogMakeSpecifierContext& makeSpecifierContext) {
-    const FogScopeContext* ctx = &makeSpecifierContext;
+	const FogScopeContext* ctx = &makeSpecifierContext;
+	
 	while (ctx) {
-	    /*std::strstream str;
-		ctx->print_viz(str);
-		printf("NO_IMPLEMENTATION\n%s\n", str.str());*/
+		/*  std::strstream str;
+		    ctx->print_viz(str);
+		    printf("NO_IMPLEMENTATION\n%s\n", str.str());*/
 		if (ctx->function) {
 			ctx->function->set_explicit_no_implementation();
 			return true;
 		}
+		
 		ctx = ctx->get_parent();
 	}
 	
@@ -585,7 +589,7 @@ bool FogExportNoImplementationSpecifier::make_specifier(FogMakeSpecifierContext&
 }
 
 bool FogUsingInterfaceFileSpecifier::compile_parsed(FogParseContext& parseContext) {
-	FogTargetFile *aFile = file_id().make(parseContext);
+	FogTargetFile* aFile = file_id().make(parseContext);
 	
 	if (aFile)
 		parseContext.dynamic_scope().add_use_for_interface(*aFile);
@@ -594,7 +598,7 @@ bool FogUsingInterfaceFileSpecifier::compile_parsed(FogParseContext& parseContex
 }
 
 bool FogUsingInterfaceFileSpecifier::make_specifier(FogMakeSpecifierContext& makeSpecifierContext) {
-	FogTargetFile *aFile = file_id().make(makeSpecifierContext);
+	FogTargetFile* aFile = file_id().make(makeSpecifierContext);
 	
 	if (aFile)
 		makeSpecifierContext.dynamic_scope().add_use_for_interface(*aFile);

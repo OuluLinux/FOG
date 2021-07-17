@@ -12,11 +12,11 @@ PRIMREF_DERIVED_NULL_CLASS_AND_IMPL(FogCv)
 PRIMREFS_IMPL(FogCv)
 TMPL_HACK_FIX_DO(FogCv)
 
-FogCv *FogCv_Flyweights::_flyweights[FogCvEnums::ARRAY_SIZE] = { 0 };
+FogCv* FogCv_Flyweights::_flyweights[FogCvEnums::ARRAY_SIZE] = { 0 };
 bool FogCv_Flyweights::_initialised = initialise();
 
 struct FogCv_Flyweights_Initializer {
-	const char *_name;
+	const char* _name;
 	FogDeclSpecifier::Mask _decl_specifier_enum;
 	FogCvMask::Enum _cv_enum;
 };
@@ -41,27 +41,26 @@ bool FogCv_Flyweights::initialise() {
 	};
 	static FogCvRef flyWeights[FogCvEnums::ARRAY_SIZE];
 	
-	for (const FogCv_Flyweights_Initializer *p = flyweightInits; p->_name; ++p) {
+	for (const FogCv_Flyweights_Initializer* p = flyweightInits; p->_name; ++p) {
 		flyWeights[p->_cv_enum].adopt(new FogCv(p->_name, p->_decl_specifier_enum, p->_cv_enum));
 		_flyweights[p->_cv_enum] = flyWeights[p->_cv_enum].pointer();
 	}
 	
 	_flyweights[FogCv::CONST] = &FogTokenType::get_cv(FogTokenType::CONST);
-	
 	_flyweights[FogCv::VOLATILE] = &FogTokenType::get_cv(FogTokenType::VOLATILE);
 	return true;
 }
 
-FogCv::FogCv(const char *aName, Mask aMask, Enum anEnum)
-		:
-		Super(aName, aMask),
-		_cv(anEnum) {}
-		
+FogCv::FogCv(const char* aName, Mask aMask, Enum anEnum)
+	:
+	Super(aName, aMask),
+	_cv(anEnum) {}
+
 FogCv::FogCv(const FogCv_Initializer& anInit)
-		:
-		Super(anInit._decl_specifier),
-		_cv(anInit._cv_enum) {}
-		
+	:
+	Super(anInit._decl_specifier),
+	_cv(anInit._cv_enum) {}
+
 const FogCv& FogCv::compile() const {
 	FogCvMask compiledCv = _cv;
 	
@@ -78,9 +77,9 @@ FogCv::Enum FogCv::merge_cv(const FogCv& aCv) const {
 	FogCvMask mergedCv = _cv | aCv._cv;
 	
 	if ((mergedCv.is_const() && mergedCv.is_not_const())
-		|| (mergedCv.is_volatile() && mergedCv.is_not_volatile()))
+	        || (mergedCv.is_volatile() && mergedCv.is_not_volatile()))
 		ERRMSG("Should not merge incompatible \"cv-qualifier: " << *this
-			   << "\" and \"cv-qualifier: " << aCv << '\"');
+		       << "\" and \"cv-qualifier: " << aCv << '\"');
 		       
 	return mergedCv.value();
 }
@@ -89,9 +88,9 @@ FogCv::Enum FogCv::merge_cv(Enum aCv) const {
 	FogCvMask mergedCv = _cv | aCv;
 	
 	if ((mergedCv.is_const() && mergedCv.is_not_const())
-		|| (mergedCv.is_volatile() && mergedCv.is_not_volatile()))
+	        || (mergedCv.is_volatile() && mergedCv.is_not_volatile()))
 		ERRMSG("BUG - should not merge incompatible \"cv-qualifier: "
-			   << *this << "\" and \"cv-qualifier: " << aCv << '\"');
+		       << *this << "\" and \"cv-qualifier: " << aCv << '\"');
 		       
 	return mergedCv.value();
 }

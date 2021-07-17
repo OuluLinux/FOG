@@ -17,13 +17,12 @@
 TYPEINFO_SINGLE(FogStd, Super)
 
 FogStd::FogStd(FogRoot& globalScope)
-:
- Super(Fog::no_namespace() ? FogTag::class_tag() : FogTag::namespace_tag(), globalScope, Fog::std_id())
-{
- CONDMSG(Fog::debug_make(), "Created " << *this);
- set_utility(FogUtility::utility_utility());
- install_types();
- FogMetaBuiltInFunction::install(*this);
+	:
+	Super(Fog::no_namespace() ? FogTag::class_tag() : FogTag::namespace_tag(), globalScope, Fog::std_id()) {
+	CONDMSG(Fog::debug_make(), "Created " << *this);
+	set_utility(FogUtility::utility_utility());
+	install_types();
+	FogMetaBuiltInFunction::install(*this);
 }
 
 FogStd::~FogStd() {}
@@ -37,11 +36,11 @@ void FogStd::emit_scope_tail(FogStream& s) const {}
 bool FogStd::is_name_scope() const { return true; }
 bool FogStd::is_name_space() const { return true; }
 bool FogStd::is_type() const { return true; }
-FogUsage *FogStd::make_interface_usage_finish() { return 0; }
-FogUsage *FogStd::make_interface_usage_start() { return 0; }
-FogUsage *FogStd::make_name_usage() { return 0; }
+FogUsage* FogStd::make_interface_usage_finish() { return 0; }
+FogUsage* FogStd::make_interface_usage_start() { return 0; }
+FogUsage* FogStd::make_name_usage() { return 0; }
 FogScope& FogStd::name_emit_scope() { return *this; }
 FogScope& FogStd::name_emit_transient_scope() { return *this; }
-FogTargetFile *FogStd::name_file() { return 0; }
+FogTargetFile* FogStd::name_file() { return 0; }
 FogScope& FogStd::name_scope() { return *this; }
 FogScope& FogStd::name_space() { return *this; }

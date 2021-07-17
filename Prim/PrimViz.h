@@ -24,14 +24,14 @@ private:
 	const T& _client;       //   Client to be print_viz'd.
 	
 public:
-//
-//  	Construct a print_viz'er for aClient.
-//
+	//
+	//  	Construct a print_viz'er for aClient.
+	//
 	//friend inline PrimViz<T> viz(const T& aClient);
 	
-//
-//  	Construct a print_viz'er for aClient.
-//
+	//
+	//  	Construct a print_viz'er for aClient.
+	//
 	PrimViz(const T& aClient) : _client(aClient) {}
 	
 public:
@@ -39,9 +39,9 @@ public:
 		return _client;
 	}
 	
-//
-//  	Invoke print_viz(s) for aPrimViz._client.
-//
+	//
+	//  	Invoke print_viz(s) for aPrimViz._client.
+	//
 	friend inline std::ostream& operator<<(std::ostream& s, const PrimViz<T>& aPrimViz) {
 		return aPrimViz._client.print_viz(s);
 	}
@@ -78,9 +78,9 @@ private:
 	const T& _client;       //   Client to be print_viz'd.
 	
 private:
-//
-//  	Construct a print_viz'er for aClient.
-//
+	//
+	//  	Construct a print_viz'er for aClient.
+	//
 	PrimFullViz(const T& aClient) : _client(aClient) {}
 	
 public:
@@ -88,16 +88,16 @@ public:
 		return _client;
 	}
 	
-//
-//  	Construct a print_viz'er for aClient.
-//
+	//
+	//  	Construct a print_viz'er for aClient.
+	//
 	friend inline PrimFullViz<T> full_viz(const T& aClient) {
 		return PrimFullViz<T>(aClient);
 	}
 	
-//
-//  	Invoke print_viz(s) for aPrimFullViz._client.
-//
+	//
+	//  	Invoke print_viz(s) for aPrimFullViz._client.
+	//
 	friend inline std::ostream& operator<<(std::ostream& s, const PrimFullViz<T>& aPrimFullViz) {
 		return aPrimFullViz._client.print_full_viz(s);
 	}
@@ -120,13 +120,13 @@ class PrimVizBufBase {
 
 private:
 	size_t _max_chars;       //   Maximum characters to output, 0 for no limit.
-	char *_p;         //   Pointer to actuial buffer.
+	char* _p;         //   Pointer to actuial buffer.
 	std::ostrstream _s;       //   Steam for constrained text.
-	const char *_dot_dot_dot;     //   Replacement tail characters if max_chars exceeded.
+	const char* _dot_dot_dot;     //   Replacement tail characters if max_chars exceeded.
 	char _buf[256];        //   Buffer for use for modest output.
 	
 protected:
-	PrimVizBufBase(size_t maxCharacters, const char *dotDotDot);
+	PrimVizBufBase(size_t maxCharacters, const char* dotDotDot);
 	~PrimVizBufBase();
 	std::ostream& s() {
 		return _s;
@@ -152,19 +152,19 @@ template <class T>
 class PrimVizBuf : public PrimVizBufBase {
 
 private:
-//
-//  	Construct a print_viz'er for aClient.
-//
-	PrimVizBuf(const T& aClient, size_t maxCharacters, const char *dotDotDot)
-			: PrimVizBufBase(maxCharacters, dotDotDot) {
+	//
+	//  	Construct a print_viz'er for aClient.
+	//
+	PrimVizBuf(const T& aClient, size_t maxCharacters, const char* dotDotDot)
+		: PrimVizBufBase(maxCharacters, dotDotDot) {
 		aClient.print_viz(s());
 	}
 	
 public:
-//
-//  	Construct a print_viz'er for aClient with output constrained to maxCharacters with dotDotDot run-out.
-//
-	friend inline PrimVizBuf<T> viz(const T& aClient, size_t maxCharacters, const char *dotDotDot = "...") {
+	//
+	//  	Construct a print_viz'er for aClient with output constrained to maxCharacters with dotDotDot run-out.
+	//
+	friend inline PrimVizBuf<T> viz(const T& aClient, size_t maxCharacters, const char* dotDotDot = "...") {
 		return PrimVizBuf<T>(aClient, maxCharacters, dotDotDot);
 	}
 };

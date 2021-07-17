@@ -24,9 +24,9 @@ private:
 private:
 	FogClass(This& primaryClass, FogMakeTemplateContext& makeTemplateContext);
 	inline bool inline_is_namespace() const;
-	virtual FogUsage *make_interface_usage_finish();
-	virtual FogUsage *make_interface_usage_start();
-	virtual FogUsage *make_name_usage();
+	virtual FogUsage* make_interface_usage_finish();
+	virtual FogUsage* make_interface_usage_start();
+	virtual FogUsage* make_name_usage();
 	FogScope& scope() {
 		return non_virtual_scope();
 	}
@@ -40,7 +40,7 @@ protected:
 	virtual ~FogClass();
 	
 public:
-	FogClass(const FogTag& aTag, FogMakerContext& makerContext, const FogAnonId *anonId);
+	FogClass(const FogTag& aTag, FogMakerContext& makerContext, const FogAnonId* anonId);
 	virtual const FogAccess& default_access() const;
 	virtual const FogInline& default_inline() const;
 	virtual void emit_forward_reference(FogStream& s);
@@ -49,23 +49,23 @@ public:
 	virtual void emit_scope_head(FogStream& s) const;
 	virtual void emit_scope_tail(FogStream& s) const;
 	virtual bool has_access() const;
-	virtual FogClass *is_class();
+	virtual FogClass* is_class();
 	virtual bool is_name_scope() const;
 	virtual bool is_name_space() const;
-	virtual FogClass *is_namespace();
+	virtual FogClass* is_namespace();
 	virtual bool is_type() const;
 	virtual FogScope& name_emit_transient_scope();
 	virtual FogScope& name_emit_scope();
-	virtual FogTargetFile *name_file();
+	virtual FogTargetFile* name_file();
 	virtual FogScope& name_scope();
 	virtual FogScope& name_space();
-	virtual FogEntity *new_template(FogMakeTemplateContext& makeTemplateContext);
+	virtual FogEntity* new_template(FogMakeTemplateContext& makeTemplateContext);
 	
 private:
-	static Anonymity anonymity(const FogAnonId *anonId);
+	static Anonymity anonymity(const FogAnonId* anonId);
 	
 public:
-	static int compare(const FogClassRefToConst *p1, const FogClassRefToConst *p2);
+	static int compare(const FogClassRefToConst* p1, const FogClassRefToConst* p2);
 };
 
 #endif

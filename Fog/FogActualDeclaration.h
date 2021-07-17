@@ -22,10 +22,10 @@ private:
 	This& operator=(const This&);
 	
 public:
-	FogActualDeclaration(const FogSpecifier *aSpecifier = 0);
+	FogActualDeclaration(const FogSpecifier* aSpecifier = 0);
 	virtual ~FogActualDeclaration();
-	operator const IsValid *() const {
-		return (const IsValid *)(_specifier ? this : 0);
+	operator const IsValid* () const {
+		return (const IsValid*)(_specifier ? this : 0);
 	}
 	
 	bool operator!() const {

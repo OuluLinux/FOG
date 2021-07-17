@@ -18,7 +18,7 @@ public:
 	
 	virtual bool emit(FogEmitContext& emitContext) const;
 	virtual std::ostream& print_diagnostic(std::ostream& s, int aDepth) const;
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const;
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const;
 	virtual std::ostream& print_source(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_stringized(std::ostream& s) const;
 	virtual std::ostream& print_tokens(std::ostream& s, int aDepth) const;
@@ -35,7 +35,7 @@ public:
 	
 	virtual bool emit(FogEmitContext& emitContext) const;
 	virtual std::ostream& print_diagnostic(std::ostream& s, int aDepth) const;
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const;
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const;
 	virtual std::ostream& print_source(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_stringized(std::ostream& s) const;
 	virtual std::ostream& print_tokens(std::ostream& s, int aDepth) const;
@@ -112,7 +112,7 @@ std::ostream& FogDiOpenBrace::print_diagnostic(std::ostream& s, int aDepth) cons
 	return s << "DiOpenBrace " << end_column();
 }
 
-char FogDiOpenBrace::print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+char FogDiOpenBrace::print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 	return FogStream::space_and_emit(s, tailChar, "{");
 }
 
@@ -141,7 +141,7 @@ std::ostream& FogOpenBrace::print_diagnostic(std::ostream& s, int aDepth) const 
 	return s << "OpenBrace " << end_column();
 }
 
-char FogOpenBrace::print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const {
+char FogOpenBrace::print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const {
 	return FogStream::space_and_emit(s, tailChar, "{");
 }
 

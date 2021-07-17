@@ -17,10 +17,10 @@ TMPL_HACK_FIX_DO(FogBaseSpecifiers)
 FogBaseSpecifiers::FogBaseSpecifiers() {}
 
 FogBaseSpecifiers::FogBaseSpecifiers(const This& baseSpecifiers)
-		:
-		Super(baseSpecifiers),
-		_bases(baseSpecifiers._bases) {}
-		
+	:
+	Super(baseSpecifiers),
+	_bases(baseSpecifiers._bases) {}
+
 FogBaseSpecifiers::~FogBaseSpecifiers() {}
 
 void FogBaseSpecifiers::create_usage(FogUsageContext& aContext) const {
@@ -39,8 +39,8 @@ bool FogBaseSpecifiers::emit(FogEmitContext& emitContext) const {
 
 void FogBaseSpecifiers::install(FogInstallContext& installContext) const {
 	Super::install(installContext);
-//  	for (FogBaseSpecifierConstListOfRefToConstIterator p(_bases); p; ++p)
-//  		p->install(installContext);
+	//  	for (FogBaseSpecifierConstListOfRefToConstIterator p(_bases); p; ++p)
+	//  		p->install(installContext);
 }
 
 bool FogBaseSpecifiers::is_actual(const FogScopeContext& scopeContext) const {
@@ -77,7 +77,6 @@ const FogMerge& FogBaseSpecifiers::needs_merge_from(FogMergeContext& mergeContex
 			if (!p2->is_null())
 				needsMerge |= FogMerge::left_invalid();
 		}
-		
 		else {
 			if (!p2->is_null())
 				needsMerge |= p1->needs_merge(mergeContext, *p2);
@@ -88,10 +87,9 @@ const FogMerge& FogBaseSpecifiers::needs_merge_from(FogMergeContext& mergeContex
 	
 	if (p1)
 		needsMerge |= FogMerge::right_invalid();
-	else
-		if (p2)
-			needsMerge |= FogMerge::left_invalid();
-			
+	else if (p2)
+		needsMerge |= FogMerge::left_invalid();
+		
 #endif
 	return needsMerge;
 }
@@ -101,7 +99,7 @@ std::ostream& FogBaseSpecifiers::print_depth(std::ostream& s, int aDepth) const 
 	
 	if (_bases.tally()) {
 		s << indent(aDepth) << "raw-bases\n";
-		_bases.print_depth(s, aDepth+1);
+		_bases.print_depth(s, aDepth + 1);
 	}
 	
 	return s;
@@ -112,13 +110,13 @@ std::ostream& FogBaseSpecifiers::print_members(std::ostream& s, int aDepth) cons
 	
 	if (_bases.tally()) {
 		s << indent(aDepth) << "raw-bases\n";
-		_bases.print_members(s, aDepth+1);
+		_bases.print_members(s, aDepth + 1);
 	}
 	
 	return s;
 }
 
-char FogBaseSpecifiers::print_named(std::ostream& s, const PrimId *fullId, char tailChar) const {
+char FogBaseSpecifiers::print_named(std::ostream& s, const PrimId* fullId, char tailChar) const {
 	for (FogBaseSpecifierConstListOfRefToConstIterator p(_bases); p; ++p) {
 		tailChar = p->print_named(s, 0, tailChar);
 		

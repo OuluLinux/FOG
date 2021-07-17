@@ -48,20 +48,20 @@ public:
 TYPEINFO_SINGLE(FogLexerMacro, Super)
 TYPEINFO_SINGLE(FogLexerMacro_Element, Super)
 
-FogLexerMacro::FogLexerMacro(std::istream& inputStream, const FogSourceFile& sourceFile, std::ostream *outputStream)
-		:
-		Super(inputStream, sourceFile, outputStream) {}
-		
+FogLexerMacro::FogLexerMacro(std::istream& inputStream, const FogSourceFile& sourceFile, std::ostream* outputStream)
+	:
+	Super(inputStream, sourceFile, outputStream) {}
+
 FogLexerMacro::~FogLexerMacro() {}
 
 //
 //  	Acquire the next token.
 //
-const char *FogLexerMacro::get(FogTokenContext& tokenContext) {
+const char* FogLexerMacro::get(FogTokenContext& tokenContext) {
 	while (true) {
-		const char *stateName = 0;
+		const char* stateName = 0;
 		
-		for (FogLexerMacro_Element *p; (p = _stack.get()) != 0; _stack = _stack->_next) {
+		for (FogLexerMacro_Element * p; (p = _stack.get()) != 0; _stack = _stack->_next) {
 			if (p->_index < p->_tokens.tally()) {
 				tokenContext.assign(*p->_tokens[p->_index++]);
 				stateName = "<MACRO_GET>";
@@ -81,7 +81,7 @@ const char *FogLexerMacro::get(FogTokenContext& tokenContext) {
 		if ((tokenContext.token().pp_token_type_enum() != FogTokenType::Identifier) || Fog::readonly())
 			return stateName;
 			
-		const PrimId *anId = tokenContext.token().is_word();
+		const PrimId* anId = tokenContext.token().is_word();
 		
 		if (!anId) {
 			ERRMSG("INVESTIGATE - unexpected 0 keyword in FogLexerMacro::get.");
@@ -94,7 +94,7 @@ const char *FogLexerMacro::get(FogTokenContext& tokenContext) {
 }
 
 bool FogLexerMacro::hash_push(const PrimId& anId) {
-	const FogMacro *aMacro = is_defined(anId);
+	const FogMacro* aMacro = is_defined(anId);
 	
 	if (!aMacro)
 		return false;
@@ -110,22 +110,18 @@ bool FogLexerMacro::hash_push(const PrimId& anId) {
 			FogLocateParser locateParser(*this, locatedArguments, *aMacro);
 			int parseStatus = locateParser.yyparse();
 		}
-		
 		invoke_function(macroElement->tokens(), *aMacro, locatedArguments);
 	}
-	
 	else
 		invoke_object(macroElement->tokens(), *aMacro);
 		
 	macroElement->push(_stack);
-	
 	_stack = macroElement;
-	
 	return true;
 }
 
 void FogLexerMacro::invoke_function(FogTokenListOfRef& replacedTokens, const FogMacro& aMacro,
-		const FogMacroListOfRefToConst& locatedArguments) {
+                                    const FogMacroListOfRefToConst& locatedArguments) {
 	if (!aMacro.is_function_like()) {
 		ERRMSG("BUG -- expected " << viz(aMacro) << " to be function-like.");
 		return;
@@ -133,12 +129,11 @@ void FogLexerMacro::invoke_function(FogTokenListOfRef& replacedTokens, const Fog
 	
 	if (locatedArguments.tally() != aMacro.formal_tally()) {
 		ERRMSG("Cannot invoke " << viz(aMacro) << " with " << locatedArguments.tally()
-			   << " arguments when " << aMacro.formal_tally() << " required.");
+		       << " arguments when " << aMacro.formal_tally() << " required.");
 		return;
 	}
 	
 	FogReplaceParser replaceParser(*this, replacedTokens, aMacro.id());
-	
 	int replaceStatus = replaceParser.parse_function(aMacro, locatedArguments);
 }
 
@@ -147,15 +142,14 @@ void FogLexerMacro::invoke_object(FogTokenListOfRef& replacedTokens, const FogMa
 		ERRMSG("BUG -- expected " << viz(aMacro) << " to be object-like.");
 		
 	FogReplaceParser replaceParser(*this, replacedTokens, aMacro.id());
-	
 	int replaceStatus = replaceParser.parse_object(aMacro.tokens());
 }
 
 std::ostream& FogLexerMacro::print_depth(std::ostream& s, int aDepth) const {
 	s << indent(aDepth) << "FogLexerMacro(" << ")\n";
 	
-	for (const FogLexerMacro_Element *p = _stack.get(); p; p = p->_next.get())
-		p->print_deep(s, aDepth+1);
+	for (const FogLexerMacro_Element* p = _stack.get(); p; p = p->_next.get())
+		p->print_deep(s, aDepth + 1);
 		
 	return Super::print_depth(s, aDepth);
 }
@@ -163,8 +157,8 @@ std::ostream& FogLexerMacro::print_depth(std::ostream& s, int aDepth) const {
 std::ostream& FogLexerMacro::print_members(std::ostream& s, int aDepth) const {
 	s << indent(aDepth) << "FogLexerMacro(" << ")\n";
 	
-	for (const FogLexerMacro_Element *p = _stack.get(); p; p = p->_next.get())
-		p->print_on(s, aDepth+1);
+	for (const FogLexerMacro_Element* p = _stack.get(); p; p = p->_next.get())
+		p->print_on(s, aDepth + 1);
 		
 	return Super::print_members(s, aDepth);
 }
@@ -176,7 +170,7 @@ void FogLexerMacro::raw_get(FogTokenContext& tokenContext) {
 	if (_unget.is_full())
 		ERRMSG("BUG - did not expect to unget for FogLexerMacro::raw_get.");
 		
-	for (FogLexerMacro_Element *p; (p = _stack.get()) != 0; _stack = _stack->_next) {
+	for (FogLexerMacro_Element * p; (p = _stack.get()) != 0; _stack = _stack->_next) {
 		if (p->_index < p->_tokens.tally()) {
 			tokenContext.assign(*(p->_tokens)[p->_index++]);
 			return;
@@ -198,15 +192,13 @@ void FogLexerMacro::raw_unget(const FogTokenContext& tokenContext) {
 		DIAMSGZ(s.str());
 	}
 	
-	FogLexerMacro_Element *p = _stack.get();
+	FogLexerMacro_Element* p = _stack.get();
 	
 	if (!p)
 		_unget.unget(tokenContext, false);
-	else
-		if (p->_index <= 0)
-			ERRMSG("BUG -- cannot unget from empty macro stack " << *this);
-		else
-			if ((p->_tokens)[--p->_index].pointer() != &tokenContext.token())
-				ERRMSG("BUG -- should not unget " << tokenContext.value()
-					   << " when " << (p->_tokens)[p->_index] << " expected.");
+	else if (p->_index <= 0)
+		ERRMSG("BUG -- cannot unget from empty macro stack " << *this);
+	else if ((p->_tokens)[--p->_index].pointer() != &tokenContext.token())
+		ERRMSG("BUG -- should not unget " << tokenContext.value()
+		       << " when " << (p->_tokens)[p->_index] << " expected.");
 }

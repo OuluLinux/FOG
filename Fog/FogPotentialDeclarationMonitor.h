@@ -14,15 +14,15 @@ class FogPotentialDeclarationMonitor : public PrimMonitor {
 	TYPEDECL_SINGLE(FogPotentialDeclarationMonitor, PrimMonitor)
 	
 private:
-	const char *_prefix;
+	const char* _prefix;
 	const FogPotentialDeclaration& _declaration;
-	const char *_suffix;
+	const char* _suffix;
 	
 private:
 	virtual std::ostream& print_message(std::ostream& s) const;
 	
 public:
-	FogPotentialDeclarationMonitor(const char *aPrefix, const FogPotentialDeclaration& aPotentialDeclaration, const char *aSuffix = ".");
+	FogPotentialDeclarationMonitor(const char* aPrefix, const FogPotentialDeclaration& aPotentialDeclaration, const char* aSuffix = ".");
 };
 
 #endif

@@ -15,8 +15,8 @@ class FogMacro : public PrimPrint {
 	PRIMSHARES_DECLS(This)
 	PRIMREF_DECLS(This)
 	
-private: 
-        //   Defining contents.
+private:
+	//   Defining contents.
 	const PrimIdHandle _id;     //   Macro name.
 	PrimIdMap _formal_map;     //   Macro arguments.
 	PrimIdList _formal_list;    //   Macro arguments in sequential order.
@@ -30,7 +30,7 @@ private:
 	FogMacro(const This&);
 	FogMacro& operator=(const This&);
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 protected:
@@ -38,7 +38,7 @@ protected:
 	virtual ~FogMacro();
 	
 public:
-	FogMacro(const PrimId& anId, const PrimIdList *formalList, FogTokens& someTokens);
+	FogMacro(const PrimId& anId, const PrimIdList* formalList, FogTokens& someTokens);
 	const FogTokens& body() const {
 		return *_tokens;
 	}
@@ -57,7 +57,7 @@ public:
 		return _is_bad;
 	}
 	
-	bool is_compatible_with(const PrimIdList *formalList, const FogTokens& someTokens) const;
+	bool is_compatible_with(const PrimIdList* formalList, const FogTokens& someTokens) const;
 	bool is_function_like() const {
 		return _function_like;
 	}

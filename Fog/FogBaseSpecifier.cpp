@@ -21,21 +21,21 @@ TMPL_HACK_FIX_DO(FogBaseSpecifier)
 FogBaseSpecifier::FogBaseSpecifier() {}
 
 FogBaseSpecifier::FogBaseSpecifier(FogName& aName)
-		:
-		Super(aName) {}
-		
+	:
+	Super(aName) {}
+
 FogBaseSpecifier::~FogBaseSpecifier() {}
 
 void FogBaseSpecifier::make_base(FogMakeEntityContext& makeEntityContext, FogScope& inScope) const {
 	FogInScopeContext baseContext(makeEntityContext, IN_ANY_NOT_THIS_SCOPE);
-	FogEntity *anEntity = find_type_in(baseContext);
+	FogEntity* anEntity = find_type_in(baseContext);
 	
 	if (!anEntity) {
 		ERRMSG("Failed to find an entity to resolve " << viz(name()) << " within " << viz(baseContext));
 		return;
 	}
 	
-	FogScope *aScope = anEntity->is_scope();
+	FogScope* aScope = anEntity->is_scope();
 	
 	if (!aScope) {
 		ERRMSG("Expected " << viz(name()) << " to resolve to a scope within " << viz(baseContext));
@@ -43,8 +43,7 @@ void FogBaseSpecifier::make_base(FogMakeEntityContext& makeEntityContext, FogSco
 	}
 	
 	const FogVirtual& aVirtual = FogVirtual::flyweight(decl_specifiers());
-	
-	FogBaseClass *baseClass = new FogBaseClass(*aScope, access(), aVirtual);
+	FogBaseClass* baseClass = new FogBaseClass(*aScope, access(), aVirtual);
 	
 	if (baseClass) {
 		inScope.add_base(*baseClass);

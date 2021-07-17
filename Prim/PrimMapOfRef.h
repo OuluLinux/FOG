@@ -9,9 +9,9 @@
 #define PRIMMAPOFREFTOCONST_CLASS(E) typedef PrimMapOfRefToConst< E > name2(E,MapOfRefToConst);
 #define PRIMMAPOFREF_CLASS(E) typedef PrimMapOfRef< E > name2(E,MapOfRef);
 #define PRIMMAPOFREFTOCONSTITERATOR_CLASS(E) \
- typedef PrimMapOfRefToConstIterator< E > name2(E,MapOfRefToConstIterator);
+	typedef PrimMapOfRefToConstIterator< E > name2(E,MapOfRefToConstIterator);
 #define PRIMMAPOFREFITERATOR_CLASS(E) \
- typedef PrimMapOfRefIterator< E > name2(E,MapOfRefIterator);
+	typedef PrimMapOfRefIterator< E > name2(E,MapOfRefIterator);
 #define PRIMMAPOFREFS_CODE(E) PRIMMAPOFREFTOCONST_CODE(E) PRIMMAPOFREF_CODE(E)
 #define PRIMMAPOFREFS_DATA(E) PRIMMAPOFREFTOCONST_DATA(E) PRIMMAPOFREF_DATA(E)
 
@@ -39,33 +39,33 @@
 struct PrimMapOfRefFuncs {
 
 public:
-//
-//  	Annul anElement to release any share count.
-//
+	//
+	//  	Annul anElement to release any share count.
+	//
 	void (*annul)(const PrimRefValue& anElement);
-//
-//  	Perform a consistency check on anElement.
-//
+	//
+	//  	Perform a consistency check on anElement.
+	//
 	bool (*check)(const PrimRefValue& anElement, bool fullCheck);
-//
-//  	Derived classes must report the id of anObject.
-//
+	//
+	//  	Derived classes must report the id of anObject.
+	//
 	const PrimId& (*id)(const PrimRefValue& anObject);
-//
-//  	Print anElement to a stream with aDepth of indentation.
-//
+	//
+	//  	Print anElement to a stream with aDepth of indentation.
+	//
 	std::ostream& (*print_depth)(const PrimRefValue& anElement, std::ostream& s, int aDepth);
-//
-//  	Print anElement to a stream as part of an inline diagnostic.
-//
+	//
+	//  	Print anElement to a stream as part of an inline diagnostic.
+	//
 	std::ostream& (*print_instance)(const PrimRefValue& anElement, std::ostream& s);
-//
-//  	Create a share of anElement to increase the share count.
-//
+	//
+	//  	Create a share of anElement to increase the share count.
+	//
 	void (*share)(const PrimRefValue& anElement);
-//
-//  	Return a reference to a shared null element.
-//
+	//
+	//  	Return a reference to a shared null element.
+	//
 	const PrimRefValue& (*shared_null)();
 };
 
@@ -95,9 +95,9 @@ public:
 	static const E& shared_null();
 	
 public:
-//
-//  	Access returns the table of functions.
-//
+	//
+	//  	Access returns the table of functions.
+	//
 	operator const PrimMapOfRefFuncs& () const {
 		return _functions;
 	}
@@ -127,9 +127,9 @@ public:
 	static E& shared_null();
 	
 public:
-//
-//  	Access returns the table of functions.
-//
+	//
+	//  	Access returns the table of functions.
+	//
 	operator const PrimMapOfRefFuncs& () const {
 		return _functions;
 	}
@@ -168,49 +168,49 @@ protected:
 	};
 	
 private:
-	const PrimRefValue **_contents;    //   Hashed table of pointers to entries.
+	const PrimRefValue** _contents;    //   Hashed table of pointers to entries.
 	size_t _tally;        //   Number of entries in table.
 	size_t _capacity;       //   Maximum number of entries in table.
 	
 private:
-//
-//  	Construction of a copy must be performed by derived classes.
-//
+	//
+	//  	Construction of a copy must be performed by derived classes.
+	//
 	explicit PrimMapOfRefImp(const PrimMapOfRefImp& aMap);
-//
-//  	Assignment must be performed by derived classes.
-//
+	//
+	//  	Assignment must be performed by derived classes.
+	//
 	PrimMapOfRefImp& operator=(const PrimMapOfRefImp& aMap);
 	bool add(const PrimMapOfRefFuncs& supportFunctions, const PrimRefValue& anObject, AddMode addMode);
-	const PrimRefValue *const *find_slot(const PrimMapOfRefFuncs& supportFunctions, const PrimId& anId) const;
-//
-//  	Locate the slot comprising the object for anId, returning 0 if not found.
-//
-	const PrimRefValue **find_slot(const PrimMapOfRefFuncs& supportFunctions, const PrimId& anId) {
-		return (const PrimRefValue **)((const PrimMapOfRefImp *)this)->find_slot(supportFunctions, anId);
+	const PrimRefValue* const* find_slot(const PrimMapOfRefFuncs& supportFunctions, const PrimId& anId) const;
+	//
+	//  	Locate the slot comprising the object for anId, returning 0 if not found.
+	//
+	const PrimRefValue** find_slot(const PrimMapOfRefFuncs& supportFunctions, const PrimId& anId) {
+		return (const PrimRefValue**)((const PrimMapOfRefImp*)this)->find_slot(supportFunctions, anId);
 	}
 	
 	unsigned long hash(const PrimId& anId) const;
 	
 public:
-	typedef PrimRefValue *(*CloneFunction)(const PrimRefValue&);
+	typedef PrimRefValue* (*CloneFunction)(const PrimRefValue&);
 	enum PrimMapOfRefImpEnums { INLINE };
-//
-//  	Construct an empty map.
-//
+	//
+	//  	Construct an empty map.
+	//
 	PrimMapOfRefImp() : _contents(0), _tally(0), _capacity(0) {}
 	
-//
-//  	Construct an empty map.
-//
+	//
+	//  	Construct an empty map.
+	//
 	explicit PrimMapOfRefImp(PrimMapOfRefImpEnums anEnum) : _contents(0), _tally(0), _capacity(0) {
 		UNUSED(anEnum);
 	}
 	
 	~PrimMapOfRefImp();
-//
-//  	Add anObject to the map.
-//
+	//
+	//  	Add anObject to the map.
+	//
 	bool add(const PrimMapOfRefFuncs& supportFunctions, const PrimRefValue& anObject) {
 		return add(supportFunctions, anObject, DEFAULT);
 	}
@@ -228,39 +228,39 @@ public:
 	void assign_intersection(const PrimMapOfRefFuncs& supportFunctions, const PrimMapOfRefImp& aMap);
 	void assign_union(const PrimMapOfRefFuncs& supportFunctions, const PrimMapOfRefImp& aMap);
 	void assign_union(const PrimMapOfRefFuncs& supportFunctions, const PrimListOfRefImp& aList);
-//
-//  	Report the capacity of the map.
-//
+	//
+	//  	Report the capacity of the map.
+	//
 	size_t capacity() const {
 		return _capacity;
 	}
 	
 	bool check(const PrimMapOfRefFuncs& supportFunctions, bool fullCheck = false) const;
 	void clone(const PrimMapOfRefFuncs& supportFunctions, const PrimMapOfRefImp& somePointers,
-			   CloneFunction cloneFunction);
-//
-//  	Identify the contents array.
-//
-	const PrimRefValue *const *contents() const {
-		return (const PrimRefValue *const *)_contents;
+	           CloneFunction cloneFunction);
+	//
+	//  	Identify the contents array.
+	//
+	const PrimRefValue* const* contents() const {
+		return (const PrimRefValue * const*)_contents;
 	}
 	
 	void deep_copy(const PrimMapOfRefFuncs& supportFunctions, const PrimMapOfRefImp& aMap);
-	const PrimRefValue *find(const PrimMapOfRefFuncs& supportFunctions, const PrimId& anId) const;
-	const PrimRefValue *find(const PrimMapOfRefFuncs& supportFunctions, const char *aName) const;
-	static bool increment(const PrimRefValue *const *& aPointer, size_t& toGo);
+	const PrimRefValue* find(const PrimMapOfRefFuncs& supportFunctions, const PrimId& anId) const;
+	const PrimRefValue* find(const PrimMapOfRefFuncs& supportFunctions, const char* aName) const;
+	static bool increment(const PrimRefValue* const*& aPointer, size_t& toGo);
 	const PrimRefValue& index(const PrimMapOfRefFuncs& supportFunctions, const PrimId& anId) const;
-	const PrimRefValue& index(const PrimMapOfRefFuncs& supportFunctions, const char *aName) const;
+	const PrimRefValue& index(const PrimMapOfRefFuncs& supportFunctions, const char* aName) const;
 	bool is_equal(const PrimMapOfRefFuncs& supportFunctions, const PrimMapOfRefImp& aMap) const;
 	std::ostream& print_deep(const PrimMapOfRefFuncs& supportFunctions, std::ostream& s,
-			int indentLevel = 0) const;
+	                         int indentLevel = 0) const;
 	std::ostream& print_depth(const PrimMapOfRefFuncs& supportFunctions, std::ostream& s,
-			int indentLevel = 0) const;
+	                          int indentLevel = 0) const;
 	std::ostream& print_instance(const PrimMapOfRefFuncs& supportFunctions, std::ostream& s) const;
 	std::ostream& print_members(const PrimMapOfRefFuncs& supportFunctions, std::ostream& s,
-			int indentLevel = 0) const;
+	                            int indentLevel = 0) const;
 	std::ostream& print_on(const PrimMapOfRefFuncs& supportFunctions, std::ostream& s,
-			int indentLevel = 0) const;
+	                       int indentLevel = 0) const;
 	std::ostream& print_this(const PrimMapOfRefFuncs& supportFunctions, std::ostream& s) const;
 	bool remove(const PrimMapOfRefFuncs& supportFunctions, const PrimId& anId);
 	bool replace(const PrimMapOfRefFuncs& supportFunctions, const PrimRefValue& anObject);
@@ -269,16 +269,16 @@ public:
 		return set_capacity(supportFunctions, aCapacity.size());
 	}
 	
-//
-//  	Report the number of elements in the map.
-//
+	//
+	//  	Report the number of elements in the map.
+	//
 	size_t tally() const {
 		return _tally;
 	}
 	
 	void vacate(const PrimMapOfRefFuncs& supportFunctions);
-	static bool validate(const PrimRefValue *const *& aPointer, size_t& toGo);
-//  	friend bool operator==(const PrimMapOfRefImp& firstMap, const PrimMapOfRefImp& secondMap);
+	static bool validate(const PrimRefValue* const*& aPointer, size_t& toGo);
+	//  	friend bool operator==(const PrimMapOfRefImp& firstMap, const PrimMapOfRefImp& secondMap);
 	friend std::ostream& operator<<(std::ostream& s, const PrimMapOfRefImp& aMap);
 };
 
@@ -299,8 +299,8 @@ private:
 	static const PrimMapOfRefToConstFunctions< E > _functions; //   The virtual function table.
 	
 protected:
-	const E *const *contents() const {
-		return (const E *const *)_map.contents();
+	const E* const* contents() const {
+		return (const E * const*)_map.contents();
 	}
 	
 public:
@@ -339,7 +339,7 @@ public:
 		return (const E&)_map.index(_functions, anId);
 	}
 	
-	const E& operator[](const char *aName) const {
+	const E& operator[](const char* aName) const {
 		return (const E&)_map.index(_functions, aName);
 	}
 	
@@ -403,43 +403,43 @@ public:
 		return _map.adopt(_functions, (const PrimRefValue&)anObject);
 	}
 	
-	bool adopt(const E *anObject) {
+	bool adopt(const E* anObject) {
 		return anObject ? adopt(*anObject) : false;
 	}
 	
-//
-//  	Report the allocated number of pointers in the map.
-//
+	//
+	//  	Report the allocated number of pointers in the map.
+	//
 	size_t capacity() const {
 		return _map.capacity();
 	}
 	
-//
-//  	Perform a consistency check on the list, enthusiastically if fullCheck.
-//
+	//
+	//  	Perform a consistency check on the list, enthusiastically if fullCheck.
+	//
 	bool check(bool fullCheck = false) const {
 		return _map.check(_functions, fullCheck);
 	}
 	
-//
-//  	Assign a deep copy of aMap as the replacement contents of this map.
-//
+	//
+	//  	Assign a deep copy of aMap as the replacement contents of this map.
+	//
 	void deep_copy(const PrimMapOfRefToConst< E >& aMap) {
 		_map.deep_copy(_functions, aMap._map);
 	}
 	
-//
-//  	Find the element corresponding to anId, or 0 if no such element.
-//
-	const E *find(const PrimId& anId) const {
-		return (const E *)_map.find(_functions, anId);
+	//
+	//  	Find the element corresponding to anId, or 0 if no such element.
+	//
+	const E* find(const PrimId& anId) const {
+		return (const E*)_map.find(_functions, anId);
 	}
 	
-//
-//  	Find the element corresponding to aName, or 0 if no such element.
-//
-	const E *find(const char *aName) const {
-		return (const E *)_map.find(_functions, aName);
+	//
+	//  	Find the element corresponding to aName, or 0 if no such element.
+	//
+	const E* find(const char* aName) const {
+		return (const E*)_map.find(_functions, aName);
 	}
 	
 	std::ostream& print_deep(std::ostream& s, int aDepth = 0) const {
@@ -474,16 +474,16 @@ public:
 		return _map.replace(_functions, (const PrimRefValue&)anObject);
 	}
 	
-//
-//  	Configure the map to use an array of aCapacity pointers. (Must be a power of two).
-//
+	//
+	//  	Configure the map to use an array of aCapacity pointers. (Must be a power of two).
+	//
 	bool set_capacity(size_t aCapacity) {
 		return _map.set_capacity(_functions, aCapacity);
 	}
 	
-//
-//  	Report the number of elements in the map.
-//
+	//
+	//  	Report the number of elements in the map.
+	//
 	size_t tally() const {
 		return _map.tally();
 	}
@@ -510,28 +510,28 @@ public:
 };
 
 #define PRIMMAPOFREFTOCONST_CODE(E) \
-template<> void PrimMapOfRefToConstFunctions< E >::annul(const E& anElement) { anElement.annul(); } \
-template<> bool PrimMapOfRefToConstFunctions< E >::check(const E& anElement, bool fullCheck) \
- { return anElement.check(fullCheck); } \
-template<> const PrimId& PrimMapOfRefToConstFunctions< E >::id(const E& anElement) \
- { return anElement.id(); } \
-template<> std::ostream& PrimMapOfRefToConstFunctions< E >::print_depth(const E& anElement, std::ostream& s, int aDepth) \
- { return anElement.print_depth(s, aDepth); } \
-template<> std::ostream& PrimMapOfRefToConstFunctions< E >::print_instance(const E& anElement, std::ostream& s) \
- { return anElement.print_instance(s); } \
-template<> void PrimMapOfRefToConstFunctions< E >::share(const E& anElement) { anElement.share(); } \
-template<> const E& PrimMapOfRefToConstFunctions< E >::shared_null() \
- { E::immutable_null().share(); return E::immutable_null(); }
+	template<> void PrimMapOfRefToConstFunctions< E >::annul(const E& anElement) { anElement.annul(); } \
+	template<> bool PrimMapOfRefToConstFunctions< E >::check(const E& anElement, bool fullCheck) \
+	{ return anElement.check(fullCheck); } \
+	template<> const PrimId& PrimMapOfRefToConstFunctions< E >::id(const E& anElement) \
+	{ return anElement.id(); } \
+	template<> std::ostream& PrimMapOfRefToConstFunctions< E >::print_depth(const E& anElement, std::ostream& s, int aDepth) \
+	{ return anElement.print_depth(s, aDepth); } \
+	template<> std::ostream& PrimMapOfRefToConstFunctions< E >::print_instance(const E& anElement, std::ostream& s) \
+	{ return anElement.print_instance(s); } \
+	template<> void PrimMapOfRefToConstFunctions< E >::share(const E& anElement) { anElement.share(); } \
+	template<> const E& PrimMapOfRefToConstFunctions< E >::shared_null() \
+	{ E::immutable_null().share(); return E::immutable_null(); }
 
 #define PRIMMAPOFREFTOCONST_DATA(E) \
-template<> const PrimMapOfRefToConstFunctions< E > PrimMapOfRefToConst< E >::_functions = { \
-  (void (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::annul, \
-  (bool (*)(const PrimRefValue&, bool))&PrimMapOfRefToConstFunctions< E >::check, \
-  (const PrimId& (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::id, \
-  (std::ostream& (*)(const PrimRefValue&, std::ostream&, int))&PrimMapOfRefToConstFunctions< E >::print_depth, \
-  (std::ostream& (*)(const PrimRefValue&, std::ostream&))&PrimMapOfRefToConstFunctions< E >::print_instance, \
-  (void (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::share, \
-  (const PrimRefValue& (*)())&PrimMapOfRefToConstFunctions< E >::shared_null };
+	template<> const PrimMapOfRefToConstFunctions< E > PrimMapOfRefToConst< E >::_functions = { \
+	                                                                                            (void (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::annul, \
+	                                                                                            (bool (*)(const PrimRefValue&, bool))&PrimMapOfRefToConstFunctions< E >::check, \
+	                                                                                            (const PrimId& (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::id, \
+	                                                                                            (std::ostream& (*)(const PrimRefValue&, std::ostream&, int))&PrimMapOfRefToConstFunctions< E >::print_depth, \
+	                                                                                            (std::ostream& (*)(const PrimRefValue&, std::ostream&))&PrimMapOfRefToConstFunctions< E >::print_instance, \
+	                                                                                            (void (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::share, \
+	                                                                                            (const PrimRefValue& (*)())&PrimMapOfRefToConstFunctions< E >::shared_null };
 
 template <class E>
 
@@ -552,12 +552,12 @@ private:
 	static const PrimMapOfRefFunctions< E > _functions;  //   The virtual function table.
 	
 protected:
-	E *const *contents() const {
-		return (E *const *)_map.contents();
+	E* const* contents() const {
+		return (E * const*)_map.contents();
 	}
 	
 public:
-	typedef E *(*CloneFunction)(const E&, PrimPrint&);
+	typedef E* (*CloneFunction)(const E&, PrimPrint&);
 	enum Enums { INLINE };
 #ifdef PRIM_DEEP_COPY
 	
@@ -604,18 +604,18 @@ public:
 	}
 	
 	operator PrimMapOfRefToConst< E >& () {
-		return *(PrimMapOfRefToConst< E > *)this;
+		return *(PrimMapOfRefToConst< E >*)this;
 	}
 	
 	operator const PrimMapOfRefToConst< E >& () const {
-		return *(const PrimMapOfRefToConst< E > *)this;
+		return *(const PrimMapOfRefToConst< E >*)this;
 	}
 	
 	E& operator[](const PrimId& anId) const {
 		return (E&)_map.index(_functions, anId);
 	}
 	
-	E& operator[](const char *aName) const {
+	E& operator[](const char* aName) const {
 		return (E&)_map.index(_functions, aName);
 	}
 	
@@ -679,43 +679,43 @@ public:
 		return _map.adopt(_functions, (const PrimRefValue&)anObject);
 	}
 	
-	bool adopt(E *anObject) {
+	bool adopt(E* anObject) {
 		return anObject ? adopt(*anObject) : false;
 	}
 	
-//
-//  	Report the allocated number of pointers in the map.
-//
+	//
+	//  	Report the allocated number of pointers in the map.
+	//
 	size_t capacity() const {
 		return _map.capacity();
 	}
 	
-//
-//  	Perform a consistency check on the list, enthusiastically if fullCheck.
-//
+	//
+	//  	Perform a consistency check on the list, enthusiastically if fullCheck.
+	//
 	bool check(bool fullCheck = false) const {
 		return _map.check(_functions, fullCheck);
 	}
 	
-//
-//  	Assign a deep copy of aMap as the replacement contents of this map.
-//
+	//
+	//  	Assign a deep copy of aMap as the replacement contents of this map.
+	//
 	void deep_copy(const PrimMapOfRefToConst< E >& aMap) {
 		_map.deep_copy(_functions, aMap);
 	}
 	
-//
-//  	Find the element corresponding to anId, or 0 if no such element.
-//
-	E *find(const PrimId& anId) const {
-		return (E *)_map.find(_functions, anId);
+	//
+	//  	Find the element corresponding to anId, or 0 if no such element.
+	//
+	E* find(const PrimId& anId) const {
+		return (E*)_map.find(_functions, anId);
 	}
 	
-//
-//  	Find the element corresponding to aName, or 0 if no such element.
-//
-	E *find(const char *aName) const {
-		return (E *)_map.find(_functions, aName);
+	//
+	//  	Find the element corresponding to aName, or 0 if no such element.
+	//
+	E* find(const char* aName) const {
+		return (E*)_map.find(_functions, aName);
 	}
 	
 	std::ostream& print_deep(std::ostream& s, int aDepth = 0) const {
@@ -750,22 +750,22 @@ public:
 		return _map.replace(_functions, (const PrimRefValue&)anObject);
 	}
 	
-//
-//  	Configure the map to use an array of aCapacity pointers. (Must be a power of two).
-//
+	//
+	//  	Configure the map to use an array of aCapacity pointers. (Must be a power of two).
+	//
 	bool set_capacity(size_t aCapacity) {
 		return _map.set_capacity(_functions, aCapacity);
 	}
 	
-//
-//  	Report the number of elements in the map.
-//
+	//
+	//  	Report the number of elements in the map.
+	//
 	size_t tally() const {
 		return _map.tally();
 	}
 	
 	const PrimMapOfRefToConst< E >& to_const() const {
-		return *(const PrimMapOfRefToConst< E > *)this;
+		return *(const PrimMapOfRefToConst< E >*)this;
 	}
 	
 	void vacate() {
@@ -786,17 +786,17 @@ public:
 };
 
 #define PRIMMAPOFREF_CODE(E) \
-template <> E& PrimMapOfRefFunctions< E >::shared_null() { E::mutable_null().share(); return E::mutable_null(); }
+	template <> E& PrimMapOfRefFunctions< E >::shared_null() { E::mutable_null().share(); return E::mutable_null(); }
 
 #define PRIMMAPOFREF_DATA(E) \
-template <> const PrimMapOfRefFunctions< E > PrimMapOfRef< E >::_functions = { \
-  (void (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::annul, \
-  (bool (*)(const PrimRefValue&, bool))&PrimMapOfRefToConstFunctions< E >::check, \
-  (const PrimId& (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::id, \
-  (std::ostream& (*)(const PrimRefValue&, std::ostream&, int))&PrimMapOfRefToConstFunctions< E >::print_depth, \
-  (std::ostream& (*)(const PrimRefValue&, std::ostream&))&PrimMapOfRefToConstFunctions< E >::print_instance, \
-  (void (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::share, \
-  (const PrimRefValue& (*)())&PrimMapOfRefFunctions< E >::shared_null };
+	template <> const PrimMapOfRefFunctions< E > PrimMapOfRef< E >::_functions = { \
+	                                                                               (void (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::annul, \
+	                                                                               (bool (*)(const PrimRefValue&, bool))&PrimMapOfRefToConstFunctions< E >::check, \
+	                                                                               (const PrimId& (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::id, \
+	                                                                               (std::ostream& (*)(const PrimRefValue&, std::ostream&, int))&PrimMapOfRefToConstFunctions< E >::print_depth, \
+	                                                                               (std::ostream& (*)(const PrimRefValue&, std::ostream&))&PrimMapOfRefToConstFunctions< E >::print_instance, \
+	                                                                               (void (*)(const PrimRefValue&))&PrimMapOfRefToConstFunctions< E >::share, \
+	                                                                               (const PrimRefValue& (*)())&PrimMapOfRefFunctions< E >::shared_null };
 
 template <class E>
 
@@ -809,7 +809,7 @@ public:
 };
 
 #define PRIMSHAREDMAPOFREFTOCONST_CODE(E) \
-PRIMREF_DERIVED_NULLS(PrimSharedMapOfRefToConst< E >,PrimSharedMapOfRefToConst< E >,name2(PrimSharedMapOfRefToConst_,E))
+	PRIMREF_DERIVED_NULLS(PrimSharedMapOfRefToConst< E >,PrimSharedMapOfRefToConst< E >,name2(PrimSharedMapOfRefToConst_,E))
 
 #define PRIMSHAREDMAPOFREFTOCONST_DATA(E)
 
@@ -828,44 +828,44 @@ private:
 	PrimConstMap& operator=(const PrimConstMap< E >& aMap);  //   Not yet implemented.
 	
 public:
-//
-//  	Construct an empty shared map.
-//
+	//
+	//  	Construct an empty shared map.
+	//
 	PrimConstMap() {}
 	
-//
-//  	Construct an empty map with initialCapacity.
-//
+	//
+	//  	Construct an empty map with initialCapacity.
+	//
 	explicit PrimConstMap(const PrimSize& initialCapacity) : _map(initialCapacity) {}
 	
-//
-//  	Construct a shared map of initially containing anElement.
-//
+	//
+	//  	Construct a shared map of initially containing anElement.
+	//
 	explicit PrimConstMap(const E& anElement) {
 		_map.add(anElement);
 	}
 	
-//
-//  	The destructor adds no functionality.
-//
+	//
+	//  	The destructor adds no functionality.
+	//
 	virtual ~PrimConstMap() {}
 	
-//  	PrimConstMap< E >& add(const E& anElement) { _map.add(anElement); }
+	//  	PrimConstMap< E >& add(const E& anElement) { _map.add(anElement); }
 	void add(const E& anElement) {
 		_map.add(anElement);
 	}
 	
-//
-//  	Return the current allocated capacity.
-//
+	//
+	//  	Return the current allocated capacity.
+	//
 	size_t capacity() const {
 		return _map.capacity();
 	}
 	
 	virtual bool check(bool fullCheck = false) const;
-//
-//  	Report the map of expressions.
-//
+	//
+	//  	Report the map of expressions.
+	//
 	const PrimMapOfRefToConst< E >& map() const {
 		return _map;
 	}
@@ -873,33 +873,33 @@ public:
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth = 0) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth = 0) const;
 	virtual std::ostream& print_this(std::ostream& s) const;
-//
-//  	Return the number of tallied entries.
-//
+	//
+	//  	Return the number of tallied entries.
+	//
 	size_t tally() const {
 		return _map.tally();
 	}
 	
-//
-//  	Dispose of the entire contents.
-//
+	//
+	//  	Dispose of the entire contents.
+	//
 	void vacate() {
 		_map.vacate();
 	}
 };
 
 #define PRIMCONSTMAP_CODE(E) \
-bool PrimConstMap< E >::check(bool fullCheck) const \
-{ if (!PrimPrint::check(fullCheck)) return false; return _map.check(fullCheck); } \
-std::ostream& PrimConstMap< E >::print_depth(std::ostream& s, int aDepth) const \
-{ return _map.print_deep(s, aDepth); } \
-std::ostream& PrimConstMap< E >::print_members(std::ostream& s, int aDepth) const \
-{ return _map.print_on(s, aDepth); } \
-std::ostream& PrimConstMap< E >::print_this(std::ostream& s) const \
-{ return _map.print_instance(s); }
+	bool PrimConstMap< E >::check(bool fullCheck) const \
+	{ if (!PrimPrint::check(fullCheck)) return false; return _map.check(fullCheck); } \
+	std::ostream& PrimConstMap< E >::print_depth(std::ostream& s, int aDepth) const \
+	{ return _map.print_deep(s, aDepth); } \
+	std::ostream& PrimConstMap< E >::print_members(std::ostream& s, int aDepth) const \
+	{ return _map.print_on(s, aDepth); } \
+	std::ostream& PrimConstMap< E >::print_this(std::ostream& s) const \
+	{ return _map.print_instance(s); }
 
 #define PRIMCONSTMAP_DATA(E) \
-TYPEINFO_SINGLE(PrimConstMap< E >, PrimPrint)
+	TYPEINFO_SINGLE(PrimConstMap< E >, PrimPrint)
 
 template <class E>
 
@@ -912,7 +912,7 @@ public:
 };
 
 #define PRIMSHAREDMAPOFREF_CODE(E) \
-PRIMREF_DERIVED_NULLS(PrimSharedMapOfRef< E >,PrimSharedMapOfRef< E >,name2(PrimSharedMapOfRef_,E))
+	PRIMREF_DERIVED_NULLS(PrimSharedMapOfRef< E >,PrimSharedMapOfRef< E >,name2(PrimSharedMapOfRef_,E))
 
 #define PRIMSHAREDMAPOFREF_DATA(E)
 
@@ -931,43 +931,43 @@ private:
 	PrimMap& operator=(const PrimMap< E >& aMap);   //   Not yet implemented.
 	
 public:
-//
-//  	Construct an empty shared map.
-//
+	//
+	//  	Construct an empty shared map.
+	//
 	PrimMap() {}
 	
-//
-//  	Construct an empty map with initialCapacity.
-//
+	//
+	//  	Construct an empty map with initialCapacity.
+	//
 	explicit PrimMap(const PrimSize& initialCapacity) : _map(initialCapacity) {}
 	
-//
-//  	Construct a shared map of initially containing anElement.
-//
+	//
+	//  	Construct a shared map of initially containing anElement.
+	//
 	explicit PrimMap(E& anElement) {
 		_map.add(anElement);
 	}
 	
-//
-//  	The destructor adds no functionality.
-//
+	//
+	//  	The destructor adds no functionality.
+	//
 	virtual ~PrimMap() {}
 	
 	void add(E& anElement) {
 		_map.add(anElement);
 	}
 	
-//
-//  	Return the current allocated capacity.
-//
+	//
+	//  	Return the current allocated capacity.
+	//
 	size_t capacity() const {
 		return _map.capacity();
 	}
 	
 	virtual bool check(bool fullCheck = false) const;
-//
-//  	Report the map of expressions.
-//
+	//
+	//  	Report the map of expressions.
+	//
 	const PrimMapOfRefToConst< E >& map() const {
 		return _map.to_const();
 	}
@@ -979,33 +979,33 @@ public:
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth = 0) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth = 0) const;
 	virtual std::ostream& print_this(std::ostream& s) const;
-//
-//  	Return the number of tallied entries.
-//
+	//
+	//  	Return the number of tallied entries.
+	//
 	size_t tally() const {
 		return _map.tally();
 	}
 	
-//
-//  	Dispose of the entire contents.
-//
+	//
+	//  	Dispose of the entire contents.
+	//
 	void vacate() {
 		_map.vacate();
 	}
 };
 
 #define PRIMMAP_CODE(E) \
-bool PrimMap< E >::check(bool fullCheck) const \
-{ if (!PrimPrint::check(fullCheck)) return false; return _map.check(fullCheck); } \
-std::ostream& PrimMap< E >::print_depth(std::ostream& s, int aDepth) const \
-{ return _map.print_deep(s, aDepth); } \
-std::ostream& PrimMap< E >::print_members(std::ostream& s, int aDepth) const \
-{ return _map.print_on(s, aDepth); } \
-std::ostream& PrimMap< E >::print_this(std::ostream& s) const \
-{ return _map.print_instance(s); }
+	bool PrimMap< E >::check(bool fullCheck) const \
+	{ if (!PrimPrint::check(fullCheck)) return false; return _map.check(fullCheck); } \
+	std::ostream& PrimMap< E >::print_depth(std::ostream& s, int aDepth) const \
+	{ return _map.print_deep(s, aDepth); } \
+	std::ostream& PrimMap< E >::print_members(std::ostream& s, int aDepth) const \
+	{ return _map.print_on(s, aDepth); } \
+	std::ostream& PrimMap< E >::print_this(std::ostream& s) const \
+	{ return _map.print_instance(s); }
 
 #define PRIMMAP_DATA(E) \
-TYPEINFO_SINGLE(PrimMap< E >, PrimPrint)
+	TYPEINFO_SINGLE(PrimMap< E >, PrimPrint)
 
 //
 //  	Define an iterator PrimMapOfRefToConstIterator< E > over a PrimMapOfRefToConst< E >. The iterator hides
@@ -1020,28 +1020,28 @@ template <class E>
 class PrimMapOfRefToConstIterator {
 
 private:
-	const E *const *_p;
+	const E* const* _p;
 	size_t _to_go;
 	
 private:
 	void increment() {
-		PrimMapOfRefImp::increment((const PrimRefValue *const *&)_p, _to_go);
+		PrimMapOfRefImp::increment((const PrimRefValue * const*&)_p, _to_go);
 	}
 	
 	void validate() {
-		PrimMapOfRefImp::validate((const PrimRefValue *const *&)_p, _to_go);
+		PrimMapOfRefImp::validate((const PrimRefValue * const*&)_p, _to_go);
 	}
 	
 public:
 	PrimMapOfRefToConstIterator() : _to_go(0) {}
 	
 	explicit PrimMapOfRefToConstIterator(PrimMapOfRef< E >& aMap)
-			: _p(aMap.contents()), _to_go(aMap.capacity()) {
+		: _p(aMap.contents()), _to_go(aMap.capacity()) {
 		validate();
 	}
 	
 	explicit PrimMapOfRefToConstIterator(PrimMapOfRefToConst< E >& aMap)
-			: _p(aMap.contents()), _to_go(aMap.capacity()) {
+		: _p(aMap.contents()), _to_go(aMap.capacity()) {
 		validate();
 	}
 	
@@ -1063,7 +1063,7 @@ public:
 		return **_p;
 	}
 	
-	const E *operator->() const {
+	const E* operator->() const {
 		return *_p;
 	}
 	
@@ -1087,7 +1087,7 @@ public:
 		return **_p;
 	}
 	
-	const E *pointer() const {
+	const E* pointer() const {
 		return *_p;
 	}
 	
@@ -1109,28 +1109,28 @@ template <class E>
 class PrimConstMapOfRefToConstIterator {
 
 private:
-	const E *const *_p;
+	const E* const* _p;
 	size_t _to_go;
 	
 private:
 	void increment() {
-		PrimMapOfRefImp::increment((const PrimRefValue *const *&)_p, _to_go);
+		PrimMapOfRefImp::increment((const PrimRefValue * const*&)_p, _to_go);
 	}
 	
 	void validate() {
-		PrimMapOfRefImp::validate((const PrimRefValue *const *&)_p, _to_go);
+		PrimMapOfRefImp::validate((const PrimRefValue * const*&)_p, _to_go);
 	}
 	
 public:
 	PrimConstMapOfRefToConstIterator() : _to_go(0) {}
 	
 	explicit PrimConstMapOfRefToConstIterator(const PrimMapOfRef< E >& aMap)
-			: _p(aMap.contents()), _to_go(aMap.capacity()) {
+		: _p(aMap.contents()), _to_go(aMap.capacity()) {
 		validate();
 	}
 	
 	explicit PrimConstMapOfRefToConstIterator(const PrimMapOfRefToConst< E >& aMap)
-			: _p(aMap.contents()), _to_go(aMap.capacity()) {
+		: _p(aMap.contents()), _to_go(aMap.capacity()) {
 		validate();
 	}
 	
@@ -1152,7 +1152,7 @@ public:
 		return **_p;
 	}
 	
-	const E *operator->() const {
+	const E* operator->() const {
 		return *_p;
 	}
 	
@@ -1176,7 +1176,7 @@ public:
 		return **_p;
 	}
 	
-	const E *pointer() const {
+	const E* pointer() const {
 		return *_p;
 	}
 	
@@ -1198,23 +1198,23 @@ template <class E>
 class PrimMapOfRefIterator {
 
 private:
-	E *const *_p;
+	E* const* _p;
 	size_t _to_go;
 	
 private:
 	void increment() {
-		PrimMapOfRefImp::increment((const PrimRefValue *const *&)_p, _to_go);
+		PrimMapOfRefImp::increment((const PrimRefValue * const*&)_p, _to_go);
 	}
 	
 	void validate() {
-		PrimMapOfRefImp::validate((const PrimRefValue *const *&)_p, _to_go);
+		PrimMapOfRefImp::validate((const PrimRefValue * const*&)_p, _to_go);
 	}
 	
 public:
 	PrimMapOfRefIterator() : _to_go(0) {}
 	
 	explicit PrimMapOfRefIterator(PrimMapOfRef< E >& aMap)
-			: _p(aMap.contents()), _to_go(aMap.capacity()) {
+		: _p(aMap.contents()), _to_go(aMap.capacity()) {
 		validate();
 	}
 	
@@ -1229,7 +1229,7 @@ public:
 		return **_p;
 	}
 	
-	E *operator->() const {
+	E* operator->() const {
 		return *_p;
 	}
 	
@@ -1253,7 +1253,7 @@ public:
 		return **_p;
 	}
 	
-	E *pointer() const {
+	E* pointer() const {
 		return *_p;
 	}
 	
@@ -1275,23 +1275,23 @@ template <class E>
 class PrimConstMapOfRefIterator {
 
 private:
-	E *const *_p;
+	E* const* _p;
 	size_t _to_go;
 	
 private:
 	void increment() {
-		PrimMapOfRefImp::increment((const PrimRefValue *const *&)_p, _to_go);
+		PrimMapOfRefImp::increment((const PrimRefValue * const*&)_p, _to_go);
 	}
 	
 	void validate() {
-		PrimMapOfRefImp::validate((const PrimRefValue *const *&)_p, _to_go);
+		PrimMapOfRefImp::validate((const PrimRefValue * const*&)_p, _to_go);
 	}
 	
 public:
 	PrimConstMapOfRefIterator() : _to_go(0) {}
 	
 	explicit PrimConstMapOfRefIterator(const PrimMapOfRef< E >& aMap)
-			: _p(aMap.contents()), _to_go(aMap.capacity()) {
+		: _p(aMap.contents()), _to_go(aMap.capacity()) {
 		validate();
 	}
 	
@@ -1306,7 +1306,7 @@ public:
 		return **_p;
 	}
 	
-	E *operator->() const {
+	E* operator->() const {
 		return *_p;
 	}
 	
@@ -1330,7 +1330,7 @@ public:
 		return **_p;
 	}
 	
-	E *pointer() const {
+	E* pointer() const {
 		return *_p;
 	}
 	

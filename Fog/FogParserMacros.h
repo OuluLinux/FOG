@@ -1,11 +1,11 @@
-// 
+//
 // 	  Title:			YAC action routine macros
-// 
+//
 // 	  File Name:		FogParserMacros.h
-// 
+//
 // 	  Author:			E.D.Willink
 // END
-// 
+//
 #ifndef FOGPARSERMACROS_H
 #define FOGPARSERMACROS_H
 

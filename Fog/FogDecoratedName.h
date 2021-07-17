@@ -18,7 +18,7 @@ private:
 	
 private:
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 protected:
@@ -26,7 +26,7 @@ protected:
 	
 	FogDecoratedName(FogName& anId) : _name(anId) {}
 	
-	FogDecoratedName(FogName *anId) : _name(anId) {}
+	FogDecoratedName(FogName* anId) : _name(anId) {}
 	
 	FogDecoratedName(const This& proxyId) : Super(proxyId), _name(proxyId._name) {}
 	

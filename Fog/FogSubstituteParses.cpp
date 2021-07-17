@@ -1,14 +1,14 @@
 // **************************** RACAL Confidential ****************************
-// 
+//
 // 	  Title:			Macro argument substitution parsing classes compilation unit
-// 
+//
 // 	  File Name:		FogSubstituteParses.cpp
-// 
+//
 // 	  Author:			E.D.Willink
-// 
+//
 // 	  SCCS:				%W% %G%
 // END
-// 
+//
 
 
 

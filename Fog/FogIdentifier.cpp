@@ -10,11 +10,11 @@
 TYPEINFO_SINGLE(FogIdentifier, Super)
 
 FogIdentifier::FogIdentifier(const PrimId& anId)
-		:
-		Super(anId),
-		_is_valid(is_valid(anId)) {}
-		
-const FogTemplateParameterSpecifier *FogIdentifier::is_unnormalised_template_parameter
+	:
+	Super(anId),
+	_is_valid(is_valid(anId)) {}
+
+const FogTemplateParameterSpecifier* FogIdentifier::is_unnormalised_template_parameter
 (FogScopeContext& scopeContext) const {
 	if (!_is_valid)
 		return 0;
@@ -24,7 +24,7 @@ const FogTemplateParameterSpecifier *FogIdentifier::is_unnormalised_template_par
 
 FogKeyword& FogIdentifier::make(const PrimId& anId) {
 	static FogKeywordMapOfRef identifierMap;
-	FogKeyword *anIdentifier = identifierMap.find(anId);
+	FogKeyword* anIdentifier = identifierMap.find(anId);
 	
 	if (!anIdentifier) {
 		anIdentifier = new FogIdentifier(anId);

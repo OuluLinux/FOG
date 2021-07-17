@@ -4,10 +4,9 @@
 
 
 
-class FogMetaBuiltInFunction
-{
+class FogMetaBuiltInFunction {
 public:
-    static void install(FogScope& stdScope);
+	static void install(FogScope& stdScope);
 };
 #endif
 

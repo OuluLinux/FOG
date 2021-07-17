@@ -10,14 +10,12 @@
 
 
 FogScope_Implementation::FogScope_Implementation() :
-	_no_implementation(false)
-{
-	
+	_no_implementation(false) {
 }
 
 void FogScope_Implementation::create_usages(FogScope& inScope) {
-//  	if (_code)
-//  		inScope.interface_usage_finish().add_use_by(inScope.implementation_usage());
+	//  	if (_code)
+	//  		inScope.interface_usage_finish().add_use_by(inScope.implementation_usage());
 	if (_used_files.tally()) {
 		FogUsage& inlineUsage = inScope.inline_usage();
 		FogUsageManager& usageManager = inScope.usage_manager();
@@ -39,14 +37,14 @@ void FogScope_Implementation::do_compile(FogCompileContext& inScope, FogTargetFi
 }
 
 void FogScope_Implementation::emit_implementation(FogEmitContext& emitContext) const {
-//  	if (_code)
-//  		_code->emit(emitContext);
+	//  	if (_code)
+	//  		_code->emit(emitContext);
 }
 
 std::ostream& FogScope_Implementation::print_depth(std::ostream& s, int aDepth) const {
 	if (_used_files.tally()) {
 		s << indent(aDepth) << "files used for implementation\n";
-		_used_files.print_depth(s, aDepth+1);
+		_used_files.print_depth(s, aDepth + 1);
 	}
 	
 	return s;
@@ -55,7 +53,7 @@ std::ostream& FogScope_Implementation::print_depth(std::ostream& s, int aDepth) 
 std::ostream& FogScope_Implementation::print_members(std::ostream& s, int aDepth) const {
 	if (_used_files.tally()) {
 		s << indent(aDepth) << "files used for implementation\n";
-		_used_files.print_members(s, aDepth+1);
+		_used_files.print_members(s, aDepth + 1);
 	}
 	
 	return s;

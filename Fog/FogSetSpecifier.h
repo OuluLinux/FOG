@@ -13,4 +13,4 @@
 //    virtual ~FogSetSpecifier() {}
 //  };
 #endif
- 
+

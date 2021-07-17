@@ -24,7 +24,7 @@ public:
 	};
 	
 public:
-	enum Size { ARRAY_SIZE = INVALID+1 };
+	enum Size { ARRAY_SIZE = INVALID + 1 };
 };
 
 struct FogCv_Flyweights {
@@ -32,7 +32,7 @@ struct FogCv_Flyweights {
 	friend class FogCv;
 	
 private:
-	static FogCv *_flyweights[FogCvEnums::ARRAY_SIZE];
+	static FogCv* _flyweights[FogCvEnums::ARRAY_SIZE];
 	static bool _initialised;
 	
 private:
@@ -112,13 +112,13 @@ private:
 	
 protected:
 	friend  bool FogCv_Flyweights::initialise();
-	FogCv(const char *aName = 0, Mask aMask = INVALID_MASK, Enum anEnum = INVALID);
+	FogCv(const char* aName = 0, Mask aMask = INVALID_MASK, Enum anEnum = INVALID);
 	virtual ~FogCv() {}
 	
 public:
-//  	operator const IsValid *() const { return (const IsValid *)(_cv.is_valid() ? this : 0); }
-//  	bool operator!() const { return !_cv.is_valid(); }
-
+	//  	operator const IsValid *() const { return (const IsValid *)(_cv.is_valid() ? this : 0); }
+	//  	bool operator!() const { return !_cv.is_valid(); }
+	
 public:
 	FogCv& add(const FogCv& aCv) const {
 		return flyweight(_cv | aCv.mask());
@@ -157,14 +157,14 @@ public:
 	Enum merge_cv(Enum aCv) const;
 	virtual const FogMetaType& meta_type() const;
 	const FogMerge& needs_merge_cv(const FogCv& aCv) const;
-//  	virtual bool resolve_semantics(FogSemantics& theSemantics, FogScopeContext& inScope) const;
-//      Enum value() const { return _cv; }
-
+	//  	virtual bool resolve_semantics(FogSemantics& theSemantics, FogScopeContext& inScope) const;
+	//      Enum value() const { return _cv; }
+	
 public:
 	friend void operator==(const FogCv& firstCv, const FogCv& secondCv);
-//  		{ return firstCv._cv == secondCv._cv; }
-//  	friend std::ostream& operator<<(std::ostream& s, const FogCv& aCv);
-
+	//  		{ return firstCv._cv == secondCv._cv; }
+	//  	friend std::ostream& operator<<(std::ostream& s, const FogCv& aCv);
+	
 public:
 	static FogCv& flyweight(Enum anEnum = DEFAULT) {
 		return *FogCv_Flyweights::_flyweights[int(anEnum) < int(ARRAY_SIZE) ? anEnum : INVALID];

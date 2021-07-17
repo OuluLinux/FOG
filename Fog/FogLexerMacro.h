@@ -30,9 +30,9 @@ private:
 	FogLexerMacro& operator=(const This&);
 	
 protected:
-	FogLexerMacro(std::istream& inputStream, const FogSourceFile& sourceFile, std::ostream *outputStream);
+	FogLexerMacro(std::istream& inputStream, const FogSourceFile& sourceFile, std::ostream* outputStream);
 	virtual ~FogLexerMacro();
-	const char *get(FogTokenContext& tokenContext);
+	const char* get(FogTokenContext& tokenContext);
 	bool hash_push(const PrimId& anId);
 	using Super::include_file;
 	void raw_get(FogTokenContext& tokenContext);
@@ -42,9 +42,9 @@ protected:
 	
 public:
 	void invoke_function(FogTokenListOfRef& replacedTokens, const FogMacro& aMacro,
-			const FogMacroListOfRefToConst& locatedArguments);
+	                     const FogMacroListOfRefToConst& locatedArguments);
 	void invoke_object(FogTokenListOfRef& replacedTokens, const FogMacro& aMacro);
-	virtual const FogMacro *is_defined(const PrimId& anId) const = 0;
+	virtual const FogMacro* is_defined(const PrimId& anId) const = 0;
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth) const;
 	using Super::print_message_line;

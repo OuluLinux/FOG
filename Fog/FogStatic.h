@@ -18,7 +18,7 @@ public:
 	};
 	
 public:
-	enum Size { ARRAY_SIZE = INVALID+1 };
+	enum Size { ARRAY_SIZE = INVALID + 1 };
 };
 
 struct FogStatic_Flyweights {
@@ -26,7 +26,7 @@ struct FogStatic_Flyweights {
 	friend class FogStatic;
 	
 private:
-	static FogStatic *_flyweights[FogStaticEnums::ARRAY_SIZE];
+	static FogStatic* _flyweights[FogStaticEnums::ARRAY_SIZE];
 	static bool _initialised;
 	
 private:
@@ -97,12 +97,12 @@ private:
 	
 protected:
 	friend  bool FogStatic_Flyweights::initialise();
-	FogStatic(const char *aName = 0, Mask aMask = INVALID_MASK, Enum anEnum = INVALID);
+	FogStatic(const char* aName = 0, Mask aMask = INVALID_MASK, Enum anEnum = INVALID);
 	virtual ~FogStatic() {}
 	
 public:
-	operator const IsValid *() const {
-		return (const IsValid *)(_static.is_valid() ? this : 0);
+	operator const IsValid* () const {
+		return (const IsValid*)(_static.is_valid() ? this : 0);
 	}
 	
 	bool operator!() const {
@@ -133,9 +133,9 @@ public:
 	
 public:
 	friend void operator==(const FogStatic& firstStatic, const FogStatic& secondStatic);
-//  		{ return firstStatic._static == secondStatic._static; }
-//  	friend std::ostream& operator<<(std::ostream& s, const FogStatic& aStatic);
-
+	//  		{ return firstStatic._static == secondStatic._static; }
+	//  	friend std::ostream& operator<<(std::ostream& s, const FogStatic& aStatic);
+	
 public:
 	static FogStatic& flyweight(const FogDeclSpecifierValue& aValue);
 	static FogStatic& flyweight(Enum anEnum = DEFAULT) {

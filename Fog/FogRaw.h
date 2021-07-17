@@ -24,7 +24,7 @@ private:
 	
 private:
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 protected:
@@ -35,13 +35,13 @@ protected:
 public:
 	virtual bool compile_declaration(FogParseContext& parseContext) const;
 	virtual const FogLazyBool& derive_at(FogScopeContext& inScope) const;
-	virtual FogDerivedClause *is_derived_clause();
-	const FogDerivedClause *is_derived_clause() const {
+	virtual FogDerivedClause* is_derived_clause();
+	const FogDerivedClause* is_derived_clause() const {
 		return mutate().is_derived_clause();
 	}
 	
-	virtual FogRaw *is_raw();
-	virtual FogStatement *is_statement();
+	virtual FogRaw* is_raw();
+	virtual FogStatement* is_statement();
 	virtual FogLine& line() const;
 	virtual const FogMetaType& meta_type() const;
 	virtual std::ostream& print_viz(std::ostream& s) const;
@@ -51,19 +51,19 @@ public:
 	virtual size_t source_lines() const;
 	
 public:
-	static FogTypeSpecifier *new_filespace(FogModifier& aDecl);
-	static FogTypeSpecifier *new_namespace();
-	static FogTypeSpecifier *new_namespace(FogModifier& aDecl);
-	static FogRaw *new_set_all(const FogFileId& fileId);
-//  	static FogRaw *new_set_implementation(const FogList& someCode);
-	static FogRaw *new_set_implementation(const FogFileId& fileId);
-//  	static FogRaw *new_set_interface(const FogList& someCode);
-	static FogRaw *new_set_interface(const FogFileId& fileId);
-	static FogRaw *new_set_no_implementation();
-	static FogRaw *new_set_no_interface();
-	static FogRaw *new_set_utility(const FogUtility& aUtility);
-	static FogRaw *new_use_implementation(const FogFileId& fileId);
-	static FogRaw *new_use_interface(const FogFileId& fileId);
+	static FogTypeSpecifier* new_filespace(FogModifier& aDecl);
+	static FogTypeSpecifier* new_namespace();
+	static FogTypeSpecifier* new_namespace(FogModifier& aDecl);
+	static FogRaw* new_set_all(const FogFileId& fileId);
+	//  	static FogRaw *new_set_implementation(const FogList& someCode);
+	static FogRaw* new_set_implementation(const FogFileId& fileId);
+	//  	static FogRaw *new_set_interface(const FogList& someCode);
+	static FogRaw* new_set_interface(const FogFileId& fileId);
+	static FogRaw* new_set_no_implementation();
+	static FogRaw* new_set_no_interface();
+	static FogRaw* new_set_utility(const FogUtility& aUtility);
+	static FogRaw* new_use_implementation(const FogFileId& fileId);
+	static FogRaw* new_use_interface(const FogFileId& fileId);
 };
 
 #endif

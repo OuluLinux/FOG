@@ -19,8 +19,8 @@ private:
 	FogUsageListOfRef _usages;      //   List of all usages.
 	
 private:
-          //   Working contents
-	FogUsageManager_Element *_elements;    //   Array of INDEXES elements.
+	//   Working contents
+	FogUsageManager_Element* _elements;    //   Array of INDEXES elements.
 	size_t _first_index;       //   First non-empty _independents list.
 	
 private:
@@ -33,17 +33,17 @@ public:
 	void add_independent(FogUsage& aUsage);
 	void compile();
 	void destroy();
-	FogUsage *make_enum_usage(FogEntity& anEntity, const FogDeclSpecifierValue& declSpecifiers);
-	FogUsage *make_file_usage(FogTargetFile& targetFile);
-	FogUsage *make_friend_usage(FogScope& ofScope, FogEntity& anEntity);
-	FogUsage *make_function_usage(FogEntity& anEntity, const FogDeclSpecifierValue& declSpecifiers);
-	FogUsage *make_implementation_usage(FogEntity& anEntity);
-	FogUsage *make_inline_usage(FogScope& aScope);
-	FogUsage *make_interface_usage_finish(FogEntity& anEntity);
-	FogUsage *make_interface_usage_start(FogEntity& anEntity);
-	FogUsage *make_name_usage(FogEntity& anEntity);
-	FogUsage *make_typedef_usage(FogEntity& anEntity, const FogDeclSpecifierValue& declSpecifiers);
-	FogUsage *make_variable_usage(FogEntity& anEntity, const FogDeclSpecifierValue& declSpecifiers);
+	FogUsage* make_enum_usage(FogEntity& anEntity, const FogDeclSpecifierValue& declSpecifiers);
+	FogUsage* make_file_usage(FogTargetFile& targetFile);
+	FogUsage* make_friend_usage(FogScope& ofScope, FogEntity& anEntity);
+	FogUsage* make_function_usage(FogEntity& anEntity, const FogDeclSpecifierValue& declSpecifiers);
+	FogUsage* make_implementation_usage(FogEntity& anEntity);
+	FogUsage* make_inline_usage(FogScope& aScope);
+	FogUsage* make_interface_usage_finish(FogEntity& anEntity);
+	FogUsage* make_interface_usage_start(FogEntity& anEntity);
+	FogUsage* make_name_usage(FogEntity& anEntity);
+	FogUsage* make_typedef_usage(FogEntity& anEntity, const FogDeclSpecifierValue& declSpecifiers);
+	FogUsage* make_variable_usage(FogEntity& anEntity, const FogDeclSpecifierValue& declSpecifiers);
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_viz(std::ostream& s) const;

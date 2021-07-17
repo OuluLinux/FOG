@@ -8,21 +8,19 @@
 PRIMREFTOCONST_IMPL(PrimString)
 
 char PrimString::_null[sizeof(PrimString)] = { 0 };         //   The null string.
-const PrimString *PrimStringHandle::_null = (const PrimString *)PrimString::_null; //   The null handle.
+const PrimString* PrimStringHandle::_null = (const PrimString*)PrimString::_null;  //   The null handle.
 
 //
 //  	Construct a new representation for aBuffer[aLength].
 //
-inline PrimString::PrimString(const char *aBuffer, size_t aLength)
-		:
-		_text(0) {
+inline PrimString::PrimString(const char* aBuffer, size_t aLength)
+	:
+	_text(0) {
 	if (!aBuffer)
 		ERRMSG("BUG - should not construct a null PrimString.");
 		
-	char *mutableText = (char *)&_text;
-	
+	char* mutableText = (char*)&_text;
 	memcpy(mutableText, aBuffer, aLength);
-	
 	mutableText[aLength] = 0;
 }
 
@@ -31,9 +29,9 @@ inline PrimString::PrimString(const char *aBuffer, size_t aLength)
 //
 void PrimString::annul() const {
 	if (!_shares.annul_inline() && !is_null()) {
-		PrimString *mutableThis = (PrimString *)this;
+		PrimString* mutableThis = (PrimString*)this;
 		mutableThis->PrimString::~PrimString();
-		delete[](char *)mutableThis;
+		delete[](char*)mutableThis;
 	}
 }
 
@@ -44,29 +42,26 @@ void PrimString::annul() const {
 int PrimString::compare(const PrimString& aString) const {
 	if (this == &aString)      //   Catch the trivial case and the both null case
 		return 0;
+	else if (is_null())
+		return 1;
+	else if (aString.is_null())
+		return -1;
 	else
-		if (is_null())
-			return 1;
-		else
-			if (aString.is_null())
-				return -1;
-			else
-				return strcmp(str(), aString.str());
+		return strcmp(str(), aString.str());
 }
 
 //
 //  	Construct a string representation for some null terminated text. In the event of
 //  	an allocation failure the null representation is returned.
 //
-const PrimString *PrimString::create(const char *someText) {
+const PrimString* PrimString::create(const char* someText) {
 	if (!someText) {
 		null().share();
 		return &null();
 	}
 	
 	size_t aLength = strlen(someText);
-	
-	char *aString = new char[sizeof(PrimString) + aLength];
+	char* aString = new char[sizeof(PrimString) + aLength];
 	
 	if (!aString) {
 		GLOBAL_ERRMSG("PrimString failed to allocate memory for a " << aLength << " byte PrimString.");
@@ -74,20 +69,20 @@ const PrimString *PrimString::create(const char *someText) {
 		return &null();
 	}
 	
-	return new(aString) PrimString(someText, aLength);
+	return new (aString) PrimString(someText, aLength);
 }
 
 //
 //  	Construct a string representation for some optionally null terminated text. In the event of
 //  	an allocation failure the null representation is returned. An EOS is appended following the text.
 //
-const PrimString *PrimString::create(const char *aBuffer, size_t aLength) {
+const PrimString* PrimString::create(const char* aBuffer, size_t aLength) {
 	if (!aBuffer) {
 		null().share();
 		return &null();
 	}
 	
-	char *aString = new char[sizeof(PrimString) + aLength];
+	char* aString = new char[sizeof(PrimString) + aLength];
 	
 	if (!aString) {
 		GLOBAL_ERRMSG("PrimString failed to allocate memory for a " << aLength << " byte PrimString.");
@@ -95,7 +90,7 @@ const PrimString *PrimString::create(const char *aBuffer, size_t aLength) {
 		return &null();
 	}
 	
-	return new(aString) PrimString(aBuffer, aLength);
+	return new (aString) PrimString(aBuffer, aLength);
 }
 
 #if 0
@@ -104,7 +99,7 @@ const PrimString *PrimString::create(const char *aBuffer, size_t aLength) {
 //  	If either text is 0 the contribution is ignored. If both texts are 0 or in the
 //  	event of a memory allocation failure, a representation of the null string is created.
 //
-const PrimStringHandleRep& PrimStringHandle::construct(const char *firstText, const char *secondText) {
+const PrimStringHandleRep& PrimStringHandle::construct(const char* firstText, const char* secondText) {
 	const unsigned int firstLength = firstText ? strlen(firstText) : 0;
 	const unsigned int secondLength = secondText ? strlen(secondText) : 0;
 	const unsigned int netLength = firstLength + secondLength;
@@ -112,7 +107,7 @@ const PrimStringHandleRep& PrimStringHandle::construct(const char *firstText, co
 	if (netLength == 0)
 		return PrimStringHandleNullRep::_null_rep;
 		
-	char *myText = new char[netLength+1];
+	char* myText = new char[netLength + 1];
 	
 	if (!myText)
 		return PrimStringHandleNullRep::_null_rep;
@@ -123,13 +118,12 @@ const PrimStringHandleRep& PrimStringHandle::construct(const char *firstText, co
 	if (secondLength)
 		strcpy(myText + firstLength, secondText);
 		
-	const PrimStringHandleRep *aRep = new PrimStringHandleRep(myText);
+	const PrimStringHandleRep* aRep = new PrimStringHandleRep(myText);
 	
 	if (aRep)
 		return *aRep;
 		
 	delete[] myText;
-	
 	return PrimStringHandleNullRep::_null_rep;
 }
 
@@ -141,7 +135,7 @@ const PrimStringHandleRep& PrimStringHandle::construct(const char *firstText, co
 unsigned long PrimString::hash() const {
 	unsigned long hashCode = 0;
 	
-	for (const char *p = &_text; *p != EOS; p++)
+	for (const char* p = &_text; *p != EOS; p++)
 		hashCode = (hashCode << 5) ^ hashCode ^ *p;
 		
 	return hashCode;
@@ -165,7 +159,7 @@ bool PrimString::is_equal(const PrimString& aString) const {
 //  	Compare the representation of this string to someText. someText may be 0 in which
 //  	case it compares equal to the representation of the null string, but not the empty string.
 //
-bool PrimString::is_equal(const char *someText) const {
+bool PrimString::is_equal(const char* someText) const {
 	if (is_null())
 		return someText == 0;
 		
@@ -204,7 +198,7 @@ std::ostream& PrimStringHandle::print_instance(std::ostream& s) const {
 //
 //  	Return an ordering between s1 and s2, with a calling signature compatible with PrimText::sort().
 //
-int PrimString::sort_compare(const PrimStringHandle *s1, const PrimStringHandle *s2) {
+int PrimString::sort_compare(const PrimStringHandle* s1, const PrimStringHandle* s2) {
 	return (*s1)->compare(**s2);
 }
 
@@ -236,7 +230,7 @@ std::istream& operator>>(std::istream& s, PrimStringHandle& aStringHandle) {
 //
 //  	Debug routine for use with dbxtool.
 //
-const char *dbx_string(const PrimString *aString) {
+const char* dbx_string(const PrimString* aString) {
 	if (!aString)
 		return "(nil)";
 	else

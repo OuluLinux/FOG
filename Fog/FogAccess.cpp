@@ -11,11 +11,11 @@ PRIMREF_DERIVED_NULL_CLASS_AND_IMPL(FogAccess)
 PRIMREFS_IMPL(FogAccess)
 TMPL_HACK_FIX_DO(FogAccess)
 
-FogAccess *FogAccess_Flyweights::_flyweights[FogAccessEnums::ARRAY_SIZE] = { 0 };
+FogAccess* FogAccess_Flyweights::_flyweights[FogAccessEnums::ARRAY_SIZE] = { 0 };
 bool FogAccess_Flyweights::_initialised = initialise();
 
 struct FogAccess_Flyweights_Initializer {
-	const char *_name;
+	const char* _name;
 	FogDeclSpecifier::Mask _decl_specifier_enum;
 	FogAccessValue::Enum _access_enum;
 };
@@ -28,7 +28,7 @@ bool FogAccess_Flyweights::initialise() {
 	};
 	static FogAccessRef flyWeights[FogAccessEnums::ARRAY_SIZE];
 	
-	for (const FogAccess_Flyweights_Initializer *p = flyweightInits; p->_name; ++p) {
+	for (const FogAccess_Flyweights_Initializer* p = flyweightInits; p->_name; ++p) {
 		flyWeights[p->_access_enum].adopt(new FogAccess(p->_name, p->_decl_specifier_enum, p->_access_enum));
 		_flyweights[p->_access_enum] = flyWeights[p->_access_enum].pointer();
 	}
@@ -40,18 +40,18 @@ bool FogAccess_Flyweights::initialise() {
 	return true;
 }
 
-FogAccess::FogAccess(const char *aName, Mask aMask, Enum anEnum)
-		:
-		Super(aName, aMask),
-		_access(anEnum) {}
-		
+FogAccess::FogAccess(const char* aName, Mask aMask, Enum anEnum)
+	:
+	Super(aName, aMask),
+	_access(anEnum) {}
+
 FogAccess::FogAccess(const FogAccess_Initializer& anInit)
-		:
-		Super(anInit._decl_specifier),
-		_access(anInit._access_enum) {}
-		
+	:
+	Super(anInit._decl_specifier),
+	_access(anInit._access_enum) {}
+
 FogAccess& FogAccess::flyweight(const FogDeclSpecifierValue& aValue) {
-	FogAccess *flyWeight = 0;
+	FogAccess* flyWeight = 0;
 	
 	if (aValue.is_private())
 		flyWeight = &private_access();
@@ -79,7 +79,6 @@ const FogAccess& FogAccess::merge_access(const FogAccess& anAccess) const {
 		return anAccess;
 		
 	ERRMSG("Should not merge incompatible accesses \"" << *this << "\" and \"" << anAccess << '\"');
-	
 	return *this;
 }
 

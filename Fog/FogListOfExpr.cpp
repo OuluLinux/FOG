@@ -24,15 +24,15 @@ FOGTOKEN_LEAF_IMPL(FogListOfExpr)
 TMPL_HACK_FIX_DO(FogListOfExpr)
 
 FogListOfExpr::FogListOfExpr(IsExposed isExposed)
-		:
-		_is_exposed(isExposed) {}
-		
+	:
+	_is_exposed(isExposed) {}
+
 FogListOfExpr::FogListOfExpr(const This& anExpr)
-		:
-		Super(anExpr),
-		_exprs(anExpr._exprs),
-		_is_exposed(anExpr._is_exposed) {}
-		
+	:
+	Super(anExpr),
+	_exprs(anExpr._exprs),
+	_is_exposed(anExpr._is_exposed) {}
+
 void FogListOfExpr::add(FogExpr& anExpr) {
 	if (anExpr.is_exposed())
 		ERRMSG("INVESTIGATE -- addition of exposed " << viz(anExpr) << " to " << viz(*this));
@@ -46,89 +46,78 @@ bool FogListOfExpr::compile_parsed(FogParseContext& parseContext) {
 	
 	if (!resolve_semantics(theSemantics))
 		;
-	else
-		if (theSemantics.is_init_declaration_list()) {
-			FogSpecifierListOfRef theSpecifiers;
-			FogExprListOfRefIterator p(_exprs);
-			
-			if (p) {
-				if (!p->resolve_semantics(theSemantics))
-					ERRMSG("BUG - failed to reresolve semantics for " << viz(*p));
-				else
-					if (theSemantics.is_epsilon())
+	else if (theSemantics.is_init_declaration_list()) {
+		FogSpecifierListOfRef theSpecifiers;
+		FogExprListOfRefIterator p(_exprs);
+		
+		if (p) {
+			if (!p->resolve_semantics(theSemantics))
+				ERRMSG("BUG - failed to reresolve semantics for " << viz(*p));
+			else if (theSemantics.is_epsilon())
+				;
+			else {
+				FogBaseMakeSpecifierContext firstMakeSpecifierContext(parseContext, theSemantics,
+				        decl_specifiers(), FogMakeSemantics::DECLARATION_LIST);
+				        
+				if (!p->make_specifier(firstMakeSpecifierContext)) {
+					ERRMSG("Failed to make_specifier for " << viz(*p));
+					allOk = false;
+				}
+				else if (firstMakeSpecifierContext.compile_specifier())
+					theSpecifiers.add(firstMakeSpecifierContext.specifier());
+					
+				FogName* typeName = p->get_type();
+				
+				for (++p; p; ++p) {
+					if (typeName)
+						p->make_typed_expression(p.ref(), *typeName);
+						
+					if (!p->resolve_semantics(theSemantics))
+						ERRMSG("BUG - failed to reresolve semantics for " << viz(*p));
+					else if (theSemantics.is_epsilon())
 						;
 					else {
-						FogBaseMakeSpecifierContext firstMakeSpecifierContext(parseContext, theSemantics,
-								decl_specifiers(), FogMakeSemantics::DECLARATION_LIST);
+						FogBaseMakeSpecifierContext makeSpecifierContext(parseContext, theSemantics,
+						        decl_specifiers(), FogMakeSemantics::DECLARATION_LIST);
 						        
-						if (!p->make_specifier(firstMakeSpecifierContext)) {
+						if (!p->make_specifier(makeSpecifierContext)) {
 							ERRMSG("Failed to make_specifier for " << viz(*p));
 							allOk = false;
 						}
-						
-						else
-							if (firstMakeSpecifierContext.compile_specifier())
-								theSpecifiers.add(firstMakeSpecifierContext.specifier());
-								
-						FogName *typeName = p->get_type();
-						
-						for (++p; p; ++p) {
-							if (typeName)
-								p->make_typed_expression(p.ref(), *typeName);
-								
-							if (!p->resolve_semantics(theSemantics))
-								ERRMSG("BUG - failed to reresolve semantics for " << viz(*p));
-							else
-								if (theSemantics.is_epsilon())
-									;
-								else {
-									FogBaseMakeSpecifierContext makeSpecifierContext(parseContext, theSemantics,
-											decl_specifiers(), FogMakeSemantics::DECLARATION_LIST);
-									        
-									if (!p->make_specifier(makeSpecifierContext)) {
-										ERRMSG("Failed to make_specifier for " << viz(*p));
-										allOk = false;
-									}
-									
-									else
-										if (makeSpecifierContext.compile_specifier())
-											theSpecifiers.add(makeSpecifierContext.specifier());
-								}
-						}
-						
-						firstMakeSpecifierContext.compile_type_specifier();     //   Wait till possibly named by a deferred typedef
-						
-						bool isFirst = true;
-						
-						for (FogSpecifierConstListOfRefToConstIterator q(theSpecifiers); q; ++q, isFirst = false) {
-							FogCompileMakeEntityContext compileContext(firstMakeSpecifierContext);
-							
-							if (isFirst)
-								q->make_type_entity(compileContext);
-								
-							FogEntity *anEntity = q->make_name_entity(compileContext);
-							
-							if (!anEntity) {
-								ERRMSG("Failed to make_entity for " << viz(*q));
-								allOk = false;
-							}
-						}
-						
-						return allOk;
+						else if (makeSpecifierContext.compile_specifier())
+							theSpecifiers.add(makeSpecifierContext.specifier());
 					}
+				}
+				
+				firstMakeSpecifierContext.compile_type_specifier();     //   Wait till possibly named by a deferred typedef
+				bool isFirst = true;
+				
+				for (FogSpecifierConstListOfRefToConstIterator q(theSpecifiers); q; ++q, isFirst = false) {
+					FogCompileMakeEntityContext compileContext(firstMakeSpecifierContext);
+					
+					if (isFirst)
+						q->make_type_entity(compileContext);
+						
+					FogEntity* anEntity = q->make_name_entity(compileContext);
+					
+					if (!anEntity) {
+						ERRMSG("Failed to make_entity for " << viz(*q));
+						allOk = false;
+					}
+				}
+				
+				return allOk;
 			}
 		}
-		
-		else
-			if (theSemantics.is_expression()) {
-				FogTokenRef tokenValue;
-				return get_object(tokenValue, parseContext);
-			}
-			
-//    else if (theSemantics.is_epsilon())
-//        return true;
-	ERRMSG("Failed to resolve semantics of " << viz(*this));
+	}
+	else if (theSemantics.is_expression()) {
+		FogTokenRef tokenValue;
+		return get_object(tokenValue, parseContext);
+	}
 	
+	//    else if (theSemantics.is_epsilon())
+	//        return true;
+	ERRMSG("Failed to resolve semantics of " << viz(*this));
 	return false;
 }
 
@@ -147,8 +136,8 @@ const FogDeclSpecifierValue& FogListOfExpr::decl_specifiers() const {
 }
 
 bool FogListOfExpr::emit(FogEmitContext& emitContext) const {
-	const char *oldSeparator = emitContext.separator();
-	const char *oldTerminator = emitContext.terminator();
+	const char* oldSeparator = emitContext.separator();
+	const char* oldTerminator = emitContext.terminator();
 	
 	if (!oldSeparator)
 		ERRMSG("INVESTIGATE -- no separator defined for FogListOfExpr::emit " << viz(*this));
@@ -164,7 +153,6 @@ bool FogListOfExpr::emit(FogEmitContext& emitContext) const {
 				emitContext.emit_space_and_text("0");
 				gotSomething = true;
 			}
-			
 			else {
 				if (p->emit(emitContext))
 					gotSomething = true;
@@ -174,34 +162,31 @@ bool FogListOfExpr::emit(FogEmitContext& emitContext) const {
 				gotSomething = true;
 		}
 	}
-	
-	else
-		if (!_exprs.tally())
-			emitContext.emit_space_and_text(" {}");
-		else {
-			emitContext.start();
-			emitContext.emit_space_and_text("{");
-			FogSeparatedEmitContext separatedContext(emitContext, oldSeparator ? oldSeparator : ",", "\n");
-			{
-				FogIndentEmitContext indentedContext(separatedContext, 1, FogEmitContext::INDENTS);
-				
-				for (FogExprConstListOfRefToConstIterator p(_exprs); p; ++p) {
-					indentedContext.start();
-					
-					if (p->is_null())
-						indentedContext.emit_space_and_text("0");
-					else
-						p->emit(indentedContext);
-						
-					if (p.to_go() > 1)
-						indentedContext.separate();
-				}
-			}
+	else if (!_exprs.tally())
+		emitContext.emit_space_and_text(" {}");
+	else {
+		emitContext.start();
+		emitContext.emit_space_and_text("{");
+		FogSeparatedEmitContext separatedContext(emitContext, oldSeparator ? oldSeparator : ",", "\n");
+		{
+			FogIndentEmitContext indentedContext(separatedContext, 1, FogEmitContext::INDENTS);
 			
-			separatedContext.terminate();
-			emitContext.emit_space_and_text("}");
+			for (FogExprConstListOfRefToConstIterator p(_exprs); p; ++p) {
+				indentedContext.start();
+				
+				if (p->is_null())
+					indentedContext.emit_space_and_text("0");
+				else
+					p->emit(indentedContext);
+					
+				if (p.to_go() > 1)
+					indentedContext.separate();
+			}
 		}
-		
+		separatedContext.terminate();
+		emitContext.emit_space_and_text("}");
+	}
+	
 	return gotSomething;
 }
 
@@ -219,9 +204,8 @@ bool FogListOfExpr::get_object(FogTokenRef& returnValue, FogScopeContext& inScop
 		if (exprs().tally() > 1)
 			ERRMSG("Should not use sequence of expressions in constant expression.");
 			
-		return exprs()[exprs().tally()-1]->get_object(returnValue, inScope);
+		return exprs()[exprs().tally() - 1]->get_object(returnValue, inScope);
 	}
-	
 	else {
 		ERRMSG("INVESTIGATE -- transisitising unit-list for get_object of " << viz(*this));
 		return Super::get_object(returnValue, inScope);
@@ -251,7 +235,7 @@ FogToken::IsList FogListOfExpr::is_list() const {
 	return IS_COMMA_LIST;
 }
 
-FogListOfExpr *FogListOfExpr::is_list_of_expr() {
+FogListOfExpr* FogListOfExpr::is_list_of_expr() {
 	return this;
 }
 
@@ -265,7 +249,7 @@ void FogListOfExpr::make_actual_from(FogMakeActualContext& makeActualContext) {
 bool FogListOfExpr::make_parameters(FogFunctionModifier& functionModifier, FogMakeSpecifierContext& makeSpecifierContext) {
 	for (FogExprConstListOfRefIterator p(_exprs); p; ++p) {
 		FogBaseMakeSpecifierContext nestedMakeSpecifierContext(makeSpecifierContext,
-				p->decl_specifiers(), FogMakeSemantics::MAKE_PARAMETER);
+		        p->decl_specifiers(), FogMakeSemantics::MAKE_PARAMETER);
 		FogStrongSemanticsContext theSemantics(nestedMakeSpecifierContext);
 		
 		if (!p->resolve_semantics(theSemantics)) {
@@ -274,16 +258,15 @@ bool FogListOfExpr::make_parameters(FogFunctionModifier& functionModifier, FogMa
 		}
 		
 		if (theSemantics.is_typed_decl_specifier_seq()) {
-			FogName *aName = p->is_name();
+			FogName* aName = p->is_name();
 			
 			if (aName) {
 				if (!nestedMakeSpecifierContext.make_specifier(FogName::make_anon())
-					|| !aName->make_type_specifier(nestedMakeSpecifierContext)) {
+				        || !aName->make_type_specifier(nestedMakeSpecifierContext)) {
 					ERRMSG("Failed to make_type_specifier for " << viz(*p));
 					return false;
 				}
 			}
-			
 			else {
 				ERRMSG("BUG expected Name for make_type_specifier from typed_decl_specifier_seqfor " << viz(*p));
 				
@@ -293,7 +276,6 @@ bool FogListOfExpr::make_parameters(FogFunctionModifier& functionModifier, FogMa
 				}
 			}
 		}
-		
 		else {
 			if (!p->make_specifier(nestedMakeSpecifierContext)) {
 				ERRMSG("Failed to make_specifier for " << viz(*p));
@@ -301,7 +283,7 @@ bool FogListOfExpr::make_parameters(FogFunctionModifier& functionModifier, FogMa
 			}
 		}
 		
-		FogParameterSpecifier *parameterSpecifier = nestedMakeSpecifierContext.get_parameter_specifier(*p);
+		FogParameterSpecifier* parameterSpecifier = nestedMakeSpecifierContext.get_parameter_specifier(*p);
 		
 		if (!parameterSpecifier)
 			return false;
@@ -319,7 +301,7 @@ bool FogListOfExpr::make_specifier(FogMakeSpecifierContext& makeSpecifierContext
 	if (!_exprs[0]->make_specifier(makeSpecifierContext))
 		return false;
 		
-	FogFunctionSpecifier *functionSpecifier = makeSpecifierContext.get_function_specifier(*this);
+	FogFunctionSpecifier* functionSpecifier = makeSpecifierContext.get_function_specifier(*this);
 	
 	if (functionSpecifier) {    //   Class() : a(0), b(0), ... is ListExpr(BitFieldExpr( a(0) ), b(0), ...)
 		if (_exprs.tally() > 1) {
@@ -329,7 +311,6 @@ bool FogListOfExpr::make_specifier(FogMakeSpecifierContext& makeSpecifierContext
 				functionSpecifier->set_colon_value(*p);
 		}
 	}
-	
 	else
 		ERRMSG("Caller should have de-listed prior to make_specifier for " << viz(*this));
 		
@@ -347,12 +328,12 @@ bool FogListOfExpr::make_typed_expression(FogExprRef& theExpr, FogName& theType)
 
 void FogListOfExpr::merge_from(FogMergeContext& mergeContext, const This& thatExpr) {
 	Super::merge_from(mergeContext, thatExpr);
-//    Super::merge_long_into(mergeContext, _exprs, thatExpr._exprs);
+	//    Super::merge_long_into(mergeContext, _exprs, thatExpr._exprs);
 	FogExpr::merge_long_into(mergeContext, _exprs, thatExpr._exprs);
 }
 
 bool FogListOfExpr::morph_to(FogTokenRef& returnValue, const FogMetaType& metaType, IsExposed isExposed,
-		FogScopeContext& inScope) const {
+                             FogScopeContext& inScope) const {
 	FogListOfExprRef morphedExprs(new FogListOfExpr, FogListOfExprRef::ADOPT);   //  .bugbug list exposure
 	FogTokenRef morphedToken;
 	
@@ -360,7 +341,7 @@ bool FogListOfExpr::morph_to(FogTokenRef& returnValue, const FogMetaType& metaTy
 		if (!p->morph_to(morphedToken, metaType, isExposed, inScope))
 			return false;
 			
-		FogExpr *morphedExpr = morphedToken->is_expr();
+		FogExpr* morphedExpr = morphedToken->is_expr();
 		
 		if (!morphedExpr) {
 			ERRMSG("BUG -- morphed " << viz(*p) << " is not an expression");
@@ -371,7 +352,6 @@ bool FogListOfExpr::morph_to(FogTokenRef& returnValue, const FogMetaType& metaTy
 	}
 	
 	returnValue = *morphedExprs;
-	
 	return true;
 }
 
@@ -385,7 +365,6 @@ const FogMerge& FogListOfExpr::needs_merge_from(FogMergeContext& mergeContext, c
 			if (!p2->is_null())
 				needsMerge |= FogMerge::left_invalid();
 		}
-		
 		else {
 			if (!p2->is_null())
 				needsMerge |= p1->needs_merge(mergeContext, *p2);
@@ -396,10 +375,9 @@ const FogMerge& FogListOfExpr::needs_merge_from(FogMergeContext& mergeContext, c
 	
 	if (p1)
 		needsMerge |= FogMerge::right_invalid();
-	else
-		if (p2)
-			needsMerge |= FogMerge::left_invalid();
-			
+	else if (p2)
+		needsMerge |= FogMerge::left_invalid();
+		
 	return needsMerge;
 }
 
@@ -421,7 +399,7 @@ std::ostream& FogListOfExpr::print_members(std::ostream& s, int aDepth) const {
 	return s;
 }
 
-char FogListOfExpr::print_named(std::ostream& s, const PrimId *fullId, char tailChar) const {
+char FogListOfExpr::print_named(std::ostream& s, const PrimId* fullId, char tailChar) const {
 	if (!_is_exposed)
 		tailChar = FogStream::space_and_emit(s, tailChar, "{");
 		
@@ -457,13 +435,12 @@ std::ostream& FogListOfExpr::print_viz(std::ostream& s) const {
 
 bool FogListOfExpr::resolve_semantics(FogSemanticsContext& theSemantics) const {
 	if (_exprs.tally() == 0) {
-//        theSemantics.assign(FogSemantics::IS_SIMPLE_DECLARATION);
+		//        theSemantics.assign(FogSemantics::IS_SIMPLE_DECLARATION);
 		theSemantics.assign(FogSemantics::IS_EPSILON);
 		return true;
 	}
 	
 	bool constructorDeclarativeList = true;
-	
 	bool initDeclarationList = true;
 	bool initDeclaratorList = true;
 	bool isExpression = true;
@@ -491,7 +468,6 @@ bool FogListOfExpr::resolve_semantics(FogSemanticsContext& theSemantics) const {
 			if (!termSemantics.is_init_declarator())
 				initDeclaratorList = false;
 		}
-		
 		else {
 			if (!termSemantics.is_mem_initializer())
 				constructorDeclarativeList = false;
@@ -545,7 +521,6 @@ void FogListOfExpr::set_decl_specifier_expression(FogExprRef& anExpr, FogDeclSpe
 		_exprs[0]->set_decl_specifier_expression(_exprs[0], declSpecifiers);
 		anExpr = this;
 	}
-	
 	else
 		Super::set_decl_specifier_expression(anExpr, declSpecifiers);
 }

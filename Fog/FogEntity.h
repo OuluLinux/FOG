@@ -24,7 +24,7 @@ private:
 	FogEntity& operator=(const FogEntity&);
 	
 private:
-        //   Defining contents.
+	//   Defining contents.
 	FogRoot& _global_scope;     //   The root, global, unnamed namespace.
 	FogScope& _scope;      //   Parent scope, *this at root.
 	FogMetaSlotMapOfRefToConst _slots;  //   Miscellaneous slots.
@@ -32,8 +32,8 @@ private:
 	FogLazyBoolHandle _is_pure;             //   True for abstract class, pure-virtual function
 	
 private:
-        //   Compiled slots.
-
+	//   Compiled slots.
+	
 	bool _done_compile : 1;     //   True once do_compile() invoked.
 	
 	bool _done_derive : 1;     //   True once do_derive() invoked.
@@ -63,7 +63,7 @@ private:
 	
 private:
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 protected:
@@ -72,7 +72,7 @@ protected:
 	FogEntity(FogMakerContext& makerContext, const FogLazyBool& isPure = FogLazyBool::make_false());
 	FogEntity(FogMakeTemplateContext& makeTemplateContext, const FogLazyBool& isPure = FogLazyBool::make_false());
 	virtual ~FogEntity();
-//  	virtual void install_slots();
+	//  	virtual void install_slots();
 	FogScope& non_virtual_scope() {
 		return _scope;
 	}
@@ -86,7 +86,7 @@ public:
 	virtual void add_type(FogEntity& aType);
 	virtual void add_use_by(FogEntity& anEntity, const FogOfUseBy& ofUseBy);
 	void add_use_by(FogUsageContext& usageContext);
-	virtual const FogMetaSlot *adopt_slot(const FogMetaSlot *aSlot);
+	virtual const FogMetaSlot* adopt_slot(const FogMetaSlot* aSlot);
 	bool compiled() const {
 		return _done_compile;
 	}
@@ -108,11 +108,11 @@ public:
 	virtual void emit_friend_interface(FogStream& s);
 	virtual void emit_template_prefix(FogEmitContext& emitContext) const;
 	virtual void find_entities_in(FogScopeContext& inScope, FogEntityFinding& theFinding) const;
-	virtual const FogMetaSlot *find_local_slot(const PrimId& anId) const;
-	virtual FogEntity *find_template(FogMakeTemplateContext& makeTemplateContext);
+	virtual const FogMetaSlot* find_local_slot(const PrimId& anId) const;
+	virtual FogEntity* find_template(FogMakeTemplateContext& makeTemplateContext);
 	virtual bool get_character(PrimIdHandle& returnId, FogScopeContext& inScope);
 	virtual bool get_dyadic(FogTokenRef& returnValue, FogScopeContext& inScope,
-			FogTokenType::TokenType dyadicOp, const FogToken& rightValue) const;
+	                        FogTokenType::TokenType dyadicOp, const FogToken& rightValue) const;
 	virtual bool get_identifier(PrimIdHandle& returnId, FogScopeContext& inScope);
 	virtual bool get_string(PrimIdHandle& returnId, FogScopeContext& inScope);
 	virtual FogRoot& global_scope();
@@ -120,8 +120,8 @@ public:
 		return mutate().global_scope();
 	}
 	
-	virtual FogTargetFile *implementation_file();
-	const FogTargetFile *implementation_file() const {
+	virtual FogTargetFile* implementation_file();
+	const FogTargetFile* implementation_file() const {
 		return mutate().implementation_file();
 	}
 	
@@ -130,17 +130,17 @@ public:
 		return mutate().inner_scope();
 	}
 	
-	virtual FogEntity *instantiate(FogScopeContext& inScope, InstantiateOption ifRequired);
+	virtual FogEntity* instantiate(FogScopeContext& inScope, InstantiateOption ifRequired);
 	virtual void instantiate_into(FogEntity& instantiatingEntity);
-	virtual FogTargetFile *interface_file_sink();
-	virtual FogTargetFile *interface_file_source();
-	const FogTargetFile *interface_file_source() const {
+	virtual FogTargetFile* interface_file_sink();
+	virtual FogTargetFile* interface_file_source();
+	const FogTargetFile* interface_file_source() const {
 		return mutate().interface_file_source();
 	}
 	
 	virtual bool is_active() const;
 	const FogLazyBool& is_boundary() const;
-	virtual FogEntity *is_entity();
+	virtual FogEntity* is_entity();
 	virtual bool is_instantiation() const;
 	virtual bool is_name_scope() const;
 	virtual bool is_name_space() const;
@@ -154,8 +154,8 @@ public:
 	virtual bool is_type() const;
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
 	virtual const FogMetaType& meta_type() const;
-	virtual FogTargetFile *name_file();
-	const FogTargetFile *name_file() const {
+	virtual FogTargetFile* name_file();
+	const FogTargetFile* name_file() const {
 		return Super::name_file();
 	}
 	
@@ -179,18 +179,18 @@ public:
 		return mutate().name_space();
 	}
 	
-	virtual FogEntity *new_template(FogMakeTemplateContext& makeTemplateContext);
-	FogScope *outer_scope() {
-		return this != (FogEntity *)&_global_scope ? &_scope : 0;
+	virtual FogEntity* new_template(FogMakeTemplateContext& makeTemplateContext);
+	FogScope* outer_scope() {
+		return this != (FogEntity*)&_global_scope ? &_scope : 0;
 	}
 	
-	const FogScope *outer_scope() const {
-		return this != (const FogEntity *)&_global_scope ? &_scope : 0;
+	const FogScope* outer_scope() const {
+		return this != (const FogEntity*)&_global_scope ? &_scope : 0;
 	}
 	
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth) const;
-	virtual char print_named(std::ostream& s, const PrimId *scopeId, char tailChar) const;
+	virtual char print_named(std::ostream& s, const PrimId* scopeId, char tailChar) const;
 	virtual FogReader& reader();
 	const FogReader& reader() const {
 		return mutate().reader();

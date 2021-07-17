@@ -1,16 +1,16 @@
-// 
+//
 // 	  Title:			Standard include file for Flexible Object Generator
-// 
+//
 // 	  File Name:		Fog.h
-// 
+//
 // 	  Author:			E.D.Willink
 // END
-// 
+//
 #ifndef FOG_H
 #define FOG_H
 
 #ifdef _MSC_VER
-#pragma warning(disable:4355)   //  this in base list
+	#pragma warning(disable:4355)   //  this in base list
 #endif
 
 class Fog;

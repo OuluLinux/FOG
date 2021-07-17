@@ -8,31 +8,32 @@
 //
 //  This is a composite FOG and C++ grammar, which may be stripped to
 /* This is a yacc-able parser for the entire FOG grammar with no unresolved conflicts. */
-/* The parse is SYNTACTICALLY consistent and requires no template or type name assistance.
- * The grammar in the C++ standard notes that its grammar is a superset of the true
- * grammar requiring semantic constraints to resolve ambiguities. This grammar is a really big
- * superset unifying expressions and declarations, eliminating the type/non-type distinction,
- * and iterating to find a consistent solution to the template/arith,metoic < ambiguity.
- * As a result the grammar is much simpler, but requires the missing semantic constraints to be
- * performed in a subsequent semantic pass, which is of course where they belong. This grammar will
- * support conversion of C++ tokens into an Abstract Syntax Tree. A lot of further work is required to
- * make that tree useful.
- *
- * The principles behind this grammar are described in my thesis on Meta-Compilation for C++, which
- * may be found via http://www.computing.surrey.ac.uk/research/dsrg/fog/FogThesis.html.
- *
- *  Author:         E.D.Willink             Ed.Willink@rrl.co.uk
- *  Date:            3-Jul-2001
- */
+/*  The parse is SYNTACTICALLY consistent and requires no template or type name assistance.
+    The grammar in the C++ standard notes that its grammar is a superset of the true
+    grammar requiring semantic constraints to resolve ambiguities. This grammar is a really big
+    superset unifying expressions and declarations, eliminating the type/non-type distinction,
+    and iterating to find a consistent solution to the template/arith,metoic < ambiguity.
+    As a result the grammar is much simpler, but requires the missing semantic constraints to be
+    performed in a subsequent semantic pass, which is of course where they belong. This grammar will
+    support conversion of C++ tokens into an Abstract Syntax Tree. A lot of further work is required to
+    make that tree useful.
+
+    The principles behind this grammar are described in my thesis on Meta-Compilation for C++, which
+    may be found via http://www.computing.surrey.ac.uk/research/dsrg/fog/FogThesis.html.
+
+    Author:         E.D.Willink             Ed.Willink@rrl.co.uk
+    Date:            3-Jul-2001
+*/
 /*StartDiscard*/
-%{
+% {
 #include <Fog/FogIncludeAll.h>
 
 #define YACC_BANG() push_bang()
 #define YACC_UNBANG(bangValue, msg) pop_bang(bangValue); yyerrok; yyclearin; Super::error(msg);
 
 
-%}
+	%
+}
 
 
 //
@@ -54,45 +55,46 @@
 //  through virtual callsd and checks, and no doubt also incurring costs from copying of parser
 //  values up and down the parser stack. Of course there were no leaks.
 //
-%name FogParser
-%define DEBUG 1
-%define ENUM_TOKEN FogParserEnums
-%define STYPE FogParserValue
-%define INHERIT : public FogParserMaker
-%define MEMBERS \
-    typedef FogParserMaker Super; \
-    typedef FogParser This; \
-    TYPEDECL_SINGLE(This, Super) \
-    YACC_BANG_TYPE _bang; \
+% name FogParser
+% define DEBUG 1
+% define ENUM_TOKEN FogParserEnums
+% define STYPE FogParserValue
+% define INHERIT : public FogParserMaker
+% define MEMBERS \
+typedef FogParserMaker Super; \
+typedef FogParser This; \
+TYPEDECL_SINGLE(This, Super) \
+YACC_BANG_TYPE _bang; \
 private: \
-    void advance_search(); \
-    void end_search(FogToken *aToken); \
-    void make_result(FogToken *aResult); \
-    YACC_MARK_TYPE mark(); \
-    YACC_MARK_TYPE mark_type1(); \
-    void pop_bang(YACC_BANG_TYPE bangValue); \
-    YACC_BANG_TYPE push_bang(); \
-    void remark(YACC_MARK_TYPE anIndex); \
-    void remark_type1(YACC_MARK_TYPE anIndex); \
-    void rewind_colon(YACC_MARK_TYPE aMark, const FogToken *aToken = 0); \
-    void start_search(bool enableType1 = false); \
-    void template_test(); \
-    void unmark(const FogToken *aToken = 0); \
+void advance_search(); \
+void end_search(FogToken* aToken); \
+void make_result(FogToken* aResult); \
+YACC_MARK_TYPE mark(); \
+YACC_MARK_TYPE mark_type1(); \
+void pop_bang(YACC_BANG_TYPE bangValue); \
+YACC_BANG_TYPE push_bang(); \
+void remark(YACC_MARK_TYPE anIndex); \
+void remark_type1(YACC_MARK_TYPE anIndex); \
+void rewind_colon(YACC_MARK_TYPE aMark, const FogToken* aToken = 0); \
+void start_search(bool enableType1 = false); \
+void template_test(); \
+void unmark(const FogToken* aToken = 0); \
 public: \
-    virtual ~FogParser(); \
-    virtual int yy_debug() const { return yydebug; } \
-    void yydiag(const char *msg) { Super::diagnostic(msg); } \
-    void yywarn(const char *msg); \
-    static void terminate();
+virtual ~FogParser(); \
+virtual int yy_debug() const { return yydebug; } \
+void yydiag(const char* msg) { Super::diagnostic(msg); } \
+void yywarn(const char* msg); \
+static void terminate();
 
-%define CONSTRUCTOR_PARAM FogLexerTower& aLexer, FogToken& firstToken, const char *aTitle, int aDepth
-%define CONSTRUCTOR_INIT : Super(aLexer, firstToken, aTitle, aDepth), _bang(0)
-%define CONSTRUCTOR_CODE \
-    YY_FogParser_DEBUG_FLAG = Fog::debug_yacc(); \
-    CONDMSG(YY_FogParser_DEBUG_FLAG, "\n\nStarting " << title() << " parser.");
+% define CONSTRUCTOR_PARAM FogLexerTower& aLexer, FogToken& firstToken, const char* aTitle, int aDepth
+% define CONSTRUCTOR_INIT : Super(aLexer, firstToken, aTitle, aDepth), _bang(0)
+% define CONSTRUCTOR_CODE \
+YY_FogParser_DEBUG_FLAG = Fog::debug_yacc(); \
+CONDMSG(YY_FogParser_DEBUG_FLAG, "\n\nStarting " << title() << " parser.");
 
-%{
-%}
+% {
+	%
+}
 
 //
 //  All terminals are defined in FogParserEnum.h which is autogenerated by FogTokenEnum.cpp.
@@ -101,1052 +103,1052 @@ public: \
 //
 /*EndDiscard*/
 /*
- * The lexer (and/or a preprocessor) is expected to identify the following
- *
- *  Punctuation:
- */
+    The lexer (and/or a preprocessor) is expected to identify the following
+
+    Punctuation:
+*/
 /*
- *  Punctuation sequences
- */
+    Punctuation sequences
+*/
 /*
- *  Reserved words
- */
-%term <access_specifier> PRIVATE PROTECTED PUBLIC
-%term <built_in_id> BOOL CHAR DOUBLE FLOAT INT LONG SHORT SIGNED UNSIGNED VOID WCHAR_T
-%term <class_key> CLASS ENUM NAMESPACE STRUCT TYPENAME UNION
-%term <cv_qualifiers> CONST VOLATILE
-%term <decl_specifier_id> AUTO EXPLICIT EXPORT EXTERN FRIEND INLINE MUTABLE REGISTER STATIC TEMPLATE TYPEDEF USING VIRTUAL
-%term <keyword> ASM BREAK CASE CATCH CONST_CAST CONTINUE DEFAULT DELETE DO DYNAMIC_CAST
-%term <keyword> ELSE FALSE FOR GOTO IF NEW OPERATOR REINTERPRET_CAST RETURN
-%term <keyword> SIZEOF STATIC_CAST SWITCH THIS THROW TRUE TRY TYPEID WHILE
+    Reserved words
+*/
+% term <access_specifier> PRIVATE PROTECTED PUBLIC
+% term <built_in_id> BOOL CHAR DOUBLE FLOAT INT LONG SHORT SIGNED UNSIGNED VOID WCHAR_T
+% term <class_key> CLASS ENUM NAMESPACE STRUCT TYPENAME UNION
+% term <cv_qualifiers> CONST VOLATILE
+% term <decl_specifier_id> AUTO EXPLICIT EXPORT EXTERN FRIEND INLINE MUTABLE REGISTER STATIC TEMPLATE TYPEDEF USING VIRTUAL
+% term <keyword> ASM BREAK CASE CATCH CONST_CAST CONTINUE DEFAULT DELETE DO DYNAMIC_CAST
+% term <keyword> ELSE FALSE FOR GOTO IF NEW OPERATOR REINTERPRET_CAST RETURN
+% term <keyword> SIZEOF STATIC_CAST SWITCH THIS THROW TRUE TRY TYPEID WHILE
 /*
- *  Parametric values.
- */
-%term <floating_literal> FloatingLiteral
-%term <integer_literal> IntegerLiteral
+    Parametric values.
+*/
+% term <floating_literal> FloatingLiteral
+% term <integer_literal> IntegerLiteral
 /*
- *  FOG non-reserved word identifier extensions
- */
-%term <built_in_id> BuiltInTypeSpecifier
-%term <meta_type> MetaType
-%term <name> TreeLiteral
-%term <name> DERIVED FILE GUARD IMPLEMENTATION INCLUDE INTERFACE ALL PLACEHOLDER PLACEMENT NOAUTO
-%term <name> NOGUARD NOIMPLEMENTATION OVERLOAD PATH
-%term <name> PREFIX PURE SUFFIX
-%term <segment> BODY ENTRY EXIT POST PRE
-%term <utility> EMIT FROZEN POOL UTILITY
+    FOG non-reserved word identifier extensions
+*/
+% term <built_in_id> BuiltInTypeSpecifier
+% term <meta_type> MetaType
+% term <name> TreeLiteral
+% term <name> DERIVED FILE GUARD IMPLEMENTATION INCLUDE INTERFACE ALL PLACEHOLDER PLACEMENT NOAUTO
+% term <name> NOGUARD NOIMPLEMENTATION OVERLOAD PATH
+% term <name> PREFIX PURE SUFFIX
+% term <segment> BODY ENTRY EXIT POST PRE
+% term <utility> EMIT FROZEN POOL UTILITY
 /*
- *  The lexer need not treat '0' as distinct from IntegerLiteral in the hope that pure-specifier can
- *  be distinguished, It isn't. Semantic rescue from = constant-expression is necessary.
- *
- *  The lexer is not required to distinguish template or type names, although a slight simplification to the
- *  grammar and elaboration of the action rules could make good use of template name information.
- *
- *  In return for not needing to use semantic information, the lexer must support back-tracking, which
- *  is easily achieved by a simple linear buffer, a reference implementation of which may be found in the
- *  accompanying CxxParsing.cxx. Back-tracking is used to support:
- *
- *  Binary search for a consistent parse of the template/arithmetic ambiguity.
- *      start_search() initialises the search
- *      advance_search() iterates the search
- *      end_search() cleans up after a search
- *      template_test() maintains context during a search
- *
- *  Lookahead to resolve the inheritance/anonymous bit-field similarity
- *      mark() saves the starting context
- *      unmark() pops it
- *      rewind_colon() restores the context and forces the missing :
- *
- *  Lookahead to resolve type 1 function parameter ambiguities
- *      mark_type1() potentially marks the starting position
- *      mark() marks the pre { position
- *      remark() rewinds to the starting position
- *      unmark() pops the starting position
- *
- *  Note that lookaheads may nest. 
- */
+    The lexer need not treat '0' as distinct from IntegerLiteral in the hope that pure-specifier can
+    be distinguished, It isn't. Semantic rescue from = constant-expression is necessary.
+
+    The lexer is not required to distinguish template or type names, although a slight simplification to the
+    grammar and elaboration of the action rules could make good use of template name information.
+
+    In return for not needing to use semantic information, the lexer must support back-tracking, which
+    is easily achieved by a simple linear buffer, a reference implementation of which may be found in the
+    accompanying CxxParsing.cxx. Back-tracking is used to support:
+
+    Binary search for a consistent parse of the template/arithmetic ambiguity.
+        start_search() initialises the search
+        advance_search() iterates the search
+        end_search() cleans up after a search
+        template_test() maintains context during a search
+
+    Lookahead to resolve the inheritance/anonymous bit-field similarity
+        mark() saves the starting context
+        unmark() pops it
+        rewind_colon() restores the context and forces the missing :
+
+    Lookahead to resolve type 1 function parameter ambiguities
+        mark_type1() potentially marks the starting position
+        mark() marks the pre { position
+        remark() rewinds to the starting position
+        unmark() pops the starting position
+
+    Note that lookaheads may nest.
+*/
 
 /*
- *  The parsing philosophy is unusual. The major ambiguities are resolved by creating a unified superset
- *  grammar rather than non-overlapping subgrammars. Thus the grammar for parameter-declaration covers an
- *  assignment-expression. Minor ambiguities whose resolution by supersetting would create more
- *  ambiguities are resolved the normal way with partitioned subgrammars.
- *  This eliminates the traditional expression/declaration and constructor/parenthesised declarator
- *  ambiguities at the syntactic level. A subsequent semantic level has to sort the problems out.
- *  The generality introduces four bogus ambiguities and defers the cast ambiguity for resolution
- *  once semantic information is available.
- *
- *  The FOG grammar comprises 958 rules and uses 1585 states in yacc, with 0 unresolved conflicts.
- *  31 conflicts from 15 ambiguities are resolved by 15 %prec's, so that yacc and bison report 0 conflicts.
- *
- *  The ambiguities are:
- *  1) dangling else resolved to inner-most if
- *      1 in 2 states on else
- *  2) < as start-template or less-than
- *      1 conflict in 1 states on <
- *  3) a :: b :: c resolved to favour a::b::c rather than a::b ::c or a ::b::c
- *      1 conflicts in 1 state for ::
- *  4) pointer operators maximised at end of conversion id/new in preference to binary operators
- *      2 conflicts in 4 states on * and &
- *  5a) (a)@b resolved to favour binary a@b rather than cast unary (a)(@b)
- *  5b) (a)(b) resolved to favour cast rather than call
- *      8 conflicts in 1 state for the 8 prefix operators: 6 unaries and ( and [.
- *  6) enum name { resolved to enum-specifier rather than function
- *      1 conflict in 1 state on {
- *  7) class name { resolved to class-specifier rather than function
- *      1 conflict in 1 state on {
- *  8) extern "C" resolved to linkage-specification rather than declaration
- *      1 conflict in 1 state on StringLiteral
- *  9) class X : forced to go through base-clause look-ahead
- *      1 conflict in 1 state on :
- *  10) id : forced to label_statement rather than constructor_head
- *      1 conflict in 1 state on :
- *  11) access-specifier : forced to access-declaration rather than anon bit-field
- *      1 conflict in 1 state on :
- *  12) inline/ and virtual/ forced to switch rather than divide treatment
- *      1 conflict in 2 states on /
- *  13) using StringLiteral forced to include_declaration not simple_declaration
- *      1 conflict in 1 states on StringLiteral
- *  14) handler_seq maximised avoiding ambiguity in compound_tree_statement
- *      1 conflict in 1 states on catch
- *  15) built_in_type_id maximised resolving ambiguity for auto unsigned int :: a
- *      1 conflict in 1 states on BuiltInTypeSpecifier
- *  of which
- *      1 is a fundamental C conflict - always correctly resolved
- *          can be removed - see the Java spec
- *      2, 3, 4 are fundamental C++ conflicts
- *          2 always consistently resolved by iteration
- *          3 always correctly resolved
- *          4 always correctly resolved
- *      5 is a result of not using type information - deferred for semantic repair
- *      6,7 are caused by parsing over-generous superset - always correctly resolved
- *      8 is caused by parsing over-generous superset - always correctly resolved
- *          can be removed at the expense of 7 rules and 5 states.
- *      9 is a look-ahead trick - always correctly resolved
- *          could be removed by marking one token sooner
- *      10 is caused by parsing over-generous superset - always correctly resolved
- *      11 is caused by parsing over-generous superset - always correctly resolved
- *      12 is caused by parsing over-generous superset - always correctly resolved
- *      13 is caused by parsing over-generous superset - always correctly resolved
- *      14 is a genuine conflict - always correctly resolved by definition
- *          more enthusiastic parsing of the } or ; statement end could fix this
- *      15 is a fundamental FOG conflict comparable to 3
- *          always correctly resolved
- *
- *  The hard problem of distinguishing
- *      class A { class B : C, D, E {           -- A::B privately inherits C, D and E
- *      class A { class B : C, D, E ;           -- C is width of anon bit-field
- *  is resolved by using a lookahead that assumes inheritance and rewinds for the bit-field.
- *
- *  The potential shift-reduce conflict on > is resolved by flattening part of the expression grammar
- *  to know when the next > is template end or arithmetic >.
- *
- *  The grammar is SYNTACTICALLY context-free with respect to type. No semantic assistance is required
- *  during syntactic analysis. However the cast ambiguity is deferred and must be recovered
- *  after syntactic analysis of a statement has completed. 
- *
- *  The grammar is SYNTACTICALLY context-free with respect to template-names. This is achieved by
- *  organising a binary search over all possible template/arithmetic ambiguities with respect to
- *  the enclosing statement. This is potentially exponentially inefficient but well-behaved in practice.
- *  Approximately 1% of statements trigger a search and approximately 1% of those are misparsed,
- *  requiring the semantic analysis to check and correct once template information is available.
- *  1.5 parse attempts are required on average per ambiguous statement.
- *
- *  The grammar supports type I function declarations at severe impediment to efficiency. A lookahead
- *  has to be performed after almost every non-statement close parenthesis. A one-line plus corollary
- *  change to postfix_expression is commented and strongly recommended to make this grammar as
- *  efficient as the rather large number of reduction levels permits.
- *
- *  Error recovery occurs mostly at the statement/declaration level. Recovery also occurs at
- *  the list-element level where this poses no hazard to statement/declaration level recovery. 
- *  Note that since error propagation interacts with the lookaheads for template iteration or
- *  type 1 function arguments, introduction of finer grained error recovery may repair a false
- *  parse and so cause a misparse.
- *
- *  The following syntactic analysis errors occur, but are correctable semantically:
- *  (cast)unary-op expr         is parsed as (parenthesised)binary-op expr
- *      The semantic test should look for a binary/call with a (type) as its left child.
- *  (parenthesised)(arguments)  is parsed as (cast)(parenthesised)
- *      The semantic test should look for a cast with a non-type as its left child.
- *  template < and arithmetic < may be cross-parsed (unless semnatic help is provided)
- *      approximately 0.01% are misparsed, and must be sorted out - not easy.
- *
- *  The syntactic analysis defers the following ambiguities for semantic resolution:
- *  declaration/expression is parsed as a unified concept
- *      Use type and context to complete the parse.
- *  ~class-name                 is parsed as unary~ name
- *      The semantic test should look for ~ with a type as its child.
- *  delete[] expr               is parsed as delete []expr
- *      The semantic test should look for delete with a [] cast of its child.
- *  operator new/delete[]       are parsed as array of operator new/delete
- *      The semantic test should look for array of operator new/delete
- *      or activate the two extra commented rules in operator
- *  template of an explicit_instantiation is buried deep in the tree
- *      dig it out 
- *  pure-specifier and constant-initializer are covered by assignment-expression
- *      just another of the deferred declaration/expression ambiguities
- *  sizeof and typeid don't distinguish type/value syntaxes
- *      probably makes life polymorphically easier
- */
+    The parsing philosophy is unusual. The major ambiguities are resolved by creating a unified superset
+    grammar rather than non-overlapping subgrammars. Thus the grammar for parameter-declaration covers an
+    assignment-expression. Minor ambiguities whose resolution by supersetting would create more
+    ambiguities are resolved the normal way with partitioned subgrammars.
+    This eliminates the traditional expression/declaration and constructor/parenthesised declarator
+    ambiguities at the syntactic level. A subsequent semantic level has to sort the problems out.
+    The generality introduces four bogus ambiguities and defers the cast ambiguity for resolution
+    once semantic information is available.
+
+    The FOG grammar comprises 958 rules and uses 1585 states in yacc, with 0 unresolved conflicts.
+    31 conflicts from 15 ambiguities are resolved by 15 %prec's, so that yacc and bison report 0 conflicts.
+
+    The ambiguities are:
+    1) dangling else resolved to inner-most if
+        1 in 2 states on else
+    2) < as start-template or less-than
+        1 conflict in 1 states on <
+    3) a :: b :: c resolved to favour a::b::c rather than a::b ::c or a ::b::c
+        1 conflicts in 1 state for ::
+    4) pointer operators maximised at end of conversion id/new in preference to binary operators
+        2 conflicts in 4 states on * and &
+    5a) (a)@b resolved to favour binary a@b rather than cast unary (a)(@b)
+    5b) (a)(b) resolved to favour cast rather than call
+        8 conflicts in 1 state for the 8 prefix operators: 6 unaries and ( and [.
+    6) enum name { resolved to enum-specifier rather than function
+        1 conflict in 1 state on {
+    7) class name { resolved to class-specifier rather than function
+        1 conflict in 1 state on {
+    8) extern "C" resolved to linkage-specification rather than declaration
+        1 conflict in 1 state on StringLiteral
+    9) class X : forced to go through base-clause look-ahead
+        1 conflict in 1 state on :
+    10) id : forced to label_statement rather than constructor_head
+        1 conflict in 1 state on :
+    11) access-specifier : forced to access-declaration rather than anon bit-field
+        1 conflict in 1 state on :
+    12) inline/ and virtual/ forced to switch rather than divide treatment
+        1 conflict in 2 states on /
+    13) using StringLiteral forced to include_declaration not simple_declaration
+        1 conflict in 1 states on StringLiteral
+    14) handler_seq maximised avoiding ambiguity in compound_tree_statement
+        1 conflict in 1 states on catch
+    15) built_in_type_id maximised resolving ambiguity for auto unsigned int :: a
+        1 conflict in 1 states on BuiltInTypeSpecifier
+    of which
+        1 is a fundamental C conflict - always correctly resolved
+            can be removed - see the Java spec
+        2, 3, 4 are fundamental C++ conflicts
+            2 always consistently resolved by iteration
+            3 always correctly resolved
+            4 always correctly resolved
+        5 is a result of not using type information - deferred for semantic repair
+        6,7 are caused by parsing over-generous superset - always correctly resolved
+        8 is caused by parsing over-generous superset - always correctly resolved
+            can be removed at the expense of 7 rules and 5 states.
+        9 is a look-ahead trick - always correctly resolved
+            could be removed by marking one token sooner
+        10 is caused by parsing over-generous superset - always correctly resolved
+        11 is caused by parsing over-generous superset - always correctly resolved
+        12 is caused by parsing over-generous superset - always correctly resolved
+        13 is caused by parsing over-generous superset - always correctly resolved
+        14 is a genuine conflict - always correctly resolved by definition
+            more enthusiastic parsing of the } or ; statement end could fix this
+        15 is a fundamental FOG conflict comparable to 3
+            always correctly resolved
+
+    The hard problem of distinguishing
+        class A { class B : C, D, E {           -- A::B privately inherits C, D and E
+        class A { class B : C, D, E ;           -- C is width of anon bit-field
+    is resolved by using a lookahead that assumes inheritance and rewinds for the bit-field.
+
+    The potential shift-reduce conflict on > is resolved by flattening part of the expression grammar
+    to know when the next > is template end or arithmetic >.
+
+    The grammar is SYNTACTICALLY context-free with respect to type. No semantic assistance is required
+    during syntactic analysis. However the cast ambiguity is deferred and must be recovered
+    after syntactic analysis of a statement has completed.
+
+    The grammar is SYNTACTICALLY context-free with respect to template-names. This is achieved by
+    organising a binary search over all possible template/arithmetic ambiguities with respect to
+    the enclosing statement. This is potentially exponentially inefficient but well-behaved in practice.
+    Approximately 1% of statements trigger a search and approximately 1% of those are misparsed,
+    requiring the semantic analysis to check and correct once template information is available.
+    1.5 parse attempts are required on average per ambiguous statement.
+
+    The grammar supports type I function declarations at severe impediment to efficiency. A lookahead
+    has to be performed after almost every non-statement close parenthesis. A one-line plus corollary
+    change to postfix_expression is commented and strongly recommended to make this grammar as
+    efficient as the rather large number of reduction levels permits.
+
+    Error recovery occurs mostly at the statement/declaration level. Recovery also occurs at
+    the list-element level where this poses no hazard to statement/declaration level recovery.
+    Note that since error propagation interacts with the lookaheads for template iteration or
+    type 1 function arguments, introduction of finer grained error recovery may repair a false
+    parse and so cause a misparse.
+
+    The following syntactic analysis errors occur, but are correctable semantically:
+    (cast)unary-op expr         is parsed as (parenthesised)binary-op expr
+        The semantic test should look for a binary/call with a (type) as its left child.
+    (parenthesised)(arguments)  is parsed as (cast)(parenthesised)
+        The semantic test should look for a cast with a non-type as its left child.
+    template < and arithmetic < may be cross-parsed (unless semnatic help is provided)
+        approximately 0.01% are misparsed, and must be sorted out - not easy.
+
+    The syntactic analysis defers the following ambiguities for semantic resolution:
+    declaration/expression is parsed as a unified concept
+        Use type and context to complete the parse.
+    ~class-name                 is parsed as unary~ name
+        The semantic test should look for ~ with a type as its child.
+    delete[] expr               is parsed as delete []expr
+        The semantic test should look for delete with a [] cast of its child.
+    operator new/delete[]       are parsed as array of operator new/delete
+        The semantic test should look for array of operator new/delete
+        or activate the two extra commented rules in operator
+    template of an explicit_instantiation is buried deep in the tree
+        dig it out
+    pure-specifier and constant-initializer are covered by assignment-expression
+        just another of the deferred declaration/expression ambiguities
+    sizeof and typeid don't distinguish type/value syntaxes
+        probably makes life polymorphically easier
+*/
 /*StartTypes*/
 /*  Action code is supplied by a large number of YACC_xxx macros that can be redefined
- *  by rewriting the include file rather than the grammar. The number of macros is
- *  slightly reduced by using the following protocols
- *
- *  YACC_LIST(0,0)      create empty list (may safely return 0).
- *  YACC_LIST(0,E)      create new list with content E (may return 0 if above returned non-0).
- *  YACC_LIST(L,E)      add E to L
- *  YACC_LIST(L,0)      error propagation, adding nothing to L.
- */
-%type <bang> bang
-%type <mark> colon_mark mark mark_type1
-%type <nest> nest
+    by rewriting the include file rather than the grammar. The number of macros is
+    slightly reduced by using the following protocols
 
-%type <access_specifier> access_specifier
-%type <base_specifier> base_specifier
-%type <base_specifiers> base_specifier_list
-%type <built_in_id> built_in_type_id built_in_type_specifier
-%type <_class> class_specifier_head
-%type <class_key> class_key
-%type <condition> condition condition.opt
-%type <cv_qualifiers> cv_qualifier cv_qualifier_seq.opt
-%type <decl_specifier_id>  decl_specifier_affix decl_specifier_prefix decl_specifier_suffix function_specifier storage_class_specifier
-%type <declaration> accessibility_specifier asm_definition block_declaration declaration explicit_specialization
-%type <declaration> looped_declaration looping_declaration namespace_alias_definition
-%type <declaration> specialised_block_declaration specialised_declaration template_declaration using_directive
-%type <declarations> compound_declaration declaration_seq.opt
-%type <declarator> nested_ptr_operator ptr_operator
-%type <delete_expression> delete_expression
-%type <enumerator> enumerator_definition
-%type <enumerators> enumerator_clause enumerator_list enumerator_list_head
-%type <exception_declaration> exception_declaration
-%type <exception_specification> exception_specification
-%type <expression> abstract_declarator.opt abstract_expression abstract_parameter_declaration abstract_pointer_declaration
-%type <expression> additive_expression and_expression assignment_expression
-%type <expression> bit_field_declaration bit_field_init_declaration bit_field_width boolean_literal
-%type <expression> cast_expression conditional_expression constant_expression conversion_type_id ctor_definition
-%type <expression> direct_abstract_declarator direct_abstract_declarator.opt direct_new_declarator
-%type <expression> equality_expression exclusive_or_expression expression expression.opt
-%type <expression> for_init_statement func_definition function_definition 
-%type <expression> inclusive_or_expression init_declaration literal logical_and_expression logical_or_expression
-%type <expression> multiplicative_expression new_declarator new_type_id
-%type <expression> pm_expression postfix_expression primary_expression ptr_operator_seq ptr_operator_seq.opt
-%type <expression> relational_expression shift_expression simple_declaration special_parameter_declaration
-%type <expression> templated_throw_expression throw_expression templated_abstract_declaration templated_and_expression 
-%type <expression>templated_assignment_expression templated_conditional_expression templated_equality_expression
-%type <expression> templated_exclusive_or_expression templated_expression templated_inclusive_or_expression templated_logical_and_expression
-%type <expression> templated_logical_or_expression templated_relational_expression type_id unary_expression
-%type <expressions> constructor_head expression_list expression_list.opt init_declarations
-%type <expressions> new_initializer.opt templated_expression_list type_id_list
-%type <function_body> function_block function_body function_try_block
-%type <handler> handler
-%type <handlers> handler_seq
-%type <initializer_clause> braced_initializer initializer_clause looped_initializer_clause looping_initializer_clause
-%type <initializer_clauses> initializer_list
-%type <is_template> global_scope
-%type <keyword> assignment_operator
-%type <line> start_search start_search1
-%type <mem_initializer> mem_initializer
-%type <mem_initializers> ctor_initializer ctor_initializer.opt mem_initializer_list mem_initializer_list_head
-%type <name> class_specifier conversion_function_id declarator_id destructor_id
-%type <name> elaborated_class_specifier elaborated_enum_specifier elaborated_type_specifier elaborate_type_specifier
-%type <name> enum_specifier enumerator id identifier_word id_scope identifier linkage_specification
-%type <name> namespace_definition nested_id nested_pseudo_destructor_id nested_special_function_id
-%type <name> mem_initializer_id operator operator_function_id pseudo_destructor_id scoped_id scoped_pseudo_destructor_id scoped_special_function_id
-%type <name> simple_type_specifier special_function_id suffix_built_in_decl_specifier suffix_named_decl_specifier.bi
-%type <name> suffix_built_in_decl_specifier.raw suffix_decl_specified_ids suffix_named_decl_specifiers
-%type <name> suffix_named_decl_specifiers.sf suffix_decl_specified_scope suffix_named_decl_specifier
-%type <name> template_id type_specifier
-%type <new_expression> new_expression
-%type <parameter> parameter_declaration templated_parameter_declaration
-%type <parameters> parameters_clause parameter_declaration_clause parameter_declaration_list
-%type <parenthesised> parenthesis_clause
-%type <pointer_declarator> star_ptr_operator
-%type <simple_type_parameter> simple_type_parameter
-%type <statement> compound_statement control_statement declaration_statement iteration_statement jump_statement
-%type <statement> labeled_statement looped_statement looping_statement selection_statement statement try_block
-%type <statements> statement_seq.opt
-%type <strings> string
-%type <template_argument> template_argument
-%type <template_arguments> template_argument_list
-%type <template_parameter> template_parameter
-%type <template_parameters> template_parameter_clause template_parameter_list
-%type <templated_type_parameter> templated_type_parameter
-%type <type1_parameters> type1_parameters
-%type <utility> util
+    YACC_LIST(0,0)      create empty list (may safely return 0).
+    YACC_LIST(0,E)      create new list with content E (may return 0 if above returned non-0).
+    YACC_LIST(L,E)      add E to L
+    YACC_LIST(L,0)      error propagation, adding nothing to L.
+*/
+% type <bang> bang
+% type <mark> colon_mark mark mark_type1
+% type <nest> nest
+
+% type <access_specifier> access_specifier
+% type <base_specifier> base_specifier
+% type <base_specifiers> base_specifier_list
+% type <built_in_id> built_in_type_id built_in_type_specifier
+% type <_class> class_specifier_head
+% type <class_key> class_key
+% type <condition> condition condition.opt
+% type <cv_qualifiers> cv_qualifier cv_qualifier_seq.opt
+% type <decl_specifier_id>  decl_specifier_affix decl_specifier_prefix decl_specifier_suffix function_specifier storage_class_specifier
+% type <declaration> accessibility_specifier asm_definition block_declaration declaration explicit_specialization
+% type <declaration> looped_declaration looping_declaration namespace_alias_definition
+% type <declaration> specialised_block_declaration specialised_declaration template_declaration using_directive
+% type <declarations> compound_declaration declaration_seq.opt
+% type <declarator> nested_ptr_operator ptr_operator
+% type <delete_expression> delete_expression
+% type <enumerator> enumerator_definition
+% type <enumerators> enumerator_clause enumerator_list enumerator_list_head
+% type <exception_declaration> exception_declaration
+% type <exception_specification> exception_specification
+% type <expression> abstract_declarator.opt abstract_expression abstract_parameter_declaration abstract_pointer_declaration
+% type <expression> additive_expression and_expression assignment_expression
+% type <expression> bit_field_declaration bit_field_init_declaration bit_field_width boolean_literal
+% type <expression> cast_expression conditional_expression constant_expression conversion_type_id ctor_definition
+% type <expression> direct_abstract_declarator direct_abstract_declarator.opt direct_new_declarator
+% type <expression> equality_expression exclusive_or_expression expression expression.opt
+% type <expression> for_init_statement func_definition function_definition
+% type <expression> inclusive_or_expression init_declaration literal logical_and_expression logical_or_expression
+% type <expression> multiplicative_expression new_declarator new_type_id
+% type <expression> pm_expression postfix_expression primary_expression ptr_operator_seq ptr_operator_seq.opt
+% type <expression> relational_expression shift_expression simple_declaration special_parameter_declaration
+% type <expression> templated_throw_expression throw_expression templated_abstract_declaration templated_and_expression
+% type <expression>templated_assignment_expression templated_conditional_expression templated_equality_expression
+% type <expression> templated_exclusive_or_expression templated_expression templated_inclusive_or_expression templated_logical_and_expression
+% type <expression> templated_logical_or_expression templated_relational_expression type_id unary_expression
+% type <expressions> constructor_head expression_list expression_list.opt init_declarations
+% type <expressions> new_initializer.opt templated_expression_list type_id_list
+% type <function_body> function_block function_body function_try_block
+% type <handler> handler
+% type <handlers> handler_seq
+% type <initializer_clause> braced_initializer initializer_clause looped_initializer_clause looping_initializer_clause
+% type <initializer_clauses> initializer_list
+% type <is_template> global_scope
+% type <keyword> assignment_operator
+% type <line> start_search start_search1
+% type <mem_initializer> mem_initializer
+% type <mem_initializers> ctor_initializer ctor_initializer.opt mem_initializer_list mem_initializer_list_head
+% type <name> class_specifier conversion_function_id declarator_id destructor_id
+% type <name> elaborated_class_specifier elaborated_enum_specifier elaborated_type_specifier elaborate_type_specifier
+% type <name> enum_specifier enumerator id identifier_word id_scope identifier linkage_specification
+% type <name> namespace_definition nested_id nested_pseudo_destructor_id nested_special_function_id
+% type <name> mem_initializer_id operator operator_function_id pseudo_destructor_id scoped_id scoped_pseudo_destructor_id scoped_special_function_id
+% type <name> simple_type_specifier special_function_id suffix_built_in_decl_specifier suffix_named_decl_specifier.bi
+% type <name> suffix_built_in_decl_specifier.raw suffix_decl_specified_ids suffix_named_decl_specifiers
+% type <name> suffix_named_decl_specifiers.sf suffix_decl_specified_scope suffix_named_decl_specifier
+% type <name> template_id type_specifier
+% type <new_expression> new_expression
+% type <parameter> parameter_declaration templated_parameter_declaration
+% type <parameters> parameters_clause parameter_declaration_clause parameter_declaration_list
+% type <parenthesised> parenthesis_clause
+% type <pointer_declarator> star_ptr_operator
+% type <simple_type_parameter> simple_type_parameter
+% type <statement> compound_statement control_statement declaration_statement iteration_statement jump_statement
+% type <statement> labeled_statement looped_statement looping_statement selection_statement statement try_block
+% type <statements> statement_seq.opt
+% type <strings> string
+% type <template_argument> template_argument
+% type <template_arguments> template_argument_list
+% type <template_parameter> template_parameter
+% type <template_parameters> template_parameter_clause template_parameter_list
+% type <templated_type_parameter> templated_type_parameter
+% type <type1_parameters> type1_parameters
+% type <utility> util
 
 
 /*
- *  FOG extensions
- */
-%type <declaration> file_dependency_declaration file_placement_declaration include_declaration lined_declaration
-%type <declaration> looped_object_statement looping_object_statement object_statement syntax_macro_definition
-%type <expression> derived_clause init_object_declaration meta_additive_expression meta_and_expression
-%type <expression> meta_cast_expression meta_conditional_expression meta_expression_statement meta_fn_postfix_expression
-%type <expression> meta_equality_expression meta_exclusive_or_expression meta_function_definition meta_inclusive_or_expression 
-%type <expression> meta_logical_and_expression meta_logical_or_expression meta_multiplicative_expression meta_pm_expression
-%type <expression> meta_primary_expression meta_primary_head meta_primary_id meta_postfix_expression meta_relational_expression
-%type <expression> meta_shift_expression meta_unary_expression simple_tree_declaration tree_argument.misc
-%type <expression> postfix_tree_expression primary_tree_expression string_expr tree_expression
-%type <file_id> file_id implementation_file interface_file file_use export_implementation export_interface export_all using_implementation using_interface
-%type <file_ids> file_id_list
-%type <file_name> file_name
-%type <function_body> function_used_block
-%type <keyword> reserved_id token.punct
-%type <line> line
-%type <meta_class> meta_class_specifier
-%type <meta_statement> meta_control_statement meta_control_statement1
-%type <meta_type> meta_class_key meta_non_class_key meta_simple_type meta_type
-%type <name> file_entity filespace_specifier meta_id meta_nested_id meta_scope meta_scoped_id namespace_declaration
-%type <segment> segment
-%type <subspace> object_statements_clause object_statement_seq.opt
-%type <syntax_macro_parameter> syntax_macro_parameter
-%type <syntax_macro_parameters> syntax_macro_parameter_list
-%type <token> looped_tree_statement looping_tree_statement
-%type <token> looped_unterminated_tree_argument looping_unterminated_tree_argument terminated_tree_argument
-%type <token> tree_argument.most tree_statement unterminated_tree_argument unterminated_tree_argument.most
-%type <token_statements> compound_tree_statement
-%type <tokens> tree_argument_list.opt tree_argument.ctors tree_argument.ctors_comma_most tree_arguments.head tree_statement_seq.opt
-%type <utility> utility
+    FOG extensions
+*/
+% type <declaration> file_dependency_declaration file_placement_declaration include_declaration lined_declaration
+% type <declaration> looped_object_statement looping_object_statement object_statement syntax_macro_definition
+% type <expression> derived_clause init_object_declaration meta_additive_expression meta_and_expression
+% type <expression> meta_cast_expression meta_conditional_expression meta_expression_statement meta_fn_postfix_expression
+% type <expression> meta_equality_expression meta_exclusive_or_expression meta_function_definition meta_inclusive_or_expression
+% type <expression> meta_logical_and_expression meta_logical_or_expression meta_multiplicative_expression meta_pm_expression
+% type <expression> meta_primary_expression meta_primary_head meta_primary_id meta_postfix_expression meta_relational_expression
+% type <expression> meta_shift_expression meta_unary_expression simple_tree_declaration tree_argument.misc
+% type <expression> postfix_tree_expression primary_tree_expression string_expr tree_expression
+% type <file_id> file_id implementation_file interface_file file_use export_implementation export_interface export_all using_implementation using_interface
+% type <file_ids> file_id_list
+% type <file_name> file_name
+% type <function_body> function_used_block
+% type <keyword> reserved_id token.punct
+% type <line> line
+% type <meta_class> meta_class_specifier
+% type <meta_statement> meta_control_statement meta_control_statement1
+% type <meta_type> meta_class_key meta_non_class_key meta_simple_type meta_type
+% type <name> file_entity filespace_specifier meta_id meta_nested_id meta_scope meta_scoped_id namespace_declaration
+% type <segment> segment
+% type <subspace> object_statements_clause object_statement_seq.opt
+% type <syntax_macro_parameter> syntax_macro_parameter
+% type <syntax_macro_parameters> syntax_macro_parameter_list
+% type <token> looped_tree_statement looping_tree_statement
+% type <token> looped_unterminated_tree_argument looping_unterminated_tree_argument terminated_tree_argument
+% type <token> tree_argument.most tree_statement unterminated_tree_argument unterminated_tree_argument.most
+% type <token_statements> compound_tree_statement
+% type <tokens> tree_argument_list.opt tree_argument.ctors tree_argument.ctors_comma_most tree_arguments.head tree_statement_seq.opt
+% type <utility> utility
 
-%term ASM 258
-%term AUTO 259
-%term BREAK 260
-%term CASE 261
-%term CATCH 262
-%term CLASS 263
-%term CONST 264
-%term CONST_CAST 265
-%term CONTINUE 266
-%term DEFAULT 267
-%term DELETE 268
-%term DO 269
-%term DYNAMIC_CAST 270
-%term ELSE 271
-%term ENUM 272
-%term EXPLICIT 273
-%term EXPORT 274
-%term EXTERN 275
-%term FALSE 276
-%term FOR 277
-%term FRIEND 278
-%term GOTO 279
-%term IF 280
-%term INLINE 281
-%term MUTABLE 282
-%term NAMESPACE 283
-%term NEW 284
-%term OPERATOR 285
-%term PRIVATE 286
-%term PROTECTED 287
-%term PUBLIC 288
-%term REGISTER 289
-%term REINTERPRET_CAST 290
-%term RETURN 291
-%term SIZEOF 292
-%term STATIC 293
-%term STATIC_CAST 294
-%term STRUCT 295
-%term SWITCH 296
-%term TEMPLATE 297
-%term THIS 298
-%term THROW 299
-%term TRUE 300
-%term TRY 301
-%term TYPEDEF 302
-%term TYPEID 303
-%term TYPENAME 304
-%term UNION 305
-%term USING 306
-%term VIRTUAL 307
-%term VOLATILE 308
-%term WHILE 309
-%term ELLIPSIS 310
-%term SCOPE 311
-%term SHL 312
-%term SHR 313
-%term EQ 314
-%term NE 315
-%term LE 316
-%term GE 317
-%term LOG_AND 318
-%term LOG_OR 319
-%term INC 320
-%term DEC 321
-%term ARROW 322
-%term ARROW_STAR 323
-%term DOT_STAR 324
-%term ASS_ADD 325
-%term ASS_AND 326
-%term ASS_DIV 327
-%term ASS_MOD 328
-%term ASS_MUL 329
-%term ASS_OR 330
-%term ASS_SHL 331
-%term ASS_SHR 332
-%term ASS_SUB 333
-%term ASS_XOR 334
-%term BuiltInTypeSpecifier 335
-%term CharacterLiteral 336
-%term Identifier 337
-%term MetaType 338
-%term NewLine 339
-%term NumberLiteral 340
-%term StringLiteral 341
-%term TreeLiteral 342
-%term ERROR 343
-%term NIL 344
-%term RAMMARG 345
-%term BODY 346
-%term DERIVED 347
-%term EMIT 348
-%term ENTRY 349
-%term EXIT 350
-%term FILE 351
-%term FROZEN 352
-%term GUARD 353
-%term IMPLEMENTATION 354
-%term INCLUDE 355
-%term INTERFACE 356
-%term NOGUARD 357
-%term NOIMPLEMENTATION 358
-%term OVERLOAD 359
-%term PATH 360
-%term POOL 361
-%term POST 362
-%term PRE 363
-%term PREFIX 364
-%term PURE 365
-%term SUFFIX 366
-%term UTILITY 367
-%term ALL 368
-%term PLACEHOLDER 369
-%term PLACEMENT 370
-%term NOAUTO 371
-%term HASH_BLANK 372
-%term HASH_DEFINE 373
-%term HASH_ELIF 374
-%term HASH_ELSE 375
-%term HASH_ENDIF 376
-%term HASH_ERROR 377
-%term HASH_IF 378
-%term HASH_IFDEF 379
-%term HASH_IFNDEF 380
-%term HASH_INCLUDE 381
-%term HASH_LINE 382
-%term HASH_PRAGMA 383
-%term HASH_UNDEF 384
-%term HASH_HASH 385
-%term DI_HASH_HASH 386
-%term DI_HASH 387
-%term DI_SQUARE 388
-%term DI_ERAUQS 389
-%term DI_ECARB 390
-%term DEFINED 391
-%term DO_FUNCTION 392
-%term MacroId 393
-%term Punct 394
-%term Text 395
-%term SHIFT_THERE 396
-%term REDUCE_HERE_MOSTLY 397
-%term REDUCE_HERE 398
-%term BOOL 399
-%term CHAR 400
-%term DOUBLE 401
-%term FLOAT 402
-%term INT 403
-%term LONG 404
-%term SHORT 405
-%term SIGNED 406
-%term UNSIGNED 407
-%term VOID 408
-%term WCHAR_T 409
-%term IntegerLiteral 410
-%term FloatingLiteral 411
-%token	<brace>				'{'
-%token	<character_literal>	CharacterLiteral
-%token	<identifier>		Identifier
-%token	<keyword>			ELLIPSIS SCOPE
-%token	<keyword>			SHL SHR EQ NE LE GE
-%token	<keyword>			LOG_AND LOG_OR INC DEC ARROW ARROW_STAR DOT_STAR
-%token	<keyword>			ASS_ADD ASS_AND ASS_DIV ASS_MOD ASS_MUL
-%token	<keyword>			ASS_OR ASS_SHL ASS_SHR ASS_SUB ASS_XOR
-%token	<keyword>			HASH_HASH
-%token	<keyword>			'}' '[' ']' '#' '(' ')' ';' ':' '?' '.' '+' '-' '*' '/' '%'
-%token	<keyword>			'^' '&' '|' '~' '!' '=' '<' '>' ','
-%token	<keyword>			'@' '$' '\'' '"' '\\'
-%token	<keyword>			MacroId Punct
-%token	<line>				NewLine
-%token	<number_literal>	NumberLiteral
-%token	<spacing>			' '
-%token	<string_literal>	StringLiteral
+% term ASM 258
+% term AUTO 259
+% term BREAK 260
+% term CASE 261
+% term CATCH 262
+% term CLASS 263
+% term CONST 264
+% term CONST_CAST 265
+% term CONTINUE 266
+% term DEFAULT 267
+% term DELETE 268
+% term DO 269
+% term DYNAMIC_CAST 270
+% term ELSE 271
+% term ENUM 272
+% term EXPLICIT 273
+% term EXPORT 274
+% term EXTERN 275
+% term FALSE 276
+% term FOR 277
+% term FRIEND 278
+% term GOTO 279
+% term IF 280
+% term INLINE 281
+% term MUTABLE 282
+% term NAMESPACE 283
+% term NEW 284
+% term OPERATOR 285
+% term PRIVATE 286
+% term PROTECTED 287
+% term PUBLIC 288
+% term REGISTER 289
+% term REINTERPRET_CAST 290
+% term RETURN 291
+% term SIZEOF 292
+% term STATIC 293
+% term STATIC_CAST 294
+% term STRUCT 295
+% term SWITCH 296
+% term TEMPLATE 297
+% term THIS 298
+% term THROW 299
+% term TRUE 300
+% term TRY 301
+% term TYPEDEF 302
+% term TYPEID 303
+% term TYPENAME 304
+% term UNION 305
+% term USING 306
+% term VIRTUAL 307
+% term VOLATILE 308
+% term WHILE 309
+% term ELLIPSIS 310
+% term SCOPE 311
+% term SHL 312
+% term SHR 313
+% term EQ 314
+% term NE 315
+% term LE 316
+% term GE 317
+% term LOG_AND 318
+% term LOG_OR 319
+% term INC 320
+% term DEC 321
+% term ARROW 322
+% term ARROW_STAR 323
+% term DOT_STAR 324
+% term ASS_ADD 325
+% term ASS_AND 326
+% term ASS_DIV 327
+% term ASS_MOD 328
+% term ASS_MUL 329
+% term ASS_OR 330
+% term ASS_SHL 331
+% term ASS_SHR 332
+% term ASS_SUB 333
+% term ASS_XOR 334
+% term BuiltInTypeSpecifier 335
+% term CharacterLiteral 336
+% term Identifier 337
+% term MetaType 338
+% term NewLine 339
+% term NumberLiteral 340
+% term StringLiteral 341
+% term TreeLiteral 342
+% term ERROR 343
+% term NIL 344
+% term RAMMARG 345
+% term BODY 346
+% term DERIVED 347
+% term EMIT 348
+% term ENTRY 349
+% term EXIT 350
+% term FILE 351
+% term FROZEN 352
+% term GUARD 353
+% term IMPLEMENTATION 354
+% term INCLUDE 355
+% term INTERFACE 356
+% term NOGUARD 357
+% term NOIMPLEMENTATION 358
+% term OVERLOAD 359
+% term PATH 360
+% term POOL 361
+% term POST 362
+% term PRE 363
+% term PREFIX 364
+% term PURE 365
+% term SUFFIX 366
+% term UTILITY 367
+% term ALL 368
+% term PLACEHOLDER 369
+% term PLACEMENT 370
+% term NOAUTO 371
+% term HASH_BLANK 372
+% term HASH_DEFINE 373
+% term HASH_ELIF 374
+% term HASH_ELSE 375
+% term HASH_ENDIF 376
+% term HASH_ERROR 377
+% term HASH_IF 378
+% term HASH_IFDEF 379
+% term HASH_IFNDEF 380
+% term HASH_INCLUDE 381
+% term HASH_LINE 382
+% term HASH_PRAGMA 383
+% term HASH_UNDEF 384
+% term HASH_HASH 385
+% term DI_HASH_HASH 386
+% term DI_HASH 387
+% term DI_SQUARE 388
+% term DI_ERAUQS 389
+% term DI_ECARB 390
+% term DEFINED 391
+% term DO_FUNCTION 392
+% term MacroId 393
+% term Punct 394
+% term Text 395
+% term SHIFT_THERE 396
+% term REDUCE_HERE_MOSTLY 397
+% term REDUCE_HERE 398
+% term BOOL 399
+% term CHAR 400
+% term DOUBLE 401
+% term FLOAT 402
+% term INT 403
+% term LONG 404
+% term SHORT 405
+% term SIGNED 406
+% term UNSIGNED 407
+% term VOID 408
+% term WCHAR_T 409
+% term IntegerLiteral 410
+% term FloatingLiteral 411
+% token	<brace>				'{'
+% token	<character_literal>	CharacterLiteral
+% token	<identifier>		Identifier
+% token	<keyword>			ELLIPSIS SCOPE
+% token	<keyword>			SHL SHR EQ NE LE GE
+% token	<keyword>			LOG_AND LOG_OR INC DEC ARROW ARROW_STAR DOT_STAR
+% token	<keyword>			ASS_ADD ASS_AND ASS_DIV ASS_MOD ASS_MUL
+% token	<keyword>			ASS_OR ASS_SHL ASS_SHR ASS_SUB ASS_XOR
+% token	<keyword>			HASH_HASH
+% token	<keyword>			'}' '[' ']' '#' '(' ')' ';' ':' '?' '.' '+' '-' '*' '/' '%'
+% token	<keyword>			'^' '&' '|' '~' '!' '=' '<' '>' ','
+% token	<keyword>			'@' '$' '\'' '"' '\\'
+% token	<keyword>			MacroId Punct
+% token	<line>				NewLine
+% token	<number_literal>	NumberLiteral
+% token	<spacing>			' '
+% token	<string_literal>	StringLiteral
 
 /*EndTypes*/
-%nonassoc SHIFT_THERE
-%nonassoc SCOPE ELSE INC DEC '+' '-' '*' '&' '[' '{' '<' ':' StringLiteral
- '/' CATCH BuiltInTypeSpecifier
-%nonassoc REDUCE_HERE_MOSTLY
-%nonassoc '('
+% nonassoc SHIFT_THERE
+% nonassoc SCOPE ELSE INC DEC '+' '-' '*' '&' '[' '{' '<' ':' StringLiteral
+'/' CATCH BuiltInTypeSpecifier
+% nonassoc REDUCE_HERE_MOSTLY
+% nonassoc '('
 /*%nonassoc REDUCE_HERE */
 
-%start translation_unit
-%%
+% start translation_unit
+% %
 
 /*
- *  The %prec resolves a conflict in identifier_word : which is forced to be a shift of a label for
- *  a labeled-statement rather than a reduction for the name of a bit-field or generalised constructor.
- *  This is pretty dubious syntactically but correct for all semantic possibilities.
- *  The shift is only activated when the ambiguity exists at the start of a statement. In this context
- *  a bit-field declaration or constructor definition are not allowed.
- */
+    The %prec resolves a conflict in identifier_word : which is forced to be a shift of a label for
+    a labeled-statement rather than a reduction for the name of a bit-field or generalised constructor.
+    This is pretty dubious syntactically but correct for all semantic possibilities.
+    The shift is only activated when the ambiguity exists at the start of a statement. In this context
+    a bit-field declaration or constructor definition are not allowed.
+*/
 identifier_word:                    Identifier                                                  { $$ = $1; }
-    |                               MetaType                                                    { $$ = $1; }
-    |                               DERIVED | FILE | GUARD | IMPLEMENTATION
-    |                               INCLUDE | INTERFACE | NOGUARD | NOIMPLEMENTATION
-    |                               OVERLOAD | PATH | PREFIX | PURE | SUFFIX
-    |                               ALL | PLACEHOLDER | PLACEMENT | NOAUTO
-    |                               segment                                                     { $$ = $1; }
-    |                               utility                                                     { $$ = $1; }
-identifier:                         identifier_word                     %prec SHIFT_THERE
-    |                               TreeLiteral                                                 { $$ = YACC_TREE_ID($1); }
+|                               MetaType                                                    { $$ = $1; }
+|                               DERIVED | FILE | GUARD | IMPLEMENTATION
+|                               INCLUDE | INTERFACE | NOGUARD | NOIMPLEMENTATION
+|                               OVERLOAD | PATH | PREFIX | PURE | SUFFIX
+|                               ALL | PLACEHOLDER | PLACEMENT | NOAUTO
+|                               segment                                                     { $$ = $1; }
+|                               utility                                                     { $$ = $1; }
+identifier:                         identifier_word                     % prec SHIFT_THERE
+|                               TreeLiteral                                                 { $$ = YACC_TREE_ID($1); }
 /*
- *  The %prec resolves the $014.2-3 ambiguity:
- *  Identifier '<' is forced to go through the is-it-a-template-name test
- *  All names absorb TEMPLATE with the name, so that no template_test is performed for them.
- *  This requires all potential declarations within an expression to perpetuate this policy
- *  and thereby guarantee the ultimate coverage of explicit_instantiation.
- */
-id:                                 identifier                          %prec SHIFT_THERE       /* Force < through test */ { $$ = YACC_NAME($1); }
-    |                               identifier template_test '+' template_argument_list '>'     { $$ = YACC_TEMPLATE_NAME($1, $4); }
-    |                               identifier template_test '+' '>'                            { $$ = $1; ERRMSG("Empty template-argument-list"); }
-    |                               identifier template_test '-'                                /* requeued < follows */  { $$ = YACC_NAME($1); }
-    |                               template_id 
+    The %prec resolves the $014.2-3 ambiguity:
+    Identifier '<' is forced to go through the is-it-a-template-name test
+    All names absorb TEMPLATE with the name, so that no template_test is performed for them.
+    This requires all potential declarations within an expression to perpetuate this policy
+    and thereby guarantee the ultimate coverage of explicit_instantiation.
+*/
+id:                                 identifier                          % prec SHIFT_THERE       /* Force < through test */ { $$ = YACC_NAME($1); }
+|                               identifier template_test '+' template_argument_list '>'     { $$ = YACC_TEMPLATE_NAME($1, $4); }
+|                               identifier template_test '+' '>'                            { $$ = $1; ERRMSG("Empty template-argument-list"); }
+|                               identifier template_test '-'                                /* requeued < follows */  { $$ = YACC_NAME($1); }
+|                               template_id
 template_test:                      '<'             /* Queue '+' or '-' < as follow on */       { template_test(); }
 global_scope:                       SCOPE                                                       { $$ = IS_DEFAULT; }
-    |                               TEMPLATE global_scope                                       { $$ = IS_TEMPLATE; }
+|                               TEMPLATE global_scope                                       { $$ = IS_TEMPLATE; }
 id_scope:                           id SCOPE                                                    { $$ = YACC_NESTED_SCOPE($1); }
 /*
- *  A :: B :: C; is ambiguous How much is type and how much name ?
- *  The %prec maximises the (type) length which is the $07.1-2 semantic constraint.
- */
-nested_id:                          id                                  %prec SHIFT_THERE       /* Maximise length */
-    |                               id_scope nested_id                                          { $$ = YACC_NESTED_ID($1, $2); }
+    A :: B :: C; is ambiguous How much is type and how much name ?
+    The %prec maximises the (type) length which is the $07.1-2 semantic constraint.
+*/
+nested_id:                          id                                  % prec SHIFT_THERE      /* Maximise length */
+|                               id_scope nested_id                                          { $$ = YACC_NESTED_ID($1, $2); }
 scoped_id:                          nested_id
-    |                               global_scope nested_id                                      { $$ = YACC_GLOBAL_ID($1, $2); }
+|                               global_scope nested_id                                      { $$ = YACC_GLOBAL_ID($1, $2); }
 
 /*
- *  destructor_id has to be held back to avoid a conflict with a one's complement as per $05.3.1-9,
- *  It gets put back only when scoped or in a declarator_id, which is only used as an explicit member name.
- *  Declarations of an unscoped destructor are always parsed as a one's complement.
- */
+    destructor_id has to be held back to avoid a conflict with a one's complement as per $05.3.1-9,
+    It gets put back only when scoped or in a declarator_id, which is only used as an explicit member name.
+    Declarations of an unscoped destructor are always parsed as a one's complement.
+*/
 destructor_id:                      '~' id                                                      { $$ = YACC_DESTRUCTOR_ID($2); }
-    |                               TEMPLATE destructor_id                                      { $$ = YACC_SET_TEMPLATE_ID($2); }
+|                               TEMPLATE destructor_id                                      { $$ = YACC_SET_TEMPLATE_ID($2); }
 special_function_id:                conversion_function_id
-    |                               operator_function_id
-    |                               TEMPLATE special_function_id                                { $$ = YACC_SET_TEMPLATE_ID($2); }
+|                               operator_function_id
+|                               TEMPLATE special_function_id                                { $$ = YACC_SET_TEMPLATE_ID($2); }
 nested_special_function_id:         special_function_id
-    |                               id_scope destructor_id                                      { $$ = YACC_NESTED_ID($1, $2); }
-    |                               id_scope nested_special_function_id                         { $$ = YACC_NESTED_ID($1, $2); }
+|                               id_scope destructor_id                                      { $$ = YACC_NESTED_ID($1, $2); }
+|                               id_scope nested_special_function_id                         { $$ = YACC_NESTED_ID($1, $2); }
 scoped_special_function_id:         nested_special_function_id
-    |                               global_scope nested_special_function_id                     { $$ = YACC_GLOBAL_ID($1, $2); }
+|                               global_scope nested_special_function_id                     { $$ = YACC_GLOBAL_ID($1, $2); }
 
 /* declarator-id is all names in all scopes, except reserved words */
 declarator_id:                      scoped_id
-    |                               scoped_special_function_id
-    |                               destructor_id
+|                               scoped_special_function_id
+|                               destructor_id
 
 /*  The standard defines pseudo-destructors in terms of type-name, which is class/enum/typedef, of which
- *  class-name is covered by a normal destructor. pseudo-destructors are supposed to support ~int() in
- *  templates, so the grammar here covers built-in names. Other names are covered by the lack of
- *  identifier/type discrimination.
- */
+    class-name is covered by a normal destructor. pseudo-destructors are supposed to support ~int() in
+    templates, so the grammar here covers built-in names. Other names are covered by the lack of
+    identifier/type discrimination.
+*/
 built_in_type_id:                   built_in_type_specifier
-    |                               built_in_type_id built_in_type_specifier                    { $$ = YACC_BUILT_IN_IDS($1, $2); }
+|                               built_in_type_id built_in_type_specifier                    { $$ = YACC_BUILT_IN_IDS($1, $2); }
 pseudo_destructor_id:               built_in_type_id SCOPE '~' built_in_type_id                 { $$ = YACC_PSEUDO_DESTRUCTOR_ID($1, $4); }
-    |                               '~' built_in_type_id                                        { $$ = YACC_PSEUDO_DESTRUCTOR_ID(0, $2); }
-    |                               TEMPLATE pseudo_destructor_id                               { $$ = YACC_SET_TEMPLATE_ID($2); }
+|                               '~' built_in_type_id                                        { $$ = YACC_PSEUDO_DESTRUCTOR_ID(0, $2); }
+|                               TEMPLATE pseudo_destructor_id                               { $$ = YACC_SET_TEMPLATE_ID($2); }
 nested_pseudo_destructor_id:        pseudo_destructor_id
-    |                               id_scope nested_pseudo_destructor_id                        { $$ = YACC_NESTED_ID($1, $2); }
+|                               id_scope nested_pseudo_destructor_id                        { $$ = YACC_NESTED_ID($1, $2); }
 scoped_pseudo_destructor_id:        nested_pseudo_destructor_id
-    |                               global_scope scoped_pseudo_destructor_id                    { $$ = YACC_GLOBAL_ID($1, $2); }
+|                               global_scope scoped_pseudo_destructor_id                    { $$ = YACC_GLOBAL_ID($1, $2); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.2 Lexical conventions
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.2 Lexical conventions
+    ---------------------------------------------------------------------------------------------------*/
 /*
- *  String concatenation is a phase 6, not phase 7 activity so does not really belong in the grammar.
- *  However it may be convenient to have it here to make this grammar fully functional.
- *  Unfortunately it introduces a conflict with the generalised parsing of extern "C" which
- *  is correctly resolved to maximise the string length as the token source should do anyway.
- */
+    String concatenation is a phase 6, not phase 7 activity so does not really belong in the grammar.
+    However it may be convenient to have it here to make this grammar fully functional.
+    Unfortunately it introduces a conflict with the generalised parsing of extern "C" which
+    is correctly resolved to maximise the string length as the token source should do anyway.
+*/
 string:                             StringLiteral                                               { $$ = $1; }
 /*string:                           StringLiteral                           %prec SHIFT_THERE   { $$ = YACC_STRINGS($1, 0); } */
 /*  |                               StringLiteral string  -- Perverse order avoids conflicts -- { $$ = YACC_STRINGS($1, $2); } */
 literal:                            IntegerLiteral                                              { $$ = YACC_INTEGER_LITERAL_EXPRESSION($1); }
-    |                               CharacterLiteral                                            { $$ = YACC_CHARACTER_LITERAL_EXPRESSION($1); }
-    |                               FloatingLiteral                                             { $$ = YACC_FLOATING_LITERAL_EXPRESSION($1); }
-    |                               string                                                      { $$ = YACC_STRING_LITERAL_EXPRESSION($1); }
-    |                               boolean_literal
-    |                               NumberLiteral                                               { $$ = YACC_NUMBER_LITERAL_EXPRESSION($1); }
+|                               CharacterLiteral                                            { $$ = YACC_CHARACTER_LITERAL_EXPRESSION($1); }
+|                               FloatingLiteral                                             { $$ = YACC_FLOATING_LITERAL_EXPRESSION($1); }
+|                               string                                                      { $$ = YACC_STRING_LITERAL_EXPRESSION($1); }
+|                               boolean_literal
+|                               NumberLiteral                                               { $$ = YACC_NUMBER_LITERAL_EXPRESSION($1); }
 string_expr:                        string                                                      { $$ = $1; }
-    |                               TreeLiteral                                                 { $$ = $1; }
+|                               TreeLiteral                                                 { $$ = $1; }
 boolean_literal:                    FALSE                                                       { $$ = YACC_FALSE_EXPRESSION(); }
-    |                               TRUE                                                        { $$ = YACC_TRUE_EXPRESSION(); }
+|                               TRUE                                                        { $$ = YACC_TRUE_EXPRESSION(); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.3 Basic concepts
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.3 Basic concepts
+    ---------------------------------------------------------------------------------------------------*/
 translation_unit:                   declaration_seq.opt                                         { YACC_RESULT($1); }
-    |                               declaration_seq.opt util looping_declaration '#' bang error '#' { YACC_RESULT($1); YACC_UNBANG($5, "Bad declaration."); }
+|                               declaration_seq.opt util looping_declaration '#' bang error '#' { YACC_RESULT($1); YACC_UNBANG($5, "Bad declaration."); }
 /* $-expression grammar */
-    |                               '$' tree_expression                                         { YACC_RESULT($2); YYACCEPT; }
-    |                               '$' '{' tree_expression ecarb                               { YACC_RESULT($3); YYACCEPT; }
-    |                               '$' bang error                                              { YACC_UNBANG($2, "Bad tree-expression."); YYABORT; }
-    |                               '$' '{' bang error ecarb                                    { YACC_UNBANG($3, "Bad ${tree-expression}."); YYABORT; }
+|                               '$' tree_expression                                         { YACC_RESULT($2); YYACCEPT; }
+|                               '$' '{' tree_expression ecarb                               { YACC_RESULT($3); YYACCEPT; }
+|                               '$' bang error                                              { YACC_UNBANG($2, "Bad tree-expression."); YYABORT; }
+|                               '$' '{' bang error ecarb                                    { YACC_UNBANG($3, "Bad ${tree-expression}."); YYABORT; }
 
-/*---------------------------------------------------------------------------------------------------
- * A.4 Expressions
- *---------------------------------------------------------------------------------------------------
- *  primary_expression covers an arbitrary sequence of all names with the exception of an unscoped destructor,
- *  which is parsed as its unary expression which is the correct disambiguation (when ambiguous).
- *  This eliminates the traditional A(B) meaning A B ambiguity, since we never have to tack an A onto
- *  the front of something that might start with (. The name length got maximised ab initio. The downside
- *  is that semantic interpretation must split the names up again.
- *
- *  Unification of the declaration and expression syntax means that unary and binary pointer declarator operators:
- *      int * * name
- *  are parsed as binary and unary arithmetic operators (int) * (*name). Since type information is not used
- *  ambiguities resulting from a cast
- *      (cast)*(value)
- *  are resolved to favour the binary rather than the cast unary to ease AST clean-up.
- *  The cast-call ambiguity must be resolved to the cast to ensure that (a)(b)c can be parsed.
- *
- *  The problem of the functional cast ambiguity
- *      name(arg)
- *  as call or declaration is avoided by maximising the name within the parsing kernel. So
- *  primary_id_expression picks up 
- *      extern long int const var = 5;
- *  as an assignment to the syntax parsed as "extern long int const var". The presence of two names is
- *  parsed so that "extern long into const" is distinguished from "var" considerably simplifying subsequent
- *  semantic resolution.
- *
- *  The generalised name is a concatenation of potential type-names (scoped identifiers or built-in sequences)
- *  plus optionally one of the special names such as an operator-function-id, conversion-function-id or
- *  destructor as the final name. 
- */
+/*  ---------------------------------------------------------------------------------------------------
+    A.4 Expressions
+    ---------------------------------------------------------------------------------------------------
+    primary_expression covers an arbitrary sequence of all names with the exception of an unscoped destructor,
+    which is parsed as its unary expression which is the correct disambiguation (when ambiguous).
+    This eliminates the traditional A(B) meaning A B ambiguity, since we never have to tack an A onto
+    the front of something that might start with (. The name length got maximised ab initio. The downside
+    is that semantic interpretation must split the names up again.
+
+    Unification of the declaration and expression syntax means that unary and binary pointer declarator operators:
+        int * * name
+    are parsed as binary and unary arithmetic operators (int) * (*name). Since type information is not used
+    ambiguities resulting from a cast
+        (cast)*(value)
+    are resolved to favour the binary rather than the cast unary to ease AST clean-up.
+    The cast-call ambiguity must be resolved to the cast to ensure that (a)(b)c can be parsed.
+
+    The problem of the functional cast ambiguity
+        name(arg)
+    as call or declaration is avoided by maximising the name within the parsing kernel. So
+    primary_id_expression picks up
+        extern long int const var = 5;
+    as an assignment to the syntax parsed as "extern long int const var". The presence of two names is
+    parsed so that "extern long into const" is distinguished from "var" considerably simplifying subsequent
+    semantic resolution.
+
+    The generalised name is a concatenation of potential type-names (scoped identifiers or built-in sequences)
+    plus optionally one of the special names such as an operator-function-id, conversion-function-id or
+    destructor as the final name.
+*/
 primary_expression:                 literal
-    |                               THIS                                                    { $$ = YACC_THIS_EXPRESSION(); }
-    |                               suffix_decl_specified_ids                               { $$ = $1; }
+|                               THIS                                                    { $$ = YACC_THIS_EXPRESSION(); }
+|                               suffix_decl_specified_ids                               { $$ = $1; }
 /*  |                               SCOPE identifier                                        -- covered by suffix_decl_specified_ids */
 /*  |                               SCOPE operator_function_id                              -- covered by suffix_decl_specified_ids */
 /*  |                               SCOPE qualified_id                                      -- covered by suffix_decl_specified_ids */
-    |                               abstract_expression           %prec REDUCE_HERE_MOSTLY  /* Prefer binary to unary ops, cast to call */
+|                               abstract_expression           % prec REDUCE_HERE_MOSTLY /* Prefer binary to unary ops, cast to call */
 /*  |                               id_expression                                           -- covered by suffix_decl_specified_ids */
 
 /*
- *  Abstract-expression covers the () and [] of abstract-declarators.
- */
+    Abstract-expression covers the () and [] of abstract-declarators.
+*/
 abstract_expression:                parenthesis_clause                                      { $$ = YACC_ABSTRACT_FUNCTION_EXPRESSION($1); }
-    |                               '[' expression.opt ']'                                  { $$ = YACC_ABSTRACT_ARRAY_EXPRESSION($2); }
-    |                               TEMPLATE parenthesis_clause                             { $$ = YACC_SET_TEMPLATE_EXPRESSION(YACC_ABSTRACT_FUNCTION_EXPRESSION($2)); }
+|                               '[' expression.opt ']'                                  { $$ = YACC_ABSTRACT_ARRAY_EXPRESSION($2); }
+|                               TEMPLATE parenthesis_clause                             { $$ = YACC_SET_TEMPLATE_EXPRESSION(YACC_ABSTRACT_FUNCTION_EXPRESSION($2)); }
 
 /*  Type I function parameters are ambiguous with respect to the generalised name, so we have to do a lookahead following
- *  any function-like parentheses. This unfortunately hits normal code, so kill the -- lines and add the ++ lines for efficiency.
- *  Supporting Type I code under the superset causes perhaps 25% of lookahead parsing. Sometimes complete class definitions
- *  get traversed since they are valid generalised type I parameters!
- */
+    any function-like parentheses. This unfortunately hits normal code, so kill the -- lines and add the ++ lines for efficiency.
+    Supporting Type I code under the superset causes perhaps 25% of lookahead parsing. Sometimes complete class definitions
+    get traversed since they are valid generalised type I parameters!
+*/
 type1_parameters:       /*----*/    parameter_declaration_list ';'                          { $$ = YACC_TYPE1_PARAMETERS(0, $1); }
-    |                   /*----*/    type1_parameters parameter_declaration_list ';'         { $$ = YACC_TYPE1_PARAMETERS($1, $2); }
+|                   /*----*/    type1_parameters parameter_declaration_list ';'         { $$ = YACC_TYPE1_PARAMETERS($1, $2); }
 mark_type1:                         /* empty */                                             { $$ = mark_type1(); }
 postfix_expression:                 primary_expression
 /*  |                   /++++++/    postfix_expression parenthesis_clause                   { $$ = YACC_CALL_EXPRESSION($1, $2); } */
-    |                   /*----*/    postfix_expression parenthesis_clause mark_type1 '-'    { $$ = YACC_CALL_EXPRESSION($1, $2); }
-    |                   /*----*/    postfix_expression parenthesis_clause mark_type1 '+' type1_parameters mark '{' error 
-                        /*----*/                    { yyerrok; remark_type1($6); unmark(); unmark($5); $$ = YACC_TYPE1_EXPRESSION($1, $2, $5); }
-    |                   /*----*/    postfix_expression parenthesis_clause mark_type1 '+' type1_parameters mark error 
-                        /*----*/                    { yyerrok; remark_type1($3); unmark(); unmark(); $$ = YACC_CALL_EXPRESSION($1, $2); }
-    |                   /*----*/    postfix_expression parenthesis_clause mark_type1 '+' error
-                        /*----*/                    { yyerrok; remark_type1($3); unmark(); $$ = YACC_CALL_EXPRESSION($1, $2); }
-    |                               postfix_expression '[' expression.opt ']'               { $$ = YACC_ARRAY_EXPRESSION($1, $3); }
+|                   /*----*/    postfix_expression parenthesis_clause mark_type1 '-'    { $$ = YACC_CALL_EXPRESSION($1, $2); }
+|                   /*----*/    postfix_expression parenthesis_clause mark_type1 '+' type1_parameters mark '{' error
+/*----*/                    { yyerrok; remark_type1($6); unmark(); unmark($5); $$ = YACC_TYPE1_EXPRESSION($1, $2, $5); }
+|                   /*----*/    postfix_expression parenthesis_clause mark_type1 '+' type1_parameters mark error
+/*----*/                    { yyerrok; remark_type1($3); unmark(); unmark(); $$ = YACC_CALL_EXPRESSION($1, $2); }
+|                   /*----*/    postfix_expression parenthesis_clause mark_type1 '+' error
+/*----*/                    { yyerrok; remark_type1($3); unmark(); $$ = YACC_CALL_EXPRESSION($1, $2); }
+|                               postfix_expression '[' expression.opt ']'               { $$ = YACC_ARRAY_EXPRESSION($1, $3); }
 /*  |                               destructor_id '[' expression.opt ']'                    -- not semantically valid */
 /*  |                               destructor_id parenthesis_clause                        -- omitted to resolve known ambiguity */
 /*  |                               simple_type_specifier '(' expression_list.opt ')'       -- simple_type_specifier is a primary_expression */
-    |                               postfix_expression '.' declarator_id                    { $$ = YACC_DOT_EXPRESSION($1, $3); }
+|                               postfix_expression '.' declarator_id                    { $$ = YACC_DOT_EXPRESSION($1, $3); }
 /*  |                               postfix_expression '.' TEMPLATE declarator_id           -- TEMPLATE absorbed into declarator_id. */
-    |                               postfix_expression '.' scoped_pseudo_destructor_id      { $$ = YACC_DOT_EXPRESSION($1, $3); }
-    |                               postfix_expression ARROW declarator_id                  { $$ = YACC_ARROW_EXPRESSION($1, $3); }
+|                               postfix_expression '.' scoped_pseudo_destructor_id      { $$ = YACC_DOT_EXPRESSION($1, $3); }
+|                               postfix_expression ARROW declarator_id                  { $$ = YACC_ARROW_EXPRESSION($1, $3); }
 /*  |                               postfix_expression ARROW TEMPLATE declarator_id         -- TEMPLATE absorbed into declarator_id. */
-    |                               postfix_expression ARROW scoped_pseudo_destructor_id    { $$ = YACC_ARROW_EXPRESSION($1, $3); }   
-    |                               postfix_expression INC                                  { $$ = YACC_POST_INCREMENT_EXPRESSION($1); }
-    |                               postfix_expression DEC                                  { $$ = YACC_POST_DECREMENT_EXPRESSION($1); }
-    |                               DYNAMIC_CAST '<' type_id '>' '(' expression ')'         { $$ = YACC_DYNAMIC_CAST_EXPRESSION($3, $6); }
-    |                               STATIC_CAST '<' type_id '>' '(' expression ')'          { $$ = YACC_STATIC_CAST_EXPRESSION($3, $6); }
-    |                               REINTERPRET_CAST '<' type_id '>' '(' expression ')'     { $$ = YACC_REINTERPRET_CAST_EXPRESSION($3, $6); }
-    |                               CONST_CAST '<' type_id '>' '(' expression ')'           { $$ = YACC_CONST_CAST_EXPRESSION($3, $6); }
-    |                               TYPEID parameters_clause                                { $$ = YACC_TYPEID_EXPRESSION($2); }
+|                               postfix_expression ARROW scoped_pseudo_destructor_id    { $$ = YACC_ARROW_EXPRESSION($1, $3); }
+|                               postfix_expression INC                                  { $$ = YACC_POST_INCREMENT_EXPRESSION($1); }
+|                               postfix_expression DEC                                  { $$ = YACC_POST_DECREMENT_EXPRESSION($1); }
+|                               DYNAMIC_CAST '<' type_id '>' '(' expression ')'         { $$ = YACC_DYNAMIC_CAST_EXPRESSION($3, $6); }
+|                               STATIC_CAST '<' type_id '>' '(' expression ')'          { $$ = YACC_STATIC_CAST_EXPRESSION($3, $6); }
+|                               REINTERPRET_CAST '<' type_id '>' '(' expression ')'     { $$ = YACC_REINTERPRET_CAST_EXPRESSION($3, $6); }
+|                               CONST_CAST '<' type_id '>' '(' expression ')'           { $$ = YACC_CONST_CAST_EXPRESSION($3, $6); }
+|                               TYPEID parameters_clause                                { $$ = YACC_TYPEID_EXPRESSION($2); }
 /*  |                               TYPEID '(' expression ')'                               -- covered by parameters_clause */
 /*  |                               TYPEID '(' type_id ')'                                  -- covered by parameters_clause */
 expression_list.opt:                /* empty */                                             { $$ = YACC_EXPRESSIONS(0, 0); }
-    |                               expression_list
+|                               expression_list
 expression_list:                    assignment_expression                                   { $$ = YACC_EXPRESSIONS(0, $1); }
-    |                               expression_list ',' assignment_expression               { $$ = YACC_EXPRESSIONS($1, $3); }
+|                               expression_list ',' assignment_expression               { $$ = YACC_EXPRESSIONS($1, $3); }
 
 unary_expression:                   postfix_expression
-    |                               INC cast_expression                                     { $$ = YACC_PRE_INCREMENT_EXPRESSION($2); }
-    |                               DEC cast_expression                                     { $$ = YACC_PRE_DECREMENT_EXPRESSION($2); }
-    |                               ptr_operator cast_expression                            { $$ = YACC_POINTER_EXPRESSION($1, $2); }
+|                               INC cast_expression                                     { $$ = YACC_PRE_INCREMENT_EXPRESSION($2); }
+|                               DEC cast_expression                                     { $$ = YACC_PRE_DECREMENT_EXPRESSION($2); }
+|                               ptr_operator cast_expression                            { $$ = YACC_POINTER_EXPRESSION($1, $2); }
 /*  |                               '*' cast_expression                                     -- covered by ptr_operator */
 /*  |                               '&' cast_expression                                     -- covered by ptr_operator */
 /*  |                               decl_specifier_seq '*' cast_expression                  -- covered by binary operator */
 /*  |                               decl_specifier_seq '&' cast_expression                  -- covered by binary operator */
-    |                               suffix_decl_specified_scope star_ptr_operator cast_expression   /* covers e.g int ::type::* const t = 4 */
-                                                                                            { $$ = YACC_SCOPED_POINTER_EXPRESSION($1, $2, $3); }
-    |                               '+' cast_expression                                     { $$ = YACC_PLUS_EXPRESSION($2); }
-    |                               '-' cast_expression                                     { $$ = YACC_MINUS_EXPRESSION($2); }
-    |                               '!' cast_expression                                     { $$ = YACC_NOT_EXPRESSION($2); }
-    |                               '~' cast_expression                                     { $$ = YACC_COMPLEMENT_EXPRESSION($2); }
-    |                               SIZEOF unary_expression                                 { $$ = YACC_SIZEOF_EXPRESSION($2); }
+|                               suffix_decl_specified_scope star_ptr_operator cast_expression   /* covers e.g int ::type::* const t = 4 */
+{ $$ = YACC_SCOPED_POINTER_EXPRESSION($1, $2, $3); }
+|                               '+' cast_expression                                     { $$ = YACC_PLUS_EXPRESSION($2); }
+|                               '-' cast_expression                                     { $$ = YACC_MINUS_EXPRESSION($2); }
+|                               '!' cast_expression                                     { $$ = YACC_NOT_EXPRESSION($2); }
+|                               '~' cast_expression                                     { $$ = YACC_COMPLEMENT_EXPRESSION($2); }
+|                               SIZEOF unary_expression                                 { $$ = YACC_SIZEOF_EXPRESSION($2); }
 /*  |                               SIZEOF '(' type_id ')'                                  -- covered by unary_expression */
-    |                               new_expression                                          { $$ = $1; }
-    |                               global_scope new_expression                             { $$ = YACC_GLOBAL_EXPRESSION($1, $2); }
-    |                               delete_expression                                       { $$ = $1; }
-    |                               global_scope delete_expression                          { $$ = YACC_GLOBAL_EXPRESSION($1, $2); }
+|                               new_expression                                          { $$ = $1; }
+|                               global_scope new_expression                             { $$ = YACC_GLOBAL_EXPRESSION($1, $2); }
+|                               delete_expression                                       { $$ = $1; }
+|                               global_scope delete_expression                          { $$ = YACC_GLOBAL_EXPRESSION($1, $2); }
 /*  |                               DELETE '[' ']' cast_expression       -- covered by DELETE cast_expression since cast_expression covers ... */
 /*  |                               SCOPE DELETE '[' ']' cast_expression //  ... abstract_expression cast_expression and so [] cast_expression */
 
 delete_expression:                  DELETE cast_expression                                  /* also covers DELETE[] cast_expression */
-                                                                                            { $$ = YACC_DELETE_EXPRESSION($2); }
+{ $$ = YACC_DELETE_EXPRESSION($2); }
 new_expression:                     NEW new_type_id new_initializer.opt                     { $$ = YACC_NEW_TYPE_ID_EXPRESSION(0, $2, $3); }
-    |                               NEW parameters_clause new_type_id new_initializer.opt   { $$ = YACC_NEW_TYPE_ID_EXPRESSION($2, $3, $4); }
-    |                               NEW parameters_clause                                   { $$ = YACC_NEW_EXPRESSION($2, 0, 0); }
+|                               NEW parameters_clause new_type_id new_initializer.opt   { $$ = YACC_NEW_TYPE_ID_EXPRESSION($2, $3, $4); }
+|                               NEW parameters_clause                                   { $$ = YACC_NEW_EXPRESSION($2, 0, 0); }
 /*  |                               NEW '(' type-id ')'                                     -- covered by parameters_clause */
-    |                               NEW parameters_clause parameters_clause new_initializer.opt { $$ = YACC_NEW_EXPRESSION($2, $3, $4); }
+|                               NEW parameters_clause parameters_clause new_initializer.opt { $$ = YACC_NEW_EXPRESSION($2, $3, $4); }
 /*  |                               NEW '(' type-id ')' new_initializer                     -- covered by parameters_clause parameters_clause */
 /*  |                               NEW parameters_clause '(' type-id ')'                   -- covered by parameters_clause parameters_clause */
-                                                                                /* ptr_operator_seq.opt production reused to save a %prec */
+/* ptr_operator_seq.opt production reused to save a %prec */
 new_type_id:                        type_specifier ptr_operator_seq.opt                     { $$ = YACC_TYPED_EXPRESSION($1, $2); }
-    |                               type_specifier new_declarator                           { $$ = YACC_TYPED_EXPRESSION($1, $2); }
-    |                               type_specifier new_type_id                              { $$ = YACC_TYPED_EXPRESSION($1, $2); }
+|                               type_specifier new_declarator                           { $$ = YACC_TYPED_EXPRESSION($1, $2); }
+|                               type_specifier new_type_id                              { $$ = YACC_TYPED_EXPRESSION($1, $2); }
 new_declarator:                     ptr_operator new_declarator                             { $$ = YACC_POINTER_EXPRESSION($1, $2); }
-    |                               direct_new_declarator
+|                               direct_new_declarator
 direct_new_declarator:              '[' expression ']'                                      { $$ = YACC_ABSTRACT_ARRAY_EXPRESSION($2); }
-    |                               direct_new_declarator '[' constant_expression ']'       { $$ = YACC_ARRAY_EXPRESSION($1, $3); }
+|                               direct_new_declarator '[' constant_expression ']'       { $$ = YACC_ARRAY_EXPRESSION($1, $3); }
 new_initializer.opt:                /* empty */                                             { $$ = YACC_EXPRESSIONS(0, 0); }
-    |                               '(' expression_list.opt ')'                             { $$ = $2; }
+|                               '(' expression_list.opt ')'                             { $$ = $2; }
 
 /*  cast-expression is generalised to support a [] as well as a () prefix. This covers the omission of DELETE[] which when
- *  followed by a parenthesised expression was ambiguous. It also covers the gcc indexed array initialisation for free.
- */
+    followed by a parenthesised expression was ambiguous. It also covers the gcc indexed array initialisation for free.
+*/
 cast_expression:                    unary_expression
-    |                               abstract_expression cast_expression                         { $$ = YACC_CAST_EXPRESSION($1, $2); }
+|                               abstract_expression cast_expression                         { $$ = YACC_CAST_EXPRESSION($1, $2); }
 /*  |                               '(' type_id ')' cast_expression                             -- covered by abstract_expression */
 
 pm_expression:                      cast_expression
-    |                               pm_expression DOT_STAR cast_expression                      { $$ = YACC_DOT_STAR_EXPRESSION($1, $3); }
-    |                               pm_expression ARROW_STAR cast_expression                    { $$ = YACC_ARROW_STAR_EXPRESSION($1, $3); }
+|                               pm_expression DOT_STAR cast_expression                      { $$ = YACC_DOT_STAR_EXPRESSION($1, $3); }
+|                               pm_expression ARROW_STAR cast_expression                    { $$ = YACC_ARROW_STAR_EXPRESSION($1, $3); }
 multiplicative_expression:          pm_expression
-    |                               multiplicative_expression star_ptr_operator pm_expression   { $$ = YACC_MULTIPLY_EXPRESSION($1, $2, $3); }
-    |                               multiplicative_expression '/' pm_expression                 { $$ = YACC_DIVIDE_EXPRESSION($1, $3); }
-    |                               multiplicative_expression '%' pm_expression                 { $$ = YACC_MODULUS_EXPRESSION($1, $3); }
+|                               multiplicative_expression star_ptr_operator pm_expression   { $$ = YACC_MULTIPLY_EXPRESSION($1, $2, $3); }
+|                               multiplicative_expression '/' pm_expression                 { $$ = YACC_DIVIDE_EXPRESSION($1, $3); }
+|                               multiplicative_expression '%' pm_expression                 { $$ = YACC_MODULUS_EXPRESSION($1, $3); }
 additive_expression:                multiplicative_expression
-    |                               additive_expression '+' multiplicative_expression           { $$ = YACC_ADD_EXPRESSION($1, $3); }
-    |                               additive_expression '-' multiplicative_expression           { $$ = YACC_SUBTRACT_EXPRESSION($1, $3); }
+|                               additive_expression '+' multiplicative_expression           { $$ = YACC_ADD_EXPRESSION($1, $3); }
+|                               additive_expression '-' multiplicative_expression           { $$ = YACC_SUBTRACT_EXPRESSION($1, $3); }
 shift_expression:                   additive_expression
-    |                               shift_expression SHL additive_expression                    { $$ = YACC_SHIFT_LEFT_EXPRESSION($1, $3); }
-    |                               shift_expression SHR additive_expression                    { $$ = YACC_SHIFT_RIGHT_EXPRESSION($1, $3); }
+|                               shift_expression SHL additive_expression                    { $$ = YACC_SHIFT_LEFT_EXPRESSION($1, $3); }
+|                               shift_expression SHR additive_expression                    { $$ = YACC_SHIFT_RIGHT_EXPRESSION($1, $3); }
 relational_expression:              shift_expression
-    |                               relational_expression '<' shift_expression                  { $$ = YACC_LESS_THAN_EXPRESSION($1, $3); }
-    |                               relational_expression '>' shift_expression                  { $$ = YACC_GREATER_THAN_EXPRESSION($1, $3); }
-    |                               relational_expression LE shift_expression                   { $$ = YACC_LESS_EQUAL_EXPRESSION($1, $3); }
-    |                               relational_expression GE shift_expression                   { $$ = YACC_GREATER_EQUAL_EXPRESSION($1, $3); }
+|                               relational_expression '<' shift_expression                  { $$ = YACC_LESS_THAN_EXPRESSION($1, $3); }
+|                               relational_expression '>' shift_expression                  { $$ = YACC_GREATER_THAN_EXPRESSION($1, $3); }
+|                               relational_expression LE shift_expression                   { $$ = YACC_LESS_EQUAL_EXPRESSION($1, $3); }
+|                               relational_expression GE shift_expression                   { $$ = YACC_GREATER_EQUAL_EXPRESSION($1, $3); }
 equality_expression:                relational_expression
-    |                               equality_expression EQ relational_expression                { $$ = YACC_EQUAL_EXPRESSION($1, $3); }
-    |                               equality_expression NE relational_expression                { $$ = YACC_NOT_EQUAL_EXPRESSION($1, $3); }
+|                               equality_expression EQ relational_expression                { $$ = YACC_EQUAL_EXPRESSION($1, $3); }
+|                               equality_expression NE relational_expression                { $$ = YACC_NOT_EQUAL_EXPRESSION($1, $3); }
 and_expression:                     equality_expression
-    |                               and_expression '&' equality_expression                      { $$ = YACC_AND_EXPRESSION($1, $3); }
+|                               and_expression '&' equality_expression                      { $$ = YACC_AND_EXPRESSION($1, $3); }
 exclusive_or_expression:            and_expression
-    |                               exclusive_or_expression '^' and_expression                  { $$ = YACC_EXCLUSIVE_OR_EXPRESSION($1, $3); }
+|                               exclusive_or_expression '^' and_expression                  { $$ = YACC_EXCLUSIVE_OR_EXPRESSION($1, $3); }
 inclusive_or_expression:            exclusive_or_expression
-    |                               inclusive_or_expression '|' exclusive_or_expression         { $$ = YACC_INCLUSIVE_OR_EXPRESSION($1, $3); }
+|                               inclusive_or_expression '|' exclusive_or_expression         { $$ = YACC_INCLUSIVE_OR_EXPRESSION($1, $3); }
 logical_and_expression:             inclusive_or_expression
-    |                               logical_and_expression LOG_AND inclusive_or_expression      { $$ = YACC_LOGICAL_AND_EXPRESSION($1, $3); }
+|                               logical_and_expression LOG_AND inclusive_or_expression      { $$ = YACC_LOGICAL_AND_EXPRESSION($1, $3); }
 logical_or_expression:              logical_and_expression
-    |                               logical_or_expression LOG_OR logical_and_expression         { $$ = YACC_LOGICAL_OR_EXPRESSION($1, $3); }
+|                               logical_or_expression LOG_OR logical_and_expression         { $$ = YACC_LOGICAL_OR_EXPRESSION($1, $3); }
 conditional_expression:             logical_or_expression
-    |                               logical_or_expression '?' expression ':' assignment_expression
-                                                                                                { $$ = YACC_CONDITIONAL_EXPRESSION($1, $3, $5); }
+|                               logical_or_expression '?' expression ':' assignment_expression
+{ $$ = YACC_CONDITIONAL_EXPRESSION($1, $3, $5); }
 
 /*  assignment-expression is generalised to cover the simple assignment of a braced initializer in order to contribute to the
- *  coverage of parameter-declaration and init-declaration.
- */
+    coverage of parameter-declaration and init-declaration.
+*/
 assignment_expression:              conditional_expression
-    |                               logical_or_expression assignment_operator assignment_expression { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
-    |                               logical_or_expression '=' braced_initializer                    { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
-    |                               throw_expression
+|                               logical_or_expression assignment_operator assignment_expression { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
+|                               logical_or_expression '=' braced_initializer                    { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
+|                               throw_expression
 assignment_operator:                '=' | ASS_ADD | ASS_AND | ASS_DIV | ASS_MOD | ASS_MUL | ASS_OR | ASS_SHL | ASS_SHR | ASS_SUB | ASS_XOR
 
 /*  expression is widely used and usually single-element, so the reductions are arranged so that a
- *  single-element expression is returned as is. Multi-element expressions are parsed as a list that
- *  may then behave polymorphically as an element or be compacted to an element. */ 
+    single-element expression is returned as is. Multi-element expressions are parsed as a list that
+    may then behave polymorphically as an element or be compacted to an element. */
 expression.opt:                     /* empty */                                                 { $$ = YACC_EXPRESSION(0); }
-    |                               expression
+|                               expression
 expression:                         assignment_expression
-    |                               expression_list ',' assignment_expression                   { $$ = YACC_EXPRESSION(YACC_EXPRESSIONS($1, $3)); }
+|                               expression_list ',' assignment_expression                   { $$ = YACC_EXPRESSION(YACC_EXPRESSIONS($1, $3)); }
 constant_expression:                conditional_expression
 
 /*  The grammar is repeated for when the parser stack knows that the next > must end a template.
- */
+*/
 templated_relational_expression:    shift_expression
-    |                               templated_relational_expression '<' shift_expression        { $$ = YACC_LESS_THAN_EXPRESSION($1, $3); }
-    |                               templated_relational_expression LE shift_expression         { $$ = YACC_LESS_EQUAL_EXPRESSION($1, $3); }
-    |                               templated_relational_expression GE shift_expression         { $$ = YACC_GREATER_EQUAL_EXPRESSION($1, $3); }
+|                               templated_relational_expression '<' shift_expression        { $$ = YACC_LESS_THAN_EXPRESSION($1, $3); }
+|                               templated_relational_expression LE shift_expression         { $$ = YACC_LESS_EQUAL_EXPRESSION($1, $3); }
+|                               templated_relational_expression GE shift_expression         { $$ = YACC_GREATER_EQUAL_EXPRESSION($1, $3); }
 templated_equality_expression:      templated_relational_expression
-    |                               templated_equality_expression EQ templated_relational_expression    { $$ = YACC_EQUAL_EXPRESSION($1, $3); }
-    |                               templated_equality_expression NE templated_relational_expression    { $$ = YACC_NOT_EQUAL_EXPRESSION($1, $3); }
+|                               templated_equality_expression EQ templated_relational_expression    { $$ = YACC_EQUAL_EXPRESSION($1, $3); }
+|                               templated_equality_expression NE templated_relational_expression    { $$ = YACC_NOT_EQUAL_EXPRESSION($1, $3); }
 templated_and_expression:           templated_equality_expression
-    |                               templated_and_expression '&' templated_equality_expression  { $$ = YACC_AND_EXPRESSION($1, $3); }
+|                               templated_and_expression '&' templated_equality_expression  { $$ = YACC_AND_EXPRESSION($1, $3); }
 templated_exclusive_or_expression:  templated_and_expression
-    |                               templated_exclusive_or_expression '^' templated_and_expression
-                                                                                                { $$ = YACC_EXCLUSIVE_OR_EXPRESSION($1, $3); }
+|                               templated_exclusive_or_expression '^' templated_and_expression
+{ $$ = YACC_EXCLUSIVE_OR_EXPRESSION($1, $3); }
 templated_inclusive_or_expression:  templated_exclusive_or_expression
-    |                               templated_inclusive_or_expression '|' templated_exclusive_or_expression
-                                                                                                { $$ = YACC_INCLUSIVE_OR_EXPRESSION($1, $3); }
+|                               templated_inclusive_or_expression '|' templated_exclusive_or_expression
+{ $$ = YACC_INCLUSIVE_OR_EXPRESSION($1, $3); }
 templated_logical_and_expression:   templated_inclusive_or_expression
-    |                               templated_logical_and_expression LOG_AND templated_inclusive_or_expression
-                                                                                                { $$ = YACC_LOGICAL_AND_EXPRESSION($1, $3); }
+|                               templated_logical_and_expression LOG_AND templated_inclusive_or_expression
+{ $$ = YACC_LOGICAL_AND_EXPRESSION($1, $3); }
 templated_logical_or_expression:    templated_logical_and_expression
-    |                               templated_logical_or_expression LOG_OR templated_logical_and_expression
-                                                                                                { $$ = YACC_LOGICAL_OR_EXPRESSION($1, $3); }
+|                               templated_logical_or_expression LOG_OR templated_logical_and_expression
+{ $$ = YACC_LOGICAL_OR_EXPRESSION($1, $3); }
 templated_conditional_expression:   templated_logical_or_expression
-    |                               templated_logical_or_expression '?' templated_expression ':' templated_assignment_expression
-                                                                                                { $$ = YACC_CONDITIONAL_EXPRESSION($1, $3, $5); }
+|                               templated_logical_or_expression '?' templated_expression ':' templated_assignment_expression
+{ $$ = YACC_CONDITIONAL_EXPRESSION($1, $3, $5); }
 templated_assignment_expression:    templated_conditional_expression
-    |                               templated_logical_or_expression assignment_operator templated_assignment_expression
-                                                                                                { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
-    |                               templated_throw_expression
+|                               templated_logical_or_expression assignment_operator templated_assignment_expression
+{ $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
+|                               templated_throw_expression
 templated_expression:               templated_assignment_expression
-    |                               templated_expression_list ',' templated_assignment_expression
-                                                                                                { $$ = YACC_EXPRESSION(YACC_EXPRESSIONS($1, $3)); }
+|                               templated_expression_list ',' templated_assignment_expression
+{ $$ = YACC_EXPRESSION(YACC_EXPRESSIONS($1, $3)); }
 templated_expression_list:          templated_assignment_expression                             { $$ = YACC_EXPRESSIONS(0, $1); }
-    |                               templated_expression_list ',' templated_assignment_expression    { $$ = YACC_EXPRESSIONS($1, $3); }
+|                               templated_expression_list ',' templated_assignment_expression    { $$ = YACC_EXPRESSIONS($1, $3); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.5 Statements
- *---------------------------------------------------------------------------------------------------
- *  Parsing statements is easy once simple_declaration has been generalised to cover expression_statement.
- */
+/*  ---------------------------------------------------------------------------------------------------
+    A.5 Statements
+    ---------------------------------------------------------------------------------------------------
+    Parsing statements is easy once simple_declaration has been generalised to cover expression_statement.
+*/
 looping_statement:                  start_search looped_statement                               { $$ = YACC_LINED_STATEMENT($2, $1); end_search($$); }
 looped_statement:                   statement
-    |                               advance_search '+' looped_statement                         { $$ = $3; }
-    |                               advance_search '-'                                          { $$ = 0; }
+|                               advance_search '+' looped_statement                         { $$ = $3; }
+|                               advance_search '-'                                          { $$ = 0; }
 statement:                          control_statement
 /*  |                               expression_statement                                        -- covered by declaration_statement */
-    |                               compound_statement
-    |                               declaration_statement
-    |                               try_block
-    |                               AUTO control_statement                                      { $$ = YACC_META_STATEMENT($2); }
-    |                               AUTO meta_expression_statement                              { $$ = YACC_META_DECLARATION($2); }
+|                               compound_statement
+|                               declaration_statement
+|                               try_block
+|                               AUTO control_statement                                      { $$ = YACC_META_STATEMENT($2); }
+|                               AUTO meta_expression_statement                              { $$ = YACC_META_DECLARATION($2); }
 control_statement:                  labeled_statement
-    |                               selection_statement
-    |                               iteration_statement
-    |                               jump_statement
+|                               selection_statement
+|                               iteration_statement
+|                               jump_statement
 labeled_statement:                  identifier_word ':' looping_statement                       { $$ = YACC_LABEL_STATEMENT($1, $3); }
-    |                               CASE constant_expression ':' looping_statement              { $$ = YACC_CASE_STATEMENT($2, $4); }
-    |                               DEFAULT ':' looping_statement                               { $$ = YACC_DEFAULT_STATEMENT($3); }
+|                               CASE constant_expression ':' looping_statement              { $$ = YACC_CASE_STATEMENT($2, $4); }
+|                               DEFAULT ':' looping_statement                               { $$ = YACC_DEFAULT_STATEMENT($3); }
 /*expression_statement:             expression.opt ';'                                          -- covered by declaration_statement */
 compound_statement:                 '{' statement_seq.opt '}'                                   { $$ = YACC_COMPOUND_STATEMENT($2); }
-    |                               '{' statement_seq.opt looping_statement '#' bang error_ecarb  { $$ = $2; YACC_UNBANG($5, "Bad statement-seq."); }
+|                               '{' statement_seq.opt looping_statement '#' bang error_ecarb  { $$ = $2; YACC_UNBANG($5, "Bad statement-seq."); }
 statement_seq.opt:                  /* empty */                                                 { $$ = YACC_STATEMENTS(0, 0); }
-    |                               statement_seq.opt looping_statement                         { $$ = YACC_STATEMENTS($1, YACC_COMPILE_STATEMENT($2)); }
-    |                               statement_seq.opt looping_statement '#' bang error ';'      { $$ = $1; YACC_UNBANG($4, "Bad statement."); }
+|                               statement_seq.opt looping_statement                         { $$ = YACC_STATEMENTS($1, YACC_COMPILE_STATEMENT($2)); }
+|                               statement_seq.opt looping_statement '#' bang error ';'      { $$ = $1; YACC_UNBANG($4, "Bad statement."); }
 /*
- *  The dangling else conflict is resolved to the innermost if.
- */
-selection_statement:                IF '(' condition ')' looping_statement    %prec SHIFT_THERE { $$ = YACC_IF_STATEMENT($3, $5, 0); }
-    |                               IF '(' condition ')' looping_statement ELSE looping_statement { $$ = YACC_IF_STATEMENT($3, $5, $7); }
-    |                               SWITCH '(' condition ')' looping_statement                  { $$ = YACC_SWITCH_STATEMENT($3, $5); }
+    The dangling else conflict is resolved to the innermost if.
+*/
+selection_statement:                IF '(' condition ')' looping_statement    % prec SHIFT_THERE { $$ = YACC_IF_STATEMENT($3, $5, 0); }
+|                               IF '(' condition ')' looping_statement ELSE looping_statement { $$ = YACC_IF_STATEMENT($3, $5, $7); }
+|                               SWITCH '(' condition ')' looping_statement                  { $$ = YACC_SWITCH_STATEMENT($3, $5); }
 condition.opt:                      /* empty */                                                 { $$ = YACC_CONDITION(0); }
-    |                               condition
+|                               condition
 condition:                          parameter_declaration_list                                  { $$ = YACC_CONDITION($1); }
 /*  |                               expression                                                  -- covered by parameter_declaration_list */
 /*  |                               type_specifier_seq declarator '=' assignment_expression     -- covered by parameter_declaration_list */
 iteration_statement:                WHILE '(' condition ')' looping_statement                   { $$ = YACC_WHILE_STATEMENT($3, $5); }
-    |                               DO looping_statement WHILE '(' expression ')' ';'           { $$ = YACC_DO_WHILE_STATEMENT($2, $5); }
-    |                               FOR '(' for_init_statement condition.opt ';' expression.opt ')' looping_statement
-                                                                                                { $$ = YACC_FOR_STATEMENT($3, $4, $6, $8); }
+|                               DO looping_statement WHILE '(' expression ')' ';'           { $$ = YACC_DO_WHILE_STATEMENT($2, $5); }
+|                               FOR '(' for_init_statement condition.opt ';' expression.opt ')' looping_statement
+{ $$ = YACC_FOR_STATEMENT($3, $4, $6, $8); }
 for_init_statement:                 simple_declaration
 /*  |                               expression_statement                                        -- covered by simple_declaration */
 jump_statement:                     BREAK ';'                                                   { $$ = YACC_BREAK_STATEMENT(); }
-    |                               CONTINUE ';'                                                { $$ = YACC_CONTINUE_STATEMENT(); }
-    |                               RETURN expression.opt ';'                                   { $$ = YACC_RETURN_STATEMENT($2); }
-    |                               GOTO identifier ';'                                         { $$ = YACC_GOTO_STATEMENT($2); }
+|                               CONTINUE ';'                                                { $$ = YACC_CONTINUE_STATEMENT(); }
+|                               RETURN expression.opt ';'                                   { $$ = YACC_RETURN_STATEMENT($2); }
+|                               GOTO identifier ';'                                         { $$ = YACC_GOTO_STATEMENT($2); }
 declaration_statement:              block_declaration                                           { $$ = YACC_DECLARATION_STATEMENT($1); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.6 Declarations
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.6 Declarations
+    ---------------------------------------------------------------------------------------------------*/
 compound_declaration:               '{' nest declaration_seq.opt '}'                            { $$ = $3; unnest($2); }
-    |                               '{' nest declaration_seq.opt util looping_declaration '#' bang error_ecarb
-                                                                                                { $$ = $3; unnest($2); YACC_UNBANG($7, "Bad declaration-seq."); }
+|                               '{' nest declaration_seq.opt util looping_declaration '#' bang error_ecarb
+{ $$ = $3; unnest($2); YACC_UNBANG($7, "Bad declaration-seq."); }
 declaration_seq.opt:                /* empty */                                                 { $$ = YACC_DECLARATIONS(0, 0); }
-    |                               declaration_seq.opt util looping_declaration                { $$ = YACC_DECLARATIONS($1, YACC_COMPILE_DECLARATION($2, $3)); }
-    |                               declaration_seq.opt util looping_declaration '#' bang error ';' { $$ = $1; YACC_UNBANG($5, "Bad declaration."); }
+|                               declaration_seq.opt util looping_declaration                { $$ = YACC_DECLARATIONS($1, YACC_COMPILE_DECLARATION($2, $3)); }
+|                               declaration_seq.opt util looping_declaration '#' bang error ';' { $$ = $1; YACC_UNBANG($5, "Bad declaration."); }
 looping_declaration:                start_search1 looped_declaration                            { $$ = YACC_LINED_DECLARATION($2, $1); end_search($$); }
 looped_declaration:                 declaration
-    |                               advance_search '+' looped_declaration                       { $$ = $3; }
-    |                               advance_search '-'                                          { $$ = 0; }
+|                               advance_search '+' looped_declaration                       { $$ = $3; }
+|                               advance_search '-'                                          { $$ = 0; }
 lined_declaration:                  line declaration                                            { $$ = YACC_LINED_DECLARATION($2, $1); }
 declaration:                        block_declaration
-    |                               function_definition                                         { $$ = YACC_SIMPLE_DECLARATION($1); }
-    |                               template_declaration
+|                               function_definition                                         { $$ = YACC_SIMPLE_DECLARATION($1); }
+|                               template_declaration
 /*  |                               explicit_instantiation                                      -- covered by relevant declarations */
-    |                               explicit_specialization
-    |                               specialised_declaration
-    |                               accessibility_specifier
-    |                               compound_declaration                                        { $$ = $1; }
-    |                               meta_control_statement                                      { $$ = YACC_META_STATEMENT($1); }
-    |                               AUTO meta_control_statement                                 { $$ = YACC_META_STATEMENT($2); }
-    |                               AUTO meta_class_specifier semi                              { $$ = $2; }
-    |                               AUTO meta_expression_statement                              { $$ = YACC_META_DECLARATION($2); }
-    |                               AUTO meta_function_definition                               { $$ = YACC_META_DECLARATION($2); }
-    |                               syntax_macro_definition
-    |                               include_declaration semi
-    |                               file_dependency_declaration
-    |                               file_placement_declaration
-    |                               filespace_specifier semi                                    { $$ = YACC_FILESPACE_DECLARATION($1); }
+|                               explicit_specialization
+|                               specialised_declaration
+|                               accessibility_specifier
+|                               compound_declaration                                        { $$ = $1; }
+|                               meta_control_statement                                      { $$ = YACC_META_STATEMENT($1); }
+|                               AUTO meta_control_statement                                 { $$ = YACC_META_STATEMENT($2); }
+|                               AUTO meta_class_specifier semi                              { $$ = $2; }
+|                               AUTO meta_expression_statement                              { $$ = YACC_META_DECLARATION($2); }
+|                               AUTO meta_function_definition                               { $$ = YACC_META_DECLARATION($2); }
+|                               syntax_macro_definition
+|                               include_declaration semi
+|                               file_dependency_declaration
+|                               file_placement_declaration
+|                               filespace_specifier semi                                    { $$ = YACC_FILESPACE_DECLARATION($1); }
 specialised_declaration:            linkage_specification                                       { $$ = YACC_LINKAGE_SPECIFICATION($1); }
-    |                               namespace_declaration                                       { $$ = YACC_NAMESPACE_DECLARATION($1); }
-    |                               namespace_definition                                        { $$ = YACC_NAMESPACE_DECLARATION($1); }
-    |                               TEMPLATE specialised_declaration                            { $$ = YACC_SET_TEMPLATE_DECLARATION($2); }
+|                               namespace_declaration                                       { $$ = YACC_NAMESPACE_DECLARATION($1); }
+|                               namespace_definition                                        { $$ = YACC_NAMESPACE_DECLARATION($1); }
+|                               TEMPLATE specialised_declaration                            { $$ = YACC_SET_TEMPLATE_DECLARATION($2); }
 block_declaration:                  simple_declaration                                          { $$ = YACC_SIMPLE_DECLARATION($1); }
-    |                               specialised_block_declaration
+|                               specialised_block_declaration
 specialised_block_declaration:      asm_definition
-    |                               namespace_alias_definition
+|                               namespace_alias_definition
 /*  |                               using_declaration                                           -- covered by simple_declaration */
-    |                               using_directive
-    |                               TEMPLATE specialised_block_declaration                      { $$ = YACC_SET_TEMPLATE_DECLARATION($2); }
+|                               using_directive
+|                               TEMPLATE specialised_block_declaration                      { $$ = YACC_SET_TEMPLATE_DECLARATION($2); }
 simple_declaration:                 ';'                                                         { $$ = YACC_EXPRESSION(0); }
-    |                               init_declaration ';'
-    |                               constructor_head ',' assignment_expression ';'              { $$ = YACC_EXPRESSIONS($1, $3); }
-    |                               init_declarations ';'                                       { $$ = $1; }
-    |                               decl_specifier_prefix simple_declaration                    { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                               init_declaration ';'
+|                               constructor_head ',' assignment_expression ';'              { $$ = YACC_EXPRESSIONS($1, $3); }
+|                               init_declarations ';'                                       { $$ = $1; }
+|                               decl_specifier_prefix simple_declaration                    { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
 
 /*  A decl-specifier following a ptr_operator provokes a shift-reduce conflict for
  *      * const name
- *  which is resolved in favour of the pointer, and implemented by providing versions
- *  of decl-specifier guaranteed not to start with a cv_qualifier.
- *
- *  decl-specifiers are implemented type-centrically. That is the semantic constraint
- *  that there must be a type is exploited to impose structure, but actually eliminate
- *  very little syntax. built-in types are multi-name and so need a different policy.
- *
- *  non-type decl-specifiers are bound to the left-most type in a decl-specifier-seq,
- *  by parsing from the right and attaching suffixes to the right-hand type. Finally
- *  residual prefixes attach to the left.                
- */
+    which is resolved in favour of the pointer, and implemented by providing versions
+    of decl-specifier guaranteed not to start with a cv_qualifier.
+
+    decl-specifiers are implemented type-centrically. That is the semantic constraint
+    that there must be a type is exploited to impose structure, but actually eliminate
+    very little syntax. built-in types are multi-name and so need a different policy.
+
+    non-type decl-specifiers are bound to the left-most type in a decl-specifier-seq,
+    by parsing from the right and attaching suffixes to the right-hand type. Finally
+    residual prefixes attach to the left.
+*/
 suffix_built_in_decl_specifier.raw: built_in_type_specifier                                     { $$ = $1; }
-    |                               suffix_built_in_decl_specifier.raw built_in_type_specifier  { $$ = YACC_BUILT_IN_NAME($1, $2); }
-    |                               suffix_built_in_decl_specifier.raw decl_specifier_suffix    { $$ = YACC_DECL_SPECIFIER_NAME($1, $2); }
+|                               suffix_built_in_decl_specifier.raw built_in_type_specifier  { $$ = YACC_BUILT_IN_NAME($1, $2); }
+|                               suffix_built_in_decl_specifier.raw decl_specifier_suffix    { $$ = YACC_DECL_SPECIFIER_NAME($1, $2); }
 suffix_built_in_decl_specifier:     suffix_built_in_decl_specifier.raw                          { $$ = $1; }
-    |                               TEMPLATE suffix_built_in_decl_specifier                     { $$ = YACC_SET_TEMPLATE_NAME($2); }
+|                               TEMPLATE suffix_built_in_decl_specifier                     { $$ = YACC_SET_TEMPLATE_NAME($2); }
 suffix_named_decl_specifier:        scoped_id                                                   { $$ = $1; }
-    |                               elaborate_type_specifier                                    { $$ = $1; }
-    |                               suffix_named_decl_specifier decl_specifier_suffix           { $$ = YACC_DECL_SPECIFIER_NAME($1, $2); }
+|                               elaborate_type_specifier                                    { $$ = $1; }
+|                               suffix_named_decl_specifier decl_specifier_suffix           { $$ = YACC_DECL_SPECIFIER_NAME($1, $2); }
 suffix_named_decl_specifier.bi:     suffix_named_decl_specifier                                 { $$ = YACC_NAME_EXPRESSION($1); }
-    |                               suffix_named_decl_specifier suffix_built_in_decl_specifier.raw  { $$ = YACC_TYPED_NAME($1, $2); }
+|                               suffix_named_decl_specifier suffix_built_in_decl_specifier.raw  { $$ = YACC_TYPED_NAME($1, $2); }
 suffix_named_decl_specifiers:       suffix_named_decl_specifier.bi
-    |                               suffix_named_decl_specifiers suffix_named_decl_specifier.bi { $$ = YACC_TYPED_NAME($1, $2); }
+|                               suffix_named_decl_specifiers suffix_named_decl_specifier.bi { $$ = YACC_TYPED_NAME($1, $2); }
 suffix_named_decl_specifiers.sf:    scoped_special_function_id          /* operators etc */     { $$ = YACC_NAME_EXPRESSION($1); }
-    |                               suffix_named_decl_specifiers
-    |                               suffix_named_decl_specifiers scoped_special_function_id     { $$ = YACC_TYPED_NAME($1, $2); }
+|                               suffix_named_decl_specifiers
+|                               suffix_named_decl_specifiers scoped_special_function_id     { $$ = YACC_TYPED_NAME($1, $2); }
 suffix_decl_specified_ids:          suffix_built_in_decl_specifier
-    |                               suffix_built_in_decl_specifier suffix_named_decl_specifiers.sf { $$ = YACC_TYPED_NAME($1, $2); }
-    |                               suffix_named_decl_specifiers.sf
+|                               suffix_built_in_decl_specifier suffix_named_decl_specifiers.sf { $$ = YACC_TYPED_NAME($1, $2); }
+|                               suffix_named_decl_specifiers.sf
 suffix_decl_specified_scope:        suffix_named_decl_specifiers SCOPE
-    |                               suffix_built_in_decl_specifier suffix_named_decl_specifiers SCOPE { $$ = YACC_TYPED_NAME($1, $2); }
-    |                               suffix_built_in_decl_specifier SCOPE                        { $$ = YACC_NAME_EXPRESSION($1); }
+|                               suffix_built_in_decl_specifier suffix_named_decl_specifiers SCOPE { $$ = YACC_TYPED_NAME($1, $2); }
+|                               suffix_built_in_decl_specifier SCOPE                        { $$ = YACC_NAME_EXPRESSION($1); }
 
 decl_specifier_affix:               storage_class_specifier
-    |                               function_specifier
-    |                               FRIEND                                                          
-    |                               TYPEDEF
-    |                               cv_qualifier                                                { $$ = $1; }
+|                               function_specifier
+|                               FRIEND
+|                               TYPEDEF
+|                               cv_qualifier                                                { $$ = $1; }
 /*  The bogus conflict between public: as an anonymous bit-field and member-specification is resolved to the member-specification.*/
-    |                               access_specifier            %prec SHIFT_THERE               { $$ = YACC_ACCESS_SPECIFIER_ID($1); }
+|                               access_specifier            % prec SHIFT_THERE               { $$ = YACC_ACCESS_SPECIFIER_ID($1); }
 /*  using-declaration is generalised to cover a much more general concept of re-use, so using treated like typedef.
- *  Unfortunately this gives the same conflict on string as for linkage_specification, so the %prec forces using followed
- *  by a string to be treated as an include rather than a declaration. */
-    |                               USING                       %prec SHIFT_THERE
+    Unfortunately this gives the same conflict on string as for linkage_specification, so the %prec forces using followed
+    by a string to be treated as an include rather than a declaration. */
+|                               USING                       % prec SHIFT_THERE
 
 decl_specifier_suffix:              decl_specifier_affix
-    |                               AUTO
+|                               AUTO
 
 decl_specifier_prefix:              decl_specifier_affix
-    |                               TEMPLATE decl_specifier_prefix                              { $$ = YACC_SET_TEMPLATE_DECL_SPECIFIER($2); }
+|                               TEMPLATE decl_specifier_prefix                              { $$ = YACC_SET_TEMPLATE_DECL_SPECIFIER($2); }
 
 storage_class_specifier:            REGISTER | STATIC | MUTABLE
-    |                               EXTERN                  %prec SHIFT_THERE                   /* Prefer linkage specification */
-    |                               '!' STATIC                                                  { $$ = YACC_NOT_STATIC(); }
+|                               EXTERN                  % prec SHIFT_THERE                  /* Prefer linkage specification */
+|                               '!' STATIC                                                  { $$ = YACC_NOT_STATIC(); }
 
 function_specifier:                 EXPLICIT
-    |                               INLINE                  %prec SHIFT_THERE                   /* Prefer INLINE / IMPLEMENTATION */
-    |                               VIRTUAL                 %prec SHIFT_THERE                   /* Prefer VIRTUAL / PURE */
-    |                               '!' INLINE                                                  { $$ = YACC_NOT_INLINE(); }
-    |                               INLINE '/' IMPLEMENTATION                                   { $$ = YACC_INLINE_IN_IMPLEMENTATION(); }
-    |                               INLINE '/' INTERFACE                                        { $$ = YACC_INLINE_IN_INTERFACE(); }
-    |                               '!' VIRTUAL                                                 { $$ = YACC_NOT_VIRTUAL(); }
-    |                               VIRTUAL '/' PURE                                            { $$ = YACC_PURE_VIRTUAL(); }
+|                               INLINE                  % prec SHIFT_THERE                  /* Prefer INLINE / IMPLEMENTATION */
+|                               VIRTUAL                 % prec SHIFT_THERE                  /* Prefer VIRTUAL / PURE */
+|                               '!' INLINE                                                  { $$ = YACC_NOT_INLINE(); }
+|                               INLINE '/' IMPLEMENTATION                                   { $$ = YACC_INLINE_IN_IMPLEMENTATION(); }
+|                               INLINE '/' INTERFACE                                        { $$ = YACC_INLINE_IN_INTERFACE(); }
+|                               '!' VIRTUAL                                                 { $$ = YACC_NOT_VIRTUAL(); }
+|                               VIRTUAL '/' PURE                                            { $$ = YACC_PURE_VIRTUAL(); }
 
 type_specifier:                     simple_type_specifier
-    |                               elaborate_type_specifier
-    |                               cv_qualifier                                                { $$ = YACC_CV_DECL_SPECIFIER($1); }
-/* The following augment type_specifier rather than cv_qualifier to avoid a conflict on ! between
- *      a * ! const b     and    a * ! b    which requires a 2-token lookahead to resolve. */
-    |                               '!' CONST                                                   { $$ = YACC_NOT_CONST(); }
-    |                               '!' VOLATILE                                                { $$ = YACC_NOT_VOLATILE(); }
+|                               elaborate_type_specifier
+|                               cv_qualifier                                                { $$ = YACC_CV_DECL_SPECIFIER($1); }
+/*  The following augment type_specifier rather than cv_qualifier to avoid a conflict on ! between
+        a * ! const b     and    a * ! b    which requires a 2-token lookahead to resolve. */
+|                               '!' CONST                                                   { $$ = YACC_NOT_CONST(); }
+|                               '!' VOLATILE                                                { $$ = YACC_NOT_VOLATILE(); }
 
 elaborate_type_specifier:           class_specifier
-    |                               enum_specifier
-    |                               elaborated_type_specifier
-    |                               TEMPLATE elaborate_type_specifier                           { $$ = YACC_SET_TEMPLATE_ID($2); }
+|                               enum_specifier
+|                               elaborated_type_specifier
+|                               TEMPLATE elaborate_type_specifier                           { $$ = YACC_SET_TEMPLATE_ID($2); }
 simple_type_specifier:              scoped_id
-    |                               built_in_type_specifier                                     { $$ = YACC_BUILT_IN_ID_ID($1); }
+|                               built_in_type_specifier                                     { $$ = YACC_BUILT_IN_ID_ID($1); }
 built_in_type_specifier:            BuiltInTypeSpecifier
 
 /*
- *  The over-general use of declaration_expression to cover decl-specifier-seq.opt declarator in a function-definition means that
- *      class X {};
- *  could be a function-definition or a class-specifier.
- *      enum X {};
- *  could be a function-definition or an enum-specifier.
- *  The function-definition is not syntactically valid so resolving the false conflict in favour of the
- *  elaborated_type_specifier is correct.
- */
+    The over-general use of declaration_expression to cover decl-specifier-seq.opt declarator in a function-definition means that
+        class X {};
+    could be a function-definition or a class-specifier.
+        enum X {};
+    could be a function-definition or an enum-specifier.
+    The function-definition is not syntactically valid so resolving the false conflict in favour of the
+    elaborated_type_specifier is correct.
+*/
 elaborated_type_specifier:          elaborated_class_specifier
-    |                               elaborated_enum_specifier
-    |                               TYPENAME scoped_id                                          { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
+|                               elaborated_enum_specifier
+|                               TYPENAME scoped_id                                          { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
 
-elaborated_enum_specifier:          ENUM scoped_id               %prec SHIFT_THERE              { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
+elaborated_enum_specifier:          ENUM scoped_id               % prec SHIFT_THERE              { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
 enum_specifier:                     ENUM scoped_id enumerator_clause                            { $$ = YACC_ENUM_SPECIFIER_ID($2, $3); }
-    |                               ENUM enumerator_clause                                      { $$ = YACC_ENUM_SPECIFIER_ID(0, $2); }
+|                               ENUM enumerator_clause                                      { $$ = YACC_ENUM_SPECIFIER_ID(0, $2); }
 enumerator_clause:                  '{' enumerator_list_ecarb                                   { $$ = YACC_ENUMERATORS(0, 0); }
-    |                               '{' enumerator_list enumerator_list_ecarb                   { $$ = $2; }
-    |                               '{' enumerator_list ',' enumerator_definition_ecarb         { $$ = $2; }
+|                               '{' enumerator_list enumerator_list_ecarb                   { $$ = $2; }
+|                               '{' enumerator_list ',' enumerator_definition_ecarb         { $$ = $2; }
 enumerator_list_ecarb:              '}'                                                         { }
-    |                               bang error_ecarb                                            { YACC_UNBANG($1, "Bad enumerator-list."); }
+|                               bang error_ecarb                                            { YACC_UNBANG($1, "Bad enumerator-list."); }
 enumerator_definition_ecarb:        '}'                                                         { }
-    |                               bang error_ecarb                                            { YACC_UNBANG($1, "Bad enumerator-definition."); }
+|                               bang error_ecarb                                            { YACC_UNBANG($1, "Bad enumerator-definition."); }
 enumerator_definition_filler:       /* empty */
-    |                               bang error ','                                              { YACC_UNBANG($1, "Bad enumerator-definition."); }
+|                               bang error ','                                              { YACC_UNBANG($1, "Bad enumerator-definition."); }
 enumerator_list_head:               enumerator_definition_filler                                { $$ = YACC_ENUMERATORS(0, 0); }
-    |                               enumerator_list ',' enumerator_definition_filler
+|                               enumerator_list ',' enumerator_definition_filler
 enumerator_list:                    enumerator_list_head enumerator_definition                  { $$ = YACC_ENUMERATORS($1, $2); }
 enumerator_definition:              enumerator                                                  { $$ = YACC_ENUMERATOR($1, 0); }
-    |                               enumerator '=' constant_expression                          { $$ = YACC_ENUMERATOR($1, $3); }
+|                               enumerator '=' constant_expression                          { $$ = YACC_ENUMERATOR($1, $3); }
 enumerator:                         identifier
 
 namespace_definition:               NAMESPACE scoped_id compound_declaration                    { $$ = YACC_NAMESPACE_DEFINITION($2, $3); }
-    |                               NAMESPACE compound_declaration                              { $$ = YACC_NAMESPACE_DEFINITION(0, $2); }
+|                               NAMESPACE compound_declaration                              { $$ = YACC_NAMESPACE_DEFINITION(0, $2); }
 namespace_alias_definition:         NAMESPACE scoped_id '=' scoped_id ';'                       { $$ = YACC_NAMESPACE_ALIAS_DEFINITION($2, $4); }
 namespace_declaration:              NAMESPACE scoped_id ';'                                     { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
 
@@ -1156,431 +1158,431 @@ asm_definition:                     ASM '(' string ')' ';'                      
 linkage_specification:              EXTERN string looping_declaration                           { $$ = YACC_LINKAGE_SPECIFIER($2, $3); }
 /*   |                              EXTERN string compound_declaration                          -- covered by declaration */
 
-/*---------------------------------------------------------------------------------------------------
- * A.7 Declarators
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.7 Declarators
+    ---------------------------------------------------------------------------------------------------*/
 /*init-declarator is named init_declaration to reflect the embedded decl-specifier-seq.opt*/
 init_declarations:                  assignment_expression ',' init_declaration                  { $$ = YACC_EXPRESSIONS(YACC_EXPRESSIONS(0, $1), $3); }
-    |                               init_declarations ',' init_declaration                      { $$ = YACC_EXPRESSIONS($1, $3); }
-    |                               init_object_declaration ',' init_declaration                { $$ = YACC_EXPRESSIONS(YACC_EXPRESSIONS(0, $1), $3); }
-    |                               constructor_head ',' bit_field_init_declaration             { $$ = YACC_EXPRESSIONS($1, $3); }
-    |                               constructor_head ',' init_object_declaration                { $$ = YACC_EXPRESSIONS($1, $3); }
+|                               init_declarations ',' init_declaration                      { $$ = YACC_EXPRESSIONS($1, $3); }
+|                               init_object_declaration ',' init_declaration                { $$ = YACC_EXPRESSIONS(YACC_EXPRESSIONS(0, $1), $3); }
+|                               constructor_head ',' bit_field_init_declaration             { $$ = YACC_EXPRESSIONS($1, $3); }
+|                               constructor_head ',' init_object_declaration                { $$ = YACC_EXPRESSIONS($1, $3); }
 init_declaration:                   assignment_expression
 /*  |                               assignment_expression '=' initializer_clause                -- covered by assignment_expression */
 /*  |                               assignment_expression '(' expression_list ')'               -- covered by another set of call arguments */
-    |                               bit_field_init_declaration
-    |                               init_object_declaration
+|                               bit_field_init_declaration
+|                               init_object_declaration
 init_object_declaration:            assignment_expression object_statements_clause              { $$ = YACC_OBJECT_SCOPE_EXPRESSION($1, $2); }
-    |                               bit_field_init_declaration object_statements_clause         { $$ = YACC_OBJECT_SCOPE_EXPRESSION($1, $2); }
+|                               bit_field_init_declaration object_statements_clause         { $$ = YACC_OBJECT_SCOPE_EXPRESSION($1, $2); }
 
 /*declarator:                                                                                   -- covered by assignment_expression */
 /*direct_declarator:                                                                            -- covered by postfix_expression */
 
 star_ptr_operator:                  '*'                                                         { $$ = YACC_POINTER_DECLARATOR(); }
-    |                               star_ptr_operator cv_qualifier                              { $$ = YACC_CV_DECLARATOR($1, $2); }
+|                               star_ptr_operator cv_qualifier                              { $$ = YACC_CV_DECLARATOR($1, $2); }
 nested_ptr_operator:                star_ptr_operator                                           { $$ = $1; }
-    |                               id_scope nested_ptr_operator                                { $$ = YACC_NESTED_DECLARATOR($1, $2); }
+|                               id_scope nested_ptr_operator                                { $$ = YACC_NESTED_DECLARATOR($1, $2); }
 ptr_operator:                       '&'                                                         { $$ = YACC_REFERENCE_DECLARATOR(); }
-    |                               nested_ptr_operator                                         { $$ = $1; }
-    |                               global_scope nested_ptr_operator                            { $$ = YACC_GLOBAL_DECLARATOR($1, $2); }
+|                               nested_ptr_operator                                         { $$ = $1; }
+|                               global_scope nested_ptr_operator                            { $$ = YACC_GLOBAL_DECLARATOR($1, $2); }
 ptr_operator_seq:                   ptr_operator                                                { $$ = YACC_POINTER_EXPRESSION($1, YACC_EPSILON()); }
-    |                               ptr_operator ptr_operator_seq                               { $$ = YACC_POINTER_EXPRESSION($1, $2); }
+|                               ptr_operator ptr_operator_seq                               { $$ = YACC_POINTER_EXPRESSION($1, $2); }
 /* Independently coded to localise the shift-reduce conflict: sharing just needs another %prec */
-ptr_operator_seq.opt:               /* empty */                         %prec SHIFT_THERE       /* Maximise type length */ { $$ = YACC_EXPRESSION(0); }
-    |                               ptr_operator ptr_operator_seq.opt                           { $$ = YACC_POINTER_EXPRESSION($1, $2); }
+ptr_operator_seq.opt:               /* empty */                         % prec SHIFT_THERE       /* Maximise type length */ { $$ = YACC_EXPRESSION(0); }
+|                               ptr_operator ptr_operator_seq.opt                           { $$ = YACC_POINTER_EXPRESSION($1, $2); }
 
 cv_qualifier_seq.opt:               /* empty */                                                 { $$ = YACC_CV_QUALIFIERS(0, 0); }
-    |                               cv_qualifier_seq.opt cv_qualifier                           { $$ = YACC_CV_QUALIFIERS($1, $2); }
+|                               cv_qualifier_seq.opt cv_qualifier                           { $$ = YACC_CV_QUALIFIERS($1, $2); }
 cv_qualifier:                       CONST | VOLATILE /* | CvQualifier */
 
 /*type_id                                                                                       -- also covered by parameter declaration */
 type_id:                            type_specifier abstract_declarator.opt                      { $$ = YACC_TYPED_EXPRESSION($1, $2); }
-    |                               type_specifier type_id                                      { $$ = YACC_TYPED_EXPRESSION($1, $2); }
+|                               type_specifier type_id                                      { $$ = YACC_TYPED_EXPRESSION($1, $2); }
 
 /*abstract_declarator:                                                                          -- also covered by parameter declaration */
 abstract_declarator.opt:            /* empty */                                                 { $$ = YACC_EPSILON(); }
-    |                               ptr_operator abstract_declarator.opt                        { $$ = YACC_POINTER_EXPRESSION($1, $2); }
-    |                               direct_abstract_declarator
+|                               ptr_operator abstract_declarator.opt                        { $$ = YACC_POINTER_EXPRESSION($1, $2); }
+|                               direct_abstract_declarator
 direct_abstract_declarator.opt:     /* empty */                                                 { $$ = YACC_EPSILON(); }
-    |                               direct_abstract_declarator
+|                               direct_abstract_declarator
 direct_abstract_declarator:         direct_abstract_declarator.opt parenthesis_clause           { $$ = YACC_CALL_EXPRESSION($1, $2); }
-    |                               direct_abstract_declarator.opt '[' ']'                      { $$ = YACC_ARRAY_EXPRESSION($1, 0); }
-    |                               direct_abstract_declarator.opt '[' constant_expression ']'  { $$ = YACC_ARRAY_EXPRESSION($1, $3); }
+|                               direct_abstract_declarator.opt '[' ']'                      { $$ = YACC_ARRAY_EXPRESSION($1, 0); }
+|                               direct_abstract_declarator.opt '[' constant_expression ']'  { $$ = YACC_ARRAY_EXPRESSION($1, $3); }
 /*  |                               '(' abstract_declarator ')'                                 -- covered by parenthesis_clause */
 
 parenthesis_clause:                 parameters_clause cv_qualifier_seq.opt                      { $$ = YACC_PARENTHESISED($1, $2, 0); }
-    |                               parameters_clause cv_qualifier_seq.opt exception_specification  { $$ = YACC_PARENTHESISED($1, $2, $3); }
+|                               parameters_clause cv_qualifier_seq.opt exception_specification  { $$ = YACC_PARENTHESISED($1, $2, $3); }
 parameters_clause:                  '(' parameter_declaration_clause ')'                        { $$ = $2; }
 /* parameter_declaration_clause also covers init_declaration, type_id, declarator and abstract_declarator. */
 parameter_declaration_clause:       /* empty */                                                 { $$ = YACC_PARAMETERS(0, 0); }
-    |                               parameter_declaration_list
-    |                               parameter_declaration_list ELLIPSIS                         { $$ = YACC_PARAMETERS($1, YACC_ELLIPSIS_EXPRESSION()); }
+|                               parameter_declaration_list
+|                               parameter_declaration_list ELLIPSIS                         { $$ = YACC_PARAMETERS($1, YACC_ELLIPSIS_EXPRESSION()); }
 parameter_declaration_list:         parameter_declaration                                       { $$ = YACC_PARAMETERS(0, $1); }
-    |                               parameter_declaration_list ',' parameter_declaration        { $$ = YACC_PARAMETERS($1, $3); }
+|                               parameter_declaration_list ',' parameter_declaration        { $$ = YACC_PARAMETERS($1, $3); }
 
-/* A typed abstract qualifier such as
- *      Class * ...
- * looks like a multiply, so pointers are parsed as their binary operation equivalents that
- * ultimately terminate with a degenerate right hand term.
- */
+/*  A typed abstract qualifier such as
+        Class * ...
+    looks like a multiply, so pointers are parsed as their binary operation equivalents that
+    ultimately terminate with a degenerate right hand term.
+*/
 abstract_pointer_declaration:       ptr_operator_seq
-    |                               multiplicative_expression star_ptr_operator ptr_operator_seq.opt { $$ = YACC_MULTIPLY_EXPRESSION($1, $2, $3); }
+|                               multiplicative_expression star_ptr_operator ptr_operator_seq.opt { $$ = YACC_MULTIPLY_EXPRESSION($1, $2, $3); }
 abstract_parameter_declaration:     abstract_pointer_declaration
-    |                               and_expression '&'                                          { $$ = YACC_AND_EXPRESSION($1, YACC_EPSILON()); }
-    |                               and_expression '&' abstract_pointer_declaration             { $$ = YACC_AND_EXPRESSION($1, $3); }
+|                               and_expression '&'                                          { $$ = YACC_AND_EXPRESSION($1, YACC_EPSILON()); }
+|                               and_expression '&' abstract_pointer_declaration             { $$ = YACC_AND_EXPRESSION($1, $3); }
 special_parameter_declaration:      abstract_parameter_declaration
-    |                               abstract_parameter_declaration '=' assignment_expression    { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
-    |                               ELLIPSIS                                                    { $$ = YACC_ELLIPSIS_EXPRESSION(); }
+|                               abstract_parameter_declaration '=' assignment_expression    { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
+|                               ELLIPSIS                                                    { $$ = YACC_ELLIPSIS_EXPRESSION(); }
 parameter_declaration:              assignment_expression                                       { $$ = YACC_EXPRESSION_PARAMETER($1); }
-    |                               special_parameter_declaration                               { $$ = YACC_EXPRESSION_PARAMETER($1); }
-    |                               decl_specifier_prefix parameter_declaration                 { $$ = YACC_DECL_SPECIFIER_PARAMETER($2, $1); }
+|                               special_parameter_declaration                               { $$ = YACC_EXPRESSION_PARAMETER($1); }
+|                               decl_specifier_prefix parameter_declaration                 { $$ = YACC_DECL_SPECIFIER_PARAMETER($2, $1); }
 
 /*  The grammar is repeated for use within template <>
- */
+*/
 templated_parameter_declaration:    templated_assignment_expression                             { $$ = YACC_EXPRESSION_PARAMETER($1); }
-    |                               templated_abstract_declaration                              { $$ = YACC_EXPRESSION_PARAMETER($1); }
-    |                               templated_abstract_declaration '=' templated_assignment_expression
-                                                    { $$ = YACC_EXPRESSION_PARAMETER(YACC_ASSIGNMENT_EXPRESSION($1, $2, $3)); }
-    |                               decl_specifier_prefix templated_parameter_declaration       { $$ = YACC_DECL_SPECIFIER_PARAMETER($2, $1); }
+|                               templated_abstract_declaration                              { $$ = YACC_EXPRESSION_PARAMETER($1); }
+|                               templated_abstract_declaration '=' templated_assignment_expression
+{ $$ = YACC_EXPRESSION_PARAMETER(YACC_ASSIGNMENT_EXPRESSION($1, $2, $3)); }
+|                               decl_specifier_prefix templated_parameter_declaration       { $$ = YACC_DECL_SPECIFIER_PARAMETER($2, $1); }
 templated_abstract_declaration:     abstract_pointer_declaration
-    |                               templated_and_expression '&'                                { $$ = YACC_AND_EXPRESSION($1, 0); }
-    |                               templated_and_expression '&' abstract_pointer_declaration   { $$ = YACC_AND_EXPRESSION($1, $3); }
+|                               templated_and_expression '&'                                { $$ = YACC_AND_EXPRESSION($1, 0); }
+|                               templated_and_expression '&' abstract_pointer_declaration   { $$ = YACC_AND_EXPRESSION($1, $3); }
 
 /*  function_definition includes constructor, destructor, implicit int definitions too.
- *  A local destructor is successfully parsed as a function-declaration but the ~ was treated as a unary operator.
- *  constructor_head is the prefix ambiguity between a constructor and a member-init-list starting with a bit-field.
- */
+    A local destructor is successfully parsed as a function-declaration but the ~ was treated as a unary operator.
+    constructor_head is the prefix ambiguity between a constructor and a member-init-list starting with a bit-field.
+*/
 function_definition:        ctor_definition
-    |                       func_definition
+|                       func_definition
 func_definition:            assignment_expression function_try_block                    { $$ = YACC_FUNCTION_DEFINITION($1, $2); }
-    |                       assignment_expression function_body                         { $$ = YACC_FUNCTION_DEFINITION($1, $2); }
-    |                       decl_specifier_prefix func_definition                       { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                       assignment_expression function_body                         { $$ = YACC_FUNCTION_DEFINITION($1, $2); }
+|                       decl_specifier_prefix func_definition                       { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
 ctor_definition:            constructor_head function_try_block                         { $$ = YACC_CTOR_DEFINITION($1, $2); }
-    |                       constructor_head function_body                              { $$ = YACC_CTOR_DEFINITION($1, $2); }
-    |                       decl_specifier_prefix ctor_definition                       { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                       constructor_head function_body                              { $$ = YACC_CTOR_DEFINITION($1, $2); }
+|                       decl_specifier_prefix ctor_definition                       { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
 constructor_head:           bit_field_init_declaration                                  { $$ = YACC_EXPRESSIONS(0, $1); }
-    |                       constructor_head ',' assignment_expression                  { $$ = YACC_EXPRESSIONS($1, $3); }
+|                       constructor_head ',' assignment_expression                  { $$ = YACC_EXPRESSIONS($1, $3); }
 function_try_block:         TRY function_block handler_seq                              { $$ = YACC_TRY_FUNCTION_BLOCK($2, $3); }
 function_block:             ctor_initializer.opt function_body                          { $$ = YACC_CTOR_FUNCTION_BLOCK($2, $1); }
 function_body:              compound_statement                                          { $$ = YACC_FUNCTION_BLOCK($1); }
 
 /*  An = initializer looks like an extended assignment_expression.
- *  An () initializer looks like a function call.
- *  initializer is therefore flattened into its generalised customers.
- *initializer:              '=' initializer_clause                                      -- flattened into caller
- *  |                       '(' expression_list ')'                                     -- flattened into caller */
+    An () initializer looks like a function call.
+    initializer is therefore flattened into its generalised customers.
+    initializer:              '=' initializer_clause                                      -- flattened into caller
+    |                       '(' expression_list ')'                                     -- flattened into caller */
 initializer_clause:         assignment_expression                                       { $$ = YACC_INITIALIZER_EXPRESSION_CLAUSE($1); }
-    |                       braced_initializer
+|                       braced_initializer
 braced_initializer:         '{' initializer_list '}'                                    { $$ = YACC_INITIALIZER_LIST_CLAUSE($2); }
-    |                       '{' initializer_list ',' '}'                                { $$ = YACC_INITIALIZER_LIST_CLAUSE($2); }
-    |                       '{' '}'                                                     { $$ = YACC_INITIALIZER_LIST_CLAUSE(0); }
-    |                       '{' looping_initializer_clause '#' bang error_ecarb         { $$ = 0; YACC_UNBANG($4, "Bad initializer_clause."); }
-    |                       '{' initializer_list ',' looping_initializer_clause '#' bang error_ecarb
-                                                                                        { $$ = $2; YACC_UNBANG($6, "Bad initializer_clause."); }
+|                       '{' initializer_list ',' '}'                                { $$ = YACC_INITIALIZER_LIST_CLAUSE($2); }
+|                       '{' '}'                                                     { $$ = YACC_INITIALIZER_LIST_CLAUSE(0); }
+|                       '{' looping_initializer_clause '#' bang error_ecarb         { $$ = 0; YACC_UNBANG($4, "Bad initializer_clause."); }
+|                       '{' initializer_list ',' looping_initializer_clause '#' bang error_ecarb
+{ $$ = $2; YACC_UNBANG($6, "Bad initializer_clause."); }
 initializer_list:           looping_initializer_clause                                  { $$ = YACC_INITIALIZER_CLAUSES(0, $1); }
-    |                       initializer_list ',' looping_initializer_clause             { $$ = YACC_INITIALIZER_CLAUSES($1, $3); }
+|                       initializer_list ',' looping_initializer_clause             { $$ = YACC_INITIALIZER_CLAUSES($1, $3); }
 looping_initializer_clause: start_search looped_initializer_clause                      { $$ = $2; end_search($$); }
 looped_initializer_clause:  initializer_clause
-    |                       advance_search '+' looped_initializer_clause                { $$ = $3; }
-    |                       advance_search '-'                                          { $$ = 0; }
+|                       advance_search '+' looped_initializer_clause                { $$ = $3; }
+|                       advance_search '-'                                          { $$ = 0; }
 
-/*---------------------------------------------------------------------------------------------------
- * A.8 Classes
- *---------------------------------------------------------------------------------------------------
- *
- *  An anonymous bit-field declaration may look very like inheritance:
- *      class A : B = 3;
- *      class A : B ;
- *  The two usages are too distant to try to create and enforce a common prefix so we have to resort to
- *  a parser hack by backtracking. Inheritance is much the most likely so we mark the input stream context
- *  and try to parse a base-clause. If we successfully reach a { the base-clause is ok and inheritance was
- *  the correct choice so we unmark and continue. If we fail to find the { an error token causes back-tracking
- *  to the alternative parse in elaborated_class_specifier which regenerates the : and declares unconditional success.
- */
+/*  ---------------------------------------------------------------------------------------------------
+    A.8 Classes
+    ---------------------------------------------------------------------------------------------------
+
+    An anonymous bit-field declaration may look very like inheritance:
+        class A : B = 3;
+        class A : B ;
+    The two usages are too distant to try to create and enforce a common prefix so we have to resort to
+    a parser hack by backtracking. Inheritance is much the most likely so we mark the input stream context
+    and try to parse a base-clause. If we successfully reach a { the base-clause is ok and inheritance was
+    the correct choice so we unmark and continue. If we fail to find the { an error token causes back-tracking
+    to the alternative parse in elaborated_class_specifier which regenerates the : and declares unconditional success.
+*/
 colon_mark:                 ':'                                                         { $$ = mark(); }
-elaborated_class_specifier: class_key scoped_id                    %prec SHIFT_THERE    { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
-    |                       class_key scoped_id colon_mark error                        { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); rewind_colon($3, $$); }
+elaborated_class_specifier: class_key scoped_id                    % prec SHIFT_THERE    { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
+|                       class_key scoped_id colon_mark error                        { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); rewind_colon($3, $$); }
 class_specifier_head:       class_key scoped_id colon_mark base_specifier_list '{'      { unmark($4); $$ = YACC_CLASS_SPECIFIER_ID($1, $2, $4); }
-    |                       class_key ':' base_specifier_list '{'                       { $$ = YACC_CLASS_SPECIFIER_ID($1, 0, $3); }
-    |                       class_key scoped_id '{'                                     { $$ = YACC_CLASS_SPECIFIER_ID($1, $2, 0); }
-    |                       class_key '{'                                               { $$ = YACC_CLASS_SPECIFIER_ID($1, 0, 0); }
+|                       class_key ':' base_specifier_list '{'                       { $$ = YACC_CLASS_SPECIFIER_ID($1, 0, $3); }
+|                       class_key scoped_id '{'                                     { $$ = YACC_CLASS_SPECIFIER_ID($1, $2, 0); }
+|                       class_key '{'                                               { $$ = YACC_CLASS_SPECIFIER_ID($1, 0, 0); }
 class_key:                  CLASS | STRUCT | UNION
 class_specifier:            class_specifier_head nest declaration_seq.opt '}'           { $$ = YACC_CLASS_MEMBERS($1, $3); unnest($2); }
-    |                       class_specifier_head nest declaration_seq.opt util looping_declaration '#' bang error_ecarb
-                                            { $$ = YACC_CLASS_MEMBERS($1, $3); unnest($2); YACC_UNBANG($7, "Bad member_specification.opt."); }
+|                       class_specifier_head nest declaration_seq.opt util looping_declaration '#' bang error_ecarb
+{ $$ = YACC_CLASS_MEMBERS($1, $3); unnest($2); YACC_UNBANG($7, "Bad member_specification.opt."); }
 accessibility_specifier:    access_specifier ':'                                        { $$ = YACC_ACCESSIBILITY_SPECIFIER($1); }
 bit_field_declaration:      assignment_expression ':' bit_field_width                   { $$ = YACC_BIT_FIELD_EXPRESSION($1, $3); }
-    |                       ':' bit_field_width                                         { $$ = YACC_BIT_FIELD_EXPRESSION(0, $2); }
+|                       ':' bit_field_width                                         { $$ = YACC_BIT_FIELD_EXPRESSION(0, $2); }
 bit_field_width:            logical_or_expression
 /*  |                       logical_or_expression '?' expression ':' assignment_expression  -- has SR conflict w.r.t later = */
-    |                       logical_or_expression '?' bit_field_width ':' bit_field_width { $$ = YACC_CONDITIONAL_EXPRESSION($1, $3, $5); }
+|                       logical_or_expression '?' bit_field_width ':' bit_field_width { $$ = YACC_CONDITIONAL_EXPRESSION($1, $3, $5); }
 bit_field_init_declaration: bit_field_declaration
-    |                       bit_field_declaration '=' initializer_clause                { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
+|                       bit_field_declaration '=' initializer_clause                { $$ = YACC_ASSIGNMENT_EXPRESSION($1, $2, $3); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.9 Derived classes
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.9 Derived classes
+    ---------------------------------------------------------------------------------------------------*/
 /*base_clause:              ':' base_specifier_list                                     -- flattened */
 base_specifier_list:        base_specifier                                              { $$ = YACC_BASE_SPECIFIERS(0, $1); }
-    |                       base_specifier_list ',' base_specifier                      { $$ = YACC_BASE_SPECIFIERS($1, $3); }
+|                       base_specifier_list ',' base_specifier                      { $$ = YACC_BASE_SPECIFIERS($1, $3); }
 base_specifier:             scoped_id                                                   { $$ = YACC_BASE_SPECIFIER($1); }
-    |                       access_specifier base_specifier                             { $$ = YACC_ACCESS_BASE_SPECIFIER($2, $1); }
-    |                       VIRTUAL base_specifier                                      { $$ = YACC_VIRTUAL_BASE_SPECIFIER($2); }
-    |                       '!' VIRTUAL base_specifier                                  { $$ = YACC_NOT_VIRTUAL_BASE_SPECIFIER($3); }
-    |                       AUTO base_specifier                                         { $$ = YACC_META_BASE_SPECIFIER($2); }
-    |                       built_in_type_id                                            { $$ = YACC_BASE_SPECIFIER($1); }
+|                       access_specifier base_specifier                             { $$ = YACC_ACCESS_BASE_SPECIFIER($2, $1); }
+|                       VIRTUAL base_specifier                                      { $$ = YACC_VIRTUAL_BASE_SPECIFIER($2); }
+|                       '!' VIRTUAL base_specifier                                  { $$ = YACC_NOT_VIRTUAL_BASE_SPECIFIER($3); }
+|                       AUTO base_specifier                                         { $$ = YACC_META_BASE_SPECIFIER($2); }
+|                       built_in_type_id                                            { $$ = YACC_BASE_SPECIFIER($1); }
 access_specifier:           PRIVATE | PROTECTED | PUBLIC
 
-/*---------------------------------------------------------------------------------------------------
- * A.10 Special member functions
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.10 Special member functions
+    ---------------------------------------------------------------------------------------------------*/
 conversion_function_id:     OPERATOR conversion_type_id                                 { $$ = YACC_CONVERSION_FUNCTION_ID($2); }
 conversion_type_id:         type_specifier ptr_operator_seq.opt                         { $$ = YACC_TYPED_EXPRESSION($1, $2); }
-    |                       type_specifier conversion_type_id                           { $$ = YACC_TYPED_EXPRESSION($1, $2); }
+|                       type_specifier conversion_type_id                           { $$ = YACC_TYPED_EXPRESSION($1, $2); }
 /*
- *  Ctor-initialisers can look like a bit field declaration, given the generalisation of names:
- *      Class(Type) : m1(1), m2(2) {}
- *      NonClass(bit_field) : int(2), second_variable, ...
- *  The grammar below is used within a function_try_block or function_definition.
- *  See simple_member_declaration for use in normal member function_definition.
- */
+    Ctor-initialisers can look like a bit field declaration, given the generalisation of names:
+        Class(Type) : m1(1), m2(2) {}
+        NonClass(bit_field) : int(2), second_variable, ...
+    The grammar below is used within a function_try_block or function_definition.
+    See simple_member_declaration for use in normal member function_definition.
+*/
 ctor_initializer.opt:       /* empty */                                                 { $$ = YACC_MEM_INITIALIZERS(0, 0); }
-    |                       ctor_initializer
+|                       ctor_initializer
 ctor_initializer:           ':' mem_initializer_list                                    { $$ = $2; }
-    |                       ':' mem_initializer_list bang error                         { $$ = $2; YACC_UNBANG($3, "Bad ctor-initializer."); }
+|                       ':' mem_initializer_list bang error                         { $$ = $2; YACC_UNBANG($3, "Bad ctor-initializer."); }
 mem_initializer_list:       mem_initializer                                             { $$ = YACC_MEM_INITIALIZERS(0, $1); }
-    |                       mem_initializer_list_head mem_initializer                   { $$ = YACC_MEM_INITIALIZERS($1, $2); }
+|                       mem_initializer_list_head mem_initializer                   { $$ = YACC_MEM_INITIALIZERS($1, $2); }
 mem_initializer_list_head:  mem_initializer_list ','
-    |                       mem_initializer_list bang error ','                         { YACC_UNBANG($2, "Bad mem-initializer."); }
-    |                       mem_initializer_list bang error '#'                         { YACC_UNBANG($2, "Bad mem-initializer."); }
+|                       mem_initializer_list bang error ','                         { YACC_UNBANG($2, "Bad mem-initializer."); }
+|                       mem_initializer_list bang error '#'                         { YACC_UNBANG($2, "Bad mem-initializer."); }
 mem_initializer:            mem_initializer_id '(' expression_list.opt ')'              { $$ = YACC_MEM_INITIALIZER($1, $3); }
 mem_initializer_id:         scoped_id
 
-/*---------------------------------------------------------------------------------------------------
- * A.11 Overloading
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.11 Overloading
+    ---------------------------------------------------------------------------------------------------*/
 operator_function_id:       OPERATOR operator                                           { $$ = YACC_OPERATOR_FUNCTION_ID($2); }
 /*
- *  It is not clear from the ANSI standard whether spaces are permitted in delete[]. If not then it can
- *  be recognised and returned as DELETE_ARRAY by the lexer. Assuming spaces are permitted there is an
- *  ambiguity created by the over generalised nature of expressions. operator new is a valid delarator-id
- *  which we may have an undimensioned array of. Semantic rubbish, but syntactically valid. Since the
- *  array form is covered by the declarator consideration we can exclude the operator here. The need
- *  for a semantic rescue can be eliminated at the expense of a couple of shift-reduce conflicts by
- *  removing the comments on the next four lines.
- */
+    It is not clear from the ANSI standard whether spaces are permitted in delete[]. If not then it can
+    be recognised and returned as DELETE_ARRAY by the lexer. Assuming spaces are permitted there is an
+    ambiguity created by the over generalised nature of expressions. operator new is a valid delarator-id
+    which we may have an undimensioned array of. Semantic rubbish, but syntactically valid. Since the
+    array form is covered by the declarator consideration we can exclude the operator here. The need
+    for a semantic rescue can be eliminated at the expense of a couple of shift-reduce conflicts by
+    removing the comments on the next four lines.
+*/
 operator:             /*++++*/      NEW                                                         { $$ = YACC_OPERATOR_NEW_ID(); }
-    |                 /*++++*/      DELETE                                                      { $$ = YACC_OPERATOR_DELETE_ID(); }
+|                 /*++++*/      DELETE                                                      { $$ = YACC_OPERATOR_DELETE_ID(); }
 /*  |                 / ---- /      NEW                 %prec SHIFT_THERE                       { $$ = YACC_OPERATOR_NEW_ID(); }
-/*  |                 / ---- /      DELETE              %prec SHIFT_THERE                       { $$ = YACC_OPERATOR_DELETE_ID(); }
-/*  |                 / ---- /      NEW '[' ']'                                                 -- Covered by array of OPERATOR NEW */
+    /*  |                 / ---- /      DELETE              %prec SHIFT_THERE                       { $$ = YACC_OPERATOR_DELETE_ID(); }
+    /*  |                 / ---- /      NEW '[' ']'                                                 -- Covered by array of OPERATOR NEW */
 /*  |                 / ---- /      DELETE '[' ']'                                              -- Covered by array of OPERATOR DELETE */
-    |                               '+'                                                         { $$ = YACC_OPERATOR_ADD_ID(); }
-    |                               '-'                                                         { $$ = YACC_OPERATOR_SUB_ID(); }
-    |                               '*'                                                         { $$ = YACC_OPERATOR_MUL_ID(); }
-    |                               '/'                                                         { $$ = YACC_OPERATOR_DIV_ID(); }
-    |                               '%'                                                         { $$ = YACC_OPERATOR_MOD_ID(); }
-    |                               '^'                                                         { $$ = YACC_OPERATOR_XOR_ID(); }
-    |                               '&'                                                         { $$ = YACC_OPERATOR_BIT_AND_ID(); }
-    |                               '|'                                                         { $$ = YACC_OPERATOR_BIT_OR_ID(); }
-    |                               '~'                                                         { $$ = YACC_OPERATOR_BIT_NOT_ID(); }
-    |                               '!'                                                         { $$ = YACC_OPERATOR_LOG_NOT_ID(); }
-    |                               '='                                                         { $$ = YACC_OPERATOR_ASS_ID(); }
-    |                               '<'                                                         { $$ = YACC_OPERATOR_LT_ID(); }
-    |                               '>'                                                         { $$ = YACC_OPERATOR_GT_ID(); }
-    |                               ASS_ADD                                                     { $$ = YACC_OPERATOR_ASS_ADD_ID(); }
-    |                               ASS_SUB                                                     { $$ = YACC_OPERATOR_ASS_SUB_ID(); }
-    |                               ASS_MUL                                                     { $$ = YACC_OPERATOR_ASS_MUL_ID(); }
-    |                               ASS_DIV                                                     { $$ = YACC_OPERATOR_ASS_DIV_ID(); }
-    |                               ASS_MOD                                                     { $$ = YACC_OPERATOR_ASS_MOD_ID(); }
-    |                               ASS_XOR                                                     { $$ = YACC_OPERATOR_ASS_XOR_ID(); }
-    |                               ASS_AND                                                     { $$ = YACC_OPERATOR_ASS_BIT_AND_ID(); }
-    |                               ASS_OR                                                      { $$ = YACC_OPERATOR_ASS_BIT_OR_ID(); }
-    |                               SHL                                                         { $$ = YACC_OPERATOR_SHL_ID(); }
-    |                               SHR                                                         { $$ = YACC_OPERATOR_SHR_ID(); }
-    |                               ASS_SHR                                                     { $$ = YACC_OPERATOR_ASS_SHR_ID(); }
-    |                               ASS_SHL                                                     { $$ = YACC_OPERATOR_ASS_SHL_ID(); }
-    |                               EQ                                                          { $$ = YACC_OPERATOR_EQ_ID(); }
-    |                               NE                                                          { $$ = YACC_OPERATOR_NE_ID(); }
-    |                               LE                                                          { $$ = YACC_OPERATOR_LE_ID(); }
-    |                               GE                                                          { $$ = YACC_OPERATOR_GE_ID(); }
-    |                               LOG_AND                                                     { $$ = YACC_OPERATOR_LOG_AND_ID(); }
-    |                               LOG_OR                                                      { $$ = YACC_OPERATOR_LOG_OR_ID(); }
-    |                               INC                                                         { $$ = YACC_OPERATOR_INC_ID(); }
-    |                               DEC                                                         { $$ = YACC_OPERATOR_DEC_ID(); }
-    |                               ','                                                         { $$ = YACC_OPERATOR_COMMA_ID(); }
-    |                               ARROW_STAR                                                  { $$ = YACC_OPERATOR_ARROW_STAR_ID(); }
-    |                               ARROW                                                       { $$ = YACC_OPERATOR_ARROW_ID(); }
-    |                               '(' ')'                                                     { $$ = YACC_OPERATOR_CALL_ID(); }
-    |                               '[' ']'                                                     { $$ = YACC_OPERATOR_INDEX_ID(); }
+|                               '+'                                                         { $$ = YACC_OPERATOR_ADD_ID(); }
+|                               '-'                                                         { $$ = YACC_OPERATOR_SUB_ID(); }
+|                               '*'                                                         { $$ = YACC_OPERATOR_MUL_ID(); }
+|                               '/'                                                         { $$ = YACC_OPERATOR_DIV_ID(); }
+|                               '%'                                                         { $$ = YACC_OPERATOR_MOD_ID(); }
+|                               '^'                                                         { $$ = YACC_OPERATOR_XOR_ID(); }
+|                               '&'                                                         { $$ = YACC_OPERATOR_BIT_AND_ID(); }
+|                               '|'                                                         { $$ = YACC_OPERATOR_BIT_OR_ID(); }
+|                               '~'                                                         { $$ = YACC_OPERATOR_BIT_NOT_ID(); }
+|                               '!'                                                         { $$ = YACC_OPERATOR_LOG_NOT_ID(); }
+|                               '='                                                         { $$ = YACC_OPERATOR_ASS_ID(); }
+|                               '<'                                                         { $$ = YACC_OPERATOR_LT_ID(); }
+|                               '>'                                                         { $$ = YACC_OPERATOR_GT_ID(); }
+|                               ASS_ADD                                                     { $$ = YACC_OPERATOR_ASS_ADD_ID(); }
+|                               ASS_SUB                                                     { $$ = YACC_OPERATOR_ASS_SUB_ID(); }
+|                               ASS_MUL                                                     { $$ = YACC_OPERATOR_ASS_MUL_ID(); }
+|                               ASS_DIV                                                     { $$ = YACC_OPERATOR_ASS_DIV_ID(); }
+|                               ASS_MOD                                                     { $$ = YACC_OPERATOR_ASS_MOD_ID(); }
+|                               ASS_XOR                                                     { $$ = YACC_OPERATOR_ASS_XOR_ID(); }
+|                               ASS_AND                                                     { $$ = YACC_OPERATOR_ASS_BIT_AND_ID(); }
+|                               ASS_OR                                                      { $$ = YACC_OPERATOR_ASS_BIT_OR_ID(); }
+|                               SHL                                                         { $$ = YACC_OPERATOR_SHL_ID(); }
+|                               SHR                                                         { $$ = YACC_OPERATOR_SHR_ID(); }
+|                               ASS_SHR                                                     { $$ = YACC_OPERATOR_ASS_SHR_ID(); }
+|                               ASS_SHL                                                     { $$ = YACC_OPERATOR_ASS_SHL_ID(); }
+|                               EQ                                                          { $$ = YACC_OPERATOR_EQ_ID(); }
+|                               NE                                                          { $$ = YACC_OPERATOR_NE_ID(); }
+|                               LE                                                          { $$ = YACC_OPERATOR_LE_ID(); }
+|                               GE                                                          { $$ = YACC_OPERATOR_GE_ID(); }
+|                               LOG_AND                                                     { $$ = YACC_OPERATOR_LOG_AND_ID(); }
+|                               LOG_OR                                                      { $$ = YACC_OPERATOR_LOG_OR_ID(); }
+|                               INC                                                         { $$ = YACC_OPERATOR_INC_ID(); }
+|                               DEC                                                         { $$ = YACC_OPERATOR_DEC_ID(); }
+|                               ','                                                         { $$ = YACC_OPERATOR_COMMA_ID(); }
+|                               ARROW_STAR                                                  { $$ = YACC_OPERATOR_ARROW_STAR_ID(); }
+|                               ARROW                                                       { $$ = YACC_OPERATOR_ARROW_ID(); }
+|                               '(' ')'                                                     { $$ = YACC_OPERATOR_CALL_ID(); }
+|                               '[' ']'                                                     { $$ = YACC_OPERATOR_INDEX_ID(); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.12 Templates
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.12 Templates
+    ---------------------------------------------------------------------------------------------------*/
 template_declaration:               template_parameter_clause declaration                       { $$ = YACC_TEMPLATE_DECLARATION($1, $2); }
-    |                               EXPORT template_declaration                                 { $$ = YACC_DECL_SPECIFIER_DECLARATION($2, $1); }
+|                               EXPORT template_declaration                                 { $$ = YACC_DECL_SPECIFIER_DECLARATION($2, $1); }
 /*  This extension is only defined for USING, but we need to use decl_specifier_prefix to avoid conflicts. */
-    |                               decl_specifier_prefix template_declaration                  { $$ = YACC_DECL_SPECIFIER_DECLARATION($2, $1); }
+|                               decl_specifier_prefix template_declaration                  { $$ = YACC_DECL_SPECIFIER_DECLARATION($2, $1); }
 template_parameter_clause:          TEMPLATE '<' template_parameter_list '>'                    { $$ = $3; }
 template_parameter_list:            template_parameter                                          { $$ = YACC_TEMPLATE_PARAMETERS(0, $1); }
-    |                               template_parameter_list ',' template_parameter              { $$ = YACC_TEMPLATE_PARAMETERS($1, $3); }
+|                               template_parameter_list ',' template_parameter              { $$ = YACC_TEMPLATE_PARAMETERS($1, $3); }
 template_parameter:                 simple_type_parameter                                       { $$ = YACC_INIT_SIMPLE_TYPE_PARAMETER($1, 0); }
-    |                               simple_type_parameter '=' type_id                           { $$ = YACC_INIT_SIMPLE_TYPE_PARAMETER($1, $3); }
-    |                               templated_type_parameter                                    { $$ = YACC_INIT_TEMPLATED_PARAMETER($1, 0); }
-    |                               templated_type_parameter '=' identifier                     { $$ = YACC_INIT_TEMPLATED_PARAMETER($1, $3); }
-    |                               templated_parameter_declaration                             { $$ = YACC_TEMPLATE_PARAMETER($1); }
-    |                               bang error                                                  { $$ = 0; YACC_UNBANG($1, "Bad template-parameter."); }
+|                               simple_type_parameter '=' type_id                           { $$ = YACC_INIT_SIMPLE_TYPE_PARAMETER($1, $3); }
+|                               templated_type_parameter                                    { $$ = YACC_INIT_TEMPLATED_PARAMETER($1, 0); }
+|                               templated_type_parameter '=' identifier                     { $$ = YACC_INIT_TEMPLATED_PARAMETER($1, $3); }
+|                               templated_parameter_declaration                             { $$ = YACC_TEMPLATE_PARAMETER($1); }
+|                               bang error                                                  { $$ = 0; YACC_UNBANG($1, "Bad template-parameter."); }
 simple_type_parameter:              CLASS                                                       { $$ = YACC_CLASS_TYPE_PARAMETER(0); }
 /*  |                               CLASS identifier                                            -- covered by parameter_declaration */
-    |                               TYPENAME                                                    { $$ = YACC_TYPENAME_TYPE_PARAMETER(0); }
+|                               TYPENAME                                                    { $$ = YACC_TYPENAME_TYPE_PARAMETER(0); }
 /*  |                               TYPENAME identifier                                         -- covered by parameter_declaration */
 templated_type_parameter:           template_parameter_clause CLASS                             { $$ = YACC_TEMPLATED_TYPE_PARAMETER($1, 0); }
-    |                               template_parameter_clause CLASS identifier                  { $$ = YACC_TEMPLATED_TYPE_PARAMETER($1, $3); }
+|                               template_parameter_clause CLASS identifier                  { $$ = YACC_TEMPLATED_TYPE_PARAMETER($1, $3); }
 template_id:                        TEMPLATE identifier '<' template_argument_list '>'          { $$ = YACC_TEMPLATE_NAME($2, $4); }
-    |                               TEMPLATE template_id                                        { $$ = $2; }
+|                               TEMPLATE template_id                                        { $$ = $2; }
 /*
- *  template-argument is evaluated using a templated...expression so that > resolves to end of template.
- */
+    template-argument is evaluated using a templated...expression so that > resolves to end of template.
+*/
 template_argument_list:             template_argument                                           { $$ = YACC_TEMPLATE_ARGUMENTS(0, $1); }
-    |                               template_argument_list ',' template_argument                { $$ = YACC_TEMPLATE_ARGUMENTS($1, $3); }
+|                               template_argument_list ',' template_argument                { $$ = YACC_TEMPLATE_ARGUMENTS($1, $3); }
 template_argument:                  templated_parameter_declaration                             { $$ = YACC_TEMPLATE_ARGUMENT($1); }
 /*  |                               type_id                                                     -- covered by templated_parameter_declaration */
 /*  |                               template_name                                               -- covered by templated_parameter_declaration */
 /*  |                               error                                                       -- must allow template failure to re-search */
 
 /*
- *  Generalised naming makes identifier a valid declaration, so TEMPLATE identifier is too.
- *  The TEMPLATE prefix is therefore folded into all names, parenthesis_clause and decl_specifier_prefix.
- */
+    Generalised naming makes identifier a valid declaration, so TEMPLATE identifier is too.
+    The TEMPLATE prefix is therefore folded into all names, parenthesis_clause and decl_specifier_prefix.
+*/
 /*explicit_instantiation:           TEMPLATE declaration */
 explicit_specialization:            TEMPLATE '<' '>' declaration                                { $$ = YACC_EXPLICIT_SPECIALIZATION($4); }
 /*  This extension is only defined for USING, but we need to use decl_specifier_prefix to avoid conflicts. */
-    |                               decl_specifier_prefix explicit_specialization               { $$ = YACC_DECL_SPECIFIER_DECLARATION($2, $1); }
+|                               decl_specifier_prefix explicit_specialization               { $$ = YACC_DECL_SPECIFIER_DECLARATION($2, $1); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.13 Exception Handling
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.13 Exception Handling
+    ---------------------------------------------------------------------------------------------------*/
 try_block:                          TRY compound_statement handler_seq                          { $$ = YACC_TRY_BLOCK($2, $3); }
 /*function_try_block:                                                                           -- moved near function_block */
-/* A handler_seq may follow a try_block in a compound_tree_statement such as:
- *      if (a) try {} catch(a) {} catch(b) {} catch(c) {} ...
- *  we resolve the conflict by maximising the handler sequence. */
-handler_seq:                        handler                                 %prec SHIFT_THERE   /* Maximise length */ { $$ = YACC_HANDLERS(0, $1); }
-    |                               handler handler_seq                                         { $$ = YACC_HANDLERS($2, $1); }
+/*  A handler_seq may follow a try_block in a compound_tree_statement such as:
+        if (a) try {} catch(a) {} catch(b) {} catch(c) {} ...
+    we resolve the conflict by maximising the handler sequence. */
+handler_seq:                        handler                                 % prec SHIFT_THERE   /* Maximise length */ { $$ = YACC_HANDLERS(0, $1); }
+|                               handler handler_seq                                         { $$ = YACC_HANDLERS($2, $1); }
 handler:                            CATCH '(' exception_declaration ')' compound_statement      { $$ = YACC_HANDLER($3, $5); }
 exception_declaration:              parameter_declaration                                       { $$ = YACC_EXCEPTION_DECLARATION($1); }
 /*                                  ELLIPSIS                                                    -- covered by parameter_declaration */
 throw_expression:                   THROW                                                       { $$ = YACC_THROW_EXPRESSION(0); }
-    |                               THROW assignment_expression                                 { $$ = YACC_THROW_EXPRESSION($2); }
+|                               THROW assignment_expression                                 { $$ = YACC_THROW_EXPRESSION($2); }
 templated_throw_expression:         THROW                                                       { $$ = YACC_THROW_EXPRESSION(0); }
-    |                               THROW templated_assignment_expression                       { $$ = YACC_THROW_EXPRESSION($2); }
+|                               THROW templated_assignment_expression                       { $$ = YACC_THROW_EXPRESSION($2); }
 exception_specification:            THROW '(' ')'                                               { $$ = YACC_EXCEPTION_SPECIFICATION(0); }
-    |                               THROW '(' type_id_list ')'                                  { $$ = YACC_EXCEPTION_SPECIFICATION($3); }
+|                               THROW '(' type_id_list ')'                                  { $$ = YACC_EXCEPTION_SPECIFICATION($3); }
 type_id_list:                       type_id                                                     { $$ = YACC_EXPRESSIONS(0, $1); }
-    |                               type_id_list ',' type_id                                    { $$ = YACC_EXPRESSIONS($1, $3); }
+|                               type_id_list ',' type_id                                    { $$ = YACC_EXPRESSIONS($1, $3); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.14 Tree literals
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.14 Tree literals
+    ---------------------------------------------------------------------------------------------------*/
 primary_tree_expression:            meta_scoped_id                                              { $$ = YACC_TREE_EXPRESSION($1); }
-    |                               '(' tree_expression ')'                                     { $$ = $2; }
+|                               '(' tree_expression ')'                                     { $$ = $2; }
 postfix_tree_expression:            primary_tree_expression                                     { $$ = $1; }
-    |                               postfix_tree_expression '[' ']'                             { $$ = YACC_TREE_ARRAY_EXPRESSION($1, 0); }
-    |                               postfix_tree_expression '[' constant_expression ']'         { $$ = YACC_TREE_ARRAY_EXPRESSION($1, $3); }
-    |                               postfix_tree_expression '(' tree_argument_list.opt ')'      { $$ = YACC_TREE_CALL_EXPRESSION($1, $3); }
-    |                               postfix_tree_expression '.' scoped_id                       { $$ = YACC_TREE_DOT_EXPRESSION($1, $3); }
-    |                               postfix_tree_expression ARROW scoped_id                     { $$ = YACC_TREE_ARROW_EXPRESSION($1, $3); }
+|                               postfix_tree_expression '[' ']'                             { $$ = YACC_TREE_ARRAY_EXPRESSION($1, 0); }
+|                               postfix_tree_expression '[' constant_expression ']'         { $$ = YACC_TREE_ARRAY_EXPRESSION($1, $3); }
+|                               postfix_tree_expression '(' tree_argument_list.opt ')'      { $$ = YACC_TREE_CALL_EXPRESSION($1, $3); }
+|                               postfix_tree_expression '.' scoped_id                       { $$ = YACC_TREE_DOT_EXPRESSION($1, $3); }
+|                               postfix_tree_expression ARROW scoped_id                     { $$ = YACC_TREE_ARROW_EXPRESSION($1, $3); }
 tree_expression:                    postfix_tree_expression
-    |                               '*' tree_expression                                         { $$ = YACC_TREE_POINTER_EXPRESSION($2); }
+|                               '*' tree_expression                                         { $$ = YACC_TREE_POINTER_EXPRESSION($2); }
 
-/* tree_argument_list.opt are carefully coded to avoid conflicts between the components of a constructor_head at the start of a function_definition
- * and the equivalent discrete elements. There is no need to resolve a conflict on ","!, which is fortunate because it couldn't work. */
+/*  tree_argument_list.opt are carefully coded to avoid conflicts between the components of a constructor_head at the start of a function_definition
+    and the equivalent discrete elements. There is no need to resolve a conflict on ","!, which is fortunate because it couldn't work. */
 tree_argument_list.opt:             tree_arguments.head
-    |                               tree_arguments.head ',' tree_argument_list.opt              { $$ = YACC_TREE_ARGUMENTS($1, $3); }
-    |                               tree_argument.ctors
+|                               tree_arguments.head ',' tree_argument_list.opt              { $$ = YACC_TREE_ARGUMENTS($1, $3); }
+|                               tree_argument.ctors
 tree_argument.ctors:                constructor_head                                            { $$ = YACC_TREE_ARGUMENTS(0, $1); }
-    |                               decl_specifier_prefix tree_argument.ctors                   { $$ = YACC_DECL_SPECIFIER_TREE_ARGUMENTS($2, $1); }
-tree_arguments.head:                /* empty */                                                 { $$ = YACC_TREE_ARGUMENTS(0, (CxxToken *)0); }
-    |                               tree_argument.most                                          { $$ = YACC_TREE_ARGUMENTS(0, $1); }
-    |                               assignment_expression                                       { $$ = YACC_TREE_ARGUMENTS(0, $1); }
-    |                               func_definition                                             { $$ = YACC_TREE_ARGUMENTS(0, $1); }
-    |                               tree_argument.ctors_comma_most
+|                               decl_specifier_prefix tree_argument.ctors                   { $$ = YACC_DECL_SPECIFIER_TREE_ARGUMENTS($2, $1); }
+tree_arguments.head:                /* empty */                                                 { $$ = YACC_TREE_ARGUMENTS(0, (CxxToken*)0); }
+|                               tree_argument.most                                          { $$ = YACC_TREE_ARGUMENTS(0, $1); }
+|                               assignment_expression                                       { $$ = YACC_TREE_ARGUMENTS(0, $1); }
+|                               func_definition                                             { $$ = YACC_TREE_ARGUMENTS(0, $1); }
+|                               tree_argument.ctors_comma_most
 tree_argument.ctors_comma_most:     constructor_head ',' tree_argument.most                     { $$ = YACC_TREE_ARGUMENTS(YACC_TREE_ARGUMENTS(0, $1), $3); }
-    |                               decl_specifier_prefix tree_argument.ctors_comma_most        { $$ = YACC_DECL_SPECIFIER_TREE_ARGUMENTS($2, $1); }
+|                               decl_specifier_prefix tree_argument.ctors_comma_most        { $$ = YACC_DECL_SPECIFIER_TREE_ARGUMENTS($2, $1); }
 tree_argument.most:                 terminated_tree_argument
-    |                               ctor_definition                                             { $$ = YACC_TREE_ARGUMENTS(0, $1); }
-    |                               unterminated_tree_argument.most
-    |                               unterminated_tree_argument.most ';'
-    |                               tree_argument.misc                                          { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               tree_argument.misc ';'                                      { $$ = YACC_TREE_ARGUMENT($1); }
+|                               ctor_definition                                             { $$ = YACC_TREE_ARGUMENTS(0, $1); }
+|                               unterminated_tree_argument.most
+|                               unterminated_tree_argument.most ';'
+|                               tree_argument.misc                                          { $$ = YACC_TREE_ARGUMENT($1); }
+|                               tree_argument.misc ';'                                      { $$ = YACC_TREE_ARGUMENT($1); }
 tree_argument.misc:                 decl_specifier_prefix                                       { $$ = $1; }
 /*  |                               assignment_expression                                       -- separated out */
 /*  |                               bit_field_init_declaration                                  -- separated out into tree_argument.ctors */
 /*  |                               function_definition                                         -- split into ctor/func_definition */
-    |                               init_object_declaration
-    |                               special_parameter_declaration
-    |                               decl_specifier_prefix assignment_expression                 { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
-    |                               decl_specifier_prefix tree_argument.misc                    { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                               init_object_declaration
+|                               special_parameter_declaration
+|                               decl_specifier_prefix assignment_expression                 { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                               decl_specifier_prefix tree_argument.misc                    { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
 
 looping_unterminated_tree_argument: start_search looped_unterminated_tree_argument              { $$ = YACC_LINED_TOKEN($2, $1); end_search($$); }
 looped_unterminated_tree_argument:  unterminated_tree_argument
-    |                               advance_search '+' looped_unterminated_tree_argument        { $$ = $3; }
+|                               advance_search '+' looped_unterminated_tree_argument        { $$ = $3; }
 /*  |                               advance_search '-'                                          { $$ = 0; } */
-/* Omission of the preceding line which causes two reduce/reduce conflicts is justified provided the
- * looped_unterminated_tree_argument rules are only used within a compound_tree_statement, where the alternate
- * looping search for a tree_statement precedes and dominates this search. Since the cascaded advance_search '-'
- * is only used to terminate a total failure of the search for a plausible template/arithmetic syntax, it doesn't
- * matter, apart from minor error reporting niceties, whether it is the statement or unterminated argument search
- * that is deemed to have failed. 
- */
+/*  Omission of the preceding line which causes two reduce/reduce conflicts is justified provided the
+    looped_unterminated_tree_argument rules are only used within a compound_tree_statement, where the alternate
+    looping search for a tree_statement precedes and dominates this search. Since the cascaded advance_search '-'
+    is only used to terminate a total failure of the search for a plausible template/arithmetic syntax, it doesn't
+    matter, apart from minor error reporting niceties, whether it is the statement or unterminated argument search
+    that is deemed to have failed.
+*/
 looping_tree_statement:             start_search looped_tree_statement                          { $$ = YACC_LINED_TOKEN($2, $1); end_search($$); }
 looped_tree_statement:              tree_statement
-    |                               advance_search '+' looped_tree_statement                    { $$ = $3; }
-    |                               advance_search '-'                                          { $$ = 0; }
+|                               advance_search '+' looped_tree_statement                    { $$ = $3; }
+|                               advance_search '-'                                          { $$ = 0; }
 tree_statement:                     ';'                                         { $$ = YACC_TREE_ARGUMENT(YACC_EXPRESSION(0)); }
-    |                               terminated_tree_argument    
-    |                               unterminated_tree_argument ';'
-    |                               function_definition                         { $$ = YACC_TREE_ARGUMENT($1); }
+|                               terminated_tree_argument
+|                               unterminated_tree_argument ';'
+|                               function_definition                         { $$ = YACC_TREE_ARGUMENT($1); }
 compound_tree_statement:            '{' tree_statement_seq.opt '}'                              { $$ = YACC_TREE_STATEMENTS(0, $2); }
-    |                               '{' tree_statement_seq.opt looping_unterminated_tree_argument '}' { $$ = YACC_TREE_STATEMENTS($2, $3); }
-    |                               '{' tree_statement_seq.opt looping_unterminated_tree_argument '#' bang error_ecarb
-                                                                                { $$ = YACC_TREE_STATEMENTS($2, $3); YACC_UNBANG($5, "Bad compound-tree-statement."); }
-    |                               '{' tree_statement_seq.opt looping_tree_statement '#' bang error_ecarb
-                                                                                { $$ = YACC_TREE_STATEMENTS(0, $2); YACC_UNBANG($5, "Bad compound-tree-statement."); }
-tree_statement_seq.opt:             /* empty */                                                 { $$ = YACC_TREE_ARGUMENTS(0, (CxxToken *)0); }
-    |                               tree_statement_seq.opt looping_tree_statement               { $$ = YACC_TREE_ARGUMENTS($1, $2); }
-    |                               tree_statement_seq.opt looping_tree_statement '#' bang error ';'
-                                                                                { $$ = $1; YACC_UNBANG($4, "Bad tree-statement."); }
+|                               '{' tree_statement_seq.opt looping_unterminated_tree_argument '}' { $$ = YACC_TREE_STATEMENTS($2, $3); }
+|                               '{' tree_statement_seq.opt looping_unterminated_tree_argument '#' bang error_ecarb
+{ $$ = YACC_TREE_STATEMENTS($2, $3); YACC_UNBANG($5, "Bad compound-tree-statement."); }
+|                               '{' tree_statement_seq.opt looping_tree_statement '#' bang error_ecarb
+{ $$ = YACC_TREE_STATEMENTS(0, $2); YACC_UNBANG($5, "Bad compound-tree-statement."); }
+tree_statement_seq.opt:             /* empty */                                                 { $$ = YACC_TREE_ARGUMENTS(0, (CxxToken*)0); }
+|                               tree_statement_seq.opt looping_tree_statement               { $$ = YACC_TREE_ARGUMENTS($1, $2); }
+|                               tree_statement_seq.opt looping_tree_statement '#' bang error ';'
+{ $$ = $1; YACC_UNBANG($4, "Bad tree-statement."); }
 
 /*  Terminated syntax has an unambiguous end and does not need a ; as a meta-variable initializer. */
 terminated_tree_argument:           asm_definition                              { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               compound_tree_statement                     { $$ = YACC_TREE_ARGUMENT($1); }
+|                               compound_tree_statement                     { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               declaration_statement ';'                   -- covered by simple_tree_declaration ; */
 /*  |                               explicit_instantiation                      -- covered by simple_tree_declaration ; */
-    |                               explicit_specialization                     { $$ = YACC_TREE_ARGUMENT($1); }
+|                               explicit_specialization                     { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               expression_statement ';'                    -- covered by simple_tree_declaration ; */
-    |                               file_dependency_declaration                 { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               file_placement_declaration                  { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               include_declaration semi                    { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               iteration_statement                         { $$ = YACC_TREE_ARGUMENT($1); }
+|                               file_dependency_declaration                 { $$ = YACC_TREE_ARGUMENT($1); }
+|                               file_placement_declaration                  { $$ = YACC_TREE_ARGUMENT($1); }
+|                               include_declaration semi                    { $$ = YACC_TREE_ARGUMENT($1); }
+|                               iteration_statement                         { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               jump_statement                              -- covered by BREAK ; */
-    |                               labeled_statement                           { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               linkage_specification                       { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               namespace_alias_definition                  { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               namespace_declaration                       { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               namespace_definition                        { $$ = YACC_TREE_ARGUMENT($1); }
+|                               labeled_statement                           { $$ = YACC_TREE_ARGUMENT($1); }
+|                               linkage_specification                       { $$ = YACC_TREE_ARGUMENT($1); }
+|                               namespace_alias_definition                  { $$ = YACC_TREE_ARGUMENT($1); }
+|                               namespace_declaration                       { $$ = YACC_TREE_ARGUMENT($1); }
+|                               namespace_definition                        { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               parameter_declaration ';'                   -- covered by simple_tree_declaration ; */
-    |                               selection_statement                         { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               template_declaration                        { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               using_directive                             { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               AUTO meta_control_statement                 { $$ = YACC_TREE_ARGUMENT(YACC_META_STATEMENT($2)); }
-    |                               AUTO meta_expression_statement              { $$ = YACC_TREE_ARGUMENT(YACC_META_DECLARATION($2)); }
-    |                               AUTO meta_function_definition               { $$ = YACC_TREE_ARGUMENT(YACC_META_DECLARATION($2)); }
-    |                               OPERATOR ';'                                { $$ = YACC_TREE_ARGUMENT($1); }
+|                               selection_statement                         { $$ = YACC_TREE_ARGUMENT($1); }
+|                               template_declaration                        { $$ = YACC_TREE_ARGUMENT($1); }
+|                               using_directive                             { $$ = YACC_TREE_ARGUMENT($1); }
+|                               AUTO meta_control_statement                 { $$ = YACC_TREE_ARGUMENT(YACC_META_STATEMENT($2)); }
+|                               AUTO meta_expression_statement              { $$ = YACC_TREE_ARGUMENT(YACC_META_DECLARATION($2)); }
+|                               AUTO meta_function_definition               { $$ = YACC_TREE_ARGUMENT(YACC_META_DECLARATION($2)); }
+|                               OPERATOR ';'                                { $$ = YACC_TREE_ARGUMENT($1); }
 
 /*  Unterminated syntax has no obvious end and/or must have a ; as a meta-variable initializer. */
 unterminated_tree_argument:         unterminated_tree_argument.most
-    |                               simple_tree_declaration                     { $$ = YACC_TREE_ARGUMENT($1); }
+|                               simple_tree_declaration                     { $$ = YACC_TREE_ARGUMENT($1); }
 unterminated_tree_argument.most:    accessibility_specifier                     { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               access_specifier                            -- covered by decl_specifier_affix */
 /*  |                               base_specifier                              -- covered by simple_tree_declaration */
@@ -1593,354 +1595,354 @@ unterminated_tree_argument.most:    accessibility_specifier                     
 /*  |                               enumerator_definition                       -- covered by simple_tree_declaration */
 /*  |                               exception_declaration                       -- covered by simple_tree_declaration */
 /*  |                               exception_specification                     -- covered by simple_tree_declaration */
-    |                               filespace_specifier                         { $$ = YACC_TREE_ARGUMENT($1); }
+|                               filespace_specifier                         { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               function_definition                         -- not part of .most */
-    |                               function_try_block                          { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               handler_seq                                 { $$ = YACC_TREE_ARGUMENT($1); }        
+|                               function_try_block                          { $$ = YACC_TREE_ARGUMENT($1); }
+|                               handler_seq                                 { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               initializer_clause                          -- covered by simple_tree_declaration, compound_statement */
 /*  |                               mem_initializer                             -- covered by simple_tree_declaration */
-    |                               AUTO meta_class_specifier                   { $$ = YACC_TREE_ARGUMENT(YACC_DECL_SPECIFIER_EXPRESSION($2, $1)); }
+|                               AUTO meta_class_specifier                   { $$ = YACC_TREE_ARGUMENT(YACC_DECL_SPECIFIER_EXPRESSION($2, $1)); }
 /*  |                               operator                                    -- mostly covered by token.punct */
 /*  |                               parameter_declaration                       -- not part of .most */
 /*  |                               simple_tree_declaration                     -- not part of .most */
-    |                               simple_type_parameter                       { $$ = YACC_TREE_ARGUMENT($1); }
+|                               simple_type_parameter                       { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               storage_class_specifier                     -- covered by simple_tree_declaration */
 /*  |                               template_argument                           -- covered by simple_tree_declaration */
 /*  |                               template_parameter                          -- covered by simple_tree_declaration */
 /*  |                               try_block                                   -- covered by function_try_block */
 /*  |                               type_id                                     -- covered by simple_tree_declaration */
 /*  |                               type_parameter                              -- covered by simple_tree_declaration, template_declaration */
-    |                               reserved_id                                 { $$ = $1; }
-    |                               token.punct                                 { $$ = $1; }
-    |                               AUTO                                        { $$ = YACC_TREE_ARGUMENT($1); }
+|                               reserved_id                                 { $$ = $1; }
+|                               token.punct                                 { $$ = $1; }
+|                               AUTO                                        { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               CATCH                                       -- awkward function-definition at end of terminated  */
 /*  |                               CLASS                                       -- covered by simple_type_parameter */
 /*  |                               DO                                          -- DO ; awkward */
-    |                               ENUM                                        { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               NAMESPACE                                   { $$ = YACC_TREE_ARGUMENT($1); }
+|                               ENUM                                        { $$ = YACC_TREE_ARGUMENT($1); }
+|                               NAMESPACE                                   { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               OPERATOR                                    -- OPERATOR , awkward */
-    |                               STRUCT                                      { $$ = YACC_TREE_ARGUMENT($1); }
-    |                               TEMPLATE                                    { $$ = YACC_TREE_ARGUMENT($1); }
+|                               STRUCT                                      { $$ = YACC_TREE_ARGUMENT($1); }
+|                               TEMPLATE                                    { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               THROW                                       -- covered by throw-expression */
 /*  |                               TYPENAME                                    -- covered by simple_type_parameter */
-    |                               UNION                                       { $$ = YACC_TREE_ARGUMENT($1); }
+|                               UNION                                       { $$ = YACC_TREE_ARGUMENT($1); }
 /*  |                               '*' | '&' | ELLIPSIS                        -- covered by simple_tree_declaration */
 /*  |                               '#'                                         -- used as error iteration flag */
 /*  |                               ',' | '{' | '}' | '(' | ')' | ';'           -- awkward - major punctuation */
 /*  |                               '/'                                         -- awkward looks like switch */
 reserved_id:                        ASM | BREAK | CASE | CONST_CAST | CONTINUE | DEFAULT | DELETE | DYNAMIC_CAST | ELSE | FOR
-    |                               GOTO | IF | NEW | REINTERPRET_CAST | RETURN | SIZEOF | STATIC_CAST | SWITCH | TRY | TYPEID | WHILE
-    |                               EXPORT                                                      { $$ = $1; }
+|                               GOTO | IF | NEW | REINTERPRET_CAST | RETURN | SIZEOF | STATIC_CAST | SWITCH | TRY | TYPEID | WHILE
+|                               EXPORT                                                      { $$ = $1; }
 token.punct:                        SCOPE | SHL | SHR | EQ | NE | LE | GE | LOG_AND | LOG_OR | INC | DEC | ARROW | ARROW_STAR | DOT_STAR
-    |                               ASS_ADD | ASS_AND | ASS_DIV | ASS_MOD | ASS_MUL | ASS_OR | ASS_SHL | ASS_SHR | ASS_SUB | ASS_XOR
-    |                               '[' | ']' | ':' | '?' | '.'
-    |                               '+' | '-' | '%' | '^' | '|' | '~' | '!' | '=' | '<' | '>'
-    |                               '\'' | '\"' | '\\'
-    |                               '@' | '$'
+|                               ASS_ADD | ASS_AND | ASS_DIV | ASS_MOD | ASS_MUL | ASS_OR | ASS_SHL | ASS_SHR | ASS_SUB | ASS_XOR
+|                               '[' | ']' | ':' | '?' | '.'
+|                               '+' | '-' | '%' | '^' | '|' | '~' | '!' | '=' | '<' | '>'
+|                               '\'' | '\"' | '\\'
+|                               '@' | '$'
 
 simple_tree_declaration:            decl_specifier_prefix                                       { $$ = $1; }
-    |                               init_declaration
-    |                               constructor_head ',' assignment_expression                  { $$ = YACC_EXPRESSIONS($1, $3); }
-    |                               init_declarations                                           { $$ = $1; }
-    |                               special_parameter_declaration
-    |                               decl_specifier_prefix simple_tree_declaration               { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                               init_declaration
+|                               constructor_head ',' assignment_expression                  { $$ = YACC_EXPRESSIONS($1, $3); }
+|                               init_declarations                                           { $$ = $1; }
+|                               special_parameter_declaration
+|                               decl_specifier_prefix simple_tree_declaration               { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.15 Object statements
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.15 Object statements
+    ---------------------------------------------------------------------------------------------------*/
 object_statements_clause:           ':' '{' object_statement_seq.opt '}'                        { $$ = $3; }
-    |                               ':' '{' object_statement_seq.opt looping_object_statement '#' bang error_ecarb
-                                                                                { $$ = $3; YACC_UNBANG($6, "Bad object-statements-clause.");}
+|                               ':' '{' object_statement_seq.opt looping_object_statement '#' bang error_ecarb
+{ $$ = $3; YACC_UNBANG($6, "Bad object-statements-clause.");}
 object_statement_seq.opt:           /* empty */                                                 { $$ = YACC_SUBSPACE(0, 0); }
-    |                               object_statement_seq.opt looping_object_statement           { $$ = YACC_SUBSPACE($1, $2); }
-    |                               object_statement_seq.opt looping_object_statement '#' bang error ';'
-                                                                                { $$ = $1; YACC_UNBANG($4, "Bad object-statement."); }
+|                               object_statement_seq.opt looping_object_statement           { $$ = YACC_SUBSPACE($1, $2); }
+|                               object_statement_seq.opt looping_object_statement '#' bang error ';'
+{ $$ = $1; YACC_UNBANG($4, "Bad object-statement."); }
 looping_object_statement:           start_search looped_object_statement                        { $$ = YACC_LINED_STATEMENT($2, $1); end_search($$); }
 looped_object_statement:            object_statement
-    |                               advance_search '+' looped_object_statement                  { $$ = $3; }
-    |                               advance_search '-'                                          { $$ = 0; }
+|                               advance_search '+' looped_object_statement                  { $$ = $3; }
+|                               advance_search '-'                                          { $$ = 0; }
 object_statement:                   ';'                                                         { $$ = 0; }
-    |                               function_used_block                                         { $$ = $1; }
-    |                               '=' initializer_clause ';'                                  { $$ = YACC_INIT_EXPRESSION($2); }
-    |                               '(' expression_list ')' ';'                                 { $$ = YACC_CTOR_EXPRESSION($2); }
-    |                               file_dependency_declaration
-    |                               file_placement_declaration
-    |                               filespace_specifier semi                                    { $$ = YACC_FILESPACE_DECLARATION($1); }
-    |                               meta_control_statement                                      { $$ = YACC_META_STATEMENT($1); }
-    |                               AUTO meta_control_statement                                 { $$ = YACC_META_STATEMENT($2); }
-    |                               AUTO meta_expression_statement                              { $$ = YACC_META_DECLARATION($2); }
-    |                               AUTO meta_function_definition                               { $$ = YACC_META_DECLARATION($2); }
-    |                               derived_clause object_statement                             { $$ = YACC_DERIVED_CLAUSE($1, $2); }
-    |                               derived_clause ':' '{' object_statement_seq.opt '}'         { $$ = YACC_DERIVED_CLAUSE($1, $4); }
-    |                               derived_clause ':' '{' object_statement_seq.opt looping_object_statement '#' bang error '#'
-                                                { $$ = YACC_DERIVED_CLAUSE($1, $4); YACC_UNBANG($7, "Bad object-statement."); }
+|                               function_used_block                                         { $$ = $1; }
+|                               '=' initializer_clause ';'                                  { $$ = YACC_INIT_EXPRESSION($2); }
+|                               '(' expression_list ')' ';'                                 { $$ = YACC_CTOR_EXPRESSION($2); }
+|                               file_dependency_declaration
+|                               file_placement_declaration
+|                               filespace_specifier semi                                    { $$ = YACC_FILESPACE_DECLARATION($1); }
+|                               meta_control_statement                                      { $$ = YACC_META_STATEMENT($1); }
+|                               AUTO meta_control_statement                                 { $$ = YACC_META_STATEMENT($2); }
+|                               AUTO meta_expression_statement                              { $$ = YACC_META_DECLARATION($2); }
+|                               AUTO meta_function_definition                               { $$ = YACC_META_DECLARATION($2); }
+|                               derived_clause object_statement                             { $$ = YACC_DERIVED_CLAUSE($1, $2); }
+|                               derived_clause ':' '{' object_statement_seq.opt '}'         { $$ = YACC_DERIVED_CLAUSE($1, $4); }
+|                               derived_clause ':' '{' object_statement_seq.opt looping_object_statement '#' bang error '#'
+{ $$ = YACC_DERIVED_CLAUSE($1, $4); YACC_UNBANG($7, "Bad object-statement."); }
 function_used_block:                function_block
-    |                               function_try_block
-    |                               ctor_initializer ';'                                        { $$ = YACC_CTOR_FUNCTION_BLOCK(0, $1); }
-    |                               USING file_id_list function_used_block                      { $$ = YACC_USING_FUNCTION_BLOCK($3, $2); }
-    |                               segment function_used_block                                 { $$ = YACC_SEGMENT_FUNCTION_BLOCK($2, $1); }
+|                               function_try_block
+|                               ctor_initializer ';'                                        { $$ = YACC_CTOR_FUNCTION_BLOCK(0, $1); }
+|                               USING file_id_list function_used_block                      { $$ = YACC_USING_FUNCTION_BLOCK($3, $2); }
+|                               segment function_used_block                                 { $$ = YACC_SEGMENT_FUNCTION_BLOCK($2, $1); }
 segment:                            BODY                                                        { $$ = YACC_SEGMENT($1, body); }
-    |                               ENTRY                                                       { $$ = YACC_SEGMENT($1, entry); }
-    |                               EXIT                                                        { $$ = YACC_SEGMENT($1, exit); }
-    |                               POST                                                        { $$ = YACC_SEGMENT($1, post); }
-    |                               PRE                                                         { $$ = YACC_SEGMENT($1, pre); }
+|                               ENTRY                                                       { $$ = YACC_SEGMENT($1, entry); }
+|                               EXIT                                                        { $$ = YACC_SEGMENT($1, exit); }
+|                               POST                                                        { $$ = YACC_SEGMENT($1, post); }
+|                               PRE                                                         { $$ = YACC_SEGMENT($1, pre); }
 
-/*---------------------------------------------------------------------------------------------------
- * A.16 Derivation rules
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A.16 Derivation rules
+    ---------------------------------------------------------------------------------------------------*/
 derived_clause:                     DERIVED '(' meta_conditional_expression ')'                 { $$ = $3; }
 
-/*---------------------------------------------------------------------------------------------------
- * A 17.1 meta-names
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A 17.1 meta-names
+    ---------------------------------------------------------------------------------------------------*/
 meta_id:                            id                                                          { $$ = $1; }
-    |                               meta_simple_type                                            { $$ = $1; }
-    |                               AUTO                                                        { $$ = $1; }
+|                               meta_simple_type                                            { $$ = $1; }
+|                               AUTO                                                        { $$ = $1; }
 meta_scope:                         meta_id SCOPE                                               { $$ = $1; }
 meta_nested_id:                     meta_id                                                     { $$ = $1; }
-    |                               meta_scope '~' meta_id                                      { $$ = YACC_NESTED_ID($1, YACC_DESTRUCTOR_ID($3)); }
-    |                               meta_scope meta_nested_id                                   { $$ = YACC_NESTED_ID($1, $2); }
+|                               meta_scope '~' meta_id                                      { $$ = YACC_NESTED_ID($1, YACC_DESTRUCTOR_ID($3)); }
+|                               meta_scope meta_nested_id                                   { $$ = YACC_NESTED_ID($1, $2); }
 meta_scoped_id:                     meta_nested_id
-    |                               global_scope meta_nested_id                                 { $$ = YACC_GLOBAL_ID($1, $2); }
+|                               global_scope meta_nested_id                                 { $$ = YACC_GLOBAL_ID($1, $2); }
 
-/*---------------------------------------------------------------------------------------------------
- * A 17.2 meta-classes
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A 17.2 meta-classes
+    ---------------------------------------------------------------------------------------------------*/
 meta_class_specifier:               meta_class_key meta_nested_id compound_declaration                        { $$ = YACC_META_CLASS($2, 0, $3); }
-    |                               meta_class_key meta_nested_id ':' base_specifier_list compound_declaration { $$ = YACC_META_CLASS($2, $4, $5); }
+|                               meta_class_key meta_nested_id ':' base_specifier_list compound_declaration { $$ = YACC_META_CLASS($2, $4, $5); }
 
-/*---------------------------------------------------------------------------------------------------
- * A 17.3 meta-types
- *---------------------------------------------------------------------------------------------------
- *  The MetaType names are not reserved words so form part of identifier and consequently scoped_id */
+/*  ---------------------------------------------------------------------------------------------------
+    A 17.3 meta-types
+    ---------------------------------------------------------------------------------------------------
+    The MetaType names are not reserved words so form part of identifier and consequently scoped_id */
 /* The %prec maximises the length of e.g. unsigned int when followed by e.g int::a */
 meta_class_key:                     class_key                                                   { $$ = YACC_META_TYPE($1); }
-    |                               NAMESPACE                                                   { $$ = YACC_META_TYPE($1); }
+|                               NAMESPACE                                                   { $$ = YACC_META_TYPE($1); }
 meta_non_class_key:                 ENUM                                                        { $$ = YACC_META_TYPE($1); }
-    |                               TYPEDEF                                                     { $$ = YACC_META_TYPE($1); }
-    |                               TYPENAME                                                    { $$ = YACC_META_TYPE($1); }
-    |                               USING                                                       { $$ = YACC_META_TYPE($1); }
-    |                               built_in_type_id                %prec SHIFT_THERE           { $$ = YACC_META_TYPE($1); }
+|                               TYPEDEF                                                     { $$ = YACC_META_TYPE($1); }
+|                               TYPENAME                                                    { $$ = YACC_META_TYPE($1); }
+|                               USING                                                       { $$ = YACC_META_TYPE($1); }
+|                               built_in_type_id                % prec SHIFT_THERE           { $$ = YACC_META_TYPE($1); }
 meta_simple_type:                   meta_class_key
-    |                               meta_non_class_key
+|                               meta_non_class_key
 meta_type:                          MetaType
-    |                               meta_simple_type
+|                               meta_simple_type
 
-/*---------------------------------------------------------------------------------------------------
- * A 17.4 meta-variables
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A 17.4 meta-variables
+    ---------------------------------------------------------------------------------------------------*/
 /*meta_variable_declaration:                                                                    -- covered by meta_expression_statement */
 
-/*---------------------------------------------------------------------------------------------------
- * A 17.5 meta-functions, meta-constructors and meta-destructors
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A 17.5 meta-functions, meta-constructors and meta-destructors
+    ---------------------------------------------------------------------------------------------------*/
 /*          meta_postfix_expression covers the function name, tree_argument_list.opt covers the parameter list */
 /*          meta_postfix_expression also covers the function name(tree_argument_list.opt) for exposed list */
 meta_function_definition:           meta_fn_postfix_expression compound_tree_statement      { $$ = YACC_META_FUNCTION(0, $1, $2); }
-    |                               '~' meta_fn_postfix_expression compound_tree_statement  { $$ = YACC_META_FUNCTION('~', $2, $3); }
-    |                               CONST meta_function_definition                          { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
-    |                               STATIC meta_function_definition                         { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
-    |                               '!' STATIC meta_function_definition                     { $$ = YACC_DECL_SPECIFIER_EXPRESSION($3, YACC_NOT_STATIC()); }
-/*  |                               meta_postfix_expression '(' tree_argument_list.opt ')' object_statements_clause 
+|                               '~' meta_fn_postfix_expression compound_tree_statement  { $$ = YACC_META_FUNCTION('~', $2, $3); }
+|                               CONST meta_function_definition                          { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                               STATIC meta_function_definition                         { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                               '!' STATIC meta_function_definition                     { $$ = YACC_DECL_SPECIFIER_EXPRESSION($3, YACC_NOT_STATIC()); }
+/*  |                               meta_postfix_expression '(' tree_argument_list.opt ')' object_statements_clause
                                                                                                 -- covered by meta_expression_statement */
 
-/*---------------------------------------------------------------------------------------------------
- * A 17.6 meta-statements
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A 17.6 meta-statements
+    ---------------------------------------------------------------------------------------------------*/
 meta_control_statement:             line meta_control_statement1                                { $$ = YACC_LINED_STATEMENT($2, $1); }
 meta_control_statement1:            CASE constant_expression ':' lined_declaration              { $$ = YACC_CASE_STATEMENT($2, $4); }
-    |                               DEFAULT ':' lined_declaration                               { $$ = YACC_DEFAULT_STATEMENT($3); }
-    |                               DO lined_declaration WHILE '(' expression ')' semi          { $$ = YACC_DO_WHILE_STATEMENT($2, $5); }
-    |                               IF '(' condition ')' lined_declaration     %prec SHIFT_THERE { $$ = YACC_IF_STATEMENT($3, $5, 0); }
-    |                               IF '(' condition ')' lined_declaration ELSE lined_declaration { $$ = YACC_IF_STATEMENT($3, $5, $7); }
-    |                               SWITCH '(' expression ')' lined_declaration                 { $$ = YACC_SWITCH_STATEMENT($3, $5); }
-    |                               WHILE '(' condition ')' lined_declaration                   { $$ = YACC_WHILE_STATEMENT($3, $5); }
-    |                               FOR '(' for_init_statement condition.opt ';' expression.opt ')' lined_declaration
-                                                                                                { $$ = YACC_FOR_STATEMENT($3, $4, $6, $8); }
-    |                               jump_statement                                              { $$ = $1; }
+|                               DEFAULT ':' lined_declaration                               { $$ = YACC_DEFAULT_STATEMENT($3); }
+|                               DO lined_declaration WHILE '(' expression ')' semi          { $$ = YACC_DO_WHILE_STATEMENT($2, $5); }
+|                               IF '(' condition ')' lined_declaration     % prec SHIFT_THERE { $$ = YACC_IF_STATEMENT($3, $5, 0); }
+|                               IF '(' condition ')' lined_declaration ELSE lined_declaration { $$ = YACC_IF_STATEMENT($3, $5, $7); }
+|                               SWITCH '(' expression ')' lined_declaration                 { $$ = YACC_SWITCH_STATEMENT($3, $5); }
+|                               WHILE '(' condition ')' lined_declaration                   { $$ = YACC_WHILE_STATEMENT($3, $5); }
+|                               FOR '(' for_init_statement condition.opt ';' expression.opt ')' lined_declaration
+{ $$ = YACC_FOR_STATEMENT($3, $4, $6, $8); }
+|                               jump_statement                                              { $$ = $1; }
 
-/*---------------------------------------------------------------------------------------------------
- * A 17.7 meta-expressions
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A 17.7 meta-expressions
+    ---------------------------------------------------------------------------------------------------*/
 meta_primary_head:                  meta_scoped_id                                              { $$ = $1; }
-    |                               MetaType meta_nested_id                                     { $$ = YACC_TYPED_NAME($1, $2); }
-    |                               meta_non_class_key meta_nested_id                           { $$ = YACC_TYPED_NAME($1, $2); }
+|                               MetaType meta_nested_id                                     { $$ = YACC_TYPED_NAME($1, $2); }
+|                               meta_non_class_key meta_nested_id                           { $$ = YACC_TYPED_NAME($1, $2); }
 meta_primary_id:                    meta_primary_head
-    |                               meta_class_key meta_nested_id                               { $$ = YACC_TYPED_NAME($1, $2); }
+|                               meta_class_key meta_nested_id                               { $$ = YACC_TYPED_NAME($1, $2); }
 meta_primary_expression:            literal
-    |                               THIS                                                        { $$ = YACC_THIS_EXPRESSION(); }
-    |                               meta_primary_id
-    |                               '(' tree_argument_list.opt ')'                              { $$ = YACC_TOKENS_EXPRESSION($2); }
+|                               THIS                                                        { $$ = YACC_THIS_EXPRESSION(); }
+|                               meta_primary_id
+|                               '(' tree_argument_list.opt ')'                              { $$ = YACC_TOKENS_EXPRESSION($2); }
 meta_fn_postfix_expression:         meta_postfix_expression '(' tree_argument_list.opt ')'      { $$ = YACC_TREE_CALL_EXPRESSION($1, $3); }
-    |                               meta_postfix_expression '[' ']'                             { $$ = YACC_ARRAY_EXPRESSION($1, 0); }
+|                               meta_postfix_expression '[' ']'                             { $$ = YACC_ARRAY_EXPRESSION($1, 0); }
 meta_postfix_expression:            meta_primary_expression
-    |                               meta_fn_postfix_expression
-    |                               meta_postfix_expression '[' expression ']'                  { $$ = YACC_ARRAY_EXPRESSION($1, $3); }
-    |                               meta_postfix_expression '.' declarator_id                   { $$ = YACC_DOT_EXPRESSION($1, $3); }
-    |                               meta_postfix_expression ARROW declarator_id                 { $$ = YACC_ARROW_EXPRESSION($1, $3); }
-    |                               meta_postfix_expression INC                                 { $$ = YACC_POST_INCREMENT_EXPRESSION($1); }
-    |                               meta_postfix_expression DEC                                 { $$ = YACC_POST_DECREMENT_EXPRESSION($1); }
+|                               meta_fn_postfix_expression
+|                               meta_postfix_expression '[' expression ']'                  { $$ = YACC_ARRAY_EXPRESSION($1, $3); }
+|                               meta_postfix_expression '.' declarator_id                   { $$ = YACC_DOT_EXPRESSION($1, $3); }
+|                               meta_postfix_expression ARROW declarator_id                 { $$ = YACC_ARROW_EXPRESSION($1, $3); }
+|                               meta_postfix_expression INC                                 { $$ = YACC_POST_INCREMENT_EXPRESSION($1); }
+|                               meta_postfix_expression DEC                                 { $$ = YACC_POST_DECREMENT_EXPRESSION($1); }
 meta_unary_expression:              meta_postfix_expression
-    |                               INC meta_cast_expression                                    { $$ = YACC_PRE_INCREMENT_EXPRESSION($2); }
-    |                               DEC meta_cast_expression                                    { $$ = YACC_PRE_DECREMENT_EXPRESSION($2); }
-    |                               star_ptr_operator meta_cast_expression                      { $$ = YACC_POINTER_EXPRESSION($1, $2); }
-    |                               '&' meta_cast_expression                                    { $$ = YACC_POINTER_EXPRESSION(YACC_REFERENCE_DECLARATOR(), $2); }
-    |                               '+' meta_cast_expression                                    { $$ = YACC_PLUS_EXPRESSION($2); }
-    |                               '-' meta_cast_expression                                    { $$ = YACC_MINUS_EXPRESSION($2); }
-    |                               '!' meta_cast_expression                                    { $$ = YACC_NOT_EXPRESSION($2); }
-    |                               '~' meta_cast_expression                                    { $$ = YACC_COMPLEMENT_EXPRESSION($2); }
-    |                               SIZEOF unary_expression                                     { $$ = YACC_SIZEOF_EXPRESSION($2); }
+|                               INC meta_cast_expression                                    { $$ = YACC_PRE_INCREMENT_EXPRESSION($2); }
+|                               DEC meta_cast_expression                                    { $$ = YACC_PRE_DECREMENT_EXPRESSION($2); }
+|                               star_ptr_operator meta_cast_expression                      { $$ = YACC_POINTER_EXPRESSION($1, $2); }
+|                               '&' meta_cast_expression                                    { $$ = YACC_POINTER_EXPRESSION(YACC_REFERENCE_DECLARATOR(), $2); }
+|                               '+' meta_cast_expression                                    { $$ = YACC_PLUS_EXPRESSION($2); }
+|                               '-' meta_cast_expression                                    { $$ = YACC_MINUS_EXPRESSION($2); }
+|                               '!' meta_cast_expression                                    { $$ = YACC_NOT_EXPRESSION($2); }
+|                               '~' meta_cast_expression                                    { $$ = YACC_COMPLEMENT_EXPRESSION($2); }
+|                               SIZEOF unary_expression                                     { $$ = YACC_SIZEOF_EXPRESSION($2); }
 meta_cast_expression:               meta_unary_expression
 meta_pm_expression:                 meta_cast_expression
 meta_multiplicative_expression:     meta_pm_expression
-    |                               meta_multiplicative_expression star_ptr_operator meta_pm_expression { $$ = YACC_MULTIPLY_EXPRESSION($1, $2, $3); }
-    |                               meta_multiplicative_expression '/' meta_pm_expression       { $$ = YACC_DIVIDE_EXPRESSION($1, $3); }
-    |                               meta_multiplicative_expression '%' meta_pm_expression       { $$ = YACC_MODULUS_EXPRESSION($1, $3); }
+|                               meta_multiplicative_expression star_ptr_operator meta_pm_expression { $$ = YACC_MULTIPLY_EXPRESSION($1, $2, $3); }
+|                               meta_multiplicative_expression '/' meta_pm_expression       { $$ = YACC_DIVIDE_EXPRESSION($1, $3); }
+|                               meta_multiplicative_expression '%' meta_pm_expression       { $$ = YACC_MODULUS_EXPRESSION($1, $3); }
 meta_additive_expression:           meta_multiplicative_expression
-    |                               meta_additive_expression '+' meta_multiplicative_expression { $$ = YACC_ADD_EXPRESSION($1, $3); }
-    |                               meta_additive_expression '-' meta_multiplicative_expression { $$ = YACC_SUBTRACT_EXPRESSION($1, $3); }
+|                               meta_additive_expression '+' meta_multiplicative_expression { $$ = YACC_ADD_EXPRESSION($1, $3); }
+|                               meta_additive_expression '-' meta_multiplicative_expression { $$ = YACC_SUBTRACT_EXPRESSION($1, $3); }
 meta_shift_expression:              meta_additive_expression
-    |                               meta_shift_expression SHL meta_additive_expression          { $$ = YACC_SHIFT_LEFT_EXPRESSION($1, $3); }
-    |                               meta_shift_expression SHR meta_additive_expression          { $$ = YACC_SHIFT_RIGHT_EXPRESSION($1, $3); }
+|                               meta_shift_expression SHL meta_additive_expression          { $$ = YACC_SHIFT_LEFT_EXPRESSION($1, $3); }
+|                               meta_shift_expression SHR meta_additive_expression          { $$ = YACC_SHIFT_RIGHT_EXPRESSION($1, $3); }
 meta_relational_expression:         meta_shift_expression
-    |                               meta_relational_expression '<' meta_shift_expression        { $$ = YACC_LESS_THAN_EXPRESSION($1, $3); }
-    |                               meta_relational_expression '>' meta_shift_expression        { $$ = YACC_GREATER_THAN_EXPRESSION($1, $3); }
-    |                               meta_relational_expression LE meta_shift_expression         { $$ = YACC_LESS_EQUAL_EXPRESSION($1, $3); }
-    |                               meta_relational_expression GE meta_shift_expression         { $$ = YACC_GREATER_EQUAL_EXPRESSION($1, $3); }
+|                               meta_relational_expression '<' meta_shift_expression        { $$ = YACC_LESS_THAN_EXPRESSION($1, $3); }
+|                               meta_relational_expression '>' meta_shift_expression        { $$ = YACC_GREATER_THAN_EXPRESSION($1, $3); }
+|                               meta_relational_expression LE meta_shift_expression         { $$ = YACC_LESS_EQUAL_EXPRESSION($1, $3); }
+|                               meta_relational_expression GE meta_shift_expression         { $$ = YACC_GREATER_EQUAL_EXPRESSION($1, $3); }
 meta_equality_expression:           meta_relational_expression
-    |                               meta_equality_expression EQ meta_relational_expression      { $$ = YACC_EQUAL_EXPRESSION($1, $3); }
-    |                               meta_equality_expression NE meta_relational_expression      { $$ = YACC_NOT_EQUAL_EXPRESSION($1, $3); }
+|                               meta_equality_expression EQ meta_relational_expression      { $$ = YACC_EQUAL_EXPRESSION($1, $3); }
+|                               meta_equality_expression NE meta_relational_expression      { $$ = YACC_NOT_EQUAL_EXPRESSION($1, $3); }
 meta_and_expression:                meta_equality_expression
-    |                               meta_and_expression '&' meta_equality_expression            { $$ = YACC_AND_EXPRESSION($1, $3); }
+|                               meta_and_expression '&' meta_equality_expression            { $$ = YACC_AND_EXPRESSION($1, $3); }
 meta_exclusive_or_expression:       meta_and_expression
-    |                               meta_exclusive_or_expression '^' meta_and_expression        { $$ = YACC_EXCLUSIVE_OR_EXPRESSION($1, $3); }
+|                               meta_exclusive_or_expression '^' meta_and_expression        { $$ = YACC_EXCLUSIVE_OR_EXPRESSION($1, $3); }
 meta_inclusive_or_expression:       meta_exclusive_or_expression
-    |                               meta_inclusive_or_expression '|' meta_exclusive_or_expression    { $$ = YACC_INCLUSIVE_OR_EXPRESSION($1, $3); }
+|                               meta_inclusive_or_expression '|' meta_exclusive_or_expression    { $$ = YACC_INCLUSIVE_OR_EXPRESSION($1, $3); }
 meta_logical_and_expression:        meta_inclusive_or_expression
-    |                               meta_logical_and_expression LOG_AND meta_inclusive_or_expression { $$ = YACC_LOGICAL_AND_EXPRESSION($1, $3); }
+|                               meta_logical_and_expression LOG_AND meta_inclusive_or_expression { $$ = YACC_LOGICAL_AND_EXPRESSION($1, $3); }
 meta_logical_or_expression:         meta_logical_and_expression
-    |                               meta_logical_or_expression LOG_OR meta_logical_and_expression    { $$ = YACC_LOGICAL_OR_EXPRESSION($1, $3); }
+|                               meta_logical_or_expression LOG_OR meta_logical_and_expression    { $$ = YACC_LOGICAL_OR_EXPRESSION($1, $3); }
 meta_conditional_expression:        meta_logical_or_expression
-    |                               meta_logical_or_expression '?' meta_conditional_expression ':' meta_conditional_expression
-                                                                                                { $$ = YACC_CONDITIONAL_EXPRESSION($1, $3, $5); }
+|                               meta_logical_or_expression '?' meta_conditional_expression ':' meta_conditional_expression
+{ $$ = YACC_CONDITIONAL_EXPRESSION($1, $3, $5); }
 meta_expression_statement:          meta_conditional_expression semi                            { $$ = $1; }
-    |                               meta_primary_head object_statements_clause semi             { $$ = YACC_OBJECT_SCOPE_EXPRESSION($1, $2); }
-    |                               meta_class_key meta_nested_id object_statements_clause semi { $$ = YACC_OBJECT_SCOPE_EXPRESSION(YACC_TYPED_NAME($1, $2), $3); }
-    |                               meta_postfix_expression '(' tree_argument_list.opt ')' object_statements_clause semi { $$ = YACC_TREE_CALL_EXPRESSION($1, $3); }
-    |                               meta_postfix_expression '[' ']' object_statements_clause semi
-                                                                    { $$ = YACC_OBJECT_SCOPE_EXPRESSION(YACC_ARRAY_EXPRESSION($1, 0), $4); }
-    |                               meta_postfix_expression '[' expression ']' object_statements_clause semi
-                                                                    { $$ = YACC_OBJECT_SCOPE_EXPRESSION(YACC_ARRAY_EXPRESSION($1, $3), $5); }
-    |                               meta_logical_or_expression assignment_operator line tree_statement { $$ = YACC_META_ASSIGNMENT_EXPRESSION($1, $2, YACC_LINED_TOKEN($4, $3)); }
-    |                               CONST meta_expression_statement                             { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
-    |                               STATIC meta_expression_statement                            { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
-    |                               '!' STATIC meta_expression_statement                        { $$ = YACC_DECL_SPECIFIER_EXPRESSION($3, YACC_NOT_STATIC()); }
+|                               meta_primary_head object_statements_clause semi             { $$ = YACC_OBJECT_SCOPE_EXPRESSION($1, $2); }
+|                               meta_class_key meta_nested_id object_statements_clause semi { $$ = YACC_OBJECT_SCOPE_EXPRESSION(YACC_TYPED_NAME($1, $2), $3); }
+|                               meta_postfix_expression '(' tree_argument_list.opt ')' object_statements_clause semi { $$ = YACC_TREE_CALL_EXPRESSION($1, $3); }
+|                               meta_postfix_expression '[' ']' object_statements_clause semi
+{ $$ = YACC_OBJECT_SCOPE_EXPRESSION(YACC_ARRAY_EXPRESSION($1, 0), $4); }
+|                               meta_postfix_expression '[' expression ']' object_statements_clause semi
+{ $$ = YACC_OBJECT_SCOPE_EXPRESSION(YACC_ARRAY_EXPRESSION($1, $3), $5); }
+|                               meta_logical_or_expression assignment_operator line tree_statement { $$ = YACC_META_ASSIGNMENT_EXPRESSION($1, $2, YACC_LINED_TOKEN($4, $3)); }
+|                               CONST meta_expression_statement                             { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                               STATIC meta_expression_statement                            { $$ = YACC_DECL_SPECIFIER_EXPRESSION($2, $1); }
+|                               '!' STATIC meta_expression_statement                        { $$ = YACC_DECL_SPECIFIER_EXPRESSION($3, YACC_NOT_STATIC()); }
 
-/*---------------------------------------------------------------------------------------------------
- * A 18 Syntax macros
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A 18 Syntax macros
+    ---------------------------------------------------------------------------------------------------*/
 syntax_macro_definition:            EXPLICIT AUTO meta_type identifier '(' syntax_macro_parameter_list ')' compound_tree_statement
-                                                                                { $$ = YACC_SYNTAX_MACRO_DEFINITION($3, IS_ENCAPSULATED, $4, $6, $8); }
-    |                               EXPLICIT AUTO meta_type identifier '(' syntax_macro_parameter_list ')' '[' ']' compound_tree_statement
-                                                                                { $$ = YACC_SYNTAX_MACRO_DEFINITION($3, IS_EXPOSED, $4, $6, $10); }
-    |                               EXPLICIT AUTO meta_type identifier '(' ')' compound_tree_statement
-                                                                                { $$ = YACC_SYNTAX_MACRO_DEFINITION($3, IS_ENCAPSULATED, $4, 0, $7); }
-    |                               EXPLICIT AUTO meta_type identifier  '(' ')' '[' ']' compound_tree_statement
-                                                                                { $$ = YACC_SYNTAX_MACRO_DEFINITION($3, IS_EXPOSED, $4, 0, $9); }
+{ $$ = YACC_SYNTAX_MACRO_DEFINITION($3, IS_ENCAPSULATED, $4, $6, $8); }
+|                               EXPLICIT AUTO meta_type identifier '(' syntax_macro_parameter_list ')' '[' ']' compound_tree_statement
+{ $$ = YACC_SYNTAX_MACRO_DEFINITION($3, IS_EXPOSED, $4, $6, $10); }
+|                               EXPLICIT AUTO meta_type identifier '(' ')' compound_tree_statement
+{ $$ = YACC_SYNTAX_MACRO_DEFINITION($3, IS_ENCAPSULATED, $4, 0, $7); }
+|                               EXPLICIT AUTO meta_type identifier  '(' ')' '[' ']' compound_tree_statement
+{ $$ = YACC_SYNTAX_MACRO_DEFINITION($3, IS_EXPOSED, $4, 0, $9); }
 syntax_macro_parameter_list:        syntax_macro_parameter                                      { $$ = YACC_SYNTAX_MACRO_PARAMETERS(0, $1); }
-    |                               syntax_macro_parameter_list ',' syntax_macro_parameter      { $$ = YACC_SYNTAX_MACRO_PARAMETERS($1, $3); }
+|                               syntax_macro_parameter_list ',' syntax_macro_parameter      { $$ = YACC_SYNTAX_MACRO_PARAMETERS($1, $3); }
 syntax_macro_parameter:             meta_type identifier                                        { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, $2); }
-    |                               meta_type identifier '[' ']'                                { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_EXPOSED, $2); }
-    |                               identifier                                                  { $$ = YACC_SYNTAX_MACRO_PARAMETER(0, IS_ENCAPSULATED, $1); }
-    |                               reserved_id                                                 { $$ = YACC_SYNTAX_MACRO_PARAMETER(0, IS_ENCAPSULATED, $1); }
-    |                               token.punct                                                 { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
-    |                               ';'                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
-    |                               ','                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
-    |                               '{'                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
-    |                               '}'                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
-    |                               '('                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
-    |                               ')'                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
-    |                               bang error                                                  { $$ = 0; YACC_UNBANG($1, "bad syntax-macro-parameter."); }
+|                               meta_type identifier '[' ']'                                { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_EXPOSED, $2); }
+|                               identifier                                                  { $$ = YACC_SYNTAX_MACRO_PARAMETER(0, IS_ENCAPSULATED, $1); }
+|                               reserved_id                                                 { $$ = YACC_SYNTAX_MACRO_PARAMETER(0, IS_ENCAPSULATED, $1); }
+|                               token.punct                                                 { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
+|                               ';'                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
+|                               ','                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
+|                               '{'                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
+|                               '}'                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
+|                               '('                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
+|                               ')'                                                         { $$ = YACC_SYNTAX_MACRO_PARAMETER($1, IS_ENCAPSULATED, 0); }
+|                               bang error                                                  { $$ = 0; YACC_UNBANG($1, "bad syntax-macro-parameter."); }
 
-/*---------------------------------------------------------------------------------------------------
- * A 19 files
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    A 19 files
+    ---------------------------------------------------------------------------------------------------*/
 include_declaration:                USING string                                                { $$ = YACC_INCLUDE_DECLARATION($2, YACC_UTILITY(emit)); }
-    |                               USING '/' INCLUDE string_expr                               { $$ = YACC_INCLUDE_DECLARATION($4, YACC_UTILITY(emit)); }
-    |                               USING '/' INCLUDE '/' utility string_expr                   { $$ = YACC_INCLUDE_DECLARATION($6, $5); }
-    |                               USING '/' utility string_expr                               { $$ = YACC_INCLUDE_DECLARATION($4, $3); }
+|                               USING '/' INCLUDE string_expr                               { $$ = YACC_INCLUDE_DECLARATION($4, YACC_UTILITY(emit)); }
+|                               USING '/' INCLUDE '/' utility string_expr                   { $$ = YACC_INCLUDE_DECLARATION($6, $5); }
+|                               USING '/' utility string_expr                               { $$ = YACC_INCLUDE_DECLARATION($4, $3); }
 utility:                            EMIT
-    |                               FROZEN
-    |                               POOL
-    |                               UTILITY
+|                               FROZEN
+|                               POOL
+|                               UTILITY
 
 file_dependency_declaration:        using_implementation semi                                   { $$ = YACC_USING_IMPLEMENTATION_DECLARATION($1); }
-    |                               using_interface semi                                        { $$ = YACC_USING_INTERFACE_DECLARATION($1); }
+|                               using_interface semi                                        { $$ = YACC_USING_INTERFACE_DECLARATION($1); }
 using_implementation:               USING '/' IMPLEMENTATION file_use                           { $$ = $4; }
-    |                               USING '/' IMPLEMENTATION '=' file_use                       { $$ = $5; }
+|                               USING '/' IMPLEMENTATION '=' file_use                       { $$ = $5; }
 using_interface:                    USING '/' INTERFACE file_use                                { $$ = $4; }
-    |                               USING '/' INTERFACE '=' file_use                            { $$ = $5; }
+|                               USING '/' INTERFACE '=' file_use                            { $$ = $5; }
 file_use:                           file_id                                                     { $$ = YACC_INPUT_FILE($1); }
-    |                               file_entity                                                 { $$ = YACC_FILE_ID_INTERFACE($1); }
+|                               file_entity                                                 { $$ = YACC_FILE_ID_INTERFACE($1); }
 
 file_placement_declaration:         export_implementation semi                                  { $$ = YACC_EXPORT_IMPLEMENTATION_DECLARATION($1); }
-    |                               export_interface semi                                       { $$ = YACC_EXPORT_INTERFACE_DECLARATION($1); }
-    |                               export_all semi                                             { $$ = YACC_EXPORT_ALL_DECLARATION($1); }
-    |                               EXPORT '/' NOIMPLEMENTATION semi                            { $$ = YACC_EXPORT_NOIMPLEMENTATION_DECLARATION(); }
-    |                               EXPORT '/' UTILITY semi                                     { $$ = YACC_EXPORT_UTILITY_DECLARATION($3); }
+|                               export_interface semi                                       { $$ = YACC_EXPORT_INTERFACE_DECLARATION($1); }
+|                               export_all semi                                             { $$ = YACC_EXPORT_ALL_DECLARATION($1); }
+|                               EXPORT '/' NOIMPLEMENTATION semi                            { $$ = YACC_EXPORT_NOIMPLEMENTATION_DECLARATION(); }
+|                               EXPORT '/' UTILITY semi                                     { $$ = YACC_EXPORT_UTILITY_DECLARATION($3); }
 export_implementation:              EXPORT '/' IMPLEMENTATION implementation_file               { $$ = $4; }
-    |                               EXPORT '/' IMPLEMENTATION '=' implementation_file           { $$ = $5; }
+|                               EXPORT '/' IMPLEMENTATION '=' implementation_file           { $$ = $5; }
 export_interface:                   EXPORT '/' INTERFACE interface_file                         { $$ = $4; }
-    |                               EXPORT '/' INTERFACE '=' interface_file                     { $$ = $5; }
+|                               EXPORT '/' INTERFACE '=' interface_file                     { $$ = $5; }
 export_all:                         EXPORT '/' ALL interface_file                               { $$ = $4; }
-    |                               EXPORT '/' ALL '=' interface_file                           { $$ = $5; }
-implementation_file:                file_id                                                     
-    |                               file_entity                                                 { $$ = YACC_FILE_ID_IMPLEMENTATION($1); }
+|                               EXPORT '/' ALL '=' interface_file                           { $$ = $5; }
+implementation_file:                file_id
+|                               file_entity                                                 { $$ = YACC_FILE_ID_IMPLEMENTATION($1); }
 interface_file:                     file_id
-    |                               file_entity                                                 { $$ = YACC_FILE_ID_INTERFACE($1); }
+|                               file_entity                                                 { $$ = YACC_FILE_ID_INTERFACE($1); }
 
 file_name:                          string                                                      { $$ = YACC_FILE_NAME($1); }
-    |                               file_name '/' INTERFACE                                     { $$ = YACC_FILE_NAME_INTERFACE($1); }
-    |                               file_name '/' IMPLEMENTATION                                { $$ = YACC_FILE_NAME_IMPLEMENTATION($1); }
-    |                               file_name '/' TEMPLATE                                      { $$ = YACC_FILE_NAME_TEMPLATE($1); }
-    |                               file_name '/' utility                                       { $$ = YACC_FILE_NAME_UTILITY($1, $3); }
-    |                               file_name '/' GUARD '=' string_expr                         { $$ = YACC_FILE_NAME_GUARD($1, $5); }
-    |                               file_name '/' NOGUARD                                       { $$ = YACC_FILE_NAME_NOGUARD($1); }
-    |                               file_name '/' PATH '=' string_expr                          { $$ = YACC_FILE_NAME_PATH($1, $5); }
-    |                               file_name '/' PREFIX '=' string_expr                        { $$ = YACC_FILE_NAME_PREFIX($1, $5); }
-    |                               file_name '/' SUFFIX '=' string_expr                        { $$ = YACC_FILE_NAME_SUFFIX($1, $5); }
+|                               file_name '/' INTERFACE                                     { $$ = YACC_FILE_NAME_INTERFACE($1); }
+|                               file_name '/' IMPLEMENTATION                                { $$ = YACC_FILE_NAME_IMPLEMENTATION($1); }
+|                               file_name '/' TEMPLATE                                      { $$ = YACC_FILE_NAME_TEMPLATE($1); }
+|                               file_name '/' utility                                       { $$ = YACC_FILE_NAME_UTILITY($1, $3); }
+|                               file_name '/' GUARD '=' string_expr                         { $$ = YACC_FILE_NAME_GUARD($1, $5); }
+|                               file_name '/' NOGUARD                                       { $$ = YACC_FILE_NAME_NOGUARD($1); }
+|                               file_name '/' PATH '=' string_expr                          { $$ = YACC_FILE_NAME_PATH($1, $5); }
+|                               file_name '/' PREFIX '=' string_expr                        { $$ = YACC_FILE_NAME_PREFIX($1, $5); }
+|                               file_name '/' SUFFIX '=' string_expr                        { $$ = YACC_FILE_NAME_SUFFIX($1, $5); }
 file_entity:                        declarator_id
-    |                               elaborated_type_specifier
-    |                               NAMESPACE scoped_id                                         { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
+|                               elaborated_type_specifier
+|                               NAMESPACE scoped_id                                         { $$ = YACC_ELABORATED_TYPE_SPECIFIER($1, $2); }
 file_id:                            file_name                                                   { $$ = YACC_FILE_ID($1); }
-    |                               file_entity '/' IMPLEMENTATION                              { $$ = YACC_FILE_ID_IMPLEMENTATION($1); }
-    |                               file_entity '/' INTERFACE                                   { $$ = YACC_FILE_ID_INTERFACE($1); }
+|                               file_entity '/' IMPLEMENTATION                              { $$ = YACC_FILE_ID_IMPLEMENTATION($1); }
+|                               file_entity '/' INTERFACE                                   { $$ = YACC_FILE_ID_INTERFACE($1); }
 file_id_list:                       file_id                                                     { $$ = YACC_FILE_IDS(0, $1); }
-    |                               file_id_list ',' file_id                                    { $$ = YACC_FILE_IDS($1, $3); }
+|                               file_id_list ',' file_id                                    { $$ = YACC_FILE_IDS($1, $3); }
 
 filespace_specifier:                NAMESPACE '/' FILE file_name compound_declaration           { $$ = YACC_FILESPACE_SPECIFIER($4, $5); }
 
-/*---------------------------------------------------------------------------------------------------
- * Error handling aids
- *---------------------------------------------------------------------------------------------------*/
+/*  ---------------------------------------------------------------------------------------------------
+    Error handling aids
+    ---------------------------------------------------------------------------------------------------*/
 ecarb:                              '}'                                                         { }
-    |                               '#'                                                         { }
-    |                               bang error '}'                                              { YACC_UNBANG($1, "Extra text ignored before '}'."); }
-    |                               bang error ')'                                              { YACC_UNBANG($1, "Missing '}'."); }
-    |                               bang error '#'                                              { YACC_UNBANG($1, "Missing '}'."); }
+|                               '#'                                                         { }
+|                               bang error '}'                                              { YACC_UNBANG($1, "Extra text ignored before '}'."); }
+|                               bang error ')'                                              { YACC_UNBANG($1, "Missing '}'."); }
+|                               bang error '#'                                              { YACC_UNBANG($1, "Missing '}'."); }
 semi:                               ';'                                                         { }
-    |                               '#'                                                         { }
-    |                               bang error_semi                                             { YACC_UNBANG($1, "Extra text ignored before ';'.");}
+|                               '#'                                                         { }
+|                               bang error_semi                                             { YACC_UNBANG($1, "Extra text ignored before ';'.");}
 error_ecarb:                        error '}'
-    |                               error '#'
+|                               error '#'
 error_semi:                         error ';'
-    |                               error '#'
+|                               error '#'
 
-/*---------------------------------------------------------------------------------------------------
- * Back-tracking and context support
- *---------------------------------------------------------------------------------------------------*/
-advance_search:                     error               { yyerrok; advance_search(); } /* Rewind and queue '+' or '-' '#' */       
-bang:                               /* empty */         { $$ = YACC_BANG(); }   /* set flag to suppress "parse error" */ 
+/*  ---------------------------------------------------------------------------------------------------
+    Back-tracking and context support
+    ---------------------------------------------------------------------------------------------------*/
+advance_search:                     error               { yyerrok; advance_search(); } /* Rewind and queue '+' or '-' '#' */
+bang:                               /* empty */         { $$ = YACC_BANG(); }   /* set flag to suppress "parse error" */
 line:                               /* empty */         { $$ = YACC_LINE(); }                   /* Get current line context */
 mark:                               /* empty */         { $$ = mark(); }        /* Push lookahead and input token stream context onto a stack */
 nest:                               /* empty */         { $$ = nest(); }        /* Push a declaration nesting depth onto the parse stack */
@@ -1949,144 +1951,140 @@ start_search1:                      /* empty */         { $$ = YACC_LINE(); star
 util:                               /* empty */         { $$ = YACC_UTILITY_MODE(); }           /* Get current utility mode */
 /*StartDiscard*/
 
-%%
+% %
 #ifndef FOGBRACE_HXX
-#include <FogBrace.hxx>
+	#include <FogBrace.hxx>
 #endif
 
-class CxxSearchContext
-{
+class CxxSearchContext {
 	NEEDS_A_FRIEND_FOR_GNUC
 private:
-    CxxSearchContext *_next;
-    size_t _index;
-    size_t _depth;
-    size_t _size;
-    YACC_MARK_TYPE _mark;
-    bool _enable_type1;
-    bool _status[32];
+	CxxSearchContext* _next;
+	size_t _index;
+	size_t _depth;
+	size_t _size;
+	YACC_MARK_TYPE _mark;
+	bool _enable_type1;
+	bool _status[32];
 private:
-    CxxSearchContext(CxxSearchContext *nextSearch)
-        : _next(nextSearch), _index(0), _depth(0), _size(sizeof(_status)/sizeof(_status[0])), _mark(0), _enable_type1(false) {}
-    CxxSearchContext(const CxxSearchContext& nextSearch);
-    CxxSearchContext& operator=(const CxxSearchContext&);
-    bool did_search() const { return _depth > 0 ? true : false; }
-    void initialise(YACC_MARK_TYPE markIndex, bool enableType1);
-    CxxSearchContext *queue(CxxSearchContext *& listHead);
+	CxxSearchContext(CxxSearchContext* nextSearch)
+		: _next(nextSearch), _index(0), _depth(0), _size(sizeof(_status) / sizeof(_status[0])), _mark(0), _enable_type1(false) {}
+	CxxSearchContext(const CxxSearchContext& nextSearch);
+	CxxSearchContext& operator=(const CxxSearchContext&);
+	bool did_search() const { return _depth > 0 ? true : false; }
+	void initialise(YACC_MARK_TYPE markIndex, bool enableType1);
+	CxxSearchContext* queue(CxxSearchContext*& listHead);
 public:
-    bool advance();
-    bool is_template();
-    YACC_MARK_TYPE mark() const { return _mark; }
+	bool advance();
+	bool is_template();
+	YACC_MARK_TYPE mark() const { return _mark; }
 private:
-    static CxxSearchContext *_current;
-    static CxxSearchContext *_free;
+	static CxxSearchContext* _current;
+	static CxxSearchContext* _free;
 public:
-    static CxxSearchContext *current() { return _current; }
-    static void release();
-    static void start(YACC_MARK_TYPE anIndex, bool enableType1);
-    static void terminate();
+	static CxxSearchContext* current() { return _current; }
+	static void release();
+	static void start(YACC_MARK_TYPE anIndex, bool enableType1);
+	static void terminate();
 };
 
-CxxSearchContext *CxxSearchContext::_current = 0;
-CxxSearchContext *CxxSearchContext::_free = 0;
+CxxSearchContext* CxxSearchContext::_current = 0;
+CxxSearchContext* CxxSearchContext::_free = 0;
 
 //
 //  Implements a binary search counter, performing the increment at the
 //  _index of othe failed search.
 //
-bool CxxSearchContext::advance()
-{
-    size_t i = _depth;
-    if (i <= 0)
-        return false;
-    while (--i > _index)
-        _status[i] = false;
-    while (true)
-    {
-        if (!_status[i])
-        {
-            _status[i] = true;
-            _index = 0;
-            return true;
-        }
-        if (i <= 0)
-            return false;
-        _status[i--] = false;
-    }
+bool CxxSearchContext::advance() {
+	size_t i = _depth;
+	
+	if (i <= 0)
+		return false;
+		
+	while (--i > _index)
+		_status[i] = false;
+		
+	while (true) {
+		if (!_status[i]) {
+			_status[i] = true;
+			_index = 0;
+			return true;
+		}
+		
+		if (i <= 0)
+			return false;
+			
+		_status[i--] = false;
+	}
 }
 
-void CxxSearchContext::initialise(YACC_MARK_TYPE markIndex, bool enableType1)
-{
-    _index = 0;
-    _depth = 0;
-    _mark = markIndex;
-    _enable_type1 = enableType1;
+void CxxSearchContext::initialise(YACC_MARK_TYPE markIndex, bool enableType1) {
+	_index = 0;
+	_depth = 0;
+	_mark = markIndex;
+	_enable_type1 = enableType1;
 }
 
-bool CxxSearchContext::is_template()
-{
-    if (_index >= _depth)
-    {
-        if (_depth >= _size)
-        {
-            ERRMSG("Binary search depth exceeded.");
-            return false;
-        }
-        _status[_depth++] = false;
-    }
-    return _status[_index++] ? false : true;
+bool CxxSearchContext::is_template() {
+	if (_index >= _depth) {
+		if (_depth >= _size) {
+			ERRMSG("Binary search depth exceeded.");
+			return false;
+		}
+		
+		_status[_depth++] = false;
+	}
+	
+	return _status[_index++] ? false : true;
 }
 
 //
 //  Put this element onto listHead, returning element under this one.
 //
-CxxSearchContext *CxxSearchContext::queue(CxxSearchContext *& listHead)
-{
-    CxxSearchContext *oldNext = _next;
-    _next = listHead;
-    listHead = this;
-    return oldNext;
+CxxSearchContext* CxxSearchContext::queue(CxxSearchContext*& listHead) {
+	CxxSearchContext* oldNext = _next;
+	_next = listHead;
+	listHead = this;
+	return oldNext;
 }
 
 //
 //  Release the current search buffer.
 //
-void CxxSearchContext::release()
-{
-    if (_current)
-        _current = _current->queue(_free);
+void CxxSearchContext::release() {
+	if (_current)
+		_current = _current->queue(_free);
 }
 
-void CxxSearchContext::start(YACC_MARK_TYPE anIndex, bool enableType1)
-{
-    if (!_free)
-        _current = new CxxSearchContext(_current);
-    else
-        _free = _free->queue(_current);
-    _current->initialise(anIndex, enableType1);
+void CxxSearchContext::start(YACC_MARK_TYPE anIndex, bool enableType1) {
+	if (!_free)
+		_current = new CxxSearchContext(_current);
+	else
+		_free = _free->queue(_current);
+		
+	_current->initialise(anIndex, enableType1);
 }
 
 //
 //  Release all buffers to avoid memory leaks.
 //
-void CxxSearchContext::terminate()
-{
-    if (_current)
-        delete _current;
-    while (_free)
-    {
-        _free = _free->queue(_current);
-        delete _current;
-    }
+void CxxSearchContext::terminate() {
+	if (_current)
+		delete _current;
+		
+	while (_free) {
+		_free = _free->queue(_current);
+		delete _current;
+	}
 }
 
 TYPEINFO_SINGLE(FogParser, Super)
 
-FogParser::~FogParser()
-{
-    CONDMSG(YY_FogParser_DEBUG_FLAG, "Exiting " << title() << " parser.\n");
-    if (_bang)
-        raw_error("BUG - exited parser with errors suppressed.");
+FogParser::~FogParser() {
+	CONDMSG(YY_FogParser_DEBUG_FLAG, "Exiting " << title() << " parser.\n");
+	
+	if (_bang)
+		raw_error("BUG - exited parser with errors suppressed.");
 }
 
 //
@@ -2094,32 +2092,31 @@ FogParser::~FogParser()
 //  to proceed with the search. Rewinds and forces '-' to terminate it. Also forces a '#' that may then
 //  be used to initiate error propagation.
 //
-void FogParser::advance_search()
-{
-    check_lookahead(yychar);
-    remark(CxxSearchContext::current()->mark());
-    if (CxxSearchContext::current() && CxxSearchContext::current()->advance())
-        queue(FogTokenType::get_character('+'));
-    else
-    {
-        queue(FogTokenType::get_character('#'));
-        queue(FogTokenType::get_character('-'));
-    }
-    check_lookahead(yychar);
+void FogParser::advance_search() {
+	check_lookahead(yychar);
+	remark(CxxSearchContext::current()->mark());
+	
+	if (CxxSearchContext::current() && CxxSearchContext::current()->advance())
+		queue(FogTokenType::get_character('+'));
+	else {
+		queue(FogTokenType::get_character('#'));
+		queue(FogTokenType::get_character('-'));
+	}
+	
+	check_lookahead(yychar);
 }
 
 //
 //  Complete a search, releasing the search context object and popping a mark off the stack.
 //
-void FogParser::end_search(FogToken *aToken)
-{
-    check_lookahead(yychar);
-    CxxSearchContext::release();
-    unmark(aToken);
-    check_lookahead(yychar);
+void FogParser::end_search(FogToken* aToken) {
+	check_lookahead(yychar);
+	CxxSearchContext::release();
+	unmark(aToken);
+	check_lookahead(yychar);
 }
 
-void FogParser::make_result(FogToken *aResult) { set_result(aResult, yychar && (yychar != YYEMPTY)); }
+void FogParser::make_result(FogToken* aResult) { set_result(aResult, yychar && (yychar != YYEMPTY)); }
 
 //
 //  Mark the current context.
@@ -2142,99 +2139,92 @@ void FogParser::make_result(FogToken *aResult) { set_result(aResult, yychar && (
 //
 //  Well, that was the principle. Making the unget buffers unlimited avoids constraints.
 //
-YACC_MARK_TYPE FogParser::mark()
-{
-    check_lookahead(yychar);
-    YACC_MARK_TYPE p = Super::mark(yychar != YYEMPTY);
-    yyclearin;
-    _bang++;
-    check_lookahead(yychar);
-    return p;
+YACC_MARK_TYPE FogParser::mark() {
+	check_lookahead(yychar);
+	YACC_MARK_TYPE p = Super::mark(yychar != YYEMPTY);
+	yyclearin;
+	_bang++;
+	check_lookahead(yychar);
+	return p;
 }
 
 //
 //  If it is appropriate to do type I function parameter parsing perform a mark and force a '+' token
 //  into the input stream. Otherwise just force a '-' token in.
 //
-YACC_MARK_TYPE FogParser::mark_type1()
-{
-    check_lookahead(yychar);
-//  if (!CxxSearchContext::current() && !tokenMarkDepth)    // No Type I's in statements or argument lists
-//  {
-//      primed_tokens[0] = &FogTokenType::get_character('+');
-//      primed_tokens[1] = PARSE_DOT yylval.token;
-//      return mark();
-//  }
-//  else
-    {
-        if (yychar != YYEMPTY)
-            queue(*yylval.token);
-        queue(FogTokenType::get_character('-'));
-        yyclearin; 
-        check_lookahead(yychar);
-        return 0;           // Never used.
-    }
+YACC_MARK_TYPE FogParser::mark_type1() {
+	check_lookahead(yychar);
+	//  if (!CxxSearchContext::current() && !tokenMarkDepth)    // No Type I's in statements or argument lists
+	//  {
+	//      primed_tokens[0] = &FogTokenType::get_character('+');
+	//      primed_tokens[1] = PARSE_DOT yylval.token;
+	//      return mark();
+	//  }
+	//  else
+	{
+		if (yychar != YYEMPTY)
+			queue(*yylval.token);
+			
+		queue(FogTokenType::get_character('-'));
+		yyclearin;
+		check_lookahead(yychar);
+		return 0;           // Never used.
+	}
 }
 
 //
 //  Pop a bang context off the error suppression stack, restoring the context of a push_bang.
 //
-void FogParser::pop_bang(YACC_BANG_TYPE bangValue)
-{
-    check_lookahead(yychar);
-    _bang = bangValue;
+void FogParser::pop_bang(YACC_BANG_TYPE bangValue) {
+	check_lookahead(yychar);
+	_bang = bangValue;
 }
 
 //
 //  Push a bang context onto the error suppression stack, returning the context for restoration by pop_bang.
 //
-YACC_BANG_TYPE FogParser::push_bang()
-{
-    check_lookahead(yychar);
-    return _bang++;
+YACC_BANG_TYPE FogParser::push_bang() {
+	check_lookahead(yychar);
+	return _bang++;
 }
 
 //
 //  Reposition the input to restart at the position returned by a mark().
 //
-void FogParser::remark(YACC_MARK_TYPE anIndex)
-{
-    check_lookahead(yychar);
-    Super::remark(anIndex);
-    yyclearin;
-    check_lookahead(yychar);
+void FogParser::remark(YACC_MARK_TYPE anIndex) {
+	check_lookahead(yychar);
+	Super::remark(anIndex);
+	yyclearin;
+	check_lookahead(yychar);
 }
 
 //
 //  Reposition the input to restart at the position returned by a mark().
 //
-void FogParser::remark_type1(YACC_MARK_TYPE anIndex)
-{
-    remark(anIndex);
+void FogParser::remark_type1(YACC_MARK_TYPE anIndex) {
+	remark(anIndex);
 }
-    
+
 //
 //  Rewind the input stream back to anIndex and force a : prior to resuming input.
 //
-void FogParser::rewind_colon(YACC_MARK_TYPE anIndex, const FogToken *aToken)
-{
-    check_lookahead(yychar);
-    FogTokenRefToConst theToken(aToken);            // Prevent premature demise.
-    remark(anIndex);
-    unmark(aToken);
-    queue(FogTokenType::get(FogTokenType::character(':')));
-    check_lookahead(yychar);
+void FogParser::rewind_colon(YACC_MARK_TYPE anIndex, const FogToken* aToken) {
+	check_lookahead(yychar);
+	FogTokenRefToConst theToken(aToken);            // Prevent premature demise.
+	remark(anIndex);
+	unmark(aToken);
+	queue(FogTokenType::get(FogTokenType::character(':')));
+	check_lookahead(yychar);
 }
 
 //
 //  Start a new binary search over the template/arithmetic alternative parses of a statement.
 //  Marks the current position and saves it in a binary search context maintained on a private stack.
 //
-void FogParser::start_search(bool enableType1)
-{
-    check_lookahead(yychar);
-    CxxSearchContext::start(mark(), enableType1);
-    check_lookahead(yychar);
+void FogParser::start_search(bool enableType1) {
+	check_lookahead(yychar);
+	CxxSearchContext::start(mark(), enableType1);
+	check_lookahead(yychar);
 }
 
 //
@@ -2247,62 +2237,63 @@ void FogParser::start_search(bool enableType1)
 //  An alternate implementation that keeps track of scopes may interact with semantic knowledge to make
 //  the correct decision directly.
 //
-void FogParser::template_test()
-{
-    check_lookahead(yychar);
-    if (!CxxSearchContext::current() || CxxSearchContext::current()->is_template())
-        queue(FogTokenType::get_character('+'));
-    else
-    {
-        queue(FogTokenType::get_character('<'));
-        queue(FogTokenType::get_character('-'));
-    }
-    check_lookahead(yychar);
+void FogParser::template_test() {
+	check_lookahead(yychar);
+	
+	if (!CxxSearchContext::current() || CxxSearchContext::current()->is_template())
+		queue(FogTokenType::get_character('+'));
+	else {
+		queue(FogTokenType::get_character('<'));
+		queue(FogTokenType::get_character('-'));
+	}
+	
+	check_lookahead(yychar);
 }
 
 void FogParser::terminate() { CxxSearchContext::terminate(); }
 
-void FogParser::unmark(const FogToken *aToken)
-{
-    check_lookahead(yychar);
-    if (_bang)
-        _bang--;
-    else
-        raw_error("BUG - should not unmark with 0 bang.");
-    Super::unmark(aToken, yychar != YYEMPTY);
-    check_lookahead(yychar);
+void FogParser::unmark(const FogToken* aToken) {
+	check_lookahead(yychar);
+	
+	if (_bang)
+		_bang--;
+	else
+		raw_error("BUG - should not unmark with 0 bang.");
+		
+	Super::unmark(aToken, yychar != YYEMPTY);
+	check_lookahead(yychar);
 }
 
 //
 //  Pass msg to the lexer to get a sensible error message.
 //
-void FogParser::yyerror(char *msg)
-{
-    if (_bang <= 0)
-        error(msg);
+void FogParser::yyerror(char* msg) {
+	if (_bang <= 0)
+		error(msg);
 }
 
 //
 //  Get the next token.
 //
-int FogParser::yylex()
-{
-    check_lookahead(yychar);
-    yylval.token = Super::yylex();
-    check_lookahead(yychar);
-    if (yylval.token)
-        return yylval.token->token_type_enum();
-    if (_bang <= 0)
-        return 0;
-    return '#';                         // Extend file to provoke error recovery through nested unterminated { etc.
+int FogParser::yylex() {
+	check_lookahead(yychar);
+	yylval.token = Super::yylex();
+	check_lookahead(yychar);
+	
+	if (yylval.token)
+		return yylval.token->token_type_enum();
+		
+	if (_bang <= 0)
+		return 0;
+		
+	return '#';                         // Extend file to provoke error recovery through nested unterminated { etc.
 }
 
 //
 //  Pass msg to the lexer to get a sensible warning message.
 //
-void FogParser::yywarn(const char *msg)
-{
-    if (_bang <= 0)
-        warning(msg);
+void FogParser::yywarn(const char* msg) {
+	if (_bang <= 0)
+		warning(msg);
 }
 /*EndDiscard*/

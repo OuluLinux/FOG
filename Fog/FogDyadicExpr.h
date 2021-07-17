@@ -11,19 +11,19 @@ class FogDyadicExpr : public FogDecoratedExpr {
 	FOGTOKEN_MEMBER_DECLS
 	
 private:
-        //   Defining contents.
+	//   Defining contents.
 	FogExprRef _expr1;
 	
 private:
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 	virtual FogTokenType::TokenType dyadic_token() const {
 		return FogTokenType::init();
 	}
 	
-	virtual const char *separator() const {
+	virtual const char* separator() const {
 		return "";
 	}
 	
@@ -50,18 +50,18 @@ public:
 };
 
 #define FOGDYADICEXPR_INTERFAC(T) \
-class T : public FogDyadicExpr \
-{ \
- typedef FogDyadicExpr Super; \
- typedef T This; \
- TYPEDECL_SINGLE(This, Super) \
- FOGTOKEN_LEAF_DECLS \
-private: \
- virtual FogTokenType::TokenType dyadic_token() const; \
- virtual const char *separator() const; \
- T(const This& anExpr) : Super(anExpr) {} \
-public: \
- T(FogExpr& firstExpr, FogExpr& secondExpr) : Super(firstExpr, secondExpr) {}
+	class T : public FogDyadicExpr \
+	{ \
+		typedef FogDyadicExpr Super; \
+		typedef T This; \
+		TYPEDECL_SINGLE(This, Super) \
+		FOGTOKEN_LEAF_DECLS \
+	private: \
+		virtual FogTokenType::TokenType dyadic_token() const; \
+		virtual const char *separator() const; \
+		T(const This& anExpr) : Super(anExpr) {} \
+	public: \
+		T(FogExpr& firstExpr, FogExpr& secondExpr) : Super(firstExpr, secondExpr) {}
 
 #define FOGDYADICEXPR_INTERFACE(T) FOGDYADICEXPR_INTERFAC(T) };
 
@@ -88,8 +88,7 @@ FOGDYADICEXPR_INTERFACE(FogLogOrExpr)
 FOGDYADICEXPR_INTERFACE(FogLtExpr)
 FOGDYADICEXPR_INTERFACE(FogModExpr)
 
-class FogMulExpr : public FogDyadicExpr
-{
+class FogMulExpr : public FogDyadicExpr {
 	typedef FogDyadicExpr Super;
 	typedef FogMulExpr This;
 	TYPEDECL_SINGLE(This, Super)
@@ -100,7 +99,7 @@ private:
 	
 private:
 	virtual FogTokenType::TokenType dyadic_token() const;
-	virtual const char *separator() const;
+	virtual const char* separator() const;
 	FogMulExpr(const This& anExpr);
 	
 public:
@@ -108,7 +107,7 @@ public:
 	virtual bool emit(FogEmitContext& emitContext) const;
 	virtual void make_actual_from(FogMakeActualContext& makeActualContext);
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
-	virtual char print_named(std::ostream& s, const PrimId *fullId, char tailChar) const;
+	virtual char print_named(std::ostream& s, const PrimId* fullId, char tailChar) const;
 	virtual bool resolve_semantics(FogSemanticsContext& theSemantics) const;
 	virtual void set_decl_specifier_expression(FogExprRef& anExpr, FogDeclSpecifier& declSpecifiers);
 };

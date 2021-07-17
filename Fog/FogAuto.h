@@ -10,9 +10,9 @@ class FogAuto : public FogScope {
 	TYPEDECL_SINGLE(This, Super)
 	
 private:
-	virtual FogUsage *make_interface_usage_finish();
-	virtual FogUsage *make_interface_usage_start();
-	virtual FogUsage *make_name_usage();
+	virtual FogUsage* make_interface_usage_finish();
+	virtual FogUsage* make_interface_usage_start();
+	virtual FogUsage* make_name_usage();
 	FogScope& scope() {
 		return non_virtual_scope();
 	}
@@ -34,7 +34,7 @@ public:
 	virtual void emit_scope_head(FogStream& s) const;
 	virtual void emit_scope_tail(FogStream& s) const;
 	virtual FogScope& name_emit_scope();
-	virtual FogTargetFile *name_file();
+	virtual FogTargetFile* name_file();
 	virtual FogScope& name_scope();
 };
 

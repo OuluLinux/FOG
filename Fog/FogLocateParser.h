@@ -3,9 +3,9 @@
 #define YY_USE_CLASS
 /* before anything */
 #ifdef c_plusplus
- #ifndef __cplusplus
-  #define __cplusplus
- #endif
+	#ifndef __cplusplus
+		#define __cplusplus
+	#endif
 #endif
 
 #define YY_FogLocateParser_DEBUG  1
@@ -18,9 +18,9 @@
 	const FogMacro& _macro; \
 	FogTokensRef _toks; \
 	FogTokenContext _current; \
-private: \
+	private: \
 	void add_arg(); \
-public: \
+	public: \
 	virtual ~FogLocateParser();
 #define YY_FogLocateParser_CONSTRUCTOR_PARAM  \
 	FogLexerMacro& aLexer, \
@@ -33,155 +33,154 @@ public: \
 #define YY_FogLocateParser_CONSTRUCTOR_CODE  \
 	YY_FogLocateParser_DEBUG_FLAG = Fog::debug_yacc(); \
 	CONDMSG(YY_FogLocateParser_DEBUG_FLAG || Fog::debug_lex2locate(), \
-		"\nStarting macro argument location parser for " << _macro.id().str());
- /* %{ and %header{ and %union, during decl */
+	        "\nStarting macro argument location parser for " << _macro.id().str());
+/* %{ and %header{ and %union, during decl */
 #ifndef YY_FogLocateParser_COMPATIBILITY
- #ifndef YY_USE_CLASS
-  #define  YY_FogLocateParser_COMPATIBILITY 1
- #else
-  #define  YY_FogLocateParser_COMPATIBILITY 0
- #endif
+	#ifndef YY_USE_CLASS
+		#define  YY_FogLocateParser_COMPATIBILITY 1
+	#else
+		#define  YY_FogLocateParser_COMPATIBILITY 0
+	#endif
 #endif
 
 #if YY_FogLocateParser_COMPATIBILITY != 0
-/* backward compatibility */
- #ifdef YYLTYPE
-  #ifndef YY_FogLocateParser_LTYPE
-   #define YY_FogLocateParser_LTYPE YYLTYPE
-/* WARNING obsolete !!! user defined YYLTYPE not reported into generated header */
-/* use %define LTYPE */
-  #endif
- #endif
-/*#ifdef YYSTYPE*/
-  #ifndef YY_FogLocateParser_STYPE
-   #define YY_FogLocateParser_STYPE YYSTYPE
-  /* WARNING obsolete !!! user defined YYSTYPE not reported into generated header */
-   /* use %define STYPE */
-  #endif
-/*#endif*/
- #ifdef YYDEBUG
-  #ifndef YY_FogLocateParser_DEBUG
-   #define  YY_FogLocateParser_DEBUG YYDEBUG
-   /* WARNING obsolete !!! user defined YYDEBUG not reported into generated header */
-   /* use %define DEBUG */
-  #endif
- #endif 
- /* use goto to be compatible */
- #ifndef YY_FogLocateParser_USE_GOTO
-  #define YY_FogLocateParser_USE_GOTO 1
- #endif
+	/* backward compatibility */
+	#ifdef YYLTYPE
+		#ifndef YY_FogLocateParser_LTYPE
+			#define YY_FogLocateParser_LTYPE YYLTYPE
+			/* WARNING obsolete !!! user defined YYLTYPE not reported into generated header */
+			/* use %define LTYPE */
+		#endif
+	#endif
+	/*#ifdef YYSTYPE*/
+	#ifndef YY_FogLocateParser_STYPE
+		#define YY_FogLocateParser_STYPE YYSTYPE
+		/* WARNING obsolete !!! user defined YYSTYPE not reported into generated header */
+		/* use %define STYPE */
+	#endif
+	/*#endif*/
+	#ifdef YYDEBUG
+		#ifndef YY_FogLocateParser_DEBUG
+			#define  YY_FogLocateParser_DEBUG YYDEBUG
+			/* WARNING obsolete !!! user defined YYDEBUG not reported into generated header */
+			/* use %define DEBUG */
+		#endif
+	#endif
+	/* use goto to be compatible */
+	#ifndef YY_FogLocateParser_USE_GOTO
+		#define YY_FogLocateParser_USE_GOTO 1
+	#endif
 #endif
 
 /* use no goto to be clean in C++ */
 #ifndef YY_FogLocateParser_USE_GOTO
- #define YY_FogLocateParser_USE_GOTO 0
+	#define YY_FogLocateParser_USE_GOTO 0
 #endif
 
 #ifndef YY_FogLocateParser_PURE
-/* YY_FogLocateParser_PURE */
+	/* YY_FogLocateParser_PURE */
 #endif
 
 /* prefix */
 
 #ifndef YY_FogLocateParser_DEBUG
-#define YY_FogLocateParser_DEBUG 1
-/* YY_FogLocateParser_DEBUG */
+	#define YY_FogLocateParser_DEBUG 1
+	/* YY_FogLocateParser_DEBUG */
 #endif
 
 #ifndef YY_FogLocateParser_LSP_NEEDED
- /* YY_FogLocateParser_LSP_NEEDED*/
+	/* YY_FogLocateParser_LSP_NEEDED*/
 #endif
 
 /* DEFAULT LTYPE*/
 #ifdef YY_FogLocateParser_LSP_NEEDED
- #ifndef YY_FogLocateParser_LTYPE
-  #ifndef BISON_YYLTYPE_ISDECLARED
-   #define BISON_YYLTYPE_ISDECLARED
+#ifndef YY_FogLocateParser_LTYPE
+#ifndef BISON_YYLTYPE_ISDECLARED
+#define BISON_YYLTYPE_ISDECLARED
 typedef
-  struct yyltype
-    {
-      int timestamp;
-      int first_line;
-      int first_column;
-      int last_line;
-      int last_column;
-      char *text;
-   }
-  yyltype;
-  #endif
+struct yyltype {
+	int timestamp;
+	int first_line;
+	int first_column;
+	int last_line;
+	int last_column;
+	char* text;
+}
+yyltype;
+#endif
 
-  #define YY_FogLocateParser_LTYPE yyltype
- #endif
+#define YY_FogLocateParser_LTYPE yyltype
+#endif
 #endif
 
 /* DEFAULT STYPE*/
 #ifndef YY_FogLocateParser_STYPE
- #define YY_FogLocateParser_STYPE int
+	#define YY_FogLocateParser_STYPE int
 #endif
 
 /* DEFAULT MISCELANEOUS */
 #ifndef YY_FogLocateParser_PARSE
- #define YY_FogLocateParser_PARSE yyparse
+	#define YY_FogLocateParser_PARSE yyparse
 #endif
 
 #ifndef YY_FogLocateParser_LEX
- #define YY_FogLocateParser_LEX yylex
+	#define YY_FogLocateParser_LEX yylex
 #endif
 
 #ifndef YY_FogLocateParser_LVAL
- #define YY_FogLocateParser_LVAL yylval
+	#define YY_FogLocateParser_LVAL yylval
 #endif
 
 #ifndef YY_FogLocateParser_LLOC
- #define YY_FogLocateParser_LLOC yylloc
+	#define YY_FogLocateParser_LLOC yylloc
 #endif
 
 #ifndef YY_FogLocateParser_CHAR
- #define YY_FogLocateParser_CHAR yychar
+	#define YY_FogLocateParser_CHAR yychar
 #endif
 
 #ifndef YY_FogLocateParser_NERRS
- #define YY_FogLocateParser_NERRS yynerrs
+	#define YY_FogLocateParser_NERRS yynerrs
 #endif
 
 #ifndef YY_FogLocateParser_DEBUG_FLAG
- #define YY_FogLocateParser_DEBUG_FLAG yydebug
+	#define YY_FogLocateParser_DEBUG_FLAG yydebug
 #endif
 
 #ifndef YY_FogLocateParser_ERROR
- #define YY_FogLocateParser_ERROR yyerror
+	#define YY_FogLocateParser_ERROR yyerror
 #endif
 
 #ifndef YY_FogLocateParser_PARSE_PARAM
- #ifndef __STDC__
-  #ifndef __cplusplus
-   #ifndef YY_USE_CLASS
-    #define YY_FogLocateParser_PARSE_PARAM
-    #ifndef YY_FogLocateParser_PARSE_PARAM_DEF
-     #define YY_FogLocateParser_PARSE_PARAM_DEF
-    #endif
-   #endif
-  #endif
- #endif
- #ifndef YY_FogLocateParser_PARSE_PARAM
-  #define YY_FogLocateParser_PARSE_PARAM void
- #endif
+	#ifndef __STDC__
+		#ifndef __cplusplus
+			#ifndef YY_USE_CLASS
+				#define YY_FogLocateParser_PARSE_PARAM
+				#ifndef YY_FogLocateParser_PARSE_PARAM_DEF
+					#define YY_FogLocateParser_PARSE_PARAM_DEF
+				#endif
+			#endif
+		#endif
+	#endif
+	#ifndef YY_FogLocateParser_PARSE_PARAM
+		#define YY_FogLocateParser_PARSE_PARAM void
+	#endif
 #endif
 
 /* TOKEN C */
 #ifndef YY_USE_CLASS
 
- #ifndef YY_FogLocateParser_PURE
-  #ifndef yylval
-   extern YY_FogLocateParser_STYPE YY_FogLocateParser_LVAL;
-  #else
-   #if yylval != YY_FogLocateParser_LVAL
-    extern YY_FogLocateParser_STYPE YY_FogLocateParser_LVAL;
-   #else
-    #warning "Namespace conflict, disabling some functionality (bison++ only)"
-   #endif
-  #endif
- #endif
+#ifndef YY_FogLocateParser_PURE
+	#ifndef yylval
+		extern YY_FogLocateParser_STYPE YY_FogLocateParser_LVAL;
+	#else
+		#if yylval != YY_FogLocateParser_LVAL
+			extern YY_FogLocateParser_STYPE YY_FogLocateParser_LVAL;
+		#else
+			#warning "Namespace conflict, disabling some functionality (bison++ only)"
+		#endif
+	#endif
+#endif
 
 #define	ASM	258
 #define	AUTO	259
@@ -338,412 +337,411 @@ typedef
 #define	IntegerLiteral	410
 #define	FloatingLiteral	411
 
- /* #defines token */
+/* #defines token */
 /* after #define tokens, before const tokens S5*/
 #else
- #ifndef YY_FogLocateParser_CLASS
-  #define YY_FogLocateParser_CLASS FogLocateParser
- #endif
+#ifndef YY_FogLocateParser_CLASS
+	#define YY_FogLocateParser_CLASS FogLocateParser
+#endif
 
- #ifndef YY_FogLocateParser_INHERIT
-  #define YY_FogLocateParser_INHERIT
- #endif
+#ifndef YY_FogLocateParser_INHERIT
+	#define YY_FogLocateParser_INHERIT
+#endif
 
- #ifndef YY_FogLocateParser_MEMBERS
-  #define YY_FogLocateParser_MEMBERS 
- #endif
+#ifndef YY_FogLocateParser_MEMBERS
+	#define YY_FogLocateParser_MEMBERS
+#endif
 
- #ifndef YY_FogLocateParser_LEX_BODY
-  #define YY_FogLocateParser_LEX_BODY  
- #endif
+#ifndef YY_FogLocateParser_LEX_BODY
+	#define YY_FogLocateParser_LEX_BODY
+#endif
 
- #ifndef YY_FogLocateParser_ERROR_BODY
-  #define YY_FogLocateParser_ERROR_BODY  
- #endif
+#ifndef YY_FogLocateParser_ERROR_BODY
+	#define YY_FogLocateParser_ERROR_BODY
+#endif
 
- #ifndef YY_FogLocateParser_CONSTRUCTOR_PARAM
-  #define YY_FogLocateParser_CONSTRUCTOR_PARAM
- #endif
- /* choose between enum and const */
- #ifndef YY_FogLocateParser_USE_CONST_TOKEN
-  #define YY_FogLocateParser_USE_CONST_TOKEN 0
-  /* yes enum is more compatible with flex,  */
-  /* so by default we use it */ 
- #endif
- #if YY_FogLocateParser_USE_CONST_TOKEN != 0
-  #ifndef YY_FogLocateParser_ENUM_TOKEN
-   #define YY_FogLocateParser_ENUM_TOKEN yy_FogLocateParser_enum_token
-  #endif
- #endif
+#ifndef YY_FogLocateParser_CONSTRUCTOR_PARAM
+	#define YY_FogLocateParser_CONSTRUCTOR_PARAM
+#endif
+/* choose between enum and const */
+#ifndef YY_FogLocateParser_USE_CONST_TOKEN
+	#define YY_FogLocateParser_USE_CONST_TOKEN 0
+	/* yes enum is more compatible with flex,  */
+	/* so by default we use it */
+#endif
+#if YY_FogLocateParser_USE_CONST_TOKEN != 0
+	#ifndef YY_FogLocateParser_ENUM_TOKEN
+		#define YY_FogLocateParser_ENUM_TOKEN yy_FogLocateParser_enum_token
+	#endif
+#endif
 
-class YY_FogLocateParser_CLASS YY_FogLocateParser_INHERIT
-{
-public: 
- #if YY_FogLocateParser_USE_CONST_TOKEN != 0
-  /* static const int token ... */
-  static const int ASM;
-static const int AUTO;
-static const int BREAK;
-static const int CASE;
-static const int CATCH;
-static const int CLASS;
-static const int CONST;
-static const int CONST_CAST;
-static const int CONTINUE;
-static const int DEFAULT;
-static const int DELETE;
-static const int DO;
-static const int DYNAMIC_CAST;
-static const int ELSE;
-static const int ENUM;
-static const int EXPLICIT;
-static const int EXPORT;
-static const int EXTERN;
-static const int FALSE;
-static const int FOR;
-static const int FRIEND;
-static const int GOTO;
-static const int IF;
-static const int INLINE;
-static const int MUTABLE;
-static const int NAMESPACE;
-static const int NEW;
-static const int OPERATOR;
-static const int PRIVATE;
-static const int PROTECTED;
-static const int PUBLIC;
-static const int REGISTER;
-static const int REINTERPRET_CAST;
-static const int RETURN;
-static const int SIZEOF;
-static const int STATIC;
-static const int STATIC_CAST;
-static const int STRUCT;
-static const int SWITCH;
-static const int TEMPLATE;
-static const int THIS;
-static const int THROW;
-static const int TRUE;
-static const int TRY;
-static const int TYPEDEF;
-static const int TYPEID;
-static const int TYPENAME;
-static const int UNION;
-static const int USING;
-static const int VIRTUAL;
-static const int VOLATILE;
-static const int WHILE;
-static const int ELLIPSIS;
-static const int SCOPE;
-static const int SHL;
-static const int SHR;
-static const int EQ;
-static const int NE;
-static const int LE;
-static const int GE;
-static const int LOG_AND;
-static const int LOG_OR;
-static const int INC;
-static const int DEC;
-static const int ARROW;
-static const int ARROW_STAR;
-static const int DOT_STAR;
-static const int ASS_ADD;
-static const int ASS_AND;
-static const int ASS_DIV;
-static const int ASS_MOD;
-static const int ASS_MUL;
-static const int ASS_OR;
-static const int ASS_SHL;
-static const int ASS_SHR;
-static const int ASS_SUB;
-static const int ASS_XOR;
-static const int BuiltInTypeSpecifier;
-static const int CharacterLiteral;
-static const int Identifier;
-static const int MetaType;
-static const int NewLine;
-static const int NumberLiteral;
-static const int StringLiteral;
-static const int TreeLiteral;
-static const int ERROR;
-static const int NIL;
-static const int RAMMARG;
-static const int BODY;
-static const int DERIVED;
-static const int EMIT;
-static const int ENTRY;
-static const int EXIT;
-static const int FILE;
-static const int FROZEN;
-static const int GUARD;
-static const int IMPLEMENTATION;
-static const int INCLUDE;
-static const int INTERFACE;
-static const int NOGUARD;
-static const int NOIMPLEMENTATION;
-static const int OVERLOAD;
-static const int PATH;
-static const int POOL;
-static const int POST;
-static const int PRE;
-static const int PREFIX;
-static const int PURE;
-static const int SUFFIX;
-static const int UTILITY;
-static const int ALL;
-static const int PLACEHOLDER;
-static const int PLACEMENT;
-static const int NOAUTO;
-static const int HASH_BLANK;
-static const int HASH_DEFINE;
-static const int HASH_ELIF;
-static const int HASH_ELSE;
-static const int HASH_ENDIF;
-static const int HASH_ERROR;
-static const int HASH_IF;
-static const int HASH_IFDEF;
-static const int HASH_IFNDEF;
-static const int HASH_INCLUDE;
-static const int HASH_LINE;
-static const int HASH_PRAGMA;
-static const int HASH_UNDEF;
-static const int HASH_HASH;
-static const int DI_HASH_HASH;
-static const int DI_HASH;
-static const int DI_SQUARE;
-static const int DI_ERAUQS;
-static const int DI_ECARB;
-static const int DEFINED;
-static const int DO_FUNCTION;
-static const int MacroId;
-static const int Punct;
-static const int Text;
-static const int SHIFT_THERE;
-static const int REDUCE_HERE_MOSTLY;
-static const int REDUCE_HERE;
-static const int BOOL;
-static const int CHAR;
-static const int DOUBLE;
-static const int FLOAT;
-static const int INT;
-static const int LONG;
-static const int SHORT;
-static const int SIGNED;
-static const int UNSIGNED;
-static const int VOID;
-static const int WCHAR_T;
-static const int IntegerLiteral;
-static const int FloatingLiteral;
-
- /* decl const */
- #else
-  enum YY_FogLocateParser_ENUM_TOKEN { YY_FogLocateParser_NULL_TOKEN=0
-  	,ASM=258
-	,AUTO=259
-	,BREAK=260
-	,CASE=261
-	,CATCH=262
-	,CLASS=263
-	,CONST=264
-	,CONST_CAST=265
-	,CONTINUE=266
-	,DEFAULT=267
-	,DELETE=268
-	,DO=269
-	,DYNAMIC_CAST=270
-	,ELSE=271
-	,ENUM=272
-	,EXPLICIT=273
-	,EXPORT=274
-	,EXTERN=275
-	,FALSE=276
-	,FOR=277
-	,FRIEND=278
-	,GOTO=279
-	,IF=280
-	,INLINE=281
-	,MUTABLE=282
-	,NAMESPACE=283
-	,NEW=284
-	,OPERATOR=285
-	,PRIVATE=286
-	,PROTECTED=287
-	,PUBLIC=288
-	,REGISTER=289
-	,REINTERPRET_CAST=290
-	,RETURN=291
-	,SIZEOF=292
-	,STATIC=293
-	,STATIC_CAST=294
-	,STRUCT=295
-	,SWITCH=296
-	,TEMPLATE=297
-	,THIS=298
-	,THROW=299
-	,TRUE=300
-	,TRY=301
-	,TYPEDEF=302
-	,TYPEID=303
-	,TYPENAME=304
-	,UNION=305
-	,USING=306
-	,VIRTUAL=307
-	,VOLATILE=308
-	,WHILE=309
-	,ELLIPSIS=310
-	,SCOPE=311
-	,SHL=312
-	,SHR=313
-	,EQ=314
-	,NE=315
-	,LE=316
-	,GE=317
-	,LOG_AND=318
-	,LOG_OR=319
-	,INC=320
-	,DEC=321
-	,ARROW=322
-	,ARROW_STAR=323
-	,DOT_STAR=324
-	,ASS_ADD=325
-	,ASS_AND=326
-	,ASS_DIV=327
-	,ASS_MOD=328
-	,ASS_MUL=329
-	,ASS_OR=330
-	,ASS_SHL=331
-	,ASS_SHR=332
-	,ASS_SUB=333
-	,ASS_XOR=334
-	,BuiltInTypeSpecifier=335
-	,CharacterLiteral=336
-	,Identifier=337
-	,MetaType=338
-	,NewLine=339
-	,NumberLiteral=340
-	,StringLiteral=341
-	,TreeLiteral=342
-	,ERROR=343
-	,NIL=344
-	,RAMMARG=345
-	,BODY=346
-	,DERIVED=347
-	,EMIT=348
-	,ENTRY=349
-	,EXIT=350
-	,FILE=351
-	,FROZEN=352
-	,GUARD=353
-	,IMPLEMENTATION=354
-	,INCLUDE=355
-	,INTERFACE=356
-	,NOGUARD=357
-	,NOIMPLEMENTATION=358
-	,OVERLOAD=359
-	,PATH=360
-	,POOL=361
-	,POST=362
-	,PRE=363
-	,PREFIX=364
-	,PURE=365
-	,SUFFIX=366
-	,UTILITY=367
-	,ALL=368
-	,PLACEHOLDER=369
-	,PLACEMENT=370
-	,NOAUTO=371
-	,HASH_BLANK=372
-	,HASH_DEFINE=373
-	,HASH_ELIF=374
-	,HASH_ELSE=375
-	,HASH_ENDIF=376
-	,HASH_ERROR=377
-	,HASH_IF=378
-	,HASH_IFDEF=379
-	,HASH_IFNDEF=380
-	,HASH_INCLUDE=381
-	,HASH_LINE=382
-	,HASH_PRAGMA=383
-	,HASH_UNDEF=384
-	,HASH_HASH=385
-	,DI_HASH_HASH=386
-	,DI_HASH=387
-	,DI_SQUARE=388
-	,DI_ERAUQS=389
-	,DI_ECARB=390
-	,DEFINED=391
-	,DO_FUNCTION=392
-	,MacroId=393
-	,Punct=394
-	,Text=395
-	,SHIFT_THERE=396
-	,REDUCE_HERE_MOSTLY=397
-	,REDUCE_HERE=398
-	,BOOL=399
-	,CHAR=400
-	,DOUBLE=401
-	,FLOAT=402
-	,INT=403
-	,LONG=404
-	,SHORT=405
-	,SIGNED=406
-	,UNSIGNED=407
-	,VOID=408
-	,WCHAR_T=409
-	,IntegerLiteral=410
-	,FloatingLiteral=411
-
- /* enum token */
-     }; /* end of enum declaration */
- #endif
+class YY_FogLocateParser_CLASS YY_FogLocateParser_INHERIT {
 public:
- int YY_FogLocateParser_PARSE(YY_FogLocateParser_PARSE_PARAM);
- virtual void YY_FogLocateParser_ERROR(const char *msg) YY_FogLocateParser_ERROR_BODY;
- #ifdef YY_FogLocateParser_PURE
-  #ifdef YY_FogLocateParser_LSP_NEEDED
-   virtual int  YY_FogLocateParser_LEX(YY_FogLocateParser_STYPE *YY_FogLocateParser_LVAL,YY_FogLocateParser_LTYPE *YY_FogLocateParser_LLOC) YY_FogLocateParser_LEX_BODY;
-  #else
-   virtual int  YY_FogLocateParser_LEX(YY_FogLocateParser_STYPE *YY_FogLocateParser_LVAL) YY_FogLocateParser_LEX_BODY;
-  #endif
- #else
-  virtual int YY_FogLocateParser_LEX() YY_FogLocateParser_LEX_BODY;
-  YY_FogLocateParser_STYPE YY_FogLocateParser_LVAL;
-  #ifdef YY_FogLocateParser_LSP_NEEDED
-   YY_FogLocateParser_LTYPE YY_FogLocateParser_LLOC;
-  #endif
-  int YY_FogLocateParser_NERRS;
-  int YY_FogLocateParser_CHAR;
- #endif
- #if YY_FogLocateParser_DEBUG != 0
-  public:
-   int YY_FogLocateParser_DEBUG_FLAG;	/*  nonzero means print parse trace	*/
- #endif
+#if YY_FogLocateParser_USE_CONST_TOKEN != 0
+	/* static const int token ... */
+	static const int ASM;
+	static const int AUTO;
+	static const int BREAK;
+	static const int CASE;
+	static const int CATCH;
+	static const int CLASS;
+	static const int CONST;
+	static const int CONST_CAST;
+	static const int CONTINUE;
+	static const int DEFAULT;
+	static const int DELETE;
+	static const int DO;
+	static const int DYNAMIC_CAST;
+	static const int ELSE;
+	static const int ENUM;
+	static const int EXPLICIT;
+	static const int EXPORT;
+	static const int EXTERN;
+	static const int FALSE;
+	static const int FOR;
+	static const int FRIEND;
+	static const int GOTO;
+	static const int IF;
+	static const int INLINE;
+	static const int MUTABLE;
+	static const int NAMESPACE;
+	static const int NEW;
+	static const int OPERATOR;
+	static const int PRIVATE;
+	static const int PROTECTED;
+	static const int PUBLIC;
+	static const int REGISTER;
+	static const int REINTERPRET_CAST;
+	static const int RETURN;
+	static const int SIZEOF;
+	static const int STATIC;
+	static const int STATIC_CAST;
+	static const int STRUCT;
+	static const int SWITCH;
+	static const int TEMPLATE;
+	static const int THIS;
+	static const int THROW;
+	static const int TRUE;
+	static const int TRY;
+	static const int TYPEDEF;
+	static const int TYPEID;
+	static const int TYPENAME;
+	static const int UNION;
+	static const int USING;
+	static const int VIRTUAL;
+	static const int VOLATILE;
+	static const int WHILE;
+	static const int ELLIPSIS;
+	static const int SCOPE;
+	static const int SHL;
+	static const int SHR;
+	static const int EQ;
+	static const int NE;
+	static const int LE;
+	static const int GE;
+	static const int LOG_AND;
+	static const int LOG_OR;
+	static const int INC;
+	static const int DEC;
+	static const int ARROW;
+	static const int ARROW_STAR;
+	static const int DOT_STAR;
+	static const int ASS_ADD;
+	static const int ASS_AND;
+	static const int ASS_DIV;
+	static const int ASS_MOD;
+	static const int ASS_MUL;
+	static const int ASS_OR;
+	static const int ASS_SHL;
+	static const int ASS_SHR;
+	static const int ASS_SUB;
+	static const int ASS_XOR;
+	static const int BuiltInTypeSpecifier;
+	static const int CharacterLiteral;
+	static const int Identifier;
+	static const int MetaType;
+	static const int NewLine;
+	static const int NumberLiteral;
+	static const int StringLiteral;
+	static const int TreeLiteral;
+	static const int ERROR;
+	static const int NIL;
+	static const int RAMMARG;
+	static const int BODY;
+	static const int DERIVED;
+	static const int EMIT;
+	static const int ENTRY;
+	static const int EXIT;
+	static const int FILE;
+	static const int FROZEN;
+	static const int GUARD;
+	static const int IMPLEMENTATION;
+	static const int INCLUDE;
+	static const int INTERFACE;
+	static const int NOGUARD;
+	static const int NOIMPLEMENTATION;
+	static const int OVERLOAD;
+	static const int PATH;
+	static const int POOL;
+	static const int POST;
+	static const int PRE;
+	static const int PREFIX;
+	static const int PURE;
+	static const int SUFFIX;
+	static const int UTILITY;
+	static const int ALL;
+	static const int PLACEHOLDER;
+	static const int PLACEMENT;
+	static const int NOAUTO;
+	static const int HASH_BLANK;
+	static const int HASH_DEFINE;
+	static const int HASH_ELIF;
+	static const int HASH_ELSE;
+	static const int HASH_ENDIF;
+	static const int HASH_ERROR;
+	static const int HASH_IF;
+	static const int HASH_IFDEF;
+	static const int HASH_IFNDEF;
+	static const int HASH_INCLUDE;
+	static const int HASH_LINE;
+	static const int HASH_PRAGMA;
+	static const int HASH_UNDEF;
+	static const int HASH_HASH;
+	static const int DI_HASH_HASH;
+	static const int DI_HASH;
+	static const int DI_SQUARE;
+	static const int DI_ERAUQS;
+	static const int DI_ECARB;
+	static const int DEFINED;
+	static const int DO_FUNCTION;
+	static const int MacroId;
+	static const int Punct;
+	static const int Text;
+	static const int SHIFT_THERE;
+	static const int REDUCE_HERE_MOSTLY;
+	static const int REDUCE_HERE;
+	static const int BOOL;
+	static const int CHAR;
+	static const int DOUBLE;
+	static const int FLOAT;
+	static const int INT;
+	static const int LONG;
+	static const int SHORT;
+	static const int SIGNED;
+	static const int UNSIGNED;
+	static const int VOID;
+	static const int WCHAR_T;
+	static const int IntegerLiteral;
+	static const int FloatingLiteral;
+	
+	/* decl const */
+#else
+	enum YY_FogLocateParser_ENUM_TOKEN { YY_FogLocateParser_NULL_TOKEN = 0
+	, ASM = 258
+	, AUTO = 259
+	, BREAK = 260
+	, CASE = 261
+	, CATCH = 262
+	, CLASS = 263
+	, CONST = 264
+	, CONST_CAST = 265
+	, CONTINUE = 266
+	, DEFAULT = 267
+	, DELETE = 268
+	, DO = 269
+	, DYNAMIC_CAST = 270
+	, ELSE = 271
+	, ENUM = 272
+	, EXPLICIT = 273
+	, EXPORT = 274
+	, EXTERN = 275
+	, FALSE = 276
+	, FOR = 277
+	, FRIEND = 278
+	, GOTO = 279
+	, IF = 280
+	, INLINE = 281
+	, MUTABLE = 282
+	, NAMESPACE = 283
+	, NEW = 284
+	, OPERATOR = 285
+	, PRIVATE = 286
+	, PROTECTED = 287
+	, PUBLIC = 288
+	, REGISTER = 289
+	, REINTERPRET_CAST = 290
+	, RETURN = 291
+	, SIZEOF = 292
+	, STATIC = 293
+	, STATIC_CAST = 294
+	, STRUCT = 295
+	, SWITCH = 296
+	, TEMPLATE = 297
+	, THIS = 298
+	, THROW = 299
+	, TRUE = 300
+	, TRY = 301
+	, TYPEDEF = 302
+	, TYPEID = 303
+	, TYPENAME = 304
+	, UNION = 305
+	, USING = 306
+	, VIRTUAL = 307
+	, VOLATILE = 308
+	, WHILE = 309
+	, ELLIPSIS = 310
+	, SCOPE = 311
+	, SHL = 312
+	, SHR = 313
+	, EQ = 314
+	, NE = 315
+	, LE = 316
+	, GE = 317
+	, LOG_AND = 318
+	, LOG_OR = 319
+	, INC = 320
+	, DEC = 321
+	, ARROW = 322
+	, ARROW_STAR = 323
+	, DOT_STAR = 324
+	, ASS_ADD = 325
+	, ASS_AND = 326
+	, ASS_DIV = 327
+	, ASS_MOD = 328
+	, ASS_MUL = 329
+	, ASS_OR = 330
+	, ASS_SHL = 331
+	, ASS_SHR = 332
+	, ASS_SUB = 333
+	, ASS_XOR = 334
+	, BuiltInTypeSpecifier = 335
+	, CharacterLiteral = 336
+	, Identifier = 337
+	, MetaType = 338
+	, NewLine = 339
+	, NumberLiteral = 340
+	, StringLiteral = 341
+	, TreeLiteral = 342
+	, ERROR = 343
+	, NIL = 344
+	, RAMMARG = 345
+	, BODY = 346
+	, DERIVED = 347
+	, EMIT = 348
+	, ENTRY = 349
+	, EXIT = 350
+	, FILE = 351
+	, FROZEN = 352
+	, GUARD = 353
+	, IMPLEMENTATION = 354
+	, INCLUDE = 355
+	, INTERFACE = 356
+	, NOGUARD = 357
+	, NOIMPLEMENTATION = 358
+	, OVERLOAD = 359
+	, PATH = 360
+	, POOL = 361
+	, POST = 362
+	, PRE = 363
+	, PREFIX = 364
+	, PURE = 365
+	, SUFFIX = 366
+	, UTILITY = 367
+	, ALL = 368
+	, PLACEHOLDER = 369
+	, PLACEMENT = 370
+	, NOAUTO = 371
+	, HASH_BLANK = 372
+	, HASH_DEFINE = 373
+	, HASH_ELIF = 374
+	, HASH_ELSE = 375
+	, HASH_ENDIF = 376
+	, HASH_ERROR = 377
+	, HASH_IF = 378
+	, HASH_IFDEF = 379
+	, HASH_IFNDEF = 380
+	, HASH_INCLUDE = 381
+	, HASH_LINE = 382
+	, HASH_PRAGMA = 383
+	, HASH_UNDEF = 384
+	, HASH_HASH = 385
+	, DI_HASH_HASH = 386
+	, DI_HASH = 387
+	, DI_SQUARE = 388
+	, DI_ERAUQS = 389
+	, DI_ECARB = 390
+	, DEFINED = 391
+	, DO_FUNCTION = 392
+	, MacroId = 393
+	, Punct = 394
+	, Text = 395
+	, SHIFT_THERE = 396
+	, REDUCE_HERE_MOSTLY = 397
+	, REDUCE_HERE = 398
+	, BOOL = 399
+	, CHAR = 400
+	, DOUBLE = 401
+	, FLOAT = 402
+	, INT = 403
+	, LONG = 404
+	, SHORT = 405
+	, SIGNED = 406
+	, UNSIGNED = 407
+	, VOID = 408
+	, WCHAR_T = 409
+	, IntegerLiteral = 410
+	, FloatingLiteral = 411
+	
+	/* enum token */
+	                                   }; /* end of enum declaration */
+#endif
 public:
- YY_FogLocateParser_CLASS(YY_FogLocateParser_CONSTRUCTOR_PARAM);
+	int YY_FogLocateParser_PARSE(YY_FogLocateParser_PARSE_PARAM);
+	virtual void YY_FogLocateParser_ERROR(const char* msg) YY_FogLocateParser_ERROR_BODY;
+#ifdef YY_FogLocateParser_PURE
+#ifdef YY_FogLocateParser_LSP_NEEDED
+	virtual int  YY_FogLocateParser_LEX(YY_FogLocateParser_STYPE* YY_FogLocateParser_LVAL, YY_FogLocateParser_LTYPE* YY_FogLocateParser_LLOC) YY_FogLocateParser_LEX_BODY;
+#else
+	virtual int  YY_FogLocateParser_LEX(YY_FogLocateParser_STYPE* YY_FogLocateParser_LVAL) YY_FogLocateParser_LEX_BODY;
+#endif
+#else
+	virtual int YY_FogLocateParser_LEX() YY_FogLocateParser_LEX_BODY;
+	YY_FogLocateParser_STYPE YY_FogLocateParser_LVAL;
+#ifdef YY_FogLocateParser_LSP_NEEDED
+	YY_FogLocateParser_LTYPE YY_FogLocateParser_LLOC;
+#endif
+	int YY_FogLocateParser_NERRS;
+	int YY_FogLocateParser_CHAR;
+#endif
+#if YY_FogLocateParser_DEBUG != 0
 public:
- YY_FogLocateParser_MEMBERS 
+	int YY_FogLocateParser_DEBUG_FLAG;	/*  nonzero means print parse trace	*/
+#endif
+public:
+	YY_FogLocateParser_CLASS(YY_FogLocateParser_CONSTRUCTOR_PARAM);
+public:
+	YY_FogLocateParser_MEMBERS
 };
 /* other declare folow */
 #endif
 
 
 #if YY_FogLocateParser_COMPATIBILITY != 0
- /* backward compatibility */
- /* Removed due to bison problems
- /#ifndef YYSTYPE
- / #define YYSTYPE YY_FogLocateParser_STYPE
- /#endif*/
-
- #ifndef YYLTYPE
-  #define YYLTYPE YY_FogLocateParser_LTYPE
- #endif
- #ifndef YYDEBUG
-  #ifdef YY_FogLocateParser_DEBUG 
-   #define YYDEBUG YY_FogLocateParser_DEBUG
-  #endif
- #endif
-
+	/* backward compatibility */
+	/*  Removed due to bison problems
+	/#ifndef YYSTYPE
+	/ #define YYSTYPE YY_FogLocateParser_STYPE
+	/#endif*/
+	
+	#ifndef YYLTYPE
+		#define YYLTYPE YY_FogLocateParser_LTYPE
+	#endif
+	#ifndef YYDEBUG
+		#ifdef YY_FogLocateParser_DEBUG
+			#define YYDEBUG YY_FogLocateParser_DEBUG
+		#endif
+	#endif
+	
 #endif
 /* END */
 #endif

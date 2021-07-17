@@ -16,13 +16,13 @@ class FogBaseClass : public FogMetaToken {
 	FOGTOKEN_LEAF_DECLS
 	
 private:
-        //   Defining contents.
+	//   Defining contents.
 	FogScope& _base;      //   Base class.
 	FogAccessHandle _access;
 	FogVirtualHandle _virtual;
 	
 private:
-        //   Derived contents.
+	//   Derived contents.
 	PrimIdHandle _base_id;
 	bool _compiled;
 	
@@ -33,7 +33,7 @@ private:
 	
 	void compile(const FogScope& inScope);
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 	void set_access(const FogAccess& anAccess);
@@ -61,14 +61,14 @@ public:
 	
 	void do_compile(FogCompileContext& inScope);
 	void emit_interface(FogEmitContext& emitContext) const;
-	const FogScope *find_bases(const FogScope& inScope, PrimIdMap& visitMap,
-			FogScopeListOfRef& nonVirtualBases, FogScopeListOfRef& virtualBases) const;
+	const FogScope* find_bases(const FogScope& inScope, PrimIdMap& visitMap,
+	                           FogScopeListOfRef& nonVirtualBases, FogScopeListOfRef& virtualBases) const;
 	const PrimId& id() const;
 	bool is_auto() const {
 		return _access->is_auto();
 	}
 	
-	virtual FogBaseClass *is_base_class();
+	virtual FogBaseClass* is_base_class();
 	bool is_private() const {
 		return _access->is_private();
 	}
@@ -91,7 +91,7 @@ public:
 	virtual std::ostream& print_members(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_this(std::ostream& s) const;
 	virtual std::ostream& print_viz(std::ostream& s) const;
-//  	virtual FogTokenType::TokenType token_type_enum() const;
+	//  	virtual FogTokenType::TokenType token_type_enum() const;
 };
 
 #endif

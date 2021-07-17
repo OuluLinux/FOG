@@ -25,7 +25,7 @@ public:
 	virtual bool emit(FogEmitContext& emitContext) const;
 	virtual bool make_ctor_init(FogRawCtorInitRef& ctorInit);
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
-	virtual char print_named(std::ostream& s, const PrimId *fullId, char tailChar) const;
+	virtual char print_named(std::ostream& s, const PrimId* fullId, char tailChar) const;
 	virtual bool resolve_semantics(FogSemanticsContext& theSemantics) const;
 	virtual void set_decl_specifier_expression(FogExprRef& anExpr, FogDeclSpecifier& declSpecifiers);
 };

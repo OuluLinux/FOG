@@ -11,7 +11,7 @@
 #include <algorithm>
 
 #ifdef flagMSC
-#include <windows.h>
+	#include <windows.h>
 #endif
 
 #undef NO_DATA
@@ -23,71 +23,71 @@
 // Very hackish duplicate macro to avoid compiler "template<>" error
 
 #define TMPL_HACK_FIX(E,N,D)\
-const E& E::immutable_null() \
-{ \
- static bool initialised = false; \
- static char buf[sizeof(N)]; \
- if (!initialised) \
- { \
-  initialised = true; \
-  static D aDestructor(*(N *)buf); \
- } \
- return *(const N *)buf; \
-} \
-__C__((Report the mutable null E.)) \
-E& E::mutable_null() \
-{ \
- static bool initialised = false; \
- static char buf[sizeof(N)]; \
- if (!initialised) \
- { \
-  initialised = true; \
-  static D aDestructor(*(N *)buf); \
- } \
- return *(N *)buf; \
-}
+	const E& E::immutable_null() \
+	{ \
+		static bool initialised = false; \
+		static char buf[sizeof(N)]; \
+		if (!initialised) \
+		{ \
+			initialised = true; \
+			static D aDestructor(*(N *)buf); \
+		} \
+		return *(const N *)buf; \
+	} \
+	__C__((Report the mutable null E.)) \
+	E& E::mutable_null() \
+	{ \
+		static bool initialised = false; \
+		static char buf[sizeof(N)]; \
+		if (!initialised) \
+		{ \
+			initialised = true; \
+			static D aDestructor(*(N *)buf); \
+		} \
+		return *(N *)buf; \
+	}
 
 #define TMPL_HACK_FIX_DO(E) \
-TMPL_HACK_FIX(E,name2(E,Null),name2(E,Destructor))
+	TMPL_HACK_FIX(E,name2(E,Null),name2(E,Destructor))
 
 
 
 
 
 #define TMPL_HACK_FIX_TEMPLATE_EXPLICIT(E)\
-template<> const E& E::immutable_null(); \
-template<> E& E::mutable_null();
+	template<> const E& E::immutable_null(); \
+	template<> E& E::mutable_null();
 
 
 
 
 #define TMPL_HACK_FIX_TEMPLATE(E,N,D)\
-template<> const E& E::immutable_null() \
-{ \
- static bool initialised = false; \
- static char buf[sizeof(N)]; \
- if (!initialised) \
- { \
-  initialised = true; \
-  static D aDestructor(*(N *)buf); \
- } \
- return *(const N *)buf; \
-} \
-__C__((Report the mutable null E.)) \
-template<> E& E::mutable_null() \
-{ \
- static bool initialised = false; \
- static char buf[sizeof(N)]; \
- if (!initialised) \
- { \
-  initialised = true; \
-  static D aDestructor(*(N *)buf); \
- } \
- return *(N *)buf; \
-}
+	template<> const E& E::immutable_null() \
+	{ \
+		static bool initialised = false; \
+		static char buf[sizeof(N)]; \
+		if (!initialised) \
+		{ \
+			initialised = true; \
+			static D aDestructor(*(N *)buf); \
+		} \
+		return *(const N *)buf; \
+	} \
+	__C__((Report the mutable null E.)) \
+	template<> E& E::mutable_null() \
+	{ \
+		static bool initialised = false; \
+		static char buf[sizeof(N)]; \
+		if (!initialised) \
+		{ \
+			initialised = true; \
+			static D aDestructor(*(N *)buf); \
+		} \
+		return *(N *)buf; \
+	}
 
 #define TMPL_HACK_FIX_DO_TEMPLATE(E) \
-PRIMREF_NULL_CLASS(E)  TMPL_HACK_FIX_TEMPLATE(E,name2(E,Null),name2(E,Destructor))
+	PRIMREF_NULL_CLASS(E)  TMPL_HACK_FIX_TEMPLATE(E,name2(E,Null),name2(E,Destructor))
 
 
 

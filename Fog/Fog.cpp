@@ -54,8 +54,8 @@ int Fog::_tab_size = 8;
 bool Fog::_tab_size_ok = false;
 
 PrimStringHandle& Fog::anon_prefix() {
-	static const char *defaultText = "_anon_";
-	static PrimGetEnv<const char *> someText("Fog::anon_prefix", defaultText);
+	static const char* defaultText = "_anon_";
+	static PrimGetEnv<const char*> someText("Fog::anon_prefix", defaultText);
 	static PrimStringHandle aString(someText);
 	return aString;
 }
@@ -188,8 +188,8 @@ PrimText& Fog::define_strings() {
 }
 
 PrimStringHandle& Fog::extern_prefix() {
-	static const char *defaultText = "_extern_";
-	static PrimGetEnv<const char *> someText("Fog::extern_prefix", defaultText);
+	static const char* defaultText = "_extern_";
+	static PrimGetEnv<const char*> someText("Fog::extern_prefix", defaultText);
 	static PrimStringHandle aString(someText);
 	return aString;
 }
@@ -210,7 +210,6 @@ int& Fog::indent_size() {
 	}
 	
 	_indent_size_ok = false;    //   Every time since use of the reference is uncontrolled.
-	
 	return _indent_size;
 }
 
@@ -225,7 +224,6 @@ int& Fog::inline_threshold() {
 	}
 	
 	_inline_threshold_ok = false;    //   Every time since use of the reference is uncontrolled.
-	
 	return _inline_threshold;
 }
 
@@ -313,43 +311,36 @@ FogScope& Fog::null_scope() {
 }
 
 PrimStringHandle& Fog::path(IsInterface isInterface, IsTemplate isTemplate) {
-	static const char *defaultPath = 0;
+	static const char* defaultPath = 0;
 	
 	if (isInterface) {
-		static PrimGetEnv<const char *> someText1("Fog::interface_path", defaultPath);
+		static PrimGetEnv<const char*> someText1("Fog::interface_path", defaultPath);
 		static PrimStringHandle aString1(someText1);
 		
 		if (!isTemplate)
 			return aString1;
 			
-		static const char *defaultText1 = aString1 ? aString1.str() : 0;
-		
-		static PrimGetEnv<const char *> moreText1("Fog::template_interface_path", defaultText1);
-		
+		static const char* defaultText1 = aString1 ? aString1.str() : 0;
+		static PrimGetEnv<const char*> moreText1("Fog::template_interface_path", defaultText1);
 		static PrimStringHandle bString1(moreText1);
-		
-		const void *const aStringOk1 = aString1;    //   DevStudio V5 workaround.
+		const void* const aStringOk1 = aString1;    //   DevStudio V5 workaround.
 		
 		if (!bString1 && aStringOk1)
 			bString1 = aString1;
 			
 		return bString1;
 	}
-	
 	else {
-		static PrimGetEnv<const char *> someText2("Fog::implementation_path", defaultPath);
+		static PrimGetEnv<const char*> someText2("Fog::implementation_path", defaultPath);
 		static PrimStringHandle aString2(someText2);
 		
 		if (!isTemplate)
 			return aString2;
 			
-		static const char *defaultText2 = aString2 ? aString2.str() : 0;
-		
-		static PrimGetEnv<const char *> moreText2("Fog::template_implementation_path", defaultText2);
-		
+		static const char* defaultText2 = aString2 ? aString2.str() : 0;
+		static PrimGetEnv<const char*> moreText2("Fog::template_implementation_path", defaultText2);
 		static PrimStringHandle bString2(moreText2);
-		
-		const void *const aStringOk2 = aString2;    //   DevStudio V5 workaround.
+		const void* const aStringOk2 = aString2;    //   DevStudio V5 workaround.
 		
 		if (!bString2 && aStringOk2)
 			bString2 = aString2;
@@ -359,43 +350,36 @@ PrimStringHandle& Fog::path(IsInterface isInterface, IsTemplate isTemplate) {
 }
 
 PrimStringHandle& Fog::prefix(IsInterface isInterface, IsTemplate isTemplate) {
-	static const char *defaultText = 0;
+	static const char* defaultText = 0;
 	
 	if (isInterface) {
-		static PrimGetEnv<const char *> someText("Fog::interface_prefix", defaultText);
+		static PrimGetEnv<const char*> someText("Fog::interface_prefix", defaultText);
 		static PrimStringHandle aString(someText);
 		
 		if (!isTemplate)
 			return aString;
 			
-		static const char *defaultText = aString ? aString.str() : 0;
-		
-		static PrimGetEnv<const char *> moreText("Fog::template_interface_prefix", defaultText);
-		
+		static const char* defaultText = aString ? aString.str() : 0;
+		static PrimGetEnv<const char*> moreText("Fog::template_interface_prefix", defaultText);
 		static PrimStringHandle bString(moreText);
-		
-		const void *const aStringOk = aString;    //   DevStudio V5 workaround.
+		const void* const aStringOk = aString;    //   DevStudio V5 workaround.
 		
 		if (!bString && aStringOk)
 			bString = aString;
 			
 		return bString;
 	}
-	
 	else {
-		static PrimGetEnv<const char *> someText("Fog::implementation_prefix", defaultText);
+		static PrimGetEnv<const char*> someText("Fog::implementation_prefix", defaultText);
 		static PrimStringHandle aString(someText);
 		
 		if (!isTemplate)
 			return aString;
 			
-		static const char *defaultText = aString ? aString.str() : 0;
-		
-		static PrimGetEnv<const char *> moreText("Fog::template_implementation_prefix", defaultText);
-		
+		static const char* defaultText = aString ? aString.str() : 0;
+		static PrimGetEnv<const char*> moreText("Fog::template_implementation_prefix", defaultText);
 		static PrimStringHandle bString(moreText);
-		
-		const void *const aStringOk = aString;    //   DevStudio V5 workaround.
+		const void* const aStringOk = aString;    //   DevStudio V5 workaround.
 		
 		if (!bString && aStringOk)
 			bString = aString;
@@ -415,8 +399,8 @@ const PrimId& Fog::scope_id() {
 }
 
 PrimStringHandle& Fog::separator() {
-	static const char *defaultText = "/";
-	static PrimGetEnv<const char *> someText("Fog::separator", defaultText);
+	static const char* defaultText = "/";
+	static PrimGetEnv<const char*> someText("Fog::separator", defaultText);
 	static PrimStringHandle aString(someText);
 	return aString;
 }
@@ -429,37 +413,30 @@ const PrimId& Fog::std_id() {
 PrimStringHandle& Fog::suffix(IsInterface isInterface, IsTemplate isTemplate) {
 	if (isInterface) {
 		static const char hxxText[] = ".hxx";
-		static PrimGetEnv<const char *> someText("Fog::interface_suffix", hxxText);
+		static PrimGetEnv<const char*> someText("Fog::interface_suffix", hxxText);
 		static PrimStringHandle aString(someText);
 		
 		if (!isTemplate)
 			return aString;
 			
-		static const char *hText = ".H"; //   interface_suffix().str();
-		
-//  		static const char *hText = aString ? aString.str() : 0;
-		static PrimGetEnv<const char *> moreText("Fog::template_interface_suffix", hText);
-		
+		static const char* hText = ".H"; //   interface_suffix().str();
+		//  		static const char *hText = aString ? aString.str() : 0;
+		static PrimGetEnv<const char*> moreText("Fog::template_interface_suffix", hText);
 		static PrimStringHandle bString(moreText);
-		
 		return bString;
 	}
-	
 	else {
 		static const char cxxText[] = ".cxx";
-		static PrimGetEnv<const char *> someText("Fog::implementation_suffix", cxxText);
+		static PrimGetEnv<const char*> someText("Fog::implementation_suffix", cxxText);
 		static PrimStringHandle aString(someText);
 		
 		if (!isTemplate)
 			return aString;
 			
-		static const char *cText = ".C"; //   implementation_suffix().str();
-		
-//  		static const char *cText = aString ? aString.str() : 0;
-		static PrimGetEnv<const char *> moreText("Fog::template_implementation_suffix", cText);
-		
+		static const char* cText = ".C"; //   implementation_suffix().str();
+		//  		static const char *cText = aString ? aString.str() : 0;
+		static PrimGetEnv<const char*> moreText("Fog::template_implementation_suffix", cText);
 		static PrimStringHandle bString(moreText);
-		
 		return bString;
 	}
 }
@@ -480,13 +457,12 @@ int& Fog::tab_size() {
 	}
 	
 	_tab_size_ok = false;      //   Every time since use of the reference is uncontrolled.
-	
 	return _tab_size;
 }
 
 PrimStringHandle& Fog::template_parameter_prefix() {
-	static const char *defaultText = "_";
-	static PrimGetEnv<const char *> someText("Fog::template_parameter_prefix", defaultText);
+	static const char* defaultText = "_";
+	static PrimGetEnv<const char*> someText("Fog::template_parameter_prefix", defaultText);
 	static PrimStringHandle aString(someText);
 	return aString;
 }
@@ -526,7 +502,6 @@ size_t Fog::validate_indent_size() {
 	}
 	
 	_indent_size_ok = true;
-	
 	return size_t(_indent_size);
 }
 
@@ -545,7 +520,6 @@ size_t Fog::validate_multi_byte_count() {
 	}
 	
 	_multi_byte_count_ok = true;
-	
 	return size_t(_multi_byte_count);
 }
 
@@ -559,7 +533,6 @@ size_t Fog::validate_tab_size() {
 	}
 	
 	_tab_size_ok = true;
-	
 	return size_t(_tab_size);
 }
 

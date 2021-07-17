@@ -7,7 +7,7 @@
 
 
 
-static const char *const FogMerge_texts[FogMerge::IMPOSSIBLE+1] = {
+static const char* const FogMerge_texts[FogMerge::IMPOSSIBLE + 1] = {
 	"BOTH_VALID",
 	"RIGHT_INVALID",
 	"LEFT_INVALID",
@@ -43,7 +43,7 @@ static const char *const FogMerge_texts[FogMerge::IMPOSSIBLE+1] = {
 	"IMPOSSIBLE"
 };
 
-const FogMerge FogMerge_Flyweights::_flyWeights[FogMerge::IMPOSSIBLE+1] = {
+const FogMerge FogMerge_Flyweights::_flyWeights[FogMerge::IMPOSSIBLE + 1] = {
 	FogMerge::BOTH_VALID,
 	FogMerge::RIGHT_INVALID,
 	FogMerge::LEFT_INVALID,

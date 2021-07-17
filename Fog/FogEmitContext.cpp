@@ -48,35 +48,31 @@ bool FogEmitContext::emit_cv(const FogDeclSpecifierValue& declSpecifiers) {
 bool FogEmitContext::emit_id(const PrimId& anId, const FogToken& aToken) {
 	if (emit_type()) {  //   If type name
 		FogStaticScopeContext rootContext(dynamic_scope());
-		const FogEntity *anEntity = aToken.find_type_in(rootContext);
+		const FogEntity* anEntity = aToken.find_type_in(rootContext);
 		
 		if (!anEntity) {
 			anEntity = aToken.find_entity_in(rootContext, FIND_SCOPE);
 		}
-		
 		
 		// fix exported code compilation problems
 		if (!anEntity) {
 			anEntity = dynamic_scope().find_entity_in(rootContext, FIND_SCOPE);
 		}
 		
-		
 		if (emit_full_types() && anEntity)
 			return emit_identifier(anEntity->global_signature_id());
 			
-		const FogScope *aScope = anEntity ? anEntity->outer_scope() : 0;
+		const FogScope* aScope = anEntity ? anEntity->outer_scope() : 0;
 		
 		if (aScope) {
 			emit_scope(*aScope);
 			return emit_identifier(anId);
 		}
 		
-		
 		ERRMSG("Failed to locate " << viz(aToken) << " as type in " << viz(*this));
 	}
 	
 	emit_scope();
-	
 	return emit_identifier(anId);
 }
 
@@ -101,7 +97,7 @@ void FogEmitContext::emit_scope(const FogScope& theScope) {
 		theScope.emit_scope(*this, dynamic_scope());
 }
 
-FogEmitContext *FogEmitContext::is_emit_context() {
+FogEmitContext* FogEmitContext::is_emit_context() {
 	return this;
 }
 
@@ -120,12 +116,12 @@ void FogEmitContext::set_do_continue() {
 //  ---------------------------------------------------------------------------------------------------------------------
 
 FogBreakableEmitContext::FogBreakableEmitContext(FogEmitContext& emitContext, const FogRaw& aDeclaration)
-		:
-		Super(emitContext),
-//      _declaration(aDeclaration),
-		_do_break(false),
-		_do_continue(false) {}
-		
+	:
+	Super(emitContext),
+	//      _declaration(aDeclaration),
+	_do_break(false),
+	_do_continue(false) {}
+
 FogBreakableEmitContext::~FogBreakableEmitContext() {}
 
 //  const FogRaw& FogBreakableEmitContext::declaration() const { return *_declaration; }
@@ -179,7 +175,7 @@ void FogDecoratedEmitContext::emit_spaces(size_t numSpaces) {
 	_context.emit_spaces(numSpaces);
 }
 
-bool FogDecoratedEmitContext::emit_space_and_text(const char *aString) {
+bool FogDecoratedEmitContext::emit_space_and_text(const char* aString) {
 	return _context.emit_space_and_text(aString);
 }
 
@@ -187,7 +183,7 @@ void FogDecoratedEmitContext::emit_string(const PrimId& anId, bool isWide) {
 	_context.emit_string(anId, isWide);
 }
 
-void FogDecoratedEmitContext::emit_text(const char *aString) {
+void FogDecoratedEmitContext::emit_text(const char* aString) {
 	_context.emit_text(aString);
 }
 
@@ -195,12 +191,12 @@ bool FogDecoratedEmitContext::find_slots(FogMetaSlotFinder& theFinder) {
 	return _context.find_slots(theFinder);
 }
 
-const FogTemplateParameterSpecifier *FogDecoratedEmitContext::find_template_parameter_specifier
+const FogTemplateParameterSpecifier* FogDecoratedEmitContext::find_template_parameter_specifier
 (const PrimId& anId) {
 	return _context.find_template_parameter_specifier(anId);
 }
 
-const FogTemplateParameterSpecifier *FogDecoratedEmitContext::find_template_parameter_specifier
+const FogTemplateParameterSpecifier* FogDecoratedEmitContext::find_template_parameter_specifier
 (const FogTemplateParameterSpecifierId& anId) {
 	return _context.find_template_parameter_specifier(anId);
 }
@@ -213,7 +209,7 @@ FogEmitContext::InScope FogDecoratedEmitContext::in_scope() const {
 	return _context.in_scope();
 }
 
-const FogScopeContext *FogDecoratedEmitContext::meta_context() const {
+const FogScopeContext* FogDecoratedEmitContext::meta_context() const {
 	return _context.meta_context();
 }
 
@@ -241,7 +237,7 @@ bool FogDecoratedEmitContext::separate() {
 	return _context.separate();
 }
 
-const char *FogDecoratedEmitContext::separator() const {
+const char* FogDecoratedEmitContext::separator() const {
 	return _context.separator();
 }
 
@@ -257,11 +253,11 @@ void FogDecoratedEmitContext::set_do_continue() {
 	_context.set_do_continue();
 }
 
-const char *FogDecoratedEmitContext::set_separator(const char *elementSeparator) {
+const char* FogDecoratedEmitContext::set_separator(const char* elementSeparator) {
 	return _context.set_separator(elementSeparator);
 }
 
-const char *FogDecoratedEmitContext::set_terminator(const char *elementTerminator) {
+const char* FogDecoratedEmitContext::set_terminator(const char* elementTerminator) {
 	return _context.set_terminator(elementTerminator);
 }
 
@@ -277,11 +273,11 @@ const FogToken& FogDecoratedEmitContext::static_token() const {
 	return _context.as_const().static_token();
 }
 
-const FogScope *FogDecoratedEmitContext::stream_scope() const {
+const FogScope* FogDecoratedEmitContext::stream_scope() const {
 	return _context.stream_scope();
 }
 
-const FogTemplateParameterSpecifiers *FogDecoratedEmitContext::template_parameters() const {
+const FogTemplateParameterSpecifiers* FogDecoratedEmitContext::template_parameters() const {
 	return _context.template_parameters();
 }
 
@@ -289,31 +285,31 @@ bool FogDecoratedEmitContext::terminate() {
 	return _context.terminate();
 }
 
-const char *FogDecoratedEmitContext::terminator() const {
+const char* FogDecoratedEmitContext::terminator() const {
 	return _context.terminator();
 }
 
 //  ----------------------------------------------------------------------------------------------------------------------
 
-FogForUseAsEmitContext::FogForUseAsEmitContext(FogEmitContext&emitContext, const FogForUseAs& forUseAs)
-		:
-		Super(emitContext),
-		_for_use_as(forUseAs) {}
-		
+FogForUseAsEmitContext::FogForUseAsEmitContext(FogEmitContext& emitContext, const FogForUseAs& forUseAs)
+	:
+	Super(emitContext),
+	_for_use_as(forUseAs) {}
+
 const FogForUseAs& FogForUseAsEmitContext::for_use_as() const {
 	return _for_use_as;
 }
 
 FogIndentEmitContext::FogIndentEmitContext(FogEmitContext& emitContext, int extraIndents, FogEmitContext::Indents)
-		:
-		Super(emitContext),
-		_saved_depth(set_depth(extraIndents * Fog::get_indent_size(), true)) {}
-		
+	:
+	Super(emitContext),
+	_saved_depth(set_depth(extraIndents * Fog::get_indent_size(), true)) {}
+
 FogIndentEmitContext::FogIndentEmitContext(FogEmitContext& emitContext, int extraColumns, FogEmitContext::Columns)
-		:
-		Super(emitContext),
-		_saved_depth(set_depth(extraColumns, true)) {}
-		
+	:
+	Super(emitContext),
+	_saved_depth(set_depth(extraColumns, true)) {}
+
 FogIndentEmitContext::~FogIndentEmitContext() {
 	set_depth(_saved_depth, false);
 }
@@ -321,10 +317,10 @@ FogIndentEmitContext::~FogIndentEmitContext() {
 //  ----------------------------------------------------------------------------------------------------------------------
 
 FogNamespaceEmitContext::FogNamespaceEmitContext(FogEmitContext& emitContext, const FogScope& nameSpace)
-		:
-		Super(emitContext),
-		_name_space(nameSpace) {}
-		
+	:
+	Super(emitContext),
+	_name_space(nameSpace) {}
+
 FogNamespaceEmitContext::~FogNamespaceEmitContext() {}
 
 const FogScope& FogNamespaceEmitContext::name_space() const {
@@ -334,10 +330,10 @@ const FogScope& FogNamespaceEmitContext::name_space() const {
 //  ----------------------------------------------------------------------------------------------------------------------
 
 FogNestedEmitContext::FogNestedEmitContext(FogEmitContext& emitContext, FogToken& inToken)
-		:
-		Super(emitContext),
-		_dynamic_token(inToken) {}
-		
+	:
+	Super(emitContext),
+	_dynamic_token(inToken) {}
+
 FogToken& FogNestedEmitContext::dynamic_token() {
 	return _dynamic_token;
 }
@@ -361,26 +357,26 @@ const FogScope& FogNestedEmitContext::name_space() const {
 //  ----------------------------------------------------------------------------------------------------------------------
 
 FogSeparatedEmitContext::FogSeparatedEmitContext(FogEmitContext& emitContext,
-		const char *elementSeparator, const char *elementTerminator)
-		:
-		Super(emitContext),
-		_saved_separator(set_separator(elementSeparator)),
-		_saved_terminator(set_terminator(elementTerminator)) {}
-		
+        const char* elementSeparator, const char* elementTerminator)
+	:
+	Super(emitContext),
+	_saved_separator(set_separator(elementSeparator)),
+	_saved_terminator(set_terminator(elementTerminator)) {}
+
 FogSeparatedEmitContext::~FogSeparatedEmitContext() {
 	set_separator(_saved_separator);
 	set_terminator(_saved_terminator);
 }
 
 FogStaticEmitContext::FogStaticEmitContext(FogStream& s, FogToken& aToken, ForUseAs forUseAs)
-		:
-		_static_token(aToken),
-		_in_scope(IN_ANY_SCOPE),
-		_s(s),
-		_for_use_as(forUseAs),
-		_separator(0),
-		_terminator(0) {}
-		
+	:
+	_static_token(aToken),
+	_in_scope(IN_ANY_SCOPE),
+	_s(s),
+	_for_use_as(forUseAs),
+	_separator(0),
+	_terminator(0) {}
+
 FogStaticEmitContext::~FogStaticEmitContext() {}
 
 FogToken& FogStaticEmitContext::dynamic_token() {
@@ -414,28 +410,26 @@ bool FogStaticEmitContext::emit_hash_line(const FogLine& aLine) {
 		return _s.emit_hash_line(aLine);
 		
 	ERRMSG("INVESTIGATE - suppression of null #line for " << viz(*this));
-	
 	_s.start();
-	
 	return false;
 }
 
 bool FogStaticEmitContext::emit_identifier(const PrimId& anId) {
-//         case FogElementType::IDENTIFIER:
-//              if (_ws_pending)
-//                 _s.emit_space('a');
-//             _s << anId.str();
-//             break;
+	//         case FogElementType::IDENTIFIER:
+	//              if (_ws_pending)
+	//                 _s.emit_space('a');
+	//             _s << anId.str();
+	//             break;
 	_s.emit_space_and_text(anId.str());
 	return anId.length() > 0;
 }
 
 void FogStaticEmitContext::emit_number(const FogNumber& aNumber) {
-//         case FogElementType::NUMBER:
-//                  if (_ws_pending)
-//                     _s.emit_space('0');
-//                 _s << aNumber;
-//             break;
+	//         case FogElementType::NUMBER:
+	//                  if (_ws_pending)
+	//                     _s.emit_space('0');
+	//                 _s << aNumber;
+	//             break;
 	_s.emit_space('0');
 	_s << aNumber;
 }
@@ -452,7 +446,6 @@ void FogStaticEmitContext::emit_spaces(size_t numSpaces) {
 	}
 	
 	_s.emit_space_and_text(spaceText);
-	
 	numSpaces -= sizeof(spaceText) - 1;
 	
 	while (true)    {
@@ -462,73 +455,67 @@ void FogStaticEmitContext::emit_spaces(size_t numSpaces) {
 		}
 		
 		_s.write(spaceText, sizeof(spaceText) - 1);
-		
 		numSpaces -= sizeof(spaceText) - 1;
 	}
 }
 
-bool FogStaticEmitContext::emit_space_and_text(const char *aString) {
+bool FogStaticEmitContext::emit_space_and_text(const char* aString) {
 	_s.emit_space_and_text(aString);
 	return aString && *aString;
 }
 
 void FogStaticEmitContext::emit_string(const PrimId& anId, bool isWide) {
-    _s.emit_space_and_text(isWide ? "L\"" : "\"");
-    _s.write(anId.str(), anId.length());
-    _s << '"';
+	_s.emit_space_and_text(isWide ? "L\"" : "\"");
+	_s.write(anId.str(), anId.length());
+	_s << '"';
 }
 
 
-void FogStaticEmitContext::emit_text(const char *aString)
-{
-    _s << aString;
+void FogStaticEmitContext::emit_text(const char* aString) {
+	_s << aString;
 }
 
 bool FogStaticEmitContext::find_slots(FogMetaSlotFinder& theFinder) { return _static_token.find_slots(theFinder); }
 const FogForUseAs& FogStaticEmitContext::for_use_as() const { return _for_use_as; }
 FogEmitContext::InScope FogStaticEmitContext::in_scope() const { return _in_scope; }
 
-bool FogStaticEmitContext::separate()
-{
-    bool doneSomething = emit_space_and_text(_separator);
-    return terminate() || doneSomething;
+bool FogStaticEmitContext::separate() {
+	bool doneSomething = emit_space_and_text(_separator);
+	return terminate() || doneSomething;
 }
 
-const char *FogStaticEmitContext::separator() const { return _separator; }
+const char* FogStaticEmitContext::separator() const { return _separator; }
 
-size_t FogStaticEmitContext::set_depth(size_t numColumns, bool isRelative)
-{
-    if (isRelative)
-        return _s.set_depth(_s.depth() + numColumns, FogStream::COLUMNS);
-    else
-        return _s.set_depth(numColumns, FogStream::COLUMNS);
+size_t FogStaticEmitContext::set_depth(size_t numColumns, bool isRelative) {
+	if (isRelative)
+		return _s.set_depth(_s.depth() + numColumns, FogStream::COLUMNS);
+	else
+		return _s.set_depth(numColumns, FogStream::COLUMNS);
 }
 
-const char *FogStaticEmitContext::set_separator(const char *elementSeparator)
-{ 
-    const char *oldSeparator = _separator;
-    _separator = elementSeparator;
-    return oldSeparator;
+const char* FogStaticEmitContext::set_separator(const char* elementSeparator) {
+	const char* oldSeparator = _separator;
+	_separator = elementSeparator;
+	return oldSeparator;
 }
 
-const char *FogStaticEmitContext::set_terminator(const char *elementTerminator)
-{ 
-    const char *oldTerminator = _terminator;
-    _terminator = elementTerminator;
-    return oldTerminator;
+const char* FogStaticEmitContext::set_terminator(const char* elementTerminator) {
+	const char* oldTerminator = _terminator;
+	_terminator = elementTerminator;
+	return oldTerminator;
 }
 
 void FogStaticEmitContext::start() const { _s.start(); }
 FogToken& FogStaticEmitContext::static_token() { return _static_token; }
 const FogToken& FogStaticEmitContext::static_token() const { return _static_token; }
-const FogScope *FogStaticEmitContext::stream_scope() const { return _s.emit_scope(); }
+const FogScope* FogStaticEmitContext::stream_scope() const { return _s.emit_scope(); }
 bool FogStaticEmitContext::terminate() { return emit_space_and_text(_terminator); }
-const char *FogStaticEmitContext::terminator() const { return _terminator; }
+const char* FogStaticEmitContext::terminator() const { return _terminator; }
 
 FogUnbreakableEmitContext::FogUnbreakableEmitContext(FogEmitContext& emitContext, const FogRaw& aDeclaration)
-:
-    Super(emitContext)
-//    _declaration(aDeclaration),
+	:
+	Super(emitContext)
+	//    _declaration(aDeclaration),
 {}
 
 FogUnbreakableEmitContext::~FogUnbreakableEmitContext() {}

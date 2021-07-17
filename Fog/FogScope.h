@@ -43,7 +43,7 @@ bool _is_frozen :
 	
 bool _done_meta_construct :
 	1;                  //   True once do_meta_construct() invoked.
-	FogUsage *_inline_usage;                        //   Dummy usage node between used files and inline functions.
+	FogUsage* _inline_usage;                        //   Dummy usage node between used files and inline functions.
 	
 private:
 	//   Defining contents (last to maximise validity of *this during construction)
@@ -64,10 +64,10 @@ private:
 		return _templates.is_primary();
 	}
 	
-	virtual FogUsage *make_implementation_usage();
+	virtual FogUsage* make_implementation_usage();
 	void meta_execute(FogScopeContext& inScope, const PrimId& anId);
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 	bool needs_emission() const;
@@ -93,17 +93,17 @@ public:
 		_friends.add(*this, anEntity);
 	}
 	
-	void add_function(FogFunction& aFunction, FogPotentialDeclaration *potentialDeclaration);
+	void add_function(FogFunction& aFunction, FogPotentialDeclaration* potentialDeclaration);
 	void add_name(FogEntity& anEntity) {
 		add_name(anEntity.short_id(), anEntity);
 	}
 	
 	void add_name(const PrimId& typeId, FogEntity& anEntity);
-	FogScope *add_scope(FogScope& aScope);
+	FogScope* add_scope(FogScope& aScope);
 	virtual void add_type(FogEntity& anEntity);
 	void add_type(const PrimId& typeName, FogEntity& typeValue);
 	void add_type(FogEntity& typeName, FogEntity& typeValue);
-	void add_typedef(FogTypedef& aTypedef, FogPotentialDeclaration *potentialDeclaration);
+	void add_typedef(FogTypedef& aTypedef, FogPotentialDeclaration* potentialDeclaration);
 	void add_use_for_implementation(FogTargetFile& aFile) {
 		_implementation.add_use_for_implementation(aFile);
 	}
@@ -113,7 +113,7 @@ public:
 	}
 	
 	void add_using(FogUsing& aUsing);
-	void add_variable(FogVariable& aVariable, FogPotentialDeclaration *potentialDeclaration);
+	void add_variable(FogVariable& aVariable, FogPotentialDeclaration* potentialDeclaration);
 	FogScopeListOfRef& all_bases() {
 		return _bases.all_bases();
 	}
@@ -133,11 +133,11 @@ public:
 	}
 	
 	virtual const FogAccess& default_access() const;
-	const FogExpr *default_initialiser(bool isCopy) const;
+	const FogExpr* default_initialiser(bool isCopy) const;
 	void derive_from(FogBaseClass& baseClass);
-	void derive_from(FogFunction& baseFunction, FogPotentialDeclaration *potentialDeclaration);
-	void derive_from(FogTypedef& baseTypedef, FogPotentialDeclaration *potentialDeclaration);
-	void derive_from(FogVariable& baseVariable, FogPotentialDeclaration *potentialDeclaration);
+	void derive_from(FogFunction& baseFunction, FogPotentialDeclaration* potentialDeclaration);
+	void derive_from(FogTypedef& baseTypedef, FogPotentialDeclaration* potentialDeclaration);
+	void derive_from(FogVariable& baseVariable, FogPotentialDeclaration* potentialDeclaration);
 	FogBaseClassListOfRef& direct_bases() {
 		return _bases.direct_bases();
 	}
@@ -197,62 +197,62 @@ public:
 		return _enums.enums();
 	}
 	
-	const FogScope *find_bases(PrimIdMap& visitMap,
-			FogScopeListOfRef& nonVirtualBases, FogScopeListOfRef& virtualBases) const {
+	const FogScope* find_bases(PrimIdMap& visitMap,
+	                           FogScopeListOfRef& nonVirtualBases, FogScopeListOfRef& virtualBases) const {
 		return _bases.find_bases(*this, visitMap, nonVirtualBases, virtualBases);
 	}
 	
 	virtual void find_entities(FogEntityFinder& theFinder);
 	virtual void find_entities_in(FogScopeContext& inScope, FogEntityFinding& theFinding) const;
-	virtual FogEntity *find_entity(const PrimId& anId, InScope inScope, FindStrategy aStrategy);
-	FogEntity *find_entity(const PrimId& anId, InScope inScope) {
+	virtual FogEntity* find_entity(const PrimId& anId, InScope inScope, FindStrategy aStrategy);
+	FogEntity* find_entity(const PrimId& anId, InScope inScope) {
 		return find_entity(anId, inScope, FIND_ENTITY);
 	}
 	
-	const FogEntity *find_entity(const PrimId& anId, InScope inScope) const {
+	const FogEntity* find_entity(const PrimId& anId, InScope inScope) const {
 		return mutate().find_entity(anId, inScope);
 	}
 	
-	FogFunction *find_local_function(const FogFunction& aFunction) {
+	FogFunction* find_local_function(const FogFunction& aFunction) {
 		return _functions.find_local_function(aFunction);
 	}
 	
-	const FogFunction *find_local_function(const FogFunction& aFunction) const {
+	const FogFunction* find_local_function(const FogFunction& aFunction) const {
 		return mutate().find_local_function(aFunction);
 	}
 	
-	const FogEntityListOfRefToConst *find_local_names(const PrimId& anId) const {
+	const FogEntityListOfRefToConst* find_local_names(const PrimId& anId) const {
 		return _names.find_local_names(anId);
 	}
 	
-	virtual const FogMetaSlot *find_local_slot(const PrimId& anId) const;
-	FogEntity *find_local_type(const PrimId& anId, ResolveAlias resolveAlias = KEEP_ALIAS) {
+	virtual const FogMetaSlot* find_local_slot(const PrimId& anId) const;
+	FogEntity* find_local_type(const PrimId& anId, ResolveAlias resolveAlias = KEEP_ALIAS) {
 		return _types.find_local_type(anId, resolveAlias);
 	}
 	
-	FogTypedef *find_local_typedef(const FogTypedef& aTypedef) {
+	FogTypedef* find_local_typedef(const FogTypedef& aTypedef) {
 		return _typedefs.find_local_typedef(aTypedef);
 	}
 	
-	FogVariable *find_local_variable(const FogVariable& aVariable) {
+	FogVariable* find_local_variable(const FogVariable& aVariable) {
 		return _variables.find_local_variable(aVariable);
 	}
 	
-	FogEntity *find_name(const PrimId& anId, InScope inScope) {
+	FogEntity* find_name(const PrimId& anId, InScope inScope) {
 		return find_entity(anId, inScope, FIND_NAME);
 	}
 	
-	const FogEntity *find_name(const PrimId& anId, InScope inScope) const {
+	const FogEntity* find_name(const PrimId& anId, InScope inScope) const {
 		return mutate().find_name(anId, inScope);
 	}
 	
 	virtual bool find_slots(FogMetaSlotFinder& theFinder);
-	virtual FogEntity *find_template(FogMakeTemplateContext& makeTemplateContext);
-	FogEntity *find_type(const PrimId& anId, InScope inScope) {
+	virtual FogEntity* find_template(FogMakeTemplateContext& makeTemplateContext);
+	FogEntity* find_type(const PrimId& anId, InScope inScope) {
 		return find_entity(anId, inScope, FIND_TYPE);
 	}
 	
-	const FogEntity *find_type(const PrimId& anId, InScope inScope) const {
+	const FogEntity* find_type(const PrimId& anId, InScope inScope) const {
 		return mutate().find_type(anId, inScope);    //   Phase this one out.
 	}
 	
@@ -273,17 +273,17 @@ public:
 		return _interface.has_own_interface();
 	}
 	
-	virtual FogTargetFile *implementation_file();
-	const FogTargetFile *implementation_file() const {
+	virtual FogTargetFile* implementation_file();
+	const FogTargetFile* implementation_file() const {
 		return Super::implementation_file();
 	}
 	
 	virtual FogUsage& inline_usage();
 	virtual FogScope& inner_scope();
 	virtual void instantiate_into(FogEntity& instantiatingEntity);
-	virtual FogTargetFile *interface_file_sink();
-	virtual FogTargetFile *interface_file_source();
-	const FogTargetFile *interface_file_source() const {
+	virtual FogTargetFile* interface_file_sink();
+	virtual FogTargetFile* interface_file_source();
+	const FogTargetFile* interface_file_source() const {
 		return Super::interface_file_source();
 	}
 	
@@ -304,37 +304,37 @@ public:
 		return *_is_leaf;
 	}
 	
-	virtual FogScope *is_scope();
+	virtual FogScope* is_scope();
 	bool is_specialisation() const {
 		return _templates.is_specialisation();
 	}
 	
 	virtual bool is_templated() const;
-	FogEntity *make_enum(FogMakerContext& makerContext);
-	FogEntity *make_function_entity(FogMakerContext& makerContext);
-	virtual FogScope *make_linkage(const FogLinkageSpecifier& rawLinkage);
-	FogEntity *make_linkage_entity(FogMakerContext& makerContext);
-	FogEntity *make_meta_slot(FogMakerContext& makerContext);
-	FogEntity *make_scope(FogMakerContext& makerContext);
-	FogEntity *make_type(FogMakerContext& makerContext);
-	FogTypedef *make_typedef(FogMakerContext& makerContext) {
+	FogEntity* make_enum(FogMakerContext& makerContext);
+	FogEntity* make_function_entity(FogMakerContext& makerContext);
+	virtual FogScope* make_linkage(const FogLinkageSpecifier& rawLinkage);
+	FogEntity* make_linkage_entity(FogMakerContext& makerContext);
+	FogEntity* make_meta_slot(FogMakerContext& makerContext);
+	FogEntity* make_scope(FogMakerContext& makerContext);
+	FogEntity* make_type(FogMakerContext& makerContext);
+	FogTypedef* make_typedef(FogMakerContext& makerContext) {
 		return _typedefs.make_typedef(makerContext);
 	}
 	
-	FogEntity *make_typedef_entity(FogMakerContext& makerContext);
-	FogTypeName *make_typename(FogMakerContext& makerContext, bool builtIn = false) {
+	FogEntity* make_typedef_entity(FogMakerContext& makerContext);
+	FogTypeName* make_typename(FogMakerContext& makerContext, bool builtIn = false) {
 		return _types.make_typename(makerContext, builtIn);
 	}
 	
-	FogEntity *make_typename_entity(FogMakerContext& makerContext);
-	FogEntity *make_using_entity(FogMakerContext& makerContext);
-	FogVariable *make_variable(FogMakerContext& makerContext) {
+	FogEntity* make_typename_entity(FogMakerContext& makerContext);
+	FogEntity* make_using_entity(FogMakerContext& makerContext);
+	FogVariable* make_variable(FogMakerContext& makerContext) {
 		return _variables.make_variable(makerContext);
 	}
 	
-	FogEntity *make_variable_entity(FogMakerContext& makerContext);
+	FogEntity* make_variable_entity(FogMakerContext& makerContext);
 	virtual const FogMetaType& meta_type() const;
-	virtual FogTargetFile *name_file();
+	virtual FogTargetFile* name_file();
 	virtual FogUsage& name_usage();
 	size_t nesting_depth() const {
 		return _nested.nesting_depth();
@@ -374,10 +374,10 @@ public:
 	void set_braced();
 	void set_braced(FogMakeEntityContext& makeEntityContext);
 	void set_default_access(const FogAccess& anAccess);
-//    void set_implementation_code(const FogList& someCode) { _implementation.set_code(someCode); }
-	virtual void set_implementation_file(FogTargetFile *aFile);
-//    void set_interface_code(const FogList& someCode) { _interface.set_code(someCode); }
-	virtual void set_interface_file(FogTargetFile *aFile);
+	//    void set_implementation_code(const FogList& someCode) { _implementation.set_code(someCode); }
+	virtual void set_implementation_file(FogTargetFile* aFile);
+	//    void set_interface_code(const FogList& someCode) { _interface.set_code(someCode); }
+	virtual void set_interface_file(FogTargetFile* aFile);
 	void set_no_interface() {
 		_interface.set_no_interface();
 	}
@@ -406,7 +406,7 @@ public:
 		return Super::compare(p1, p2);
 	}
 	
-	static int compare(const FogScopeRefToConst *p1, const FogScopeRefToConst *p2);
+	static int compare(const FogScopeRefToConst* p1, const FogScopeRefToConst* p2);
 };
 
 #endif

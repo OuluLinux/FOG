@@ -13,12 +13,12 @@ class FogTypedName : public FogDecoratedName { //   name inherited
 	FOGTOKEN_LEAF_DECLS
 	
 private:
-        //   Defining contents.
+	//   Defining contents.
 	FogNameRef _type;
 	
 private:
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 	FogName& type() {
@@ -35,8 +35,8 @@ protected:
 public:
 	FogTypedName(FogName& typeName, FogName& nameName);
 	virtual const FogDeclSpecifierValue& decl_specifiers() const;
-	virtual FogName *get_type();
-	virtual FogTypedName *is_typed_name();
+	virtual FogName* get_type();
+	virtual FogTypedName* is_typed_name();
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
 	virtual bool make_type_specifier(FogMakeSpecifierContext& makeSpecifierContext);
 	virtual bool make_typed_expression(FogExprRef& theExpr, FogName& theType);
@@ -47,7 +47,7 @@ public:
 	virtual void set_decl_specifier_name(FogNameRef& aName, const FogDeclSpecifier& declSpecifiers);
 	
 public:
-	static FogName *append_name(FogNameRef& frontName, FogName& backName);
+	static FogName* append_name(FogNameRef& frontName, FogName& backName);
 };
 
 #endif

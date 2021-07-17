@@ -18,21 +18,20 @@ TYPEINFO_SINGLE(FogTypedName, Super)
 FOGTOKEN_LEAF_IMPL(FogTypedName)
 
 FogTypedName::FogTypedName(FogName& typeName, FogName& nameName)
-		:
-		Super(nameName),
-		_type(typeName) {}
-		
+	:
+	Super(nameName),
+	_type(typeName) {}
+
 FogTypedName::~FogTypedName() {}
 
-FogName *FogTypedName::append_name(FogNameRef& frontName, FogName& backName) {
-	FogNameRef *pTypedName = &frontName;
-	FogTypedName *typedName = 0;
+FogName* FogTypedName::append_name(FogNameRef& frontName, FogName& backName) {
+	FogNameRef* pTypedName = &frontName;
+	FogTypedName* typedName = 0;
 	
 	while ((typedName = (*pTypedName)->is_typed_name()) != 0)
 		pTypedName = &typedName->name_ref();
 		
 	pTypedName->adopt(new FogTypedName(**pTypedName, backName));
-	
 	return frontName.pointer();
 }
 
@@ -59,7 +58,7 @@ bool FogTypedName::emit(FogEmitContext& emitContext) const {
 	return doneSomething;
 }
 
-FogName *FogTypedName::get_type() {
+FogName* FogTypedName::get_type() {
 	return &type();
 }
 
@@ -72,7 +71,7 @@ bool FogTypedName::is_actual(const FogScopeContext& scopeContext) const {
 	return Super::is_actual(scopeContext) && _type->is_actual(scopeContext);
 }
 
-FogTypedName *FogTypedName::is_typed_name() {
+FogTypedName* FogTypedName::is_typed_name() {
 	return this;
 }
 
@@ -87,35 +86,34 @@ bool FogTypedName::make_specifier(FogMakeSpecifierContext& makeSpecifierContext)
 		
 	makeSpecifierContext.specifier().set_decl_specifiers(decl_specifiers());
 	
-//  	if (makeSpecifierContext.decl_specifiers().is_using())
-//  		return true;
+	//  	if (makeSpecifierContext.decl_specifiers().is_using())
+	//  		return true;
 	if (makeSpecifierContext.semantics().is_parameter()) //   Parameters are part of signature and need resolution
-//  	 || makeSpecifierContext.semantics().is_meta())			// Meta statements need resolution now
+		//  	 || makeSpecifierContext.semantics().is_meta())			// Meta statements need resolution now
 		return _type->make_type_specifier(makeSpecifierContext);
 		
 	if (!makeSpecifierContext.is_resolve_dollars())
 		ERRMSG("INVESTIGATE -- unexpected non-is_resolves_dollars in FogTypedName::make_specifier.");
 		
-//  	FogResolutionMakeSpecifierContext resolutionContext(makeSpecifierContext, FogScopeContext::RESOLVE_DOLLARS);
-//  	return _type->make_type_specifier(resolutionContext);	// Types are not and so can (should) be deferred
+	//  	FogResolutionMakeSpecifierContext resolutionContext(makeSpecifierContext, FogScopeContext::RESOLVE_DOLLARS);
+	//  	return _type->make_type_specifier(resolutionContext);	// Types are not and so can (should) be deferred
 	return _type->make_type_specifier(makeSpecifierContext);
 }
 
 bool FogTypedName::make_type_specifier(FogMakeSpecifierContext& makeSpecifierContext) {
-	/*if (!_type)
+	/*  if (!_type)
 		return false;
-	return _type->make_type_specifier(makeSpecifierContext);*/
+	    return _type->make_type_specifier(makeSpecifierContext);*/
 	return false;
 }
 
 bool FogTypedName::make_typed_expression(FogExprRef& theExpr, FogName& theType) {
-	const FogDeclSpecifier *declSpecifier = theType.is_decl_specifier();
+	const FogDeclSpecifier* declSpecifier = theType.is_decl_specifier();
 	
 	if (declSpecifier) {
 		FogNameRef theName;
 		set_decl_specifier_name(theName, *declSpecifier);
 	}
-	
 	else
 		theExpr.adopt(new FogTypedName(theType, *this));
 		
@@ -145,7 +143,7 @@ std::ostream& FogTypedName::print_members(std::ostream& s, int aDepth) const {
 	return s;
 }
 
-char FogTypedName::print_named(std::ostream& s, const PrimId *fullId, char tailChar) const {
+char FogTypedName::print_named(std::ostream& s, const PrimId* fullId, char tailChar) const {
 	tailChar = _type->print_named(s, fullId, tailChar);
 	tailChar = FogStream::space_and_emit(s, tailChar, " ");
 	tailChar = Super::print_named(s, fullId, tailChar);
@@ -167,7 +165,7 @@ bool FogTypedName::resolve_semantics(FogSemanticsContext& theSemantics) const {
 		
 	if (typeSemantics.is_scoped_identifier() && !typeSemantics.is_scoped_type_name() && !typeSemantics.is_scoped_meta_name()) {          //  .bugbug a bit wider than just ::id
 		ERRMSG("Type name expected in " << viz(*this) << ".");
-//  		return false;
+		//  		return false;
 	}
 	
 	theSemantics.reset();
@@ -364,8 +362,9 @@ bool FogTypedName::resolve_semantics(FogSemanticsContext& theSemantics) const {
 	}
 	
 #if 0
+	
 	if (typeSemantics.is_meta_decl_specifier_seq()) {
-//  		if (decl_specifiers().is_auto() && nameSemantics.is_scoped_meta_name())
+		//  		if (decl_specifiers().is_auto() && nameSemantics.is_scoped_meta_name())
 		if (nameSemantics.is_scoped_meta_name())
 			theSemantics.set(FogSemantics::IS_META_OBJECT_NAME);
 			
@@ -389,6 +388,7 @@ bool FogTypedName::resolve_semantics(FogSemanticsContext& theSemantics) const {
 	}
 	
 #endif
+	
 	if (typeSemantics.is_scoped_meta_type_name()) {
 		if (nameSemantics.is_meta_parameter_name())
 			theSemantics.set(FogSemantics::IS_META_PARAMETER_DECLARATION_ELEM);

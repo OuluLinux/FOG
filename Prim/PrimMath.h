@@ -1,26 +1,26 @@
 // **************************** RACAL Confidential ****************************
-// 
+//
 //     Title:            Simple mathematical decalarations
-// 
+//
 //     File Name:        PrimMath.h
-// 
+//
 //     Author:           E.D.Willink
-// 
+//
 // END
-// 
+//
 
 #ifndef PRIMMATH_H
 #define PRIMMATH_H
 
 #ifndef PRIM_H
-#include <Prim/Prim.h>
+	#include <Prim/Prim.h>
 #endif
 #ifndef _CMATH_
-#include <cmath>
+	#include <cmath>
 #endif
 
 #ifdef PI
-#undef PI
+	#undef PI
 #endif
 
 /*  #define is used rather than const to encourage compile time expression evaluation */
@@ -32,11 +32,11 @@
 #define LOG10B2 0.33219280948873623e+01
 #define LOGEB2 0.14426950408889634e+01
 
-// 
+//
 // 	Return the absolute value of a number.
 // .limits
 // 	Maximum negative values are preserved.
-// 
+//
 inline char abs(char aNumber) { return (aNumber >= 0 ? aNumber : -aNumber); }
 //#ifndef __GNUC__
 //inline double abs(double aNumber) { return (aNumber >= 0 ? aNumber : -aNumber); }
@@ -53,43 +53,43 @@ inline unsigned int abs(unsigned int aNumber) { return (aNumber); }
 inline unsigned long abs(unsigned long aNumber) { return (aNumber); }
 inline unsigned short abs(unsigned short aNumber) { return (aNumber); }
 
-// 
+//
 // 	Return the larger of two numbers.
-// 
+//
 #ifndef flagMSC
 template <class T>
 inline const T& max(const T& firstNumber, const T& secondNumber)
- { return firstNumber >= secondNumber ? firstNumber : secondNumber; }
+{ return firstNumber >= secondNumber ? firstNumber : secondNumber; }
 
-// 
+//
 // 	Return the smaller of two numbers.
-// 
+//
 template <class T>
 inline const T& min(const T& firstNumber, const T& secondNumber)
- { return firstNumber <= secondNumber ? firstNumber : secondNumber; }
+{ return firstNumber <= secondNumber ? firstNumber : secondNumber; }
 #endif
 
-// 
+//
 // 	Implement the inequality operator from the equality operator.
-// 
+//
 template <class T>
 inline bool operator!=(const T& firstObject, const T& secondObject) { return !(firstObject == secondObject); }
 
-// 
+//
 // 	Implement the less than or equal operator from the less than operator.
-// 
+//
 // template <class T>
 // inline bool operator<=(const T& firstObject, const T& secondObject) { return !(secondObject < firstObject); }
 
-// 
+//
 // 	Implement the greater than or equal operator from the less than operator.
-// 
+//
 // template <class T>
 // inline bool operator>=(const T& firstObject, const T& secondObject) { return !(firstObject < secondObject); }
 
-// 
+//
 // 	Implement the greater operator from the less than operator.
-// 
+//
 // template <class T>
 // inline bool operator>(const T& firstObject, const T& secondObject) { return secondObject < firstObject; }
 

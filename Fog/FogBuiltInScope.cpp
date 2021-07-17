@@ -21,15 +21,15 @@ PRIMREFS_IMPL(FogBuiltInScope)
 TMPL_HACK_FIX_DO(FogBuiltInScope)
 
 FogBuiltInScope::FogBuiltInScope()
-		:
-		Super(FogTag::built_in_tag(), FogRoot::mutable_null(), PrimId::null()) {
+	:
+	Super(FogTag::built_in_tag(), FogRoot::mutable_null(), PrimId::null()) {
 	CONDMSG(Fog::debug_make(), "Created " << *this);
 	install_types();
 }
 
 FogBuiltInScope::FogBuiltInScope(FogRoot& globalScope, const PrimId& anId)
-		:
-		Super(FogTag::built_in_tag(), globalScope, anId) {
+	:
+	Super(FogTag::built_in_tag(), globalScope, anId) {
 	CONDMSG(Fog::debug_make(), "Created " << *this);
 	install_types();
 }
@@ -58,15 +58,15 @@ bool FogBuiltInScope::is_name_scope() const {
 	return true;
 }
 
-FogUsage *FogBuiltInScope::make_interface_usage_finish() {
+FogUsage* FogBuiltInScope::make_interface_usage_finish() {
 	return 0;
 }
 
-FogUsage *FogBuiltInScope::make_interface_usage_start() {
+FogUsage* FogBuiltInScope::make_interface_usage_start() {
 	return 0;
 }
 
-FogUsage *FogBuiltInScope::make_name_usage() {
+FogUsage* FogBuiltInScope::make_name_usage() {
 	return 0;
 }
 
@@ -78,7 +78,7 @@ FogScope& FogBuiltInScope::name_emit_scope() {
 	return *this;
 }
 
-FogTargetFile *FogBuiltInScope::name_file() {
+FogTargetFile* FogBuiltInScope::name_file() {
 	return 0;
 }
 

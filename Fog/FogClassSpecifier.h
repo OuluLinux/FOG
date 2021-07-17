@@ -15,12 +15,12 @@ private:
 	FogBaseSpecifiersRef _bases;      //   The base classes.
 	
 protected:
-	FogClassSpecifier(const This &thatSpecifier);
+	FogClassSpecifier(const This& thatSpecifier);
 	virtual ~FogClassSpecifier();
 	
 public:
-	FogClassSpecifier(const FogTag& aTag, FogName *aName, FogBaseSpecifiers *baseSpecifiers);
-	virtual FogEntity *make_type_entity(FogMakeEntityContext& makeEntityContext) const;
+	FogClassSpecifier(const FogTag& aTag, FogName* aName, FogBaseSpecifiers* baseSpecifiers);
+	virtual FogEntity* make_type_entity(FogMakeEntityContext& makeEntityContext) const;
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_viz(std::ostream& s) const;

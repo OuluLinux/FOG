@@ -25,15 +25,15 @@ PRIMMAPOFREFS_IMPL(FogUsing)
 TMPL_HACK_FIX_DO(FogUsing)
 
 FogUsing::FogUsing()
-		:
-		_access(FogAccess::invalid_access()),
-		_entity(FogEntity::mutable_null()) {}
-		
+	:
+	_access(FogAccess::invalid_access()),
+	_entity(FogEntity::mutable_null()) {}
+
 FogUsing::FogUsing(FogScope& aScope, const FogAccess& anAccess, FogEntity& usedEntity)
-		:
-		Super(aScope, usedEntity.long_id(), *make_long_id(aScope, usedEntity)),
-		_access(anAccess),
-		_entity(usedEntity) {
+	:
+	Super(aScope, usedEntity.long_id(), *make_long_id(aScope, usedEntity)),
+	_access(anAccess),
+	_entity(usedEntity) {
 	scope().add_using(*this);
 }
 
@@ -41,14 +41,11 @@ FogUsing::~FogUsing() {}
 
 void FogUsing::create_usages() {
 	FogProgressMonitor aMonitor("Establishing usage of ", *this);
-	
 	// hack fix: FogUsage::add_use_by was called for obviously bad values
 	FogUsage::filter_name = &this->name_scope();
-	
 	Super::create_usages();
 	scope().interface_usage_start().add_use_by(interface_usage_start());
 	interface_usage_finish().add_use_by(scope().interface_usage_finish());
-	
 	FogUsage::filter_name = 0;
 }
 
@@ -67,20 +64,18 @@ FogUsage& FogUsing::interface_usage_start() {
 	return interface_usage_finish();
 }
 
-FogUsage *FogUsing::make_interface_usage_finish() {
-	const FogVariable *aVariable = _entity.is_variable();
-	const FogFunction *aFunction = _entity.is_function();
+FogUsage* FogUsing::make_interface_usage_finish() {
+	const FogVariable* aVariable = _entity.is_variable();
+	const FogFunction* aFunction = _entity.is_function();
 	
 	if (aVariable)
 		return usage_manager().make_variable_usage(*this, aVariable->decl_specifiers());
+	else if (aFunction)
+		return usage_manager().make_function_usage(*this, aFunction->decl_specifiers());
+	else if (_entity.is_enum())
+		return usage_manager().make_enum_usage(*this, access().decl_specifier_value());
 	else
-		if (aFunction)
-			return usage_manager().make_function_usage(*this, aFunction->decl_specifiers());
-		else
-			if (_entity.is_enum())
-				return usage_manager().make_enum_usage(*this, access().decl_specifier_value());
-			else
-				return usage_manager().make_typedef_usage(*this, access().decl_specifier_value());
+		return usage_manager().make_typedef_usage(*this, access().decl_specifier_value());
 }
 
 PrimIdHandle FogUsing::make_long_id(FogScope& aScope, FogEntity& usedEntity) {

@@ -21,9 +21,9 @@ private:
 private:
 	FogUsing& operator=(const FogUsing&);
 	FogUsing(const FogUsing&);
-	virtual FogUsage *make_interface_usage_finish();
+	virtual FogUsage* make_interface_usage_finish();
 	FogUsing& mutate() const {
-		return *(FogUsing *)this;
+		return *(FogUsing*)this;
 	}
 	
 protected:
@@ -54,8 +54,8 @@ public:
 		return non_virtual_scope();
 	}
 	
-//  	virtual FogTokenType::TokenType token_type_enum() const;
-
+	//  	virtual FogTokenType::TokenType token_type_enum() const;
+	
 private:
 	static PrimIdHandle make_long_id(FogScope& aScope, FogEntity& usedEntity);
 };

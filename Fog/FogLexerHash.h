@@ -16,8 +16,8 @@ public:
 	FogLexerTruth(): _is_enabled(true) {}
 	
 	FogLexerTruth(PrimAdopted<FogLexerTruth>& nextTruth, bool isEnabled)
-			: _next(nextTruth), _is_enabled(isEnabled) {}
-			
+		: _next(nextTruth), _is_enabled(isEnabled) {}
+		
 	bool disable() {
 		_is_enabled = false;
 		return _is_enabled;
@@ -53,18 +53,18 @@ private:
 	FogLexerHash& operator=(const This&);
 	
 private:
-	virtual void define(const PrimId& macroId, const PrimIdList *formalList, FogTokens& someTokens) = 0;
+	virtual void define(const PrimId& macroId, const PrimIdList* formalList, FogTokens& someTokens) = 0;
 	virtual void hash_include(const PrimId& fileStem) = 0;
-	virtual const FogSourceFile *make_source_file(const PrimId& fileName) = 0;
+	virtual const FogSourceFile* make_source_file(const PrimId& fileName) = 0;
 	virtual void undefine(const PrimId& anId) = 0;
 	
 protected:
-	FogLexerHash(std::istream& inputStream, const FogSourceFile& sourceFile, std::ostream *outputStream)
-			: Super(inputStream, sourceFile, outputStream) {}
-			
+	FogLexerHash(std::istream& inputStream, const FogSourceFile& sourceFile, std::ostream* outputStream)
+		: Super(inputStream, sourceFile, outputStream) {}
+		
 	virtual ~FogLexerHash() {}
 	
-	const char *get(FogTokenContext& tokenContext);
+	const char* get(FogTokenContext& tokenContext);
 	using Super::include_file;
 	
 public:

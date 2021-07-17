@@ -12,18 +12,18 @@ class FogArgumentId : public FogWordName {
 	FOGTOKEN_LEAF_DECLS
 	
 private:
-        //   Defining contents
+	//   Defining contents
 	FogExprRef _expr;       //   The tree naming expression.
 	const size_t _dollar_count;    //   Number of dollars in invocation.
 	const FogMetaArgument& _argument;   //   Identity of a formal argument
 	
 private:
-        //   Derived contents
+	//   Derived contents
 	FogTokenRef _actual;      //   The actual resolved entity.
 	
 private:
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 protected:
@@ -40,13 +40,13 @@ public:
 	virtual void find_entities_in(FogScopeContext& inScope, FogEntityFinding& theFinding) const;
 	virtual bool find_meta_entity_in(FogTokenRef& returnValue, FogScopeContext& inScope) const;
 	virtual bool get_object(FogTokenRef& tokenValue, FogScopeContext& inScope) const;
-	virtual FogName *get_type();
-	virtual const PrimId *is_resolved() const;
-	virtual const FogTemplateParameterSpecifier *is_unnormalised_template_parameter
+	virtual FogName* get_type();
+	virtual const PrimId* is_resolved() const;
+	virtual const FogTemplateParameterSpecifier* is_unnormalised_template_parameter
 	(FogScopeContext& scopeContext) const;
 	virtual bool make_specifier(FogMakeSpecifierContext& makeSpecifierContext);
 	virtual bool morph_to(FogTokenRef& returnValue, const FogMetaType& metaType, IsExposed isExposed,
-			FogScopeContext& inScope) const;
+	                      FogScopeContext& inScope) const;
 	virtual FogTokenType::TokenType pp_token_type_enum() const;
 	virtual std::ostream& print_depth(std::ostream& s, int aDepth) const;
 	virtual std::ostream& print_members(std::ostream& s, int aDepth) const;

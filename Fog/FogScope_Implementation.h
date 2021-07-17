@@ -35,7 +35,7 @@ public:
 	
 	bool is_no_implementation() const {return _no_implementation;}
 	
-//  	void set_code(const FogList& someCode);
+	//  	void set_code(const FogList& someCode);
 };
 
 #endif

@@ -11,9 +11,9 @@ class FogBuiltInScope : public FogScope {
 	PRIMREF_DERIVED_DECLS(This)
 	
 private:
-	virtual FogUsage *make_interface_usage_finish();
-	virtual FogUsage *make_interface_usage_start();
-	virtual FogUsage *make_name_usage();
+	virtual FogUsage* make_interface_usage_finish();
+	virtual FogUsage* make_interface_usage_start();
+	virtual FogUsage* make_name_usage();
 	FogScope& scope() {
 		return non_virtual_scope();
 	}
@@ -38,10 +38,10 @@ public:
 	virtual bool is_name_scope() const;
 	virtual const FogMetaType& meta_type() const;
 	virtual FogScope& name_emit_scope();
-	virtual FogTargetFile *name_file();
+	virtual FogTargetFile* name_file();
 	virtual FogScope& name_scope();
 	virtual FogTokenType::TokenType pp_token_type_enum() const;
-//  	virtual FogTokenType::TokenType token_type_enum() const;
+	//  	virtual FogTokenType::TokenType token_type_enum() const;
 };
 
 #endif

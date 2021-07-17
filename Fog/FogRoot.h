@@ -39,7 +39,7 @@ private:
 	
 private:
 	This& mutate() const {
-		return *(This *)this;
+		return *(This*)this;
 	}
 	
 	virtual void set_new_utility(const FogUtility& aUtility);
@@ -81,9 +81,9 @@ public:
 	virtual const PrimId& global_id() const;
 	virtual const PrimId& global_signature_id() const;
 	virtual FogUsage& inline_usage();
-	FogBuiltInScope *install_built_in(FogBuiltInScope *theType, const char *p1);
-	FogBuiltInScope *install_built_in(FogBuiltInScope *theType, const char *p1, const char *p2);
-	FogBuiltInScope *install_built_in(FogBuiltInScope *theType, const char *p1, const char *p2, const char *p3);
+	FogBuiltInScope* install_built_in(FogBuiltInScope* theType, const char* p1);
+	FogBuiltInScope* install_built_in(FogBuiltInScope* theType, const char* p1, const char* p2);
+	FogBuiltInScope* install_built_in(FogBuiltInScope* theType, const char* p1, const char* p2, const char* p3);
 	virtual FogUsage& interface_usage_finish();
 	virtual FogUsage& interface_usage_start();
 	virtual bool is_global_scope() const;
@@ -92,7 +92,7 @@ public:
 	virtual const PrimId& local_id() const;
 	virtual const PrimId& local_signature_id() const;
 	virtual const PrimId& long_id() const;
-	virtual FogScope *make_linkage(const FogLinkageSpecifier& rawLinkage);
+	virtual FogScope* make_linkage(const FogLinkageSpecifier& rawLinkage);
 	FogScope& meta_base() {
 		return *_meta_base;
 	}
@@ -125,7 +125,7 @@ public:
 	}
 	
 	virtual const PrimId& short_id() const;
-	const FogSourceFile *source_file() const {
+	const FogSourceFile* source_file() const {
 		return _reader.source_file();
 	}
 	

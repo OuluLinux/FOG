@@ -4,7 +4,7 @@
 
 
 
-//  
+//
 //   A PrimBufStatic implements a statically constructed PrimBuf using the customers text buffer.
 //   This differs from the normal PrimBuf behaviour that creates a dynamic copy of the text buffer
 //   and a dynamic internal object for the representation. This class is intended for definition of fixed
@@ -14,19 +14,18 @@
 //   PrimBufStatic is derived from @x(PrimBuf).
 //  .note csusum
 //   PrimBufStatic implements a specialised construction method to use the customers text buffer.
-//  
-class PrimBufStatic : public PrimBuf
-{
+//
+class PrimBufStatic : public PrimBuf {
 private:
- PrimBufRep _static_rep;      //   The representation in staically allocated memory.
-
+	PrimBufRep _static_rep;      //   The representation in staically allocated memory.
+	
 public:
- PrimBufStatic(const char *aBuf);
-//  
-//  	Construct a new buffer using the supplied buffer.
-//  
- PrimBufStatic(const char *aBuf, size_t aLength)
-  : PrimBuf(_static_rep), _static_rep(aBuf, aLength, 0) {}
+	PrimBufStatic(const char* aBuf);
+	//
+	//  	Construct a new buffer using the supplied buffer.
+	//
+	PrimBufStatic(const char* aBuf, size_t aLength)
+		: PrimBuf(_static_rep), _static_rep(aBuf, aLength, 0) {}
 };
 #endif
- 
+

@@ -4,20 +4,19 @@
 
 
 
-class FogLexerTower : public FogLexerInput
-{
- typedef FogLexerInput Super;
- typedef FogLexerTower This;
- TYPEDECL_SINGLE(This, Super)
+class FogLexerTower : public FogLexerInput {
+	typedef FogLexerInput Super;
+	typedef FogLexerTower This;
+	TYPEDECL_SINGLE(This, Super)
 private:
- FogReader& _reader;
+	FogReader& _reader;
 public:
- FogLexerTower(FogReader& aReader);
- FogLexerTower(FogReader& aReader, const FogToken& aToken);
- virtual ~FogLexerTower();
- virtual void print_token(const char *aState, const FogToken *aValue) const;
- FogReader& reader() { return _reader; }
- const FogReader& reader() const { return _reader; }
+	FogLexerTower(FogReader& aReader);
+	FogLexerTower(FogReader& aReader, const FogToken& aToken);
+	virtual ~FogLexerTower();
+	virtual void print_token(const char* aState, const FogToken* aValue) const;
+	FogReader& reader() { return _reader; }
+	const FogReader& reader() const { return _reader; }
 };
 #endif
- 
+

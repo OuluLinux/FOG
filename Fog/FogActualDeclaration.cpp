@@ -9,10 +9,10 @@
 
 TYPEINFO_SINGLE(FogActualDeclaration, Super)
 
-FogActualDeclaration::FogActualDeclaration(const FogSpecifier *aSpecifier)
-		:
-		_specifier(aSpecifier) {}
-		
+FogActualDeclaration::FogActualDeclaration(const FogSpecifier* aSpecifier)
+	:
+	_specifier(aSpecifier) {}
+
 FogActualDeclaration::~FogActualDeclaration() {}
 
 void FogActualDeclaration::destroy() {
@@ -43,16 +43,13 @@ void FogActualDeclaration::merge(FogMergeContext& mergeContext, const FogSpecifi
 		
 		if (needsMerge.is_impossible())
 			ERRMSG(needsMerge << " -- cannot merge\n\t\t" << viz(aSpecifier)
-				   << "\n\t\tinto " << viz(*_specifier));
-		else
-		if (needsMerge.left_is_valid())
+			       << "\n\t\tinto " << viz(*_specifier));
+		else if (needsMerge.left_is_valid())
 			;
-		else
-		if (needsMerge.right_is_valid()) {
+		else if (needsMerge.right_is_valid()) {
 			_specifier = aSpecifier;
 			_mutable.reset();
 		}
-		
 		else {
 			if (!_mutable) {
 				_mutable.adopt(_specifier->derived_clone());
@@ -80,7 +77,7 @@ std::ostream& FogActualDeclaration::print_depth(std::ostream& s, int aDepth) con
 	Super::print_depth(s, aDepth);
 	
 	if (_specifier)
-		_specifier->print_deep(s, aDepth+1);
+		_specifier->print_deep(s, aDepth + 1);
 		
 	return s;
 }
@@ -89,7 +86,7 @@ std::ostream& FogActualDeclaration::print_members(std::ostream& s, int aDepth) c
 	Super::print_members(s, aDepth);
 	
 	if (_specifier)
-		_specifier->print_on(s, aDepth+1);
+		_specifier->print_on(s, aDepth + 1);
 		
 	return s;
 }
