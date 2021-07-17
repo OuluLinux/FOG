@@ -1,6 +1,6 @@
 
 UPPOUT = _out/
-CINC   =  -I/usr/include -I/usr/local/include
+CINC   =  -I/usr/include -I/usr/local/include -I./ -I$(UPPOUT)
 Macro  =  -DflagCLANG -DflagSHARED -DflagPOSIX -DflagBSD -DflagFREEBSD
 CXX = c++
 LINKER = $(CXX)
