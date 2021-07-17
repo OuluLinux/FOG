@@ -1,2 +1,11 @@
+.PHONY: check
+
 all:
-	$(MAKE) -f Makefile.FreeBSD
+	$(MAKE) -f script/Makefile.FreeBSD
+	mkdir -p bin
+	cp Fog.out bin/fog
+	rm Fog.out
+
+check:
+	perl script/test.pl executable="bin/fog" tests/*
+

@@ -319,8 +319,9 @@ void FogTargetFile::emit_contents(FogStream& s, const FogRoot& aRoot) const {
 		next(s);
 	}
 	
-	s << "#include <new>\n";
-	s << "#include <typeinfo>\n";
+	if (Fog::emit_preheader()) {
+		s << "PREHEADER\n";
+	}
 	
 	PrimIdMap visibleFiles(_visible_files.tally());
 	

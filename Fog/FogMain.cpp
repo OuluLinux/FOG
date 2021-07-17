@@ -151,6 +151,10 @@ static PrimComToken_Bool tok_z2s(main_parser, Fog::debug_lex2substitute(),
 		"z2s", "Display each token passed between lexer and substitute parser.", Fog::debug_lex2substitute());
 static PrimComToken_Files tok_file(main_parser, files,
 		"<file>", "Source file name(s), may be - for standard input.");
+static PrimComToken_Bool tok_hm(main_parser, Fog::emit_preheader(),
+		"hm", "Add PREHEADER macro call in header files.", Fog::emit_preheader());
+static PrimComToken_Bool tok_uc(main_parser, Fog::use_test_breakers(),
+		"uc", "Use changes, which breaks tests compatibility.", Fog::use_test_breakers());
 
 
 void PrintAST(const FogRaw& tk, int indent=0) {

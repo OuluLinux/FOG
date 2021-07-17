@@ -35,7 +35,7 @@ bool FogReservedId::morph_to(FogTokenRef& returnValue, const FogMetaType& metaTy
         switch (tokenType)
         {
             case FogTokenType::BREAK:
-                returnValue.adopt(new FogBreakStatement(FogBreakStatement::BREAK)); 
+                returnValue.adopt(new FogBreakStatement(FogBreakStatement::BREAK));
                 return true;
             case FogTokenType::CONTINUE:
                 returnValue.adopt(new FogBreakStatement(FogBreakStatement::CONTINUE));
@@ -43,6 +43,7 @@ bool FogReservedId::morph_to(FogTokenRef& returnValue, const FogMetaType& metaTy
             case FogTokenType::RETURN:
                 returnValue.adopt(new FogReturnStatement(0));
                 return true;
+            default: break;
         }
     }
     return Super::morph_to(returnValue, metaType, isExposed, inScope);

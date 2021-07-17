@@ -1,5 +1,6 @@
 **/_out
-**/bin
+bin/fog
 **/*.core
-
+**/results/*
+Fog.out
 

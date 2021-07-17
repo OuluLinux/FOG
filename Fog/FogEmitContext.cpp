@@ -55,7 +55,7 @@ bool FogEmitContext::emit_id(const PrimId& anId, const FogToken& aToken) {
 		}
 		
 		
-		// HAX
+		// fix exported code compilation problems
 		if (!anEntity) {
 			anEntity = dynamic_scope().find_entity_in(rootContext, FIND_SCOPE);
 		}

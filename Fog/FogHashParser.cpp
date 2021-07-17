@@ -2289,11 +2289,11 @@ const FogLexerState& FogHashParser::set_state(FogTokenType::TokenType tokenType)
 {
 	switch (tokenType)
 	{
-		case HASH_INCLUDE:
+		case (int)HASH_INCLUDE:
 			return _lexer.begin_include();
-		case HASH_BLANK:
-		case HASH_ERROR:
-		case HASH_PRAGMA:
+		case (int)HASH_BLANK:
+		case (int)HASH_ERROR:
+		case (int)HASH_PRAGMA:
 			return _lexer.begin_soak();
 		default:
 			return _lexer.state();

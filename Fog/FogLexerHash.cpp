@@ -63,6 +63,7 @@ const char *FogLexerHash::get(FogTokenContext& tokenContext)
             case FogTokenType::HASH_IFNDEF:
              _truth.push(false);
              break;
+             default: break;
                     }
      set_truth(_truth.is_enabled());
      break;

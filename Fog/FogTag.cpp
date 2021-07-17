@@ -157,6 +157,7 @@ bool FogTag::resolve_semantics(FogSemanticsContext& theSemantics) const
             theSemantics.set(FogSemantics::IS_CLASS_KEY);
             theSemantics.set(FogSemantics::IS_META_TYPE_NAME);
             break;
+        default: break;
     }
     return true;
 }

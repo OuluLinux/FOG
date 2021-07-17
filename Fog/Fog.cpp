@@ -167,6 +167,16 @@ bool& Fog::debug_yacc() {
 	return PrimLexerContext::debug_yacc();
 }
 
+bool& Fog::emit_preheader() {
+	static PrimGetEnv<bool> emit_preheader("Fog::emit_preheader", false);
+	return emit_preheader;
+}
+
+bool& Fog::use_test_breakers() {
+	static PrimGetEnv<bool> emit_preheader("Fog::use_test_breakers", false);
+	return emit_preheader;
+}
+
 PrimText& Fog::define_strings() {
 	static PrimText defineStrings;
 	return defineStrings;

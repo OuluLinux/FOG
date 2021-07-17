@@ -77,21 +77,24 @@ void FogStream::append(const char *aString, int aSize) {
 //
 FogStream& FogStream::change_to_access(const FogAccess& anAccess) {
 	if (access().value() != anAccess.value()) {
+		bool u = Fog::use_test_breakers();
+		
 		// Skip "public:" for namespaces
-		if (_emit_scope->tag().is_namespace_tag()) {
+		if (u && _emit_scope->tag().is_namespace_tag()) {
 			next();
 		}
 		// Skip "private:" for class
-		else if (_emit_scope->tag().is_class_tag() &&
+		else if (u && _emit_scope->tag().is_class_tag() &&
 			!_access->is_valid() && anAccess.is_private()) {
 			next();
 		}
 		// Skip "public:" for struct
-		else if (_emit_scope->tag().is_struct_tag() &&
+		else if (u && _emit_scope->tag().is_struct_tag() &&
 			!_access->is_valid() && anAccess.is_public()) {
 			next();
 		}
-		else if (anAccess) {
+		else
+		if (anAccess) {
 			next();
 			if (_emit_scope && _emit_scope->has_access()) {
 				int aDepth = _depth;

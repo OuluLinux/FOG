@@ -433,30 +433,23 @@ void FogScope::emit_forward_reference(FogStream& s)
     {
         FogStreamEntityInterface nestedStream(s, *outerScope);
         FogStaticEmitContext emitContext(s, s.outer_scope(), FogEmitContext::GLOBAL_INTERFACE);
-        if (0) {
+        if (1) {
             emit_template_prefix(emitContext);
 			emitContext.emit_space_and_text(tag().str());
 			non_virtual_scope().emit_scope(emitContext, emitContext.dynamic_scope());
 			emitContext.emit_space_and_text(local_id().str());  //   Not local_signature_id since < T > suffix not wanted.
 			emitContext.emit_space_and_text(";\n");
-        } else {
-            // HAX
-			/*if (tag().is_namespace()) {
-                emit_template_prefix(emitContext);
-				emitContext.emit_space_and_text(tag().str());
-				non_virtual_scope().emit_scope(emitContext, emitContext.dynamic_scope());
-				emitContext.emit_space_and_text(local_id().str());  //   Not local_signature_id since < T > suffix not wanted.
-				emitContext.emit_space_and_text(" {}\n");
-            }
-            else*/ {
-	            emitContext.emit_space_and_text("namespace");
-				non_virtual_scope().emit_scope_namespace(emitContext, emitContext.dynamic_scope());
-				emitContext.emit_space_and_text(" {");
-				emit_template_prefix(emitContext);
-				emitContext.emit_space_and_text(tag().str());
-				emitContext.emit_space_and_text(local_id().str());  //   Not local_signature_id since < T > suffix not wanted.
-				emitContext.emit_space_and_text(";\n}\n");
-            }
+        }
+        // Fix exported code compilation problems
+        else {
+            emitContext.emit_space_and_text("namespace");
+            
+			non_virtual_scope().emit_scope_namespace(emitContext, emitContext.dynamic_scope());
+			emitContext.emit_space_and_text(" {");
+			emit_template_prefix(emitContext);
+			emitContext.emit_space_and_text(tag().str());
+			emitContext.emit_space_and_text(local_id().str());  //   Not local_signature_id since < T > suffix not wanted.
+			emitContext.emit_space_and_text(";\n}\n");
         }
     }
     else
@@ -539,7 +532,7 @@ void FogScope::emit_scope(FogEmitContext& emitContext, const FogScope& inScope) 
     emitContext.emit_space_and_text("::");
 }
 
-// HAX added by sblo: like emit_scope but without "::"
+// like emit_scope but without "::"
 void FogScope::emit_scope_namespace(FogEmitContext& emitContext, const FogScope& inScope) const
 {
     for (const FogScope *aScope = &inScope; //   Search for thisScope as a parent of inScope.
