@@ -1,6 +1,6 @@
 
 UPPOUT = _out/
-CINC   =  -I/usr/local/include/freetype2 -I/usr/local/include/libpng16 -I/usr/local/include/uuid -I/usr/local/include/freetype2 -I/usr/local/include/gtk-3.0 -I/usr/local/include/at-spi2-atk/2.0 -I/usr/local/include/at-spi-2.0 -I/usr/local/include/dbus-1.0 -I/usr/local/lib/dbus-1.0/include -I/usr/local/include/gtk-3.0 -I/usr/local/include/gio-unix-2.0 -I/usr/local/include/cairo -I/usr/local/include/pango-1.0 -I/usr/local/include/fribidi -I/usr/local/include/harfbuzz -I/usr/local/include/atk-1.0 -I/usr/local/include/cairo -I/usr/local/include/pixman-1 -I/usr/local/include/gdk-pixbuf-2.0 -I/usr/local/include/libmount -I/usr/local/include/blkid -I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include/ -I/usr/local/include/opencv4 -I/usr/local/include/x86_64-linux-gnu/ -I/usr/local/include/SDL2/ -I/usr/local/include -I/usr/local/include/lomse -I./ -I$(UPPOUT)
+CINC   =  -I/usr/include -I/usr/local/include
 Macro  =  -DflagCLANG -DflagSHARED -DflagPOSIX -DflagBSD -DflagFREEBSD
 CXX = c++
 LINKER = $(CXX)
