@@ -6,16 +6,16 @@
 #endif
 
 #line 3 "tests/strings/strings.fog"
-const char Strings::p = "";
-const char Strings::p0 = "p0";
-const char Strings::p1 = "p1";
+const char *Strings::p = "";
+const char *Strings::p0 = "p0";
+const char *Strings::p1 = "p1";
 #line 7
-const char Strings::p2 = "p2";
+const char *Strings::p2 = "p2";
 #line 9
-const char Strings::p3 = "p\\'\"@=$";
-const char Strings::p4 = "...";
+const char *Strings::p3 = "p\\'\"@=$";
+const char *Strings::p4 = "...";
 #line 12
-const char Strings::p5 = "...\t\t";
+const char *Strings::p5 = "...\t\t";
 #line 16
 const char *Strings::p6 = " abc  def  ghi ";
 #line 19

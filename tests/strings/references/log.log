@@ -1,6 +1,6 @@
 Reading "tests/strings/strings.fog".
-  At "tests/strings/strings.fog".10.26: 	static const char p4 = "...
-    ERROR -- End of line assumed to terminate string.
+  At "tests/strings/strings.fog".10.27: 	static const char* p4 = "...
+      ERROR -- End of line assumed to terminate string.
 Writing "tests/strings/results/Strings.cxx"
 Writing "tests/strings/results/Strings.hxx"
 Writing "tests/strings/results/global.cxx"
