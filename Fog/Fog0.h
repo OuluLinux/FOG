@@ -55,6 +55,7 @@ public:
 	static bool& debug_utility();
 	static bool& debug_yacc();
 	static bool& emit_preheader();
+	static bool& print_ast();
 	static bool& use_test_breakers();
 	static PrimText& define_strings();
 	static PrimStringHandle& extern_prefix();

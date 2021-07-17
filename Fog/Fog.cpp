@@ -177,6 +177,11 @@ bool& Fog::use_test_breakers() {
 	return emit_preheader;
 }
 
+bool& Fog::print_ast() {
+	static PrimGetEnv<bool> emit_preheader("Fog::print_ast", false);
+	return emit_preheader;
+}
+
 PrimText& Fog::define_strings() {
 	static PrimText defineStrings;
 	return defineStrings;

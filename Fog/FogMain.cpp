@@ -155,6 +155,8 @@ static PrimComToken_Bool tok_hm(main_parser, Fog::emit_preheader(),
 		"hm", "Add PREHEADER macro call in header files.", Fog::emit_preheader());
 static PrimComToken_Bool tok_uc(main_parser, Fog::use_test_breakers(),
 		"uc", "Use changes, which breaks tests compatibility.", Fog::use_test_breakers());
+static PrimComToken_Bool tok_pa(main_parser, Fog::print_ast(),
+		"pa", "Print AST.", Fog::print_ast());
 
 
 void PrintAST(const FogRaw& tk, int indent=0) {
@@ -238,7 +240,7 @@ int main(int argc, char *argv[]) {
 			if (!parseError && theToken) {
 				FogRaw *aDeclaration = theToken->is_raw();
 				
-				if (0) {
+				if (Fog::print_ast()) {
 					FogRaws* r = dynamic_cast<FogRaws*>(theToken);
 					PrintAST(*r);
 				}
