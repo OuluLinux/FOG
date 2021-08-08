@@ -7,6 +7,7 @@
 //
 //  		Compare two strings as for strcmp() but ignoring case inequalities.
 //
+#ifndef __MINGW32__
 int strcasecmp(const char* p, const char* q)
 #if defined flagCLANG && !defined flagFREEBSD && !defined flagLINUX
 	throw()
@@ -30,3 +31,4 @@ int strcasecmp(const char* p, const char* q)
 	
 	return cp - cq;
 }
+#endif

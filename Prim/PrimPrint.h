@@ -14,7 +14,7 @@ struct PrimTypeInfo_Base {
 
 public:
 	const PrimTypeInfo* type;   //   Pointer to the type information of this base, 0 at end.
-	long offset;       //   Offset to base from start of object.
+	long long offset;       //   Offset to base from start of object.
 };
 
 #define TYPEINFO_DECLARATION(T) \

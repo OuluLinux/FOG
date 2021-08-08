@@ -74,3 +74,9 @@ You can use U++ TheIDE or just:
 make
 ```
 
+##### In Windows using MSYS2 Clang64 #####
+- Install msys2 using Getting started tutorial [here](https://www.msys2.org/), but set installation folder to "C:\msys" directory (or modify makefile).
+- Open C:\msys\clang64.exe
+- ```pacman -S --needed base-devel mingw-w64-clang-x86_64-toolchain```
+- ```cd /c/git/FOG``` or wherever you cloned the repository
+- ```make```

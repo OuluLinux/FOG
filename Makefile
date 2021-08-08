@@ -1,12 +1,15 @@
 .PHONY: check
 
 UNAME_S := $(shell uname -s)
+UNAME_O := $(shell uname -o)
 MFILE := Makefile
 
 ifeq ($(UNAME_S),Linux)
 	MFILE:="script/Makefile.Linux"
 else ifeq ($(UNAME_S),FreeBSD)
 	MFILE:="script/Makefile.FreeBSD"
+else ifeq ($(UNAME_O),Msys)
+	MFILE:="script/Makefile.msys2clang64"
 endif
 
 all:
